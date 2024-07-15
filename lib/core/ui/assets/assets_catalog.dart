@@ -8,4 +8,6 @@ class AssetsCatalog {
   static const String icFinger = 'assets/ic_finger.png';
   static const String icStopwatch = 'assets/ic_stopwatch.png';
   static const String icFaceFrown = 'assets/ic_face_frown.png';
+  static const String icFlag = 'assets/ic_flag.png';
+  static const String icDriver = 'assets/ic_driver.png';
 }
