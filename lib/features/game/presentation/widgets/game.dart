@@ -67,7 +67,6 @@ class _LooseGame extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.textFieldGray,
                 foregroundColor: AppColors.black,
-                
               ),
               child: const Text("Попробовать снова"),
             ),

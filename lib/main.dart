@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:food_driver/features/auth/presentation/pages/auth_page.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
+import 'package:food_driver/features/auth/presentation/pages/auth_page.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -16,6 +17,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+    FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+    FlutterNativeSplash.remove();
     return MaterialApp(
       title: 'Food Driver',
       theme: appTheme(context),

@@ -16,7 +16,11 @@ dependencies:
   json_annotation: ^4.9.0
   collection: ^1.18.0
   webview_flutter: ^4.8.0
+  yandex_mapkit: ^4.1.0
+  
+  # UI
   pinput: ^5.0.0
+  flutter_native_splash: ^2.4.1
 
 dev_dependencies:
   flutter_test:
@@ -30,3 +34,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+
+flutter_native_splash:
+  image: assets/splash.png
+  color: "#ffffff"

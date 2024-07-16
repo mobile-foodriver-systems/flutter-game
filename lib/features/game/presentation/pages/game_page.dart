@@ -13,7 +13,7 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  GameState type = GameState.loose;
+  GameState type = GameState.init;
 
   final ValueNotifier<num> speed = ValueNotifier(0);
 
