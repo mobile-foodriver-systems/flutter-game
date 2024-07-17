@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/game/data/models/user_rating.dart';
+import 'package:food_driver/features/game/models/user_rating.dart';
 
 class UsersList extends StatelessWidget {
   static const List<UserRating> list = [

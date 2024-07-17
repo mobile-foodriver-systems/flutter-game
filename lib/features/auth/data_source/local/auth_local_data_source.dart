@@ -1,11 +1,11 @@
 import 'package:food_driver/features/auth/models/auth_model.dart';
 
 abstract interface class AuthLocalDataSource {
-  Future<AuthModel?> getTokenModel();
+  Future<AuthModel?> getAuthModel();
 
-  Future<void> saveTokenModel({
+  Future<void> saveAuthModel({
     required AuthModel authModel,
   });
 
-  Future<void> deleteTokenModel();
+  Future<void> deleteAuthModel();
 }

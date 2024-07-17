@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_driver/features/game/data/models/game_state.dart';
+import 'package:food_driver/features/game/models/game_state.dart';
 import 'package:food_driver/features/game/presentation/widgets/game.dart';
 import 'package:food_driver/features/game/presentation/widgets/help_game_message.dart';
 import 'package:food_driver/features/game/presentation/widgets/navigation.dart';

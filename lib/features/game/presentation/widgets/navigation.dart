@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/game/data/models/game_state.dart';
+import 'package:food_driver/features/game/models/game_state.dart';
 import 'package:food_driver/features/game/presentation/widgets/balance.dart';
 import 'package:food_driver/features/game/presentation/widgets/countdown_text.dart';
 import 'package:food_driver/features/game/presentation/widgets/game_progress.dart';

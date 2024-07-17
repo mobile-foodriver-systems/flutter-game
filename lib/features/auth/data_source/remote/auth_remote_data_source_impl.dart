@@ -31,11 +31,18 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<AuthModel?> getTokenModel({
+  Future<AuthModel?> getAuthModel({
     required String email,
     required String code,
-  }) {
-    // TODO: implement getTokenModel
-    throw UnimplementedError();
+  }) async {
+    final response = await _appHttpService.request(
+      path: '',
+      type: RequestType.post,
+      queryParameters: {
+        "email": email,
+        code: code,
+      },
+    );
+    return response.data.fromJson();
   }
 }

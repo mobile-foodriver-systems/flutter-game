@@ -15,22 +15,22 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   const AuthLocalDataSourceImpl(this._localStorageService);
 
-  static const String tokenModelKey = "authModel";
+  static const String authModelKey = "authModel";
 
   @override
-  Future<void> deleteTokenModel() async {
-    await _localStorageService.removeValue(key: tokenModelKey);
+  Future<void> deleteAuthModel() async {
+    await _localStorageService.removeValue(key: authModelKey);
   }
 
   @override
-  Future<AuthModel?> getTokenModel() async {
-    return await _localStorageService.getValue(key: tokenModelKey);
+  Future<AuthModel?> getAuthModel() async {
+    return await _localStorageService.getValue(key: authModelKey);
   }
 
   @override
-  Future<void> saveTokenModel({required AuthModel authModel}) async {
+  Future<void> saveAuthModel({required AuthModel authModel}) async {
     await _localStorageService.setValue(
-      key: tokenModelKey,
+      key: authModelKey,
       value: authModel,
     );
   }

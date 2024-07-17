@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/game/data/models/user_sort_type.dart';
+import 'package:food_driver/features/game/models/user_sort_type.dart';
 
 class CustomSegmentedButton extends StatelessWidget {
   const CustomSegmentedButton({

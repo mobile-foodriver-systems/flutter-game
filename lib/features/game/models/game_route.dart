@@ -1,4 +1,4 @@
-import 'package:food_driver/features/game/data/models/lat_lng.dart';
+import 'package:food_driver/features/game/models/lat_lng.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'game_route.g.dart';
