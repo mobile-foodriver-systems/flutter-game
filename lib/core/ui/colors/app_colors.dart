@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  const AppColors._();
-
   static const Color background = Color(0xFFFEFFFF);
   static const Color textFieldGray = Color(0xFFF5F6F7);
   static const Color textFieldError = Color(0xFFFBE8E8);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
+import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/auth/presentation/pages/auth_page.dart';
 
 void main() {
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
     WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
     FlutterNativeSplash.remove();
+    configureDependencies(); 
     return MaterialApp(
       title: 'Food Driver',
       theme: appTheme(context),
