@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:food_driver/core/services/http/app_http_service.dart';
 import 'package:food_driver/core/services/http/http_service.dart';
 import 'package:food_driver/features/auth/data_source/remote/auth_remote_data_source.dart';
@@ -43,6 +45,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         code: code,
       },
     );
-    return response.data.fromJson();
+    return AuthModel.fromJson(jsonDecode(response.data));
   }
 }
