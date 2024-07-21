@@ -3,18 +3,12 @@ import 'package:food_driver/core/platform/network_info.dart';
 import 'package:injectable/injectable.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-@LazySingleton(
-  as: NetworkInfo,
-  env: [
-    Environment.dev,
-    Environment.prod,
-  ],
-)
+@LazySingleton(as: NetworkInfo)
 class NetworkInfoImpl implements NetworkInfo {
   final Connectivity connectivity;
   final InternetConnectionChecker internetConnectionChecker;
 
-  const NetworkInfoImpl(
+  NetworkInfoImpl(
     this.internetConnectionChecker,
     this.connectivity,
   );
