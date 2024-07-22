@@ -1,6 +1,6 @@
 import 'package:food_driver/core/services/local_storage/local_storage_service.dart';
-import 'package:food_driver/features/auth/data_source/local/auth_local_data_source.dart';
-import 'package:food_driver/features/auth/models/auth_model.dart';
+import 'package:food_driver/features/auth/data/data_source/local/auth_local_data_source.dart';
+import 'package:food_driver/features/auth/data/models/auth_model.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(

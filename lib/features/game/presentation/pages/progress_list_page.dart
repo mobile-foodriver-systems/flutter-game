@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
-import 'package:food_driver/features/game/models/user_sort_type.dart';
+import 'package:food_driver/features/game/data/models/user_sort_type.dart';
 import 'package:food_driver/features/game/presentation/widgets/custom_segmented_button.dart';
 import 'package:food_driver/features/game/presentation/widgets/users_list.dart';
 import 'package:food_driver/features/profile/presentation/widgets/close_icon_button.dart';

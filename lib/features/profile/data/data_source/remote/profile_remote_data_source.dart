@@ -1,4 +1,4 @@
-import 'package:food_driver/features/profile/models/user.dart';
+import 'package:food_driver/features/profile/data/models/user.dart';
 
 abstract class ProfileRemoteDataSource {
   Future<User?> getProfile();

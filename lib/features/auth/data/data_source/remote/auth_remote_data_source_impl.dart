@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:food_driver/core/services/http/app_http_service.dart';
 import 'package:food_driver/core/services/http/http_service.dart';
-import 'package:food_driver/features/auth/data_source/remote/auth_remote_data_source.dart';
-import 'package:food_driver/features/auth/models/auth_model.dart';
+import 'package:food_driver/features/auth/data/data_source/remote/auth_remote_data_source.dart';
+import 'package:food_driver/features/auth/data/models/auth_model.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(
@@ -33,7 +33,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<AuthModel?> getAuthModel({
+  Future<AuthModel> getAuthModel({
     required String email,
     required String code,
   }) async {
@@ -42,7 +42,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       type: RequestType.post,
       queryParameters: {
         "email": email,
-        code: code,
+        "code": code,
       },
     );
     return AuthModel.fromJson(jsonDecode(response.data));

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_driver/core/extensions/fdt_formatter.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/game/models/game_state.dart';
+import 'package:food_driver/features/game/data/models/game_state.dart';
 import 'package:food_driver/features/game/presentation/widgets/game_map.dart';
 
 class Game extends StatelessWidget {

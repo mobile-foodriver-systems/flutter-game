@@ -1,8 +1,8 @@
 import 'package:food_driver/core/interceptors/auth_interceptor.dart';
 import 'package:food_driver/core/services/http/app_http_service.dart';
 import 'package:food_driver/core/services/http/http_service.dart';
-import 'package:food_driver/features/profile/data_source/remote/profile_remote_data_source.dart';
-import 'package:food_driver/features/profile/models/user.dart';
+import 'package:food_driver/features/profile/data/data_source/remote/profile_remote_data_source.dart';
+import 'package:food_driver/features/profile/data/models/user.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(

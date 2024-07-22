@@ -1,9 +1,9 @@
 import 'package:food_driver/core/interceptors/auth_interceptor.dart';
 import 'package:food_driver/core/services/http/app_http_service.dart';
-import 'package:food_driver/features/game/data_source/remote/game_remote_data_source.dart';
-import 'package:food_driver/features/game/models/game_route.dart';
-import 'package:food_driver/features/game/models/lat_lng.dart';
-import 'package:food_driver/features/game/models/user_rating.dart';
+import 'package:food_driver/features/game/data/data_source/remote/game_remote_data_source.dart';
+import 'package:food_driver/features/game/data/models/game_route.dart';
+import 'package:food_driver/features/game/data/models/lat_lng.dart';
+import 'package:food_driver/features/game/data/models/user_rating.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(
@@ -78,15 +78,15 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
       GameRoute(
         points: [
           LatLng(55.72151179791592, 37.61625688053631),
-          LatLng(55.72126000637394,37.616365572690505),
-          LatLng(55.72134076272254,37.617006393454886),
-          LatLng(55.721374068483115,37.61708954193435),
-          LatLng(55.72141797148757,37.61739263155302),
-          LatLng(55.723351925344836,37.616740854762405),
-          LatLng(55.723485141325945,37.616644295237876),
-          LatLng(55.72756594641373,37.61484081811778),
-          LatLng(55.72763740424775,37.61181256007577),
-          LatLng(55.72802641130683,37.61187693309214),
+          LatLng(55.72126000637394, 37.616365572690505),
+          LatLng(55.72134076272254, 37.617006393454886),
+          LatLng(55.721374068483115, 37.61708954193435),
+          LatLng(55.72141797148757, 37.61739263155302),
+          LatLng(55.723351925344836, 37.616740854762405),
+          LatLng(55.723485141325945, 37.616644295237876),
+          LatLng(55.72756594641373, 37.61484081811778),
+          LatLng(55.72763740424775, 37.61181256007577),
+          LatLng(55.72802641130683, 37.61187693309214),
         ],
         seconds: 45,
         tapCount: 250,

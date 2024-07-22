@@ -6,6 +6,7 @@ import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/auth/presentation/pages/confirmation_code_page.dart';
 import 'package:food_driver/features/auth/presentation/pages/web_view_page.dart';
+import 'package:food_driver/features/auth/presentation/widgets/email_field.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -45,11 +46,7 @@ class AuthPage extends StatelessWidget {
                 const Padding(
                   padding:
                       EdgeInsets.only(left: 44.0, bottom: 16.0, right: 44.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      label: Text("Ваша почта"),
-                    ),
-                  ),
+                  child: EmailField(),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 44.0),
