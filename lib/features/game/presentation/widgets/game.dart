@@ -4,6 +4,7 @@ import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/game/data/models/game_state.dart';
 import 'package:food_driver/features/game/presentation/widgets/game_map.dart';
+import 'package:food_driver/generated/l10n.dart';
 
 class Game extends StatelessWidget {
   const Game({
@@ -52,7 +53,7 @@ class _LooseGame extends StatelessWidget {
         Image.asset(AssetsCatalog.icFaceFrown),
         const SizedBox(height: 12.0),
         Text(
-          "Вы проиграли",
+          S.current.gamePageLost,
           style: Theme.of(context)
               .textTheme
               .titleLarge
@@ -68,7 +69,7 @@ class _LooseGame extends StatelessWidget {
                 backgroundColor: AppColors.textFieldGray,
                 foregroundColor: AppColors.black,
               ),
-              child: const Text("Попробовать снова"),
+              child: Text(S.current.gamePageTryAgain),
             ),
           ),
         ),
@@ -95,7 +96,7 @@ class _WinGame extends StatelessWidget {
       children: [
         const Spacer(flex: 367),
         Text(
-          "Ваша награда",
+          S.current.gamePageYourReward,
           style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 20),
         ),
         const SizedBox(height: 12.0),
@@ -121,7 +122,7 @@ class _WinGame extends StatelessWidget {
           width: 162.0,
           child: ElevatedButton(
             onPressed: toggleToInit,
-            child: const Text("Играть еще"),
+            child: Text(S.current.gamePagePlayMore),
           ),
         ),
         const Spacer(flex: 140),

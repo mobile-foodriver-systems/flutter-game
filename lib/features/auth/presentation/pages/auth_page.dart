@@ -6,6 +6,7 @@ import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/auth/presentation/pages/confirmation_code_page.dart';
 import 'package:food_driver/features/auth/presentation/pages/web_view_page.dart';
+import 'package:food_driver/generated/l10n.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({super.key});
@@ -21,25 +22,28 @@ class AuthPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           decoration: scaffoldDecoration,
           child: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Spacer(flex: 51),
-                Image.asset(AssetsCatalog.logo),
-                const Spacer(flex: 56),
-                Text(
-                  "Вход в аккаунт",
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleLarge,
+            child: SingleChildScrollView(
+              child: SizedBox(
+                height: MediaQuery.sizeOf(context).height,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Spacer(flex: 51),
+                    Image.asset(AssetsCatalog.logo),
+                    const Spacer(flex: 56),
+                    Text(
+                      S.current.authPageLoginToAccount,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    const SizedBox(height: 8.0),
+                    const AuthForm(),
+                    const Spacer(flex: 56),
+                    const _PrivacyPolicy(),
+                    const Spacer(flex: 227),
+                  ],
                 ),
-                const Spacer(flex: 8),
-                const Flexible(
-                  child: AuthForm(),
-                ),
-                const Spacer(flex: 56),
-                const _PrivacyPolicy(),
-                const Spacer(flex: 227),
-              ],
+              ),
             ),
           ),
         ),
@@ -58,48 +62,45 @@ class AuthForm extends StatefulWidget {
 class _AuthFormState extends State<AuthForm> {
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(minHeight: 204, maxHeight: 284),
-      child: Form(
-        child: Column(
-          children: [
-            Text(
-              "Введите логин",
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(color: AppColors.gray),
+    return Form(
+      child: Column(
+        children: [
+          Text(
+            S.current.authPageUsername,
+            textAlign: TextAlign.center,
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: AppColors.gray),
+          ),
+          const SizedBox(height: 24),
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 44.0, right: 44.0, bottom: 16.0),
+            child: TextFormField(),
+          ),
+          Text(
+            S.current.authPagePassword,
+            textAlign: TextAlign.center,
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge
+                ?.copyWith(color: AppColors.gray),
+          ),
+          const SizedBox(height: 24),
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 44.0, right: 44.0, bottom: 16.0),
+            child: TextFormField(),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 44.0),
+            child: ElevatedButton(
+              onPressed: submit,
+              child: Text(S.current.authPageLogin),
             ),
-            const Spacer(flex: 24),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 44.0),
-              child: TextFormField(),
-            ),
-            const Spacer(flex: 16),
-            Text(
-              "Введите пароль",
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(color: AppColors.gray),
-            ),
-            const Spacer(flex: 24),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 44.0),
-              child: TextFormField(),
-            ),
-            const Spacer(flex: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 44.0),
-              child: ElevatedButton(
-                onPressed: submit,
-                child: const Text("Войти"),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -119,15 +120,15 @@ class _PrivacyPolicy extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text.rich(
       TextSpan(
-        text: "Нажимая «Войти», Вы принимаете условия\n",
+        text: S.current.authPageAcceptPart,
         children: [
           TextSpan(
-            text: "политики конфиденциальности",
+            text: S.current.authPagePrivacyPolicyPart,
             recognizer: TapGestureRecognizer()
               ..onTap = () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const WebViewPage(
+                  builder: (context) => WebViewPage(
                         url: Config.privacyPolicy,
-                        title: "Политика конфиденциальности",
+                        title: S.current.authPagePrivacyPolicy,
                       ))),
             style: const TextStyle(
               shadows: [

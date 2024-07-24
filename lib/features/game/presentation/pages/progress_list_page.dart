@@ -4,6 +4,7 @@ import 'package:food_driver/features/game/data/models/user_sort_type.dart';
 import 'package:food_driver/features/game/presentation/widgets/custom_segmented_button.dart';
 import 'package:food_driver/features/game/presentation/widgets/users_list.dart';
 import 'package:food_driver/features/profile/presentation/widgets/close_icon_button.dart';
+import 'package:food_driver/generated/l10n.dart';
 
 class ProgressListPage extends StatefulWidget {
   const ProgressListPage({super.key});
@@ -40,7 +41,7 @@ class _ProgressListPageState extends State<ProgressListPage> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        "Рейтинг участников",
+                        S.current.progressListPageRatingOfParticipants,
                         style: Theme.of(context).textTheme.titleLarge,
                         textAlign: TextAlign.center,
                       ),

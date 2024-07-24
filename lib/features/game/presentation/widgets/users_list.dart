@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/game/data/models/user_rating.dart';
+import 'package:food_driver/generated/l10n.dart';
 
 class UsersList extends StatelessWidget {
   static const List<UserRating> list = [
@@ -57,7 +58,7 @@ class _UserRatingItem extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                rating.name ?? "Неизвестно",
+                rating.name ?? S.current.progressListPageUnknown,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -96,20 +97,21 @@ class _RaitingListHeader extends StatelessWidget {
     return DecoratedBox(
       decoration: const BoxDecoration(color: AppColors.red),
       child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Nick",
-                style: textStyle,
-              ),
-              Text(
-                "Score",
-                style: textStyle,
-              ),
-            ],
-          )),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              S.current.progressListPageNick,
+              style: textStyle,
+            ),
+            Text(
+              S.current.progressListPageScore,
+              style: textStyle,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

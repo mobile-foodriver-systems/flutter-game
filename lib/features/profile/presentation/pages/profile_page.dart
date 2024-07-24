@@ -7,6 +7,7 @@ import 'package:food_driver/features/profile/presentation/widgets/card_widget.da
 import 'package:food_driver/features/profile/presentation/widgets/close_icon_button.dart';
 import 'package:food_driver/features/profile/presentation/widgets/custom_text_button.dart';
 import 'package:food_driver/features/profile/presentation/widgets/disabled_field.dart';
+import 'package:food_driver/generated/l10n.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -46,7 +47,7 @@ class ProfilePage extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  "Ваш баланс",
+                  S.current.profilePageYourBalance,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w500,
                         color: AppColors.textGray,
@@ -70,14 +71,14 @@ class ProfilePage extends StatelessWidget {
                     horizontal: horizontalPaddingValue),
                 child: ElevatedButton(
                   onPressed: logout,
-                  child: const Text("Выйти из аккаунта"),
+                  child: Text(S.current.profilePageLogout),
                 ),
               ),
               const SizedBox(height: 8.0),
               TextButton(
                 onPressed: deleteAccount,
-                child: const Text("Удалить аккаунт"),
-              )
+                child: Text(S.current.profilePageDeleteAccount),
+              ),
             ],
           ),
         ),
@@ -103,7 +104,7 @@ class _ProfileInfo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            "Данные",
+            S.current.profilePageInformation,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -111,13 +112,13 @@ class _ProfileInfo extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           const SizedBox(height: 16.0),
-          const DisabledField(
-            label: "Почта",
+          DisabledField(
+            label: S.current.profilePageEmail,
             value: "test@test.ru",
           ),
           const SizedBox(height: 16.0),
-          const DisabledField(
-            label: "Кошелек",
+          DisabledField(
+            label: S.current.profilePageWallet,
             value: "xkjbsddjhavsbhbxasdasdaxasasdx",
           ),
         ],
@@ -137,7 +138,7 @@ class _LegalInfo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            "Юридическое",
+            S.current.profilePageLegal,
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -145,12 +146,12 @@ class _LegalInfo extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           const SizedBox(height: 16.0),
-          const CustomTextButton(
-            text: "Договор оферты",
+          CustomTextButton(
+            text: S.current.profilePageOfferAgreement,
             url: Config.offerAgreement,
           ),
-          const CustomTextButton(
-            text: "Политика конфиденциальности",
+          CustomTextButton(
+            text: S.current.authPagePrivacyPolicy,
             url: Config.privacyPolicy,
           ),
         ],

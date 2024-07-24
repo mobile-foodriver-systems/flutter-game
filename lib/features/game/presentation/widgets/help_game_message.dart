@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
+import 'package:food_driver/generated/l10n.dart';
 
 class HelpGameMessage extends StatelessWidget {
   const HelpGameMessage({super.key});
@@ -22,7 +23,7 @@ class HelpGameMessage extends StatelessWidget {
             ),
             const SizedBox(width: 10.0),
             Text(
-              "Жмите на точки для начала игры",
+              S.current.gamePageClickOnTheDots,
               style: Theme.of(context)
                   .textTheme
                   .titleSmall

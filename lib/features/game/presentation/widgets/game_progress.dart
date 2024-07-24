@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_driver/core/extensions/tap_speed_formatter.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
+import 'package:food_driver/generated/l10n.dart';
 
 class GameProgress extends StatefulWidget {
   const GameProgress({
@@ -39,7 +39,8 @@ class _GameProgressState extends State<GameProgress> {
             ),
             const SizedBox(width: 12.0),
             Text(
-              (widget.speed ?? 0).tapSpeed,
+              S.current
+                  .gamePageTapSpeed((widget.speed ?? 0).toStringAsFixed(1)),
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge

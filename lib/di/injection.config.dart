@@ -30,6 +30,7 @@ import '../features/auth/data/data_source/remote/auth_remote_data_source.dart'
     as _i19;
 import '../features/auth/data/data_source/remote/auth_remote_data_source_impl.dart'
     as _i20;
+import '../features/auth/data/repository/auth_repository.dart' as _i21;
 import '../features/game/data/data_source/remote/game_remote_data_source.dart'
     as _i17;
 import '../features/game/data/data_source/remote/game_remote_data_source_impl.dart'
@@ -38,7 +39,7 @@ import '../features/profile/data/data_source/remote/profile_remote_data_source.d
     as _i15;
 import '../features/profile/data/data_source/remote/profile_remote_data_source_impl.dart'
     as _i16;
-import 'injection.dart' as _i21;
+import 'injection.dart' as _i22;
 
 const String _dev = 'dev';
 const String _prod = 'prod';
@@ -102,11 +103,21 @@ extension GetItInjectableX on _i1.GetIt {
         _prod,
       },
     );
+    gh.lazySingleton<_i21.AuthRepository>(
+      () => _i21.AuthRepositoryImpl(
+        gh<_i11.AuthLocalDataSource>(),
+        gh<_i19.AuthRemoteDataSource>(),
+      ),
+      registerFor: {
+        _prod,
+        _dev,
+      },
+    );
     return this;
   }
 }
 
-class _$RegisterModule extends _i21.RegisterModule {
+class _$RegisterModule extends _i22.RegisterModule {
   @override
   _i5.InternetConnectionChecker get internetConnectionChecker =>
       _i5.InternetConnectionChecker();

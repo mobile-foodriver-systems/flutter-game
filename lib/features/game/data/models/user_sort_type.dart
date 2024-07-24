@@ -1,3 +1,5 @@
+import 'package:food_driver/generated/l10n.dart';
+
 enum UsersSortType {
   global,
   distance;
@@ -5,9 +7,9 @@ enum UsersSortType {
   String get title {
     switch (this) {
       case UsersSortType.global:
-        return "Глобальный";
+        return S.current.progressListPageGlobal;
       case UsersSortType.distance:
-        return "В радиусе 100 км";
+        return S.current.progressListPageDistanceRadius;
     }
   }
 }

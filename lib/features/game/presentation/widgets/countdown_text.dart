@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
+import 'package:food_driver/generated/l10n.dart';
 
 class CountdownText extends StatefulWidget {
   const CountdownText({
@@ -47,7 +48,7 @@ class _CountdownTextState extends State<CountdownText> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         child: Text(
-          "Старт через: $_seconds",
+          S.current.gamePageBeginIn(_seconds),
           style: Theme.of(context)
               .textTheme
               .bodyLarge
