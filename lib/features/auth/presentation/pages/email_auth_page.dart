@@ -6,9 +6,10 @@ import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/auth/presentation/pages/confirmation_code_page.dart';
 import 'package:food_driver/features/auth/presentation/pages/web_view_page.dart';
+import 'package:food_driver/features/auth/presentation/widgets/email_field.dart';
 
-class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+class EmailAuthPage extends StatelessWidget {
+  const EmailAuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +33,36 @@ class AuthPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
-                const Spacer(flex: 8),
-                const Flexible(
-                  child: AuthForm(),
+                const SizedBox(height: 8.0),
+                Text(
+                  "Введите ваш E-mail",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(color: AppColors.gray),
+                ),
+                const SizedBox(height: 24.0),
+                const Padding(
+                  padding:
+                      EdgeInsets.only(left: 44.0, bottom: 16.0, right: 44.0),
+                  child: EmailField(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 44.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const ConfirmationCodePage(
+                                email: "test@test.ru",
+                              )));
+                    }, // submit,
+                    child: const Text("Войти"),
+                  ),
                 ),
                 const Spacer(flex: 56),
                 const _PrivacyPolicy(),
-                const Spacer(flex: 227),
+                const Spacer(flex: 327),
               ],
             ),
           ),
@@ -46,70 +70,8 @@ class AuthPage extends StatelessWidget {
       ),
     );
   }
-}
 
-class AuthForm extends StatefulWidget {
-  const AuthForm({super.key});
-
-  @override
-  State<AuthForm> createState() => _AuthFormState();
-}
-
-class _AuthFormState extends State<AuthForm> {
-  @override
-  Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(minHeight: 204, maxHeight: 284),
-      child: Form(
-        child: Column(
-          children: [
-            Text(
-              "Введите логин",
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(color: AppColors.gray),
-            ),
-            const Spacer(flex: 24),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 44.0),
-              child: TextFormField(),
-            ),
-            const Spacer(flex: 16),
-            Text(
-              "Введите пароль",
-              textAlign: TextAlign.center,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(color: AppColors.gray),
-            ),
-            const Spacer(flex: 24),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 44.0),
-              child: TextFormField(),
-            ),
-            const Spacer(flex: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 44.0),
-              child: ElevatedButton(
-                onPressed: submit,
-                child: const Text("Войти"),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void submit() {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const ConfirmationCodePage(
-              email: "test@test.ru",
-            )));
-  }
+  Future<void> submit() async {}
 }
 
 class _PrivacyPolicy extends StatelessWidget {
