@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_driver/features/game/data/models/game_state.dart';
+import 'package:food_driver/features/game/data/models/game_state_type.dart';
 import 'package:food_driver/features/game/presentation/widgets/game.dart';
 import 'package:food_driver/features/game/presentation/widgets/help_game_message.dart';
 import 'package:food_driver/features/game/presentation/widgets/navigation.dart';
@@ -13,7 +13,7 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  GameState type = GameState.init;
+  GameStateType type = GameStateType.init;
 
   final ValueNotifier<num> speed = ValueNotifier(0);
 
@@ -42,7 +42,7 @@ class _GamePageState extends State<GamePage> {
               speed: 1,
             ),
           ),
-          if (type == GameState.playing || type == GameState.starting)
+          if (type == GameStateType.playing || type == GameStateType.starting)
             Positioned(
               left: 0,
               right: 0,
@@ -53,7 +53,7 @@ class _GamePageState extends State<GamePage> {
                 ),
               ),
             ),
-          if (type == GameState.init)
+          if (type == GameStateType.init)
             const Positioned(
               bottom: 16.0,
               left: 0,
@@ -69,20 +69,20 @@ class _GamePageState extends State<GamePage> {
 
   void toggleToInit() {
     setState(() {
-      type = GameState.init;
+      type = GameStateType.init;
     });
   }
 
   void toggleToPlay() {
     setState(() {
-      type = GameState.playing;
+      type = GameStateType.playing;
     });
   }
 
   void breakGame() {}
 
   void onTap() {
-    if (type != GameState.playing) {
+    if (type != GameStateType.playing) {
       return;
     }
   }

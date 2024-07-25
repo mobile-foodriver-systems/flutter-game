@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/di/injection.dart';
-import 'package:food_driver/features/auth/presentation/bloc/auth/bloc/auth_bloc.dart';
+import 'package:food_driver/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:food_driver/features/auth/presentation/pages/confirmation_code_page.dart';
 import 'package:food_driver/generated/l10n.dart';
 

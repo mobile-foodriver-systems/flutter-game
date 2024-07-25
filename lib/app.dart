@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:food_driver/features/auth/data/models/auth_status.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
 import 'package:food_driver/di/injection.dart';
-import 'package:food_driver/features/auth/domain/repositories/auth_repository.dart';
-import 'package:food_driver/features/auth/presentation/bloc/auth/bloc/auth_bloc.dart';
+import 'package:food_driver/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:food_driver/features/auth/presentation/pages/auth_page.dart';
 import 'package:food_driver/features/game/presentation/pages/game_page.dart';
 import 'package:food_driver/generated/l10n.dart';
@@ -15,10 +14,6 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-    FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-    FlutterNativeSplash.remove();
-    configureDependencies();
     return BlocProvider(
       create: (_) => getIt<AuthBloc>(),
       child: const AppView(),

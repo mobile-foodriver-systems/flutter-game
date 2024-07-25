@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_driver/core/extensions/fdt_formatter.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/game/data/models/game_state.dart';
+import 'package:food_driver/features/game/data/models/game_state_type.dart';
 import 'package:food_driver/features/game/presentation/widgets/game_map.dart';
 import 'package:food_driver/generated/l10n.dart';
 
@@ -14,23 +14,23 @@ class Game extends StatelessWidget {
     this.reward,
   });
 
-  final GameState type;
+  final GameStateType type;
   final num? reward;
   final VoidCallback toggleToInit;
 
   @override
   Widget build(BuildContext context) {
     switch (type) {
-      case GameState.init:
-      case GameState.playing:
-      case GameState.starting:
+      case GameStateType.init:
+      case GameStateType.playing:
+      case GameStateType.starting:
         return const GameMap();
-      case GameState.win:
+      case GameStateType.win:
         return _WinGame(
           toggleToInit: toggleToInit,
           reward: reward,
         );
-      case GameState.loose:
+      case GameStateType.loose:
         return _LooseGame(toggleToInit: toggleToInit);
     }
   }

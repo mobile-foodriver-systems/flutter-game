@@ -1,7 +1,7 @@
 import 'package:food_driver/core/interceptors/auth_interceptor.dart';
 import 'package:food_driver/core/services/http/app_http_service.dart';
 import 'package:food_driver/features/game/data/datasources/remote/game_remote_data_source.dart';
-import 'package:food_driver/features/game/data/models/game_route.dart';
+import 'package:food_driver/features/game/data/models/drive_route.dart';
 import 'package:food_driver/features/game/data/models/lat_lng.dart';
 import 'package:food_driver/features/game/data/models/user_rating.dart';
 import 'package:injectable/injectable.dart';
@@ -46,7 +46,7 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
   }
 
   @override
-  Future<List<GameRoute>> getUsersRoutesList() async {
+  Future<List<DriveRoute>> getUsersRoutesList() async {
     // final response = await _appHttpService.request(
     //   path: '',
     //   type: RequestType.get,
@@ -55,7 +55,7 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
     //     .map((i) => GameRoute.fromJson(jsonDecode(i)))
     //     .toList();
     return [
-      GameRoute(
+      DriveRoute(
         points: [
           LatLng(55.71956193730124, 37.61345092255401),
           LatLng(55.719564965237346, 37.613633312767035),
@@ -75,7 +75,7 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
         tapCount: 180,
         reward: 0.02,
       ),
-      GameRoute(
+      DriveRoute(
         points: [
           LatLng(55.72151179791592, 37.61625688053631),
           LatLng(55.72126000637394, 37.616365572690505),

@@ -11,12 +11,6 @@ import 'package:injectable/injectable.dart';
 
 part 'package:food_driver/features/auth/data/repositories/auth_repository_impl.dart';
 
-enum AuthStatus {
-  unknown,
-  authenticated,
-  unauthenticated;
-}
-
 abstract class AuthRepository {
   // StreamController<AuthStatus> get controller;
 

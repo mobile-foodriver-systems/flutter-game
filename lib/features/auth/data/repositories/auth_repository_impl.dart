@@ -60,6 +60,7 @@ class AuthRepositoryImpl implements AuthRepository {
         login: login,
         password: password,
       );
+      await _localDataSource.saveAuthModel(authModel: response);
       return Right(response.toEntity());
     } catch (e, s) {
       return Left(

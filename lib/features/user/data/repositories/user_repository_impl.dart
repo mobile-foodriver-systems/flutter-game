@@ -1,11 +1,4 @@
-import 'package:dartz/dartz.dart';
-import 'package:food_driver/core/errors/exceptions/exception_to_failure_converter.dart';
-import 'package:food_driver/core/errors/failure/failure.dart';
-import 'package:food_driver/features/user/data/datasources/remote/user_remote_data_source.dart';
-import 'package:food_driver/features/user/data/models/models/user.dart';
-import 'package:food_driver/features/user/domain/entities/user_entity.dart';
-import 'package:food_driver/features/user/domain/repositories/user_repository.dart';
-import 'package:injectable/injectable.dart';
+part of 'package:food_driver/features/user/domain/repositories/user_repository.dart';
 
 @LazySingleton(
   as: UserRepository,

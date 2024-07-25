@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/game/data/models/game_state.dart';
+import 'package:food_driver/features/game/data/models/game_state_type.dart';
 import 'package:food_driver/features/game/presentation/widgets/balance.dart';
 import 'package:food_driver/features/game/presentation/widgets/countdown_text.dart';
 import 'package:food_driver/features/game/presentation/widgets/game_progress.dart';
@@ -11,7 +11,7 @@ import 'package:food_driver/features/user/presentation/widgets/progress_icon_but
 class Navigation extends StatelessWidget {
   const Navigation({
     super.key,
-    this.type = GameState.init,
+    this.type = GameStateType.init,
     this.balance,
     this.speed,
     required this.toggleToInit,
@@ -19,7 +19,7 @@ class Navigation extends StatelessWidget {
     required this.breakGame,
   });
 
-  final GameState type;
+  final GameStateType type;
   final num? balance;
   final VoidCallback toggleToInit;
   final VoidCallback toggleToPlay;
@@ -44,12 +44,12 @@ class Navigation extends StatelessWidget {
                   ),
                 ],
               ),
-              child: type == GameState.starting
+              child: type == GameStateType.starting
                   ? CountdownText(
                       seconds: 3,
                       callback: toggleToPlay,
                     )
-                  : type == GameState.playing
+                  : type == GameStateType.playing
                       ? GameProgress(
                           speed: speed,
                         )
@@ -60,7 +60,7 @@ class Navigation extends StatelessWidget {
                           balance: balance,
                         ),
             ),
-            type == GameState.init
+            type == GameStateType.init
                 ? const ProgressIconButton()
                 : CloseIconButton(onPressed: onPressed),
           ],
@@ -70,11 +70,11 @@ class Navigation extends StatelessWidget {
   }
 
   void onPressed() {
-    if (type == GameState.starting ||
-        type == GameState.win ||
-        type == GameState.loose) {
+    if (type == GameStateType.starting ||
+        type == GameStateType.win ||
+        type == GameStateType.loose) {
       toggleToInit();
-    } else if (type == GameState.playing) {
+    } else if (type == GameStateType.playing) {
       breakGame();
     }
   }

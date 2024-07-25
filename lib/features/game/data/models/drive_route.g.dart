@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'game_route.dart';
+part of 'drive_route.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GameRoute _$GameRouteFromJson(Map<String, dynamic> json) => GameRoute(
+DriveRoute _$DriveRouteFromJson(Map<String, dynamic> json) => DriveRoute(
       tapCount: (json['tapCount'] as num?)?.toInt(),
       seconds: (json['seconds'] as num?)?.toInt(),
       reward: json['reward'] as num?,
@@ -17,7 +17,8 @@ GameRoute _$GameRouteFromJson(Map<String, dynamic> json) => GameRoute(
           const [],
     );
 
-Map<String, dynamic> _$GameRouteToJson(GameRoute instance) => <String, dynamic>{
+Map<String, dynamic> _$DriveRouteToJson(DriveRoute instance) =>
+    <String, dynamic>{
       'tapCount': instance.tapCount,
       'seconds': instance.seconds,
       'reward': instance.reward,
