@@ -4,9 +4,9 @@ import 'package:food_driver/features/game/data/models/game_state.dart';
 import 'package:food_driver/features/game/presentation/widgets/balance.dart';
 import 'package:food_driver/features/game/presentation/widgets/countdown_text.dart';
 import 'package:food_driver/features/game/presentation/widgets/game_progress.dart';
-import 'package:food_driver/features/profile/presentation/pages/profile_page.dart';
-import 'package:food_driver/features/profile/presentation/widgets/close_icon_button.dart';
-import 'package:food_driver/features/profile/presentation/widgets/progress_icon_button.dart';
+import 'package:food_driver/features/user/presentation/pages/profile_page.dart';
+import 'package:food_driver/features/user/presentation/widgets/close_icon_button.dart';
+import 'package:food_driver/features/user/presentation/widgets/progress_icon_button.dart';
 
 class Navigation extends StatelessWidget {
   const Navigation({

@@ -4,8 +4,8 @@ import 'package:food_driver/constants/config.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/auth/presentation/pages/confirmation_code_page.dart';
 import 'package:food_driver/features/auth/presentation/pages/web_view_page.dart';
+import 'package:food_driver/features/auth/presentation/widgets/login_password_auth_form.dart';
 import 'package:food_driver/generated/l10n.dart';
 
 class AuthPage extends StatelessWidget {
@@ -37,7 +37,7 @@ class AuthPage extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 8.0),
-                    const AuthForm(),
+                    const LoginPasswordAuthForm(),
                     const Spacer(flex: 56),
                     const _PrivacyPolicy(),
                     const Spacer(flex: 227),
@@ -49,67 +49,6 @@ class AuthPage extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-class AuthForm extends StatefulWidget {
-  const AuthForm({super.key});
-
-  @override
-  State<AuthForm> createState() => _AuthFormState();
-}
-
-class _AuthFormState extends State<AuthForm> {
-  @override
-  Widget build(BuildContext context) {
-    return Form(
-      child: Column(
-        children: [
-          Text(
-            S.current.authPageUsername,
-            textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge
-                ?.copyWith(color: AppColors.gray),
-          ),
-          const SizedBox(height: 24),
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 44.0, right: 44.0, bottom: 16.0),
-            child: TextFormField(),
-          ),
-          Text(
-            S.current.authPagePassword,
-            textAlign: TextAlign.center,
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge
-                ?.copyWith(color: AppColors.gray),
-          ),
-          const SizedBox(height: 24),
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 44.0, right: 44.0, bottom: 16.0),
-            child: TextFormField(),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 44.0),
-            child: ElevatedButton(
-              onPressed: submit,
-              child: Text(S.current.authPageLogin),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void submit() {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const ConfirmationCodePage(
-              email: "test@test.ru",
-            )));
   }
 }
 
