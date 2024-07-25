@@ -12,16 +12,16 @@ class AuthRepositoryImpl implements AuthRepository {
 
   final AuthRemoteDataSource _remoteDataSource;
   final AuthLocalDataSource _localDataSource;
-  @override
-  final StreamController<AuthStatus> controller =
-      StreamController<AuthStatus>();
+  // @override
+  // final StreamController<AuthStatus> controller =
+  //     StreamController<AuthStatus>();
 
-  @override
-  Stream<AuthStatus> get status async* {
-    await Future<void>.delayed(const Duration(seconds: 1));
-    yield AuthStatus.unauthenticated;
-    yield* controller.stream;
-  }
+  // @override
+  // Stream<AuthStatus> get status async* {
+  //   await Future<void>.delayed(const Duration(seconds: 1));
+  //   yield AuthStatus.unauthenticated;
+  //   yield* controller.stream;
+  // }
 
   @override
   Future<Either<Failure, AuthEntity>> login({
@@ -42,10 +42,12 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<void> logout({required AuthEntity auth}) async {
+  Future<void> logout() async {
+    final auth = await _localDataSource.getAuthModel();
+    // controller.add(AuthStatus.unauthenticated);
+    if (auth == null) return;
     _localDataSource.deleteAuthModel();
-    controller.add(AuthStatus.unauthenticated);
-    await _remoteDataSource.logout(auth: auth);
+    _remoteDataSource.logout(auth: auth.toEntity());
   }
 
   @override

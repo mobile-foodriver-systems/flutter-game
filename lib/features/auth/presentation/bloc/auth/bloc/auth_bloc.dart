@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/auth/domain/repositories/auth_repository.dart';
 import 'package:food_driver/features/auth/domain/usecases/login_by_password.dart';
 import 'package:food_driver/features/auth/domain/usecases/logout.dart';
@@ -16,8 +17,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this._loginByPassword,
     this._logout,
   ) : super(const AuthState.unknown()) {
-    on<_AuthStatusChanged>(_onAuthStatusChanged);
-    on<AuthLogoutRequested>(_onAuthLogoutRequested);
+    // on<_AuthStatusChanged>(_onAuthStatusChanged);
+    on<AuthLogoutEvent>(_onAuthLogoutRequested);
     // _authStatusSubscription = _authRepository.status.listen(
     //   (status) => add(_AuthStatusChanged(status)),
     // );
@@ -26,34 +27,35 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   // final AuthRepository _authRepository;
   final LoginByPasswordUseCase _loginByPassword;
   final LogoutUseCase _logout;
-  late StreamSubscription<AuthStatus> _authStatusSubscription;
+  // late StreamSubscription<AuthStatus> _authStatusSubscription;
 
-  @override
-  Future<void> close() {
-    _authStatusSubscription.cancel();
-    return super.close();
-  }
+  // @override
+  // Future<void> close() {
+  //   _authStatusSubscription.cancel();
+  //   return super.close();
+  // }
 
-  Future<void> _onAuthStatusChanged(
-    _AuthStatusChanged event,
-    Emitter<AuthState> emit,
-  ) async {
-    switch (event.status) {
-      case AuthStatus.unauthenticated:
-        return emit(const AuthState.unauthenticated());
-      case AuthStatus.authenticated:
-        return emit(
-          const AuthState.authenticated(),
-        );
-      case AuthStatus.unknown:
-        return emit(const AuthState.unknown());
-    }
-  }
+  // Future<void> _onAuthStatusChanged(
+  //   _AuthStatusChanged event,
+  //   Emitter<AuthState> emit,
+  // ) async {
+  //   switch (event.status) {
+  //     case AuthStatus.unauthenticated:
+  //       return emit(const AuthState.unauthenticated());
+  //     case AuthStatus.authenticated:
+  //       return emit(
+  //         const AuthState.authenticated(),
+  //       );
+  //     case AuthStatus.unknown:
+  //       return emit(const AuthState.unknown());
+  //   }
+  // }
 
   void _onAuthLogoutRequested(
-    AuthLogoutRequested event,
+    AuthLogoutEvent event,
     Emitter<AuthState> emit,
-  ) {
-    // _logout
+  ) async {
+    await _logout(NoParams());
+    emit(const AuthState.unauthenticated());
   }
 }

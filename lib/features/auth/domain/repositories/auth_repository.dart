@@ -18,9 +18,9 @@ enum AuthStatus {
 }
 
 abstract class AuthRepository {
-  StreamController<AuthStatus> get controller;
+  // StreamController<AuthStatus> get controller;
 
-  Stream<AuthStatus> get status;
+  // Stream<AuthStatus> get status;
 
   Future<Either<Failure, AuthEntity>> login({
     required String email,
@@ -32,5 +32,5 @@ abstract class AuthRepository {
     required String password,
   });
 
-  Future<void> logout({required AuthEntity auth});
+  Future<void> logout();
 }
