@@ -4,7 +4,7 @@ part of 'package:food_driver/features/auth/domain/repositories/auth_repository.d
   as: AuthRepository,
   env: [Environment.prod, Environment.dev],
 )
-class AuthRepositoryImpl implements AuthRepository {
+class AuthRepositoryImpl extends AuthRepository {
   AuthRepositoryImpl(
     this._localDataSource,
     this._remoteDataSource,
@@ -44,8 +44,6 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> logout() async {
     final auth = await _localDataSource.getAuthModel();
-    // controller.add(AuthStatus.unauthenticated);
-    if (auth == null) return;
     _localDataSource.deleteAuthModel();
     _remoteDataSource.logout(auth: auth.toEntity());
   }
@@ -66,6 +64,16 @@ class AuthRepositoryImpl implements AuthRepository {
       return Left(
         ExceptionToFailureConverter.convert(e, s),
       );
+    }
+  }
+
+  @override
+  Future<AuthEntity?> getAuthEntity() async {
+    try {
+      final auth = (await _localDataSource.getAuthModel());
+      return auth.toEntity();
+    } catch (e, _) {
+      return null;
     }
   }
 }

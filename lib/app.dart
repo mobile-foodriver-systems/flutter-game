@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:food_driver/features/auth/data/models/auth_status.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
 import 'package:food_driver/di/injection.dart';
+import 'package:food_driver/features/auth/data/models/auth_status.dart';
 import 'package:food_driver/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:food_driver/features/auth/presentation/pages/auth_page.dart';
 import 'package:food_driver/features/game/presentation/pages/game_page.dart';
@@ -32,6 +32,13 @@ class _AppViewState extends State<AppView> {
   final _navigatorKey = GlobalKey<NavigatorState>();
 
   NavigatorState get _navigator => _navigatorKey.currentState!;
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<AuthBloc>().add(AuthCheckEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

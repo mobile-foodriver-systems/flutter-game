@@ -1,7 +1,4 @@
-import 'package:food_driver/core/services/local_storage/local_storage_service.dart';
-import 'package:food_driver/features/auth/data/datasources/local/auth_local_data_source.dart';
-import 'package:food_driver/features/auth/data/models/auth_model.dart';
-import 'package:injectable/injectable.dart';
+part of "auth_local_data_source.dart";
 
 @LazySingleton(
   as: AuthLocalDataSource,
@@ -23,7 +20,7 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   }
 
   @override
-  Future<AuthModel?> getAuthModel() async {
+  Future<AuthModel> getAuthModel() async {
     return await _localStorageService.getValue(key: authModelKey);
   }
 

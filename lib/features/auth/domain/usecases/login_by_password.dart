@@ -15,11 +15,10 @@ class LoginByPasswordUseCase implements UseCase<AuthEntity, AuthParams> {
 
   @override
   Future<Either<Failure, AuthEntity>> call(AuthParams params) async {
-    final response = await _authRepository.loginByPassword(
+    return await _authRepository.loginByPassword(
       login: params.login,
       password: params.password,
     );
-    return response;
   }
 }
 

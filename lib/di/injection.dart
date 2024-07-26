@@ -8,12 +8,15 @@ import 'injection.config.dart';
 
 final getIt = GetIt.instance;
 
-@InjectableInit(
-  initializerName: 'init',
-  preferRelativeImports: true,
-  asExtension: true,
-)
-void configureDependencies() => getIt.init();
+@injectableInit
+Future<void> configureDependencies({
+  String? environment,
+  EnvironmentFilter? environmentFilter,
+}) async =>
+    await getIt.init(
+      environment: environment,
+      environmentFilter: environmentFilter,
+    );
 
 @module
 abstract class RegisterModule {

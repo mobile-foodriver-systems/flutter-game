@@ -15,11 +15,11 @@ sealed class AuthEvent extends Equatable {
 
 final class AuthLogoutEvent extends AuthEvent {}
 
-final class AuthLoginEvent extends AuthEvent {
+final class AuthLoginByPasswordEvent extends AuthEvent {
   final String login;
   final String password;
 
-  const AuthLoginEvent(
+  const AuthLoginByPasswordEvent(
     this.login,
     this.password,
   );
@@ -30,3 +30,5 @@ final class AuthLoginEvent extends AuthEvent {
         password,
       ];
 }
+
+final class AuthCheckEvent extends AuthEvent {}

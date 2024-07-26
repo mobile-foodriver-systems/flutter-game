@@ -19,8 +19,11 @@ abstract class HttpService {
 
   HttpService(
     this._dio,
-    this._networkInfo,
-  );
+    this._networkInfo, {
+    List<InterceptorsWrapper>? interceptorList,
+  }) {
+    interceptorList?.forEach((e) => interceptors.add(e));
+  }
 
   Interceptors get interceptors => _dio.interceptors;
 

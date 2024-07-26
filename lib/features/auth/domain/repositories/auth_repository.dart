@@ -27,4 +27,6 @@ abstract class AuthRepository {
   });
 
   Future<void> logout();
+
+  Future<AuthEntity?> getAuthEntity();
 }

@@ -1,5 +1,12 @@
+import 'dart:convert';
+
+import 'package:food_driver/core/services/http/app_http_service.dart';
+import 'package:food_driver/core/services/http/http_service.dart';
 import 'package:food_driver/features/auth/data/models/auth_model.dart';
 import 'package:food_driver/features/auth/domain/entities/auth_entity.dart';
+import 'package:injectable/injectable.dart';
+
+part 'auth_remote_data_source_impl.dart';
 
 abstract interface class AuthRemoteDataSource {
   Future<AuthModel> getAuthModel({

@@ -1,11 +1,4 @@
-import 'dart:convert';
-
-import 'package:food_driver/core/services/http/app_http_service.dart';
-import 'package:food_driver/core/services/http/http_service.dart';
-import 'package:food_driver/features/auth/data/datasources/remote/auth_remote_data_source.dart';
-import 'package:food_driver/features/auth/data/models/auth_model.dart';
-import 'package:food_driver/features/auth/domain/entities/auth_entity.dart';
-import 'package:injectable/injectable.dart';
+part of "auth_remote_data_source.dart";
 
 @LazySingleton(
   as: AuthRemoteDataSource,

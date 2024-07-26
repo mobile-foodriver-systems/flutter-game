@@ -1,7 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:food_driver/features/auth/data/models/auth_status.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
+import 'package:food_driver/features/auth/data/models/auth_status.dart';
+import 'package:food_driver/features/auth/domain/usecases/check_auth.dart';
 import 'package:food_driver/features/auth/domain/usecases/login_by_password.dart';
 import 'package:food_driver/features/auth/domain/usecases/logout.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -13,21 +14,25 @@ part 'auth_state.dart';
 
 @injectable
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final LoginByPasswordUseCase _loginByPassword;
+  final LogoutUseCase _logout;
+  final CheckAuthUseCase _checkAuth;
   AuthBloc(
     this._loginByPassword,
     this._logout,
+    this._checkAuth,
   ) : super(const AuthState()) {
     // on<_AuthStatusChanged>(_onAuthStatusChanged);
-    on<AuthLoginEvent>(_onAuthLogin);
+    on<AuthLoginByPasswordEvent>(_onAuthLoginByPassword);
     on<AuthLogoutEvent>(_onAuthLogout);
+    on<AuthCheckEvent>(_onAuthCheck);
     // _authStatusSubscription = _authRepository.status.listen(
     //   (status) => add(_AuthStatusChanged(status)),
     // );
   }
 
   // final AuthRepository _authRepository;
-  final LoginByPasswordUseCase _loginByPassword;
-  final LogoutUseCase _logout;
+
   // late StreamSubscription<AuthStatus> _authStatusSubscription;
 
   // @override
@@ -52,8 +57,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   //   }
   // }
 
-  void _onAuthLogin(
-    AuthLoginEvent event,
+  void _onAuthLoginByPassword(
+    AuthLoginByPasswordEvent event,
     Emitter<AuthState> emit,
   ) async {
     final response = await _loginByPassword(
@@ -78,5 +83,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     await _logout(NoParams());
     emit(state.copyWith(status: AuthStatus.unauthenticated));
+  }
+
+  void _onAuthCheck(
+    AuthCheckEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    final authEntity = await _checkAuth.call();
+    if (authEntity == null) {
+      emit(state.copyWith(status: AuthStatus.unauthenticated));
+      return;
+    }
+    emit(state.copyWith(status: AuthStatus.authenticated));
   }
 }
