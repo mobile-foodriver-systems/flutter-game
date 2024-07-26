@@ -16,10 +16,12 @@ enum RequestType {
 abstract class HttpService {
   final Dio _dio;
   final NetworkInfo _networkInfo;
+  final String _locale;
 
   HttpService(
     this._dio,
-    this._networkInfo, {
+    this._networkInfo,
+    this._locale, {
     List<InterceptorsWrapper>? interceptorList,
   }) {
     interceptorList?.forEach((e) => interceptors.add(e));

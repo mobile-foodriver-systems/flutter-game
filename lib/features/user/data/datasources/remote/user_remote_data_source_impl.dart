@@ -33,7 +33,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   @override
   Future<User?> profile() async {
     final response = await _appHttpService.request(
-      path: '',
+      path: 'account/my',
       type: RequestType.get,
     );
     return response.data.fromJson();

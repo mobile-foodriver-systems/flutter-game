@@ -9,8 +9,13 @@ class AppHttpService extends HttpService {
   AppHttpService(
     DioProvider dioProvider,
     NetworkInfo networkInfo,
+    String locale,
   ) : super(
-          dioProvider.dioProvider(interceptors: []),
+          dioProvider.dioProvider(
+            interceptors: [],
+            locale: locale,
+          ),
           networkInfo,
+          locale,
         );
 }

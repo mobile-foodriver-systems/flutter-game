@@ -48,7 +48,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String password,
   }) async {
     final response = await _appHttpService.request(
-      path: '',
+      path: 'account',
       type: RequestType.post,
       queryParameters: {
         "login": login,

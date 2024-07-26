@@ -6,7 +6,9 @@ import 'package:injectable/injectable.dart';
 class DioProvider {
   Dio dioProvider({
     List<InterceptorsWrapper>? interceptors,
+    required String locale,
   }) {
+    // print("AAA S: = ${locale.toString()}");
     return Dio(
       BaseOptions(
         baseUrl: Config.baseUrl,
@@ -15,6 +17,7 @@ class DioProvider {
           'Content-Type': 'application/json',
         },
         connectTimeout: const Duration(seconds: 5),
+        queryParameters: {"culture": locale},
       ),
     )..interceptors.addAll(interceptors ?? []);
   }

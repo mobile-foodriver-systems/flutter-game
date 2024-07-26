@@ -9,6 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
+import 'package:flutter_appauth/flutter_appauth.dart' as _i337;
 import 'package:food_driver/core/platform/network_info.dart' as _i984;
 import 'package:food_driver/core/platform/network_info_impl.dart' as _i771;
 import 'package:food_driver/core/providers/dio/dio_provider.dart' as _i370;
@@ -75,6 +76,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i973.InternetConnectionChecker>(
         () => registerModule.internetConnectionChecker);
     gh.singleton<_i895.Connectivity>(() => registerModule.connectivity);
+    gh.singleton<_i337.FlutterAppAuth>(() => registerModule.appAuth);
+    gh.singleton<String>(() => registerModule.locale);
     gh.factory<_i824.StopUseCase>(
       () => _i824.StopUseCase(),
       registerFor: {
@@ -118,6 +121,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i528.AppHttpService(
         gh<_i370.DioProvider>(),
         gh<_i984.NetworkInfo>(),
+        gh<String>(),
       ),
       registerFor: {
         _dev,
@@ -162,6 +166,13 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
+    gh.factory<_i879.CheckAuthUseCase>(
+      () => _i879.CheckAuthUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i422.LogoutUseCase>(
       () => _i422.LogoutUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
@@ -171,13 +182,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1009.LoginByPasswordUseCase>(
       () => _i1009.LoginByPasswordUseCase(gh<_i55.AuthRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i879.CheckAuthUseCase>(
-      () => _i879.CheckAuthUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
         _dev,
         _prod,
