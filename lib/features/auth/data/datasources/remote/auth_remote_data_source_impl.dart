@@ -9,10 +9,21 @@ part of "auth_remote_data_source.dart";
 )
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final AppHttpService _appHttpService;
+  static const String path = '/identity/connect/token';
 
   AuthRemoteDataSourceImpl(
     this._appHttpService,
   );
+
+  @override
+  Future<AuthModel> initAuth() async {
+    final response = await _appHttpService.request(
+      path: path,
+      type: RequestType.post,
+      data: const Identity(grantType: GrantType.clientCredentials).toMap(),
+    );
+    return AuthModel.fromJson(response.data);
+  }
 
   @override
   Future<bool> getConfirmationCode({

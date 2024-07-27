@@ -3,20 +3,21 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'auth_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class AuthModel {
   final String? accessToken;
   final String? refreshToken;
+  final int? expiresIn;
+  final String? tokenType;
+  final String? scope;
 
   AuthModel({
     this.accessToken,
     this.refreshToken,
+    this.expiresIn,
+    this.tokenType,
+    this.scope,
   });
-
-  bool get isEmpty =>
-      (accessToken?.isEmpty ?? true) && (refreshToken?.isEmpty ?? true);
-
-  bool get isNotEmpty => !isEmpty;
 
   factory AuthModel.fromJson(Map<String, dynamic> json) =>
       _$AuthModelFromJson(json);
@@ -28,6 +29,9 @@ extension AuthModelX on AuthModel {
     return AuthEntity(
       accessToken: accessToken,
       refreshToken: refreshToken,
+      expiresIn: expiresIn,
+      tokenType: tokenType,
+      scope: scope,
     );
   }
 }

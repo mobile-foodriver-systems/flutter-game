@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
@@ -84,14 +83,5 @@ class _AppViewState extends State<AppView> {
 
   Future<void> initApp(BuildContext context) async {
     context.read<AuthBloc>().add(AuthCheckEvent());
-    final AuthorizationTokenResponse? result =
-        await getIt<FlutterAppAuth>().authorizeAndExchangeCode(
-      AuthorizationTokenRequest(
-        '<client_id>',
-        '<redirect_url>',
-        discoveryUrl: '<discovery_url>',
-        scopes: ['openid', 'profile', 'email', 'offline_access', 'api'],
-      ),
-    );
   }
 }

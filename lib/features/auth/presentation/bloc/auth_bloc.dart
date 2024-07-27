@@ -89,11 +89,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthCheckEvent event,
     Emitter<AuthState> emit,
   ) async {
-    final authEntity = await _checkAuth.call();
-    if (authEntity == null) {
-      emit(state.copyWith(status: AuthStatus.unauthenticated));
-      return;
-    }
-    emit(state.copyWith(status: AuthStatus.authenticated));
+    final response = await _checkAuth.call(NoParams());
+    response.fold(
+      (error) {
+        emit(state.copyWith(status: AuthStatus.unauthenticated));
+      },
+      (result) {
+        if (result.refreshToken?.isEmpty ?? true) {
+          emit(state.copyWith(status: AuthStatus.unauthenticated));
+          return;
+        }
+        emit(state.copyWith(status: AuthStatus.authenticated));
+      },
+    );
   }
 }

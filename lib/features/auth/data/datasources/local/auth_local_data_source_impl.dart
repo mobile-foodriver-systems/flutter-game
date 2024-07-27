@@ -21,14 +21,15 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   @override
   Future<AuthModel> getAuthModel() async {
-    return await _localStorageService.getValue(key: authModelKey);
+    return AuthModel.fromJson(
+        jsonDecode(await _localStorageService.getValue(key: authModelKey)));
   }
 
   @override
   Future<void> saveAuthModel({required AuthModel authModel}) async {
     await _localStorageService.setValue(
       key: authModelKey,
-      value: authModel,
+      value: jsonEncode(authModel),
     );
   }
 }

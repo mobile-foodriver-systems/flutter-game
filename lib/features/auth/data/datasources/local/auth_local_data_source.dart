@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:food_driver/core/services/local_storage/local_storage_service.dart';
 import 'package:food_driver/features/auth/data/models/auth_model.dart';
 import 'package:injectable/injectable.dart';
