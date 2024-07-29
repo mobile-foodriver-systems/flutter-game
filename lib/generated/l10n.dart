@@ -120,6 +120,36 @@ class S {
     );
   }
 
+  /// `Your username`
+  String get authPageYourLogin {
+    return Intl.message(
+      'Your username',
+      name: 'authPageYourLogin',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your password`
+  String get authPageYourPassword {
+    return Intl.message(
+      'Your password',
+      name: 'authPageYourPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register`
+  String get authPageRegister {
+    return Intl.message(
+      'Register',
+      name: 'authPageRegister',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your balance`
   String get profilePageYourBalance {
     return Intl.message(
@@ -345,6 +375,36 @@ class S {
     return Intl.message(
       'Something went wrong',
       name: 'gamePageSomethingWrong',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registration`
+  String get registrationPageRegistration {
+    return Intl.message(
+      'Registration',
+      name: 'registrationPageRegistration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Repeat the password`
+  String get registrationPageYourPassword {
+    return Intl.message(
+      'Repeat the password',
+      name: 'registrationPageYourPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwords don't match`
+  String get registrationPagePasswordsDoNotMatch {
+    return Intl.message(
+      'Passwords don\'t match',
+      name: 'registrationPagePasswordsDoNotMatch',
       desc: '',
       args: [],
     );

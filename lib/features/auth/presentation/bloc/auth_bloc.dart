@@ -5,6 +5,7 @@ import 'package:food_driver/features/auth/data/models/auth_status.dart';
 import 'package:food_driver/features/auth/domain/usecases/check_auth.dart';
 import 'package:food_driver/features/auth/domain/usecases/login_by_password.dart';
 import 'package:food_driver/features/auth/domain/usecases/logout.dart';
+import 'package:food_driver/features/auth/domain/usecases/registration.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -17,15 +18,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginByPasswordUseCase _loginByPassword;
   final LogoutUseCase _logout;
   final CheckAuthUseCase _checkAuth;
+  final RegistrationUseCase _registration;
   AuthBloc(
     this._loginByPassword,
     this._logout,
     this._checkAuth,
+    this._registration,
   ) : super(const AuthState()) {
     // on<_AuthStatusChanged>(_onAuthStatusChanged);
     on<AuthLoginByPasswordEvent>(_onAuthLoginByPassword);
     on<AuthLogoutEvent>(_onAuthLogout);
     on<AuthCheckEvent>(_onAuthCheck);
+    on<AuthRegistrationEvent>(_onAuthRegistration);
     // _authStatusSubscription = _authRepository.status.listen(
     //   (status) => add(_AuthStatusChanged(status)),
     // );
@@ -99,6 +103,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(state.copyWith(status: AuthStatus.unauthenticated));
           return;
         }
+        emit(state.copyWith(status: AuthStatus.authenticated));
+      },
+    );
+  }
+
+  void _onAuthRegistration(
+    AuthRegistrationEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    final response = await _registration.call(
+      AuthParams(
+        login: event.login,
+        password: event.password,
+      ),
+    );
+    response.fold(
+      (error) {
+        emit(state.copyWith(status: AuthStatus.unauthenticated));
+      },
+      (result) {
         emit(state.copyWith(status: AuthStatus.authenticated));
       },
     );

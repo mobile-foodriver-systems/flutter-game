@@ -6,6 +6,9 @@
     "authPageAcceptPart": "Нажимая «Войти», Вы принимаете условия\n",
     "authPagePrivacyPolicyPart": "политики конфиденциальности",
     "authPagePrivacyPolicy": "Политика конфиденциальности",
+    "authPageYourLogin": "Ваш логин",
+    "authPageYourPassword": "Ваш пароль",
+    "authPageRegister": "Зарегистрироваться",
     "profilePageYourBalance": "Ваш баланс",
     "profilePageLogout": "Выйти из аккаунта",
     "profilePageDeleteAccount": "Удалить аккаунт",
@@ -14,7 +17,7 @@
     "profilePageWallet": "Кошелек",
     "profilePageLegal": "Юридическое",
     "profilePageOfferAgreement": "Договор оферты",
-    "progressListPageRatingOfParticipants": "Rating of participants",
+    "progressListPageRatingOfParticipants": "Рейтинг участников",
     "progressListPageGlobal": "Глобальный",
     "progressListPageDistanceRadius": "В радиусе 100 км",
     "progressListPageUnknown": "Неизвестно",
@@ -28,5 +31,8 @@
     "gamePageTryAgain": "Попробовать снова",
     "gamePageYourReward": "Ваша награда",
     "gamePagePlayMore": "Играть еще",
-    "gamePageSomethingWrong": "Что-то пошло не так"
+    "gamePageSomethingWrong": "Что-то пошло не так",
+    "registrationPageRegistration": "Регистрация",
+    "registrationPageYourPassword": "Повторите пароль",
+    "registrationPagePasswordsDoNotMatch": "Пароли не совпадают"
 }

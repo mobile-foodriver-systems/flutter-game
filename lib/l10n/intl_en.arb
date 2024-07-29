@@ -6,6 +6,9 @@
     "authPageAcceptPart": "By clicking «Login», you accept the terms of the\n",
     "authPagePrivacyPolicyPart": "privacy policy",
     "authPagePrivacyPolicy": "Privacy policy",
+    "authPageYourLogin": "Your username",
+    "authPageYourPassword": "Your password",
+    "authPageRegister": "Register",
     "profilePageYourBalance": "Your balance",
     "profilePageLogout": "Log out",
     "profilePageDeleteAccount": "Delete an account",
@@ -28,5 +31,8 @@
     "gamePageTryAgain": "Try again",
     "gamePageYourReward": "Your reward",
     "gamePagePlayMore": "Play more",
-    "gamePageSomethingWrong": "Something went wrong"
+    "gamePageSomethingWrong": "Something went wrong",
+    "registrationPageRegistration": "Registration",
+    "registrationPageYourPassword": "Repeat the password",
+    "registrationPagePasswordsDoNotMatch": "Passwords don't match"
 }

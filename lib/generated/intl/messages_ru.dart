@@ -37,8 +37,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Политика конфиденциальности"),
         "authPagePrivacyPolicyPart":
             MessageLookupByLibrary.simpleMessage("политики конфиденциальности"),
+        "authPageRegister":
+            MessageLookupByLibrary.simpleMessage("Зарегистрироваться"),
         "authPageUsername":
             MessageLookupByLibrary.simpleMessage("Введите логин"),
+        "authPageYourLogin": MessageLookupByLibrary.simpleMessage("Ваш логин"),
+        "authPageYourPassword":
+            MessageLookupByLibrary.simpleMessage("Ваш пароль"),
         "gamePageBeginIn": m0,
         "gamePageClickOnTheDots": MessageLookupByLibrary.simpleMessage(
             "Жмите на точки для начала игры"),
@@ -72,10 +77,16 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Глобальный"),
         "progressListPageNick": MessageLookupByLibrary.simpleMessage("Ник"),
         "progressListPageRatingOfParticipants":
-            MessageLookupByLibrary.simpleMessage("Rating of participants"),
+            MessageLookupByLibrary.simpleMessage("Рейтинг участников"),
         "progressListPageScore":
             MessageLookupByLibrary.simpleMessage("Рейтинг"),
         "progressListPageUnknown":
-            MessageLookupByLibrary.simpleMessage("Неизвестно")
+            MessageLookupByLibrary.simpleMessage("Неизвестно"),
+        "registrationPagePasswordsDoNotMatch":
+            MessageLookupByLibrary.simpleMessage("Пароли не совпадают"),
+        "registrationPageRegistration":
+            MessageLookupByLibrary.simpleMessage("Регистрация"),
+        "registrationPageYourPassword":
+            MessageLookupByLibrary.simpleMessage("Повторите пароль")
       };
 }

@@ -6,10 +6,12 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton(env: [Environment.dev, Environment.prod])
 class AppHttpService extends HttpService {
+  // final AuthInterceptor authInterceptor;
   AppHttpService(
     DioProvider dioProvider,
     NetworkInfo networkInfo,
     String locale,
+    // this.authInterceptor,
   ) : super(
           dioProvider.dioProvider(
             interceptors: [],

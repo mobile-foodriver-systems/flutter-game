@@ -37,8 +37,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Privacy policy"),
         "authPagePrivacyPolicyPart":
             MessageLookupByLibrary.simpleMessage("privacy policy"),
+        "authPageRegister": MessageLookupByLibrary.simpleMessage("Register"),
         "authPageUsername":
             MessageLookupByLibrary.simpleMessage("Enter your username"),
+        "authPageYourLogin":
+            MessageLookupByLibrary.simpleMessage("Your username"),
+        "authPageYourPassword":
+            MessageLookupByLibrary.simpleMessage("Your password"),
         "gamePageBeginIn": m0,
         "gamePageClickOnTheDots": MessageLookupByLibrary.simpleMessage(
             "Click on the dots to start the game"),
@@ -72,6 +77,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Rating of participants"),
         "progressListPageScore": MessageLookupByLibrary.simpleMessage("Score"),
         "progressListPageUnknown":
-            MessageLookupByLibrary.simpleMessage("Unknown")
+            MessageLookupByLibrary.simpleMessage("Unknown"),
+        "registrationPagePasswordsDoNotMatch":
+            MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
+        "registrationPageRegistration":
+            MessageLookupByLibrary.simpleMessage("Registration"),
+        "registrationPageYourPassword":
+            MessageLookupByLibrary.simpleMessage("Repeat the password")
       };
 }

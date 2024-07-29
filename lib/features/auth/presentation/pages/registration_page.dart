@@ -5,11 +5,11 @@ import 'package:food_driver/core/theme/theme_data.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/auth/presentation/pages/web_view_page.dart';
-import 'package:food_driver/features/auth/presentation/widgets/login_password_auth_form.dart';
+import 'package:food_driver/features/auth/presentation/widgets/registration_form.dart';
 import 'package:food_driver/generated/l10n.dart';
 
-class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+class RegistrationPage extends StatelessWidget {
+  const RegistrationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +33,12 @@ class AuthPage extends StatelessWidget {
                     Image.asset(AssetsCatalog.logo),
                     const Spacer(flex: 56),
                     Text(
-                      S.current.authPageLoginToAccount,
+                      S.current.registrationPageRegistration,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: 24.0),
-                    const LoginPasswordAuthForm(),
+                    const RegistrationForm(),
                     const Spacer(flex: 56),
                     const _PrivacyPolicy(),
                     const Spacer(flex: 227),

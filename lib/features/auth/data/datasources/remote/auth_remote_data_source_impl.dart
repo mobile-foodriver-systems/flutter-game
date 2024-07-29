@@ -9,7 +9,6 @@ part of "auth_remote_data_source.dart";
 )
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final AppHttpService _appHttpService;
-  static const String path = '/identity/connect/token';
 
   AuthRemoteDataSourceImpl(
     this._appHttpService,
@@ -18,7 +17,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<AuthModel> initAuth() async {
     final response = await _appHttpService.request(
-      path: path,
+      path: ApiRoutes.token,
       type: RequestType.post,
       data: const Identity(grantType: GrantType.clientCredentials).toMap(),
     );
@@ -58,19 +57,17 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String login,
     required String password,
   }) async {
-    final data = const Identity(
-      grantType: GrantType.password,
-      scope: 'foodriver.game.api',
-    ).toMap()
-      ..addAll({
-        'username': login,
-        'password': password,
-      });
-    print("AAA data: = ${data.toString()}");
     final response = await _appHttpService.request(
-      path: path,
+      path: ApiRoutes.token,
       type: RequestType.post,
-      data: data,
+      data: const Identity(
+        grantType: GrantType.password,
+        scope: 'foodriver.game.api',
+      ).toMap()
+        ..addAll({
+          'username': login,
+          'password': password,
+        }),
     );
     print("AAA response: = ${response.toString()}");
     return AuthModel.fromJson(jsonDecode(response.data));
@@ -87,11 +84,27 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<AuthModel> updateAuthModel({required String refreshToken}) async {
     final response = await _appHttpService.request(
-      path: path,
+      path: ApiRoutes.token,
       type: RequestType.post,
       data: const Identity(grantType: GrantType.refreshToken).toMap()
         ..addAll({'refresh_token': refreshToken}),
     );
     return AuthModel.fromJson(response.data);
+  }
+
+  @override
+  Future<bool> registration({
+    required String login,
+    required String password,
+  }) async {
+    final response = await _appHttpService.request(
+      path: ApiRoutes.registration,
+      type: RequestType.post,
+      queryParameters: {
+        "password": password,
+        "userName": login,
+      },
+    );
+    return response.statusCode == 200;
   }
 }

@@ -1,4 +1,4 @@
-import 'package:food_driver/core/interceptors/auth_interceptor.dart';
+import 'package:food_driver/constants/api_routes.dart';
 import 'package:food_driver/core/services/http/app_http_service.dart';
 import 'package:food_driver/core/services/http/http_service.dart';
 import 'package:food_driver/features/user/data/datasources/remote/user_remote_data_source.dart';
@@ -15,13 +15,9 @@ import 'package:injectable/injectable.dart';
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   final AppHttpService _appHttpService;
 
-  static const userProfilePath = '/game/api/v1/account/my';
-
   UserRemoteDataSourceImpl(
     this._appHttpService,
-  ) {
-    _appHttpService.interceptors.add(AuthInterceptor());
-  }
+  );
 
   @override
   Future<num?> balance() async {
@@ -35,7 +31,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   @override
   Future<User?> profile() async {
     final response = await _appHttpService.request(
-      path: userProfilePath,
+      path: ApiRoutes.profile,
       type: RequestType.get,
     );
     return response.data.fromJson();

@@ -88,11 +88,27 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either<Failure, AuthEntity>> refreshAuthModel(
       {required String refreshToken}) async {
     try {
-      final response = (await _remoteDataSource.updateAuthModel(refreshToken: refreshToken));
+      final response =
+          (await _remoteDataSource.updateAuthModel(refreshToken: refreshToken));
       await _localDataSource.saveAuthModel(authModel: response);
       return Right(response.toEntity());
     } catch (e, s) {
       return Left(ExceptionToFailureConverter.convert(e, s));
+    }
+  }
+
+  @override
+  Future<bool> registration({
+    required String login,
+    required String password,
+  }) async {
+    try {
+      return await _remoteDataSource.registration(
+        login: login,
+        password: password,
+      );
+    } catch (e) {
+      return false;
     }
   }
 }

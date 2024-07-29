@@ -1,4 +1,3 @@
-import 'package:food_driver/core/interceptors/auth_interceptor.dart';
 import 'package:food_driver/core/services/http/app_http_service.dart';
 import 'package:food_driver/features/game/data/datasources/remote/game_remote_data_source.dart';
 import 'package:food_driver/features/game/data/models/city.dart';
@@ -19,9 +18,7 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
 
   GameRemoteDataSourceImpl(
     this._appHttpService,
-  ) {
-    _appHttpService.interceptors.add(AuthInterceptor());
-  }
+  );
 
   @override
   Future<List<UserRating>> getUsersRatingList() async {
@@ -49,7 +46,7 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
   @override
   Future<List<DriveRoute>> getDriveRoutesList({required int cityId}) async {
     // final response = await _appHttpService.request(
-    //   path: '',
+    //   path: ApiRoutes.routes,
     //   type: RequestType.get,
     // );
     // return (response.data as List)
@@ -58,7 +55,7 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
     return [
       DriveRoute(
         id: 1,
-        city: City(
+        city: const City(
           id: 65345,
           name: "Pécs",
           countryId: 963,
@@ -84,7 +81,7 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
       ),
       DriveRoute(
         id: 2,
-        city: City(
+        city: const City(
           id: 65345,
           name: "Pécs",
           countryId: 963,
