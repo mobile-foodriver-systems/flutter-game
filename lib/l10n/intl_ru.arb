@@ -27,5 +27,6 @@
     "gamePageLost": "Вы проиграли",
     "gamePageTryAgain": "Попробовать снова",
     "gamePageYourReward": "Ваша награда",
-    "gamePagePlayMore": "Играть еще"
+    "gamePagePlayMore": "Играть еще",
+    "gamePageSomethingWrong": "Что-то пошло не так"
 }

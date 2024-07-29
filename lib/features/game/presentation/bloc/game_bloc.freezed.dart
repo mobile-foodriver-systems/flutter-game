@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$GameState {
   GameStateType get status => throw _privateConstructorUsedError;
+  City? get cityId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GameStateCopyWith<GameState> get copyWith =>
@@ -28,7 +29,7 @@ abstract class $GameStateCopyWith<$Res> {
   factory $GameStateCopyWith(GameState value, $Res Function(GameState) then) =
       _$GameStateCopyWithImpl<$Res, GameState>;
   @useResult
-  $Res call({GameStateType status});
+  $Res call({GameStateType status, City? cityId});
 }
 
 /// @nodoc
@@ -45,12 +46,17 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
   @override
   $Res call({
     Object? status = null,
+    Object? cityId = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as GameStateType,
+      cityId: freezed == cityId
+          ? _value.cityId
+          : cityId // ignore: cast_nullable_to_non_nullable
+              as City?,
     ) as $Val);
   }
 }
@@ -63,7 +69,7 @@ abstract class _$$GameStateImplCopyWith<$Res>
       __$$GameStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({GameStateType status});
+  $Res call({GameStateType status, City? cityId});
 }
 
 /// @nodoc
@@ -78,12 +84,17 @@ class __$$GameStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? cityId = freezed,
   }) {
     return _then(_$GameStateImpl(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as GameStateType,
+      cityId: freezed == cityId
+          ? _value.cityId
+          : cityId // ignore: cast_nullable_to_non_nullable
+              as City?,
     ));
   }
 }
@@ -91,15 +102,19 @@ class __$$GameStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GameStateImpl implements _GameState {
-  const _$GameStateImpl({this.status = GameStateType.init});
+  const _$GameStateImpl(
+      {this.status = GameStateType.loading, this.cityId = null});
 
   @override
   @JsonKey()
   final GameStateType status;
+  @override
+  @JsonKey()
+  final City? cityId;
 
   @override
   String toString() {
-    return 'GameState(status: $status)';
+    return 'GameState(status: $status, cityId: $cityId)';
   }
 
   @override
@@ -107,11 +122,12 @@ class _$GameStateImpl implements _GameState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GameStateImpl &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.cityId, cityId) || other.cityId == cityId));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status);
+  int get hashCode => Object.hash(runtimeType, status, cityId);
 
   @JsonKey(ignore: true)
   @override
@@ -121,10 +137,13 @@ class _$GameStateImpl implements _GameState {
 }
 
 abstract class _GameState implements GameState {
-  const factory _GameState({final GameStateType status}) = _$GameStateImpl;
+  const factory _GameState({final GameStateType status, final City? cityId}) =
+      _$GameStateImpl;
 
   @override
   GameStateType get status;
+  @override
+  City? get cityId;
   @override
   @JsonKey(ignore: true)
   _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>

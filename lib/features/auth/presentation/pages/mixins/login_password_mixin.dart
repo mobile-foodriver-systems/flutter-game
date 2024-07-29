@@ -2,14 +2,16 @@ part of 'package:food_driver/features/auth/presentation/widgets/login_password_a
 
 mixin LoginPasswordMixin on State<LoginPasswordAuthForm> {
   GlobalKey<FormState> get formKey;
-  
+  TextEditingController get loginController;
+  TextEditingController get passwordController;
+  late final AuthBloc _bloc = context.read<AuthBloc>();
+
   void submit() {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const ConfirmationCodePage(
-              email: "test@test.ru",
-            )));
     if (formKey.currentState!.validate()) {
-      
+      _bloc.add(AuthLoginByPasswordEvent(
+        login: loginController.text,
+        password: passwordController.text,
+      ));
     }
   }
 }

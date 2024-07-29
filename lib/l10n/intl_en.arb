@@ -27,5 +27,6 @@
     "gamePageLost": "You've lost",
     "gamePageTryAgain": "Try again",
     "gamePageYourReward": "Your reward",
-    "gamePagePlayMore": "Play more"
+    "gamePagePlayMore": "Play more",
+    "gamePageSomethingWrong": "Something went wrong"
 }

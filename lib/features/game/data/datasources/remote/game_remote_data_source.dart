@@ -4,5 +4,5 @@ import 'package:food_driver/features/game/data/models/user_rating.dart';
 abstract interface class GameRemoteDataSource {
   Future<List<UserRating>> getUsersRatingList();
 
-  Future<List<DriveRoute>> getUsersRoutesList();
+  Future<List<DriveRoute>> getDriveRoutesList({required int cityId});
 }

@@ -1,5 +1,7 @@
 enum GameStateType {
-  init,
+  error,
+  loading,
+  initialized,
   starting,
   playing,
   loose,

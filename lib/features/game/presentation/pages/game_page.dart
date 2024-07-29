@@ -1,89 +1,94 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/game/data/models/game_state_type.dart';
+import 'package:food_driver/features/game/presentation/bloc/game_bloc.dart';
+import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/game.dart';
 import 'package:food_driver/features/game/presentation/widgets/help_game_message.dart';
+import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/game/presentation/widgets/navigation.dart';
 import 'package:food_driver/features/game/presentation/widgets/tap_button.dart';
 
-class GamePage extends StatefulWidget {
+part 'package:food_driver/features/game/presentation/pages/mixins/game_mixin.dart';
+
+class GamePage extends StatelessWidget {
   const GamePage({super.key});
 
   @override
-  State<GamePage> createState() => _GamePageState();
-}
-
-class _GamePageState extends State<GamePage> {
-  GameStateType type = GameStateType.init;
-
-  final ValueNotifier<num> speed = ValueNotifier(0);
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        alignment: Alignment.topLeft,
-        children: [
-          Game(
-            type: type,
-            toggleToInit: toggleToInit,
-          ),
-          Positioned(
-            top: 16,
-            left: 0,
-            right: 0,
-            child: Navigation(
-              key: ValueKey(type),
-              type: type,
-              toggleToInit: toggleToInit,
-              toggleToPlay: toggleToPlay,
-              breakGame: breakGame,
-              balance: 17.04,
-              speed: 1,
-            ),
-          ),
-          if (type == GameStateType.playing || type == GameStateType.starting)
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 10,
-              child: Center(
-                child: TapButton(
-                  callback: onTap,
-                ),
-              ),
-            ),
-          if (type == GameStateType.init)
-            const Positioned(
-              bottom: 16.0,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: HelpGameMessage(),
-              ),
-            ),
-        ],
-      ),
+    return BlocProvider(
+      create: (_) => getIt<GameBloc>(),
+      child: const GamePageBody(),
     );
   }
+}
 
-  void toggleToInit() {
-    setState(() {
-      type = GameStateType.init;
-    });
-  }
+class GamePageBody extends StatefulWidget {
+  const GamePageBody({super.key});
 
-  void toggleToPlay() {
-    setState(() {
-      type = GameStateType.playing;
-    });
-  }
+  @override
+  State<GamePageBody> createState() => _GamePageBodyState();
+}
 
-  void breakGame() {}
-
-  void onTap() {
-    if (type != GameStateType.playing) {
-      return;
-    }
+class _GamePageBodyState extends State<GamePageBody> with GameMixin {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<GameBloc, GameState>(
+      builder: (BuildContext context, GameState state) {
+        if (state.status == GameStateType.error) {
+          return const ErrorPage();
+        }
+        return Scaffold(
+          body: state.status == GameStateType.loading
+              ? const LoadingIndicator()
+              : Stack(
+                  fit: StackFit.expand,
+                  alignment: Alignment.topLeft,
+                  children: [
+                    Game(
+                      type: state.status,
+                      toggleToInit: toggleToInit,
+                    ),
+                    Positioned(
+                      top: 16,
+                      left: 0,
+                      right: 0,
+                      child: Navigation(
+                        key: ValueKey(state.status),
+                        type: state.status,
+                        toggleToInit: toggleToInit,
+                        toggleToPlay: toggleToPlay,
+                        breakGame: breakGame,
+                        balance: 17.04,
+                        speed: 1,
+                      ),
+                    ),
+                    if (state.status == GameStateType.playing ||
+                        state.status == GameStateType.starting)
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        bottom: 10,
+                        child: Center(
+                          child: TapButton(
+                            callback: onTap,
+                          ),
+                        ),
+                      ),
+                    if (state.status == GameStateType.initialized)
+                      const Positioned(
+                        bottom: 16.0,
+                        left: 0,
+                        right: 0,
+                        child: Center(
+                          child: HelpGameMessage(),
+                        ),
+                      ),
+                  ],
+                ),
+        );
+      },
+    );
   }
 }

@@ -11,7 +11,7 @@ import 'package:food_driver/features/user/presentation/widgets/progress_icon_but
 class Navigation extends StatelessWidget {
   const Navigation({
     super.key,
-    this.type = GameStateType.init,
+    this.type = GameStateType.initialized,
     this.balance,
     this.speed,
     required this.toggleToInit,
@@ -60,7 +60,7 @@ class Navigation extends StatelessWidget {
                           balance: balance,
                         ),
             ),
-            type == GameStateType.init
+            type == GameStateType.initialized
                 ? const ProgressIconButton()
                 : CloseIconButton(onPressed: onPressed),
           ],

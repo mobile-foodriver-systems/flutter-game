@@ -31,4 +31,7 @@ abstract class AuthRepository {
   Future<AuthEntity?> getAuthEntity();
 
   Future<Either<Failure, AuthEntity>> initAuthEntity();
+
+  Future<Either<Failure, AuthEntity>> refreshAuthModel(
+      {required String refreshToken});
 }

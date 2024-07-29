@@ -15,6 +15,8 @@ import 'package:injectable/injectable.dart';
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   final AppHttpService _appHttpService;
 
+  static const userProfilePath = '/game/api/v1/account/my';
+
   UserRemoteDataSourceImpl(
     this._appHttpService,
   ) {
@@ -33,7 +35,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   @override
   Future<User?> profile() async {
     final response = await _appHttpService.request(
-      path: 'account/my',
+      path: userProfilePath,
       type: RequestType.get,
     );
     return response.data.fromJson();

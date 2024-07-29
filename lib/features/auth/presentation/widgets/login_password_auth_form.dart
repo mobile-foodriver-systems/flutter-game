@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:food_driver/features/auth/presentation/pages/confirmation_code_page.dart';
 import 'package:food_driver/generated/l10n.dart';
 
 part 'package:food_driver/features/auth/presentation/pages/mixins/login_password_mixin.dart';
@@ -19,7 +18,9 @@ class _LoginPasswordAuthFormState extends State<LoginPasswordAuthForm>
     with LoginPasswordMixin {
   @override
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  @override
   final TextEditingController loginController = TextEditingController();
+  @override
   final TextEditingController passwordController = TextEditingController();
 
   @override
@@ -45,6 +46,7 @@ class _LoginPasswordAuthFormState extends State<LoginPasswordAuthForm>
                   padding: const EdgeInsets.only(
                       left: 44.0, right: 44.0, bottom: 16.0),
                   child: TextFormField(
+                    controller: loginController,
                     keyboardType: TextInputType.text,
                     autofillHints: const [AutofillHints.nickname],
                     textInputAction: TextInputAction.next,
@@ -69,6 +71,7 @@ class _LoginPasswordAuthFormState extends State<LoginPasswordAuthForm>
                   padding: const EdgeInsets.only(
                       left: 44.0, right: 44.0, bottom: 16.0),
                   child: TextFormField(
+                    controller: passwordController,
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.done,
                     validator: (value) {

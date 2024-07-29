@@ -44,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Click on the dots to start the game"),
         "gamePageLost": MessageLookupByLibrary.simpleMessage("You\'ve lost"),
         "gamePagePlayMore": MessageLookupByLibrary.simpleMessage("Play more"),
+        "gamePageSomethingWrong":
+            MessageLookupByLibrary.simpleMessage("Something went wrong"),
         "gamePageTapSpeed": m1,
         "gamePageTapToGo": MessageLookupByLibrary.simpleMessage("Tap\nto go"),
         "gamePageTryAgain": MessageLookupByLibrary.simpleMessage("Try again"),

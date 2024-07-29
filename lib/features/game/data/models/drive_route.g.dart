@@ -7,10 +7,12 @@ part of 'drive_route.dart';
 // **************************************************************************
 
 DriveRoute _$DriveRouteFromJson(Map<String, dynamic> json) => DriveRoute(
+      id: (json['id'] as num).toInt(),
+      city: City.fromJson(json['city'] as Map<String, dynamic>),
       tapCount: (json['tapCount'] as num?)?.toInt(),
       seconds: (json['seconds'] as num?)?.toInt(),
       reward: json['reward'] as num?,
-      points: (json['points'] as List<dynamic>?)
+      coordinateList: (json['coordinateList'] as List<dynamic>?)
               ?.map((e) =>
                   e == null ? null : LatLng.fromJson(e as Map<String, dynamic>))
               .toList() ??
@@ -19,8 +21,10 @@ DriveRoute _$DriveRouteFromJson(Map<String, dynamic> json) => DriveRoute(
 
 Map<String, dynamic> _$DriveRouteToJson(DriveRoute instance) =>
     <String, dynamic>{
+      'id': instance.id,
+      'city': instance.city,
       'tapCount': instance.tapCount,
       'seconds': instance.seconds,
       'reward': instance.reward,
-      'points': instance.points,
+      'coordinateList': instance.coordinateList,
     };

@@ -35,9 +35,7 @@ class AuthRepositoryImpl extends AuthRepository {
       );
       return Right(response.toEntity());
     } catch (e, s) {
-      return Left(
-        ExceptionToFailureConverter.convert(e, s),
-      );
+      return Left(ExceptionToFailureConverter.convert(e, s));
     }
   }
 
@@ -61,9 +59,7 @@ class AuthRepositoryImpl extends AuthRepository {
       await _localDataSource.saveAuthModel(authModel: response);
       return Right(response.toEntity());
     } catch (e, s) {
-      return Left(
-        ExceptionToFailureConverter.convert(e, s),
-      );
+      return Left(ExceptionToFailureConverter.convert(e, s));
     }
   }
 
@@ -84,9 +80,19 @@ class AuthRepositoryImpl extends AuthRepository {
       await _localDataSource.saveAuthModel(authModel: response);
       return Right(response.toEntity());
     } catch (e, s) {
-      return Left(
-        ExceptionToFailureConverter.convert(e, s),
-      );
+      return Left(ExceptionToFailureConverter.convert(e, s));
+    }
+  }
+
+  @override
+  Future<Either<Failure, AuthEntity>> refreshAuthModel(
+      {required String refreshToken}) async {
+    try {
+      final response = (await _remoteDataSource.updateAuthModel(refreshToken: refreshToken));
+      await _localDataSource.saveAuthModel(authModel: response);
+      return Right(response.toEntity());
+    } catch (e, s) {
+      return Left(ExceptionToFailureConverter.convert(e, s));
     }
   }
 }

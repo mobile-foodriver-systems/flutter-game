@@ -27,4 +27,6 @@ abstract interface class AuthRemoteDataSource {
   Future<AuthModel> initAuth();
 
   Future logout({required AuthEntity auth});
+
+  Future<AuthModel> updateAuthModel({required String refreshToken});
 }

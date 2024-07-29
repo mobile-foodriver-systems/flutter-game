@@ -14,3 +14,12 @@ final class GameChangeStateTypeEvent extends GameEvent {
   @override
   List<Object> get props => [status];
 }
+
+final class GamePrepareInfoEvent extends GameEvent {
+  const GamePrepareInfoEvent(this.cityId);
+
+  final int cityId;
+
+  @override
+  List<Object> get props => [];
+}

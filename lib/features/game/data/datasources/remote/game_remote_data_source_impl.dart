@@ -1,6 +1,7 @@
 import 'package:food_driver/core/interceptors/auth_interceptor.dart';
 import 'package:food_driver/core/services/http/app_http_service.dart';
 import 'package:food_driver/features/game/data/datasources/remote/game_remote_data_source.dart';
+import 'package:food_driver/features/game/data/models/city.dart';
 import 'package:food_driver/features/game/data/models/drive_route.dart';
 import 'package:food_driver/features/game/data/models/lat_lng.dart';
 import 'package:food_driver/features/game/data/models/user_rating.dart';
@@ -46,7 +47,7 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
   }
 
   @override
-  Future<List<DriveRoute>> getUsersRoutesList() async {
+  Future<List<DriveRoute>> getDriveRoutesList({required int cityId}) async {
     // final response = await _appHttpService.request(
     //   path: '',
     //   type: RequestType.get,
@@ -56,7 +57,13 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
     //     .toList();
     return [
       DriveRoute(
-        points: [
+        id: 1,
+        city: City(
+          id: 65345,
+          name: "Pécs",
+          countryId: 963,
+        ),
+        coordinateList: [
           LatLng(55.71956193730124, 37.61345092255401),
           LatLng(55.719564965237346, 37.613633312767035),
           LatLng(55.7166586047333, 37.61360425287878),
@@ -76,7 +83,13 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
         reward: 0.02,
       ),
       DriveRoute(
-        points: [
+        id: 2,
+        city: City(
+          id: 65345,
+          name: "Pécs",
+          countryId: 963,
+        ),
+        coordinateList: [
           LatLng(55.72151179791592, 37.61625688053631),
           LatLng(55.72126000637394, 37.616365572690505),
           LatLng(55.72134076272254, 37.617006393454886),

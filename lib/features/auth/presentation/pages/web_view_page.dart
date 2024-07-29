@@ -1,8 +1,6 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
+import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPage extends StatefulWidget {
@@ -59,13 +57,9 @@ class _WebViewPageState extends State<WebViewPage> {
                 child: WebViewWidget(controller: controller),
               ),
               if (isLoading)
-                ColoredBox(
+                const ColoredBox(
                   color: AppColors.white,
-                  child: Center(
-                    child: Platform.isIOS
-                        ? const CupertinoActivityIndicator()
-                        : const CircularProgressIndicator(),
-                  ),
+                  child: LoadingIndicator(),
                 ),
             ],
           ),

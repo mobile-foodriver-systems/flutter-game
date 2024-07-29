@@ -1,3 +1,4 @@
+import 'package:food_driver/features/game/data/models/city.dart';
 import 'package:food_driver/features/game/data/models/lat_lng.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -6,16 +7,20 @@ part 'drive_route.g.dart';
 
 @JsonSerializable()
 class DriveRoute {
+  final int id;
+  final City city;
   final int? tapCount;
   final int? seconds;
   final num? reward;
-  final List<LatLng?> points;
+  final List<LatLng?> coordinateList;
 
   DriveRoute({
+    required this.id,
+    required this.city,
     this.tapCount,
     this.seconds,
     this.reward,
-    this.points = const [],
+    this.coordinateList = const [],
   });
 
   Duration? get time => seconds == null ? null : Duration(seconds: seconds!);
@@ -28,10 +33,12 @@ class DriveRoute {
 extension DriveRouteX on DriveRoute {
   DriveRouteEntity toEntity() {
     return DriveRouteEntity(
+      id: id,
+      city: city,
       tapCount: tapCount,
       seconds: seconds,
       reward: reward,
-      points: points,
+      coordinatesList: coordinateList,
     );
   }
 }

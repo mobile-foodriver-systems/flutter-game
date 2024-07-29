@@ -44,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Жмите на точки для начала игры"),
         "gamePageLost": MessageLookupByLibrary.simpleMessage("Вы проиграли"),
         "gamePagePlayMore": MessageLookupByLibrary.simpleMessage("Играть еще"),
+        "gamePageSomethingWrong":
+            MessageLookupByLibrary.simpleMessage("Что-то пошло не так"),
         "gamePageTapSpeed": m1,
         "gamePageTapToGo":
             MessageLookupByLibrary.simpleMessage("Кликай\nчтобы ехать"),
