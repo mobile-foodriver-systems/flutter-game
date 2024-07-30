@@ -18,6 +18,10 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$GameState {
   GameStateType get status => throw _privateConstructorUsedError;
   City? get cityId => throw _privateConstructorUsedError;
+  List<DriveRouteEntity> get routes => throw _privateConstructorUsedError;
+  DriveRouteEntity? get gameRoute => throw _privateConstructorUsedError;
+  Set<Marker> get markers => throw _privateConstructorUsedError;
+  Set<Polyline> get polylines => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GameStateCopyWith<GameState> get copyWith =>
@@ -29,7 +33,13 @@ abstract class $GameStateCopyWith<$Res> {
   factory $GameStateCopyWith(GameState value, $Res Function(GameState) then) =
       _$GameStateCopyWithImpl<$Res, GameState>;
   @useResult
-  $Res call({GameStateType status, City? cityId});
+  $Res call(
+      {GameStateType status,
+      City? cityId,
+      List<DriveRouteEntity> routes,
+      DriveRouteEntity? gameRoute,
+      Set<Marker> markers,
+      Set<Polyline> polylines});
 }
 
 /// @nodoc
@@ -47,6 +57,10 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
   $Res call({
     Object? status = null,
     Object? cityId = freezed,
+    Object? routes = null,
+    Object? gameRoute = freezed,
+    Object? markers = null,
+    Object? polylines = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -57,6 +71,22 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.cityId
           : cityId // ignore: cast_nullable_to_non_nullable
               as City?,
+      routes: null == routes
+          ? _value.routes
+          : routes // ignore: cast_nullable_to_non_nullable
+              as List<DriveRouteEntity>,
+      gameRoute: freezed == gameRoute
+          ? _value.gameRoute
+          : gameRoute // ignore: cast_nullable_to_non_nullable
+              as DriveRouteEntity?,
+      markers: null == markers
+          ? _value.markers
+          : markers // ignore: cast_nullable_to_non_nullable
+              as Set<Marker>,
+      polylines: null == polylines
+          ? _value.polylines
+          : polylines // ignore: cast_nullable_to_non_nullable
+              as Set<Polyline>,
     ) as $Val);
   }
 }
@@ -69,7 +99,13 @@ abstract class _$$GameStateImplCopyWith<$Res>
       __$$GameStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({GameStateType status, City? cityId});
+  $Res call(
+      {GameStateType status,
+      City? cityId,
+      List<DriveRouteEntity> routes,
+      DriveRouteEntity? gameRoute,
+      Set<Marker> markers,
+      Set<Polyline> polylines});
 }
 
 /// @nodoc
@@ -85,6 +121,10 @@ class __$$GameStateImplCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? cityId = freezed,
+    Object? routes = null,
+    Object? gameRoute = freezed,
+    Object? markers = null,
+    Object? polylines = null,
   }) {
     return _then(_$GameStateImpl(
       status: null == status
@@ -95,6 +135,22 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value.cityId
           : cityId // ignore: cast_nullable_to_non_nullable
               as City?,
+      routes: null == routes
+          ? _value._routes
+          : routes // ignore: cast_nullable_to_non_nullable
+              as List<DriveRouteEntity>,
+      gameRoute: freezed == gameRoute
+          ? _value.gameRoute
+          : gameRoute // ignore: cast_nullable_to_non_nullable
+              as DriveRouteEntity?,
+      markers: null == markers
+          ? _value._markers
+          : markers // ignore: cast_nullable_to_non_nullable
+              as Set<Marker>,
+      polylines: null == polylines
+          ? _value._polylines
+          : polylines // ignore: cast_nullable_to_non_nullable
+              as Set<Polyline>,
     ));
   }
 }
@@ -103,7 +159,15 @@ class __$$GameStateImplCopyWithImpl<$Res>
 
 class _$GameStateImpl implements _GameState {
   const _$GameStateImpl(
-      {this.status = GameStateType.loading, this.cityId = null});
+      {this.status = GameStateType.loading,
+      this.cityId = null,
+      final List<DriveRouteEntity> routes = const [],
+      this.gameRoute = null,
+      final Set<Marker> markers = const {},
+      final Set<Polyline> polylines = const {}})
+      : _routes = routes,
+        _markers = markers,
+        _polylines = polylines;
 
   @override
   @JsonKey()
@@ -111,10 +175,39 @@ class _$GameStateImpl implements _GameState {
   @override
   @JsonKey()
   final City? cityId;
+  final List<DriveRouteEntity> _routes;
+  @override
+  @JsonKey()
+  List<DriveRouteEntity> get routes {
+    if (_routes is EqualUnmodifiableListView) return _routes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_routes);
+  }
+
+  @override
+  @JsonKey()
+  final DriveRouteEntity? gameRoute;
+  final Set<Marker> _markers;
+  @override
+  @JsonKey()
+  Set<Marker> get markers {
+    if (_markers is EqualUnmodifiableSetView) return _markers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_markers);
+  }
+
+  final Set<Polyline> _polylines;
+  @override
+  @JsonKey()
+  Set<Polyline> get polylines {
+    if (_polylines is EqualUnmodifiableSetView) return _polylines;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_polylines);
+  }
 
   @override
   String toString() {
-    return 'GameState(status: $status, cityId: $cityId)';
+    return 'GameState(status: $status, cityId: $cityId, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines)';
   }
 
   @override
@@ -123,11 +216,24 @@ class _$GameStateImpl implements _GameState {
         (other.runtimeType == runtimeType &&
             other is _$GameStateImpl &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.cityId, cityId) || other.cityId == cityId));
+            (identical(other.cityId, cityId) || other.cityId == cityId) &&
+            const DeepCollectionEquality().equals(other._routes, _routes) &&
+            (identical(other.gameRoute, gameRoute) ||
+                other.gameRoute == gameRoute) &&
+            const DeepCollectionEquality().equals(other._markers, _markers) &&
+            const DeepCollectionEquality()
+                .equals(other._polylines, _polylines));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, cityId);
+  int get hashCode => Object.hash(
+      runtimeType,
+      status,
+      cityId,
+      const DeepCollectionEquality().hash(_routes),
+      gameRoute,
+      const DeepCollectionEquality().hash(_markers),
+      const DeepCollectionEquality().hash(_polylines));
 
   @JsonKey(ignore: true)
   @override
@@ -137,13 +243,26 @@ class _$GameStateImpl implements _GameState {
 }
 
 abstract class _GameState implements GameState {
-  const factory _GameState({final GameStateType status, final City? cityId}) =
-      _$GameStateImpl;
+  const factory _GameState(
+      {final GameStateType status,
+      final City? cityId,
+      final List<DriveRouteEntity> routes,
+      final DriveRouteEntity? gameRoute,
+      final Set<Marker> markers,
+      final Set<Polyline> polylines}) = _$GameStateImpl;
 
   @override
   GameStateType get status;
   @override
   City? get cityId;
+  @override
+  List<DriveRouteEntity> get routes;
+  @override
+  DriveRouteEntity? get gameRoute;
+  @override
+  Set<Marker> get markers;
+  @override
+  Set<Polyline> get polylines;
   @override
   @JsonKey(ignore: true)
   _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>

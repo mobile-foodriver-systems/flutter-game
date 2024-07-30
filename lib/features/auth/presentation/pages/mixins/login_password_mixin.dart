@@ -7,11 +7,13 @@ mixin LoginPasswordMixin on State<LoginPasswordAuthForm> {
   late final AuthBloc _bloc = context.read<AuthBloc>();
 
   void submit() {
-    if (formKey.currentState!.validate()) {
-      _bloc.add(AuthLoginByPasswordEvent(
-        login: loginController.text,
-        password: passwordController.text,
-      ));
-    }
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const GamePage()));
+    // if (formKey.currentState!.validate()) {
+    //   _bloc.add(AuthLoginByPasswordEvent(
+    //     login: loginController.text,
+    //     password: passwordController.text,
+    //   ));
+    // }
   }
 }

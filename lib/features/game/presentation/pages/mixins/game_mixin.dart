@@ -14,7 +14,7 @@ mixin GameMixin on State<GamePageBody> {
   }
 
   void toggleToInit() {
-    _bloc.add(const GameChangeStateTypeEvent(GameStateType.initialized));
+    _bloc.add(const GameInitializedEvent()); 
   }
 
   void toggleToPlay() {
@@ -27,5 +27,7 @@ mixin GameMixin on State<GamePageBody> {
     }
   }
 
-  void breakGame() {}
+  void breakGame() {
+    _bloc.add(const GameBreakEvent());
+  }
 }

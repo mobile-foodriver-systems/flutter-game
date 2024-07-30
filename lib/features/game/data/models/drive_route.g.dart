@@ -10,8 +10,8 @@ DriveRoute _$DriveRouteFromJson(Map<String, dynamic> json) => DriveRoute(
       id: (json['id'] as num).toInt(),
       city: City.fromJson(json['city'] as Map<String, dynamic>),
       tapCount: (json['tapCount'] as num?)?.toInt(),
-      seconds: (json['seconds'] as num?)?.toInt(),
-      reward: json['reward'] as num?,
+      seconds: (json['seconds'] as num?)?.toInt() ?? 20,
+      reward: json['reward'] as num? ?? 0.02,
       coordinateList: (json['coordinateList'] as List<dynamic>?)
               ?.map((e) =>
                   e == null ? null : LatLng.fromJson(e as Map<String, dynamic>))

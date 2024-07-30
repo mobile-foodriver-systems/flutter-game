@@ -49,6 +49,9 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                     Game(
                       type: state.status,
                       toggleToInit: toggleToInit,
+                      routes: state.routes,
+                      markers: state.markers,
+                      polylines: state.polylines,
                     ),
                     Positioned(
                       top: 16,

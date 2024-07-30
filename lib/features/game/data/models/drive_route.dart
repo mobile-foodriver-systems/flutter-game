@@ -10,20 +10,20 @@ class DriveRoute {
   final int id;
   final City city;
   final int? tapCount;
-  final int? seconds;
-  final num? reward;
+  final int seconds;
+  final num reward;
   final List<LatLng?> coordinateList;
 
   DriveRoute({
     required this.id,
     required this.city,
     this.tapCount,
-    this.seconds,
-    this.reward,
+    this.seconds = 20,
+    this.reward = 0.02,
     this.coordinateList = const [],
   });
 
-  Duration? get time => seconds == null ? null : Duration(seconds: seconds!);
+  Duration? get time => seconds == null ? null : Duration(seconds: seconds);
 
   factory DriveRoute.fromJson(Map<String, dynamic> json) =>
       _$DriveRouteFromJson(json);

@@ -3,8 +3,10 @@ import 'package:food_driver/core/extensions/fdt_formatter.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/game/data/models/game_state_type.dart';
+import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
 import 'package:food_driver/features/game/presentation/widgets/game_map.dart';
 import 'package:food_driver/generated/l10n.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Game extends StatelessWidget {
   const Game({
@@ -12,11 +14,17 @@ class Game extends StatelessWidget {
     required this.type,
     required this.toggleToInit,
     this.reward,
+    this.routes = const [],
+    this.markers = const <Marker>{},
+    this.polylines = const <Polyline>{},
   });
 
   final GameStateType type;
   final num? reward;
   final VoidCallback toggleToInit;
+  final List<DriveRouteEntity> routes;
+  final Set<Marker> markers;
+  final Set<Polyline> polylines;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +35,11 @@ class Game extends StatelessWidget {
       case GameStateType.initialized:
       case GameStateType.playing:
       case GameStateType.starting:
-        return const GameMap();
+        return GameMap(
+          routes: routes,
+          markers: markers,
+          polylines: polylines,
+        );
       case GameStateType.win:
         return _WinGame(
           toggleToInit: toggleToInit,

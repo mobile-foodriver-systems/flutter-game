@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:food_driver/features/auth/presentation/pages/registration_page.dart';
+import 'package:food_driver/features/game/presentation/pages/game_page.dart';
 import 'package:food_driver/generated/l10n.dart';
 
 part 'package:food_driver/features/auth/presentation/pages/mixins/login_password_mixin.dart';
