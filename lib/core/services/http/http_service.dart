@@ -4,8 +4,9 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:food_driver/core/errors/exceptions/exceptions.dart';
 import 'package:food_driver/core/platform/network_info.dart';
-import 'package:food_driver/features/auth/domain/usecases/get_access_token.dart';
-import 'package:food_driver/features/auth/domain/usecases/refresh_auth.dart';
+import 'package:food_driver/core/services/interceptors/api_interceptor.dart';
+import 'package:food_driver/core/services/interceptors/auth_interceptor.dart';
+import 'package:food_driver/di/injection.dart';
 
 enum RequestType {
   get,
@@ -13,21 +14,43 @@ enum RequestType {
   patch,
   put,
   delete;
+
+  static RequestType typeFromString(String value) {
+    if (value == 'GET') {
+      return RequestType.get;
+    }
+    if (value == 'POST') {
+      return RequestType.post;
+    }
+    if (value == 'DELETE') {
+      return RequestType.delete;
+    }
+    if (value == 'PUT') {
+      return RequestType.put;
+    }
+    if (value == 'PATCH') {
+      return RequestType.patch;
+    }
+    return RequestType.get;
+  }
 }
 
 abstract class HttpService {
   final Dio _dio;
+  late Dio dio = _initDio();
   final NetworkInfo _networkInfo;
   final String _locale;
-  final GetAccessTokenUseCase _getAccessToken;
-  final RefreshAuthUseCase _refreshAuth;
+
+  Dio _initDio() => _dio
+    ..interceptors.addAll([
+      getIt<AuthInterceptor>(),
+      getIt<ApiInterceptor>(),
+    ]);
 
   HttpService(
     this._dio,
     this._networkInfo,
-    this._locale,
-    this._getAccessToken,
-    this._refreshAuth, {
+    this._locale, {
     List<InterceptorsWrapper>? interceptorList,
   }) {
     interceptorList?.forEach((e) => interceptors.add(e));
@@ -53,7 +76,7 @@ abstract class HttpService {
     try {
       switch (type) {
         case RequestType.get:
-          response = await _dio.get(
+          response = await dio.get(
             path,
             data: data,
             queryParameters: queryParameters,
@@ -63,7 +86,7 @@ abstract class HttpService {
           );
           break;
         case RequestType.post:
-          response = await _dio.post(
+          response = await dio.post(
             path,
             data: data,
             queryParameters: queryParameters,
@@ -74,7 +97,7 @@ abstract class HttpService {
           );
           break;
         case RequestType.delete:
-          response = await _dio.delete(
+          response = await dio.delete(
             path,
             data: data,
             queryParameters: queryParameters,
@@ -83,7 +106,7 @@ abstract class HttpService {
           );
           break;
         case RequestType.patch:
-          response = await _dio.patch(
+          response = await dio.patch(
             path,
             data: data,
             queryParameters: queryParameters,
@@ -93,7 +116,7 @@ abstract class HttpService {
           );
           break;
         case RequestType.put:
-          response = await _dio.put(
+          response = await dio.put(
             path,
             data: data,
             queryParameters: queryParameters,

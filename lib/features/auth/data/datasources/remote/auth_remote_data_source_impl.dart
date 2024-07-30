@@ -21,6 +21,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       type: RequestType.post,
       data: const Identity(grantType: GrantType.clientCredentials).toMap(),
     );
+    print("AAA response: = ${response.toString()}");
     return AuthModel.fromJson(response.data);
   }
 

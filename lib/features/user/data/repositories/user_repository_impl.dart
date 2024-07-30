@@ -13,6 +13,7 @@ class UserRepositoryImpl extends UserRepository {
 
   @override
   Future<Either<Failure, UserEntity?>> getUser() async {
+    print("AAA UserRepository getUser");
     try {
       final response = await _remoteDataSource.profile();
       return Right(response?.toEntity());
