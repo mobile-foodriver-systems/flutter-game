@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:food_driver/core/errors/exceptions/exceptions.dart';
 import 'package:food_driver/core/platform/network_info.dart';
+import 'package:food_driver/features/auth/domain/usecases/get_access_token.dart';
+import 'package:food_driver/features/auth/domain/usecases/refresh_auth.dart';
 
 enum RequestType {
   get,
@@ -17,11 +19,15 @@ abstract class HttpService {
   final Dio _dio;
   final NetworkInfo _networkInfo;
   final String _locale;
+  final GetAccessTokenUseCase _getAccessToken;
+  final RefreshAuthUseCase _refreshAuth;
 
   HttpService(
     this._dio,
     this._networkInfo,
-    this._locale, {
+    this._locale,
+    this._getAccessToken,
+    this._refreshAuth, {
     List<InterceptorsWrapper>? interceptorList,
   }) {
     interceptorList?.forEach((e) => interceptors.add(e));
