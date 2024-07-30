@@ -150,7 +150,12 @@ abstract class HttpService {
         throw ServerErrorHttpException(message: error.message);
       }
       if (response == null) rethrow;
-      final data = jsonDecode(response.toString());
+      var data;
+      try {
+        data = jsonDecode(response.toString());
+      } catch (e) {
+        rethrow;
+      }
 
       if (response.statusCode == HttpStatus.badRequest) {
         throw const BadRequestHttpException(

@@ -1,23 +1,29 @@
 import 'package:equatable/equatable.dart';
 
 class UserEntity extends Equatable {
+  final int id;
+  final int rating;
+  final String? userName;
   final String? email;
-  final String? wallet;
+  final String? walletAddress;
+  final num balance;
 
   const UserEntity({
+    required this.id,
+    required this.rating,
+    this.userName,
     this.email,
-    this.wallet,
+    this.walletAddress,
+    required this.balance,
   });
-
-  bool get isEmpty => (email?.isEmpty ?? true) && (wallet?.isEmpty ?? true);
-
-  bool get isNotEmpty => !isEmpty;
-
-  static const empty = UserEntity();
 
   @override
   List<Object?> get props => [
+        id,
+        rating,
+        userName,
         email,
-        wallet,
+        walletAddress,
+        balance,
       ];
 }

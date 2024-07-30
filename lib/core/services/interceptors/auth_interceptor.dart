@@ -22,11 +22,13 @@ class AuthInterceptor extends InterceptorsWrapper {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
+    print("AAA AuthInterceptor onRequest");
     final authEntity = await authRepository.getAuthEntity();
+    print("AAA accessToken: = Bearer ${authEntity?.accessToken}");
     if (authEntity?.accessToken?.isNotEmpty ?? false) {
       options.headers['Authorization'] = 'Bearer ${authEntity?.accessToken}';
-      handler.next(options);
     }
+    handler.next(options);
   }
 
   @override
@@ -35,6 +37,7 @@ class AuthInterceptor extends InterceptorsWrapper {
     final authEntity = await authRepository.getAuthEntity();
     if (err.response?.statusCode == 401 &&
         (authEntity?.refreshToken?.isNotEmpty ?? false)) {
+      print("AAA AuthInterceptor IF");
       final response = await refreshAuth.call(NoParams());
       response.fold(
         (error) => super.onError(err, handler),
@@ -58,6 +61,7 @@ class AuthInterceptor extends InterceptorsWrapper {
         },
       );
     }
+    print("AAA AuthInterceptor ELSE");
     super.onError(err, handler);
   }
 }

@@ -59,6 +59,10 @@ import 'package:food_driver/features/user/data/datasources/remote/user_remote_da
     as _i551;
 import 'package:food_driver/features/user/domain/repositories/user_repository.dart'
     as _i687;
+import 'package:food_driver/features/user/domain/usecases/load_profile.dart'
+    as _i978;
+import 'package:food_driver/features/user/presentation/bloc/user_bloc.dart'
+    as _i223;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:internet_connection_checker/internet_connection_checker.dart'
@@ -192,6 +196,13 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i930.PlayUseCase>(),
           gh<_i824.StopUseCase>(),
         ));
+    gh.factory<_i978.LoadProfileUseCase>(
+      () => _i978.LoadProfileUseCase(gh<_i687.UserRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i1009.LoginByPasswordUseCase>(
       () => _i1009.LoginByPasswordUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
@@ -227,6 +238,8 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i223.UserBloc>(
+        () => _i223.UserBloc(gh<_i978.LoadProfileUseCase>()));
     gh.factory<_i879.CheckAuthUseCase>(
       () => _i879.CheckAuthUseCase(
         gh<_i55.AuthRepository>(),

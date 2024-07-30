@@ -1,9 +1,9 @@
 part of 'user_bloc.dart';
 
-abstract class UserState extends Equatable {
-  const UserState();  
-
-  @override
-  List<Object> get props => [];
+@freezed
+class UserState with _$UserState {
+  const factory UserState({
+    @Default(UserStatus.loading) UserStatus status,
+    @Default(null) UserEntity? user,
+  }) = _UserState;
 }
-class UserInitial extends UserState {}

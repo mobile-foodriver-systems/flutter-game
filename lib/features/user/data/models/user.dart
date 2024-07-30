@@ -9,14 +9,16 @@ class User {
   final int rating;
   final String? userName;
   final String? email;
-  final String? wallet;
+  final String? walletAddress;
+  final num balance;
 
   const User({
     required this.id,
     required this.rating,
     this.userName,
     this.email,
-    this.wallet,
+    this.walletAddress,
+    this.balance = 0,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -26,8 +28,12 @@ class User {
 extension UserX on User {
   UserEntity toEntity() {
     return UserEntity(
+      id: id,
+      rating: rating,
+      userName: userName,
       email: email,
-      wallet: wallet,
+      walletAddress: walletAddress,
+      balance: balance,
     );
   }
 }

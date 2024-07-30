@@ -2,7 +2,7 @@ import 'package:food_driver/constants/api_routes.dart';
 import 'package:food_driver/core/services/http/app_http_service.dart';
 import 'package:food_driver/core/services/http/http_service.dart';
 import 'package:food_driver/features/user/data/datasources/remote/user_remote_data_source.dart';
-import 'package:food_driver/features/user/data/models/models/user.dart';
+import 'package:food_driver/features/user/data/models/user.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(
@@ -29,12 +29,12 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   }
 
   @override
-  Future<User?> profile() async {
+  Future<User> profile() async {
     final response = await _appHttpService.request(
       path: ApiRoutes.profile,
       type: RequestType.get,
     );
-    return response.data.fromJson();
+    return User.fromJson(response.data);
   }
 
   @override

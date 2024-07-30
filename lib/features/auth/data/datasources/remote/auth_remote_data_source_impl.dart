@@ -63,23 +63,22 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       type: RequestType.post,
       data: const Identity(
         grantType: GrantType.password,
-        scope: 'foodriver.game.api',
+        scope: 'foodriver.game.api openid offline_access',
       ).toMap()
         ..addAll({
           'username': login,
           'password': password,
         }),
     );
-    print("AAA response: = ${response.toString()}");
-    return AuthModel.fromJson(jsonDecode(response.data));
+    return AuthModel.fromJson(response.data);
   }
 
   @override
   Future<void> logout({required AuthEntity auth}) async {
-    await _appHttpService.request(
-      path: '',
-      type: RequestType.post,
-    );
+    // await _appHttpService.request(
+    //   path: '',
+    //   type: RequestType.post,
+    // );
   }
 
   @override
@@ -101,7 +100,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await _appHttpService.request(
       path: ApiRoutes.registration,
       type: RequestType.post,
-      queryParameters: {
+      options: Options(contentType: 'application/json-patch+json'),
+      data: {
         "password": password,
         "userName": login,
       },

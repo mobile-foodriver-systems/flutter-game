@@ -11,7 +11,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       rating: (json['rating'] as num).toInt(),
       userName: json['userName'] as String?,
       email: json['email'] as String?,
-      wallet: json['wallet'] as String?,
+      walletAddress: json['walletAddress'] as String?,
+      balance: json['balance'] as num? ?? 0,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -19,5 +20,6 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'rating': instance.rating,
       'userName': instance.userName,
       'email': instance.email,
-      'wallet': instance.wallet,
+      'walletAddress': instance.walletAddress,
+      'balance': instance.balance,
     };

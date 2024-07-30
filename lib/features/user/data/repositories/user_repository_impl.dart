@@ -12,11 +12,10 @@ class UserRepositoryImpl extends UserRepository {
   );
 
   @override
-  Future<Either<Failure, UserEntity?>> getUser() async {
-    print("AAA UserRepository getUser");
+  Future<Either<Failure, UserEntity>> getUser() async {
     try {
       final response = await _remoteDataSource.profile();
-      return Right(response?.toEntity());
+      return Right(response.toEntity());
     } catch (e, s) {
       return Left(
         ExceptionToFailureConverter.convert(e, s),
