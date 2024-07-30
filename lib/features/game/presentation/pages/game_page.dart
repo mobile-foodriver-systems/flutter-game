@@ -63,8 +63,10 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                         toggleToInit: toggleToInit,
                         toggleToPlay: toggleToPlay,
                         breakGame: breakGame,
+                        looseGame: looseGame,
                         balance: 17.04,
                         speed: 1,
+                        seconds: state.gameRoute?.seconds ?? 0,
                       ),
                     ),
                     if (state.status == GameStateType.playing ||

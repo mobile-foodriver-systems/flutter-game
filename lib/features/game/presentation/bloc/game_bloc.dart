@@ -36,6 +36,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameAddPolylinesEvent>(_addPolylines);
     on<GameBreakEvent>(_breakGame);
     on<GameInitializedEvent>(_initializedGame);
+    on<GameLooseEvent>(_looseGame);
   }
 
   void _changeGameState(
@@ -115,22 +116,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameBreakEvent event,
     Emitter<GameState> emit,
   ) async {
-    final routeId = state.gameRoute?.id;
-    var routes = [...state.routes];
-    routes.removeWhere((route) => route.id == routeId);
-    print("AAA routes.length: = ${routes.length}");
-    final markers = await RouteMarker.createMarkers(
-      routes: routes,
-      onTap: (route) => add(GameStartEvent(route)),
-    );
-    if (routeId == null) {
-      emit(state.copyWith(
-        status: GameStateType.initialized,
-        polylines: {},
-        markers: markers,
-      ));
-      return;
-    }
+    final markers = await _updatedMarkers();
     emit(state.copyWith(
       status: GameStateType.initialized,
       polylines: {},
@@ -151,5 +137,26 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       polylines: {},
       markers: markers,
     ));
+  }
+
+  void _looseGame(
+    GameLooseEvent event,
+    Emitter<GameState> emit,
+  ) async {
+    final markers = await _updatedMarkers();
+    emit(state.copyWith(
+      status: GameStateType.loose,
+      polylines: {},
+      markers: markers,
+    ));
+  }
+
+  Future<Set<Marker>> _updatedMarkers() async {
+    var routes = [...state.routes];
+    routes.removeWhere((route) => route.id == state.gameRoute?.id);
+    return await RouteMarker.createMarkers(
+      routes: routes,
+      onTap: (route) => add(GameStartEvent(route)),
+    );
   }
 }

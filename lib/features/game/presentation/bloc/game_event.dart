@@ -60,7 +60,14 @@ final class GameBreakEvent extends GameEvent {
 
 final class GameInitializedEvent extends GameEvent {
   const GameInitializedEvent();
-  
+
+  @override
+  List<Object> get props => [];
+}
+
+final class GameLooseEvent extends GameEvent {
+  const GameLooseEvent();
+
   @override
   List<Object> get props => [];
 }

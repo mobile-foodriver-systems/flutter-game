@@ -30,4 +30,8 @@ mixin GameMixin on State<GamePageBody> {
   void breakGame() {
     _bloc.add(const GameBreakEvent());
   }
+
+  void looseGame() {
+    _bloc.add(const GameLooseEvent());
+  }
 }

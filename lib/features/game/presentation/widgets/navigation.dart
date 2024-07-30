@@ -17,6 +17,8 @@ class Navigation extends StatelessWidget {
     required this.toggleToInit,
     required this.toggleToPlay,
     required this.breakGame,
+    required this.looseGame,
+    this.seconds = 0,
   });
 
   final GameStateType type;
@@ -24,7 +26,9 @@ class Navigation extends StatelessWidget {
   final VoidCallback toggleToInit;
   final VoidCallback toggleToPlay;
   final VoidCallback breakGame;
+  final VoidCallback looseGame;
   final num? speed;
+  final int seconds;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +56,8 @@ class Navigation extends StatelessWidget {
                   : type == GameStateType.playing
                       ? GameProgress(
                           speed: speed,
+                          seconds: seconds,
+                          looseGame: looseGame,
                         )
                       : Balance(
                           callback: () => Navigator.of(context).push(
