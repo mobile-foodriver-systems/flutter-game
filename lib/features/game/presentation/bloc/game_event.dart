@@ -25,12 +25,19 @@ final class GamePrepareInfoEvent extends GameEvent {
 }
 
 final class GameStartEvent extends GameEvent {
-  const GameStartEvent(this.route);
+  const GameStartEvent(this.routeId);
 
-  final DriveRouteEntity route;
+  final int routeId;
 
   @override
-  List<Object> get props => [route];
+  List<Object> get props => [routeId];
+}
+
+final class GamePlayEvent extends GameEvent {
+  const GamePlayEvent();
+
+  @override
+  List<Object> get props => [];
 }
 
 final class GameAddMarkersEvent extends GameEvent {
@@ -70,4 +77,28 @@ final class GameLooseEvent extends GameEvent {
 
   @override
   List<Object> get props => [];
+}
+
+final class GameWinEvent extends GameEvent {
+  const GameWinEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class GameTapEvent extends GameEvent {
+  const GameTapEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class GameUpdateSpeedEvent extends GameEvent {
+  final int seconds;
+  const GameUpdateSpeedEvent({
+    required this.seconds,
+  });
+
+  @override
+  List<Object> get props => [seconds];
 }

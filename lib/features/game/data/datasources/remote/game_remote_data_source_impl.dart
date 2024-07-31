@@ -76,7 +76,7 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
           LatLng(55.71655115535615, 37.60621698338845),
         ],
         seconds: 10,
-        tapCount: 180,
+        tapCount: 50,
         reward: 0.02,
       ),
       DriveRoute(

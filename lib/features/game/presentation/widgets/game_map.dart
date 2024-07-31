@@ -1,15 +1,12 @@
 import 'dart:async';
-import 'dart:typed_data';
-import 'dart:ui';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
+import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:food_driver/features/game/domain/entities/route_marker.dart';
 import 'package:food_driver/features/game/presentation/bloc/game_bloc.dart';
-import 'package:food_driver/features/game/presentation/widgets/rps_custom_painter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 part 'package:food_driver/features/game/presentation/pages/mixins/map_mixin.dart';
@@ -50,6 +47,7 @@ class _GameMapState extends State<GameMap> with MapMixin {
       onMapCreated: onMapCreated,
       markers: widget.markers,
       polylines: widget.polylines,
+      zoomControlsEnabled: false,
     );
   }
 }

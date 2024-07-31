@@ -1,9 +1,13 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/game/data/models/city.dart';
 import 'package:food_driver/features/game/data/models/game_state_type.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
+import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:food_driver/features/game/domain/entities/route_marker.dart';
 import 'package:food_driver/features/game/domain/usecases/load.dart';
 import 'package:food_driver/features/game/domain/usecases/play.dart';
@@ -32,12 +36,21 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameChangeStateTypeEvent>(_changeGameState);
     on<GamePrepareInfoEvent>(_prepareInfo);
     on<GameStartEvent>(_startGame);
+    on<GamePlayEvent>(_playGame);
     on<GameAddMarkersEvent>(_addMarkers);
     on<GameAddPolylinesEvent>(_addPolylines);
     on<GameBreakEvent>(_breakGame);
     on<GameInitializedEvent>(_initializedGame);
     on<GameLooseEvent>(_looseGame);
+    on<GameWinEvent>(_winGame);
+    on<GameTapEvent>(_onTap);
+    on<GameUpdateSpeedEvent>(_updateSpeed);
   }
+
+  Set<MarkerEntity> get markerEntities => state.routes
+      .map((route) => route.markerEntity)
+      .whereType<MarkerEntity>()
+      .toSet();
 
   void _changeGameState(
     GameChangeStateTypeEvent event,
@@ -79,18 +92,35 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameStartEvent event,
     Emitter<GameState> emit,
   ) async {
+    final route = state.routes.firstWhere((route) => route.id == event.routeId);
+    final gameMarkers =
+        await RouteMarker.createMarkers(entities: route.startFinishEntities);
+
     emit(state.copyWith(
       status: GameStateType.starting,
-      gameRoute: event.route,
-      markers: {},
+      gameRoute: route,
+      markers: gameMarkers,
       polylines: {
         Polyline(
-          polylineId: PolylineId(event.route.id.toString()),
-          points: event.route.points,
+          polylineId: PolylineId(event.routeId.toString()),
+          points: route.points,
           color: AppColors.black,
-          width: 1,
+          width: 2,
         ),
       },
+    ));
+  }
+
+  void _playGame(
+    GamePlayEvent event,
+    Emitter<GameState> emit,
+  ) {
+    emit(state.copyWith(
+      status: GameStateType.playing,
+      timer: Timer.periodic(const Duration(seconds: 1), timerCallback),
+      tapCount: 0,
+      speed: 0,
+      seconds: state.gameRoute?.seconds ?? 0,
     ));
   }
 
@@ -116,11 +146,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameBreakEvent event,
     Emitter<GameState> emit,
   ) async {
-    final markers = await _updatedMarkers();
+    final (routes, markers) = await _updatedMarkers();
     emit(state.copyWith(
       status: GameStateType.initialized,
       polylines: {},
       markers: markers,
+      routes: routes,
     ));
   }
 
@@ -129,8 +160,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) async {
     final markers = await RouteMarker.createMarkers(
-      routes: state.routes,
-      onTap: (route) => add(GameStartEvent(route)),
+      entities: markerEntities,
+      onTap: (routeId) => add(GameStartEvent(routeId)),
     );
     emit(state.copyWith(
       status: GameStateType.initialized,
@@ -143,20 +174,75 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameLooseEvent event,
     Emitter<GameState> emit,
   ) async {
-    final markers = await _updatedMarkers();
+    final (routes, markers) = await _updatedMarkers();
     emit(state.copyWith(
       status: GameStateType.loose,
       polylines: {},
+      timer: null,
       markers: markers,
+      routes: routes,
     ));
   }
 
-  Future<Set<Marker>> _updatedMarkers() async {
+  void _winGame(
+    GameWinEvent event,
+    Emitter<GameState> emit,
+  ) async {
+    state.timer?.cancel();
+    final (routes, markers) = await _updatedMarkers();
+    emit(state.copyWith(
+      status: GameStateType.win,
+      polylines: {},
+      markers: markers,
+      routes: routes,
+      timer: null,
+    ));
+  }
+
+  void _onTap(
+    GameTapEvent event,
+    Emitter<GameState> emit,
+  ) {
+    final newCount = state.tapCount + 1;
+    if ((state.gameRoute?.tapCount ?? 0) == newCount) {
+      add(const GameWinEvent());
+      return;
+    }
+    emit(state.copyWith(
+      tapCount: newCount,
+    ));
+  }
+
+  void _updateSpeed(
+    GameUpdateSpeedEvent event,
+    Emitter<GameState> emit,
+  ) {
+    final passedSeconds = (state.gameRoute?.seconds ?? 0) - state.seconds;
+    emit(state.copyWith(
+      speed: passedSeconds == 0
+          ? 0
+          : state.tapCount / ((state.gameRoute?.seconds ?? 0) - state.seconds),
+      seconds: event.seconds,
+    ));
+  }
+
+  Future<(List<DriveRouteEntity>, Set<Marker>)> _updatedMarkers() async {
     var routes = [...state.routes];
     routes.removeWhere((route) => route.id == state.gameRoute?.id);
-    return await RouteMarker.createMarkers(
-      routes: routes,
-      onTap: (route) => add(GameStartEvent(route)),
+    final markers = await RouteMarker.createMarkers(
+      entities: markerEntities,
+      onTap: (routeId) => add(GameStartEvent(routeId)),
     );
+    return (routes, markers);
+  }
+
+  void timerCallback(Timer timer) {
+    if (state.seconds == 0) {
+      timer.cancel();
+      add(const GameLooseEvent());
+      return;
+    } else {
+      add(GameUpdateSpeedEvent(seconds: max(state.seconds - 1, 0)));
+    }
   }
 }

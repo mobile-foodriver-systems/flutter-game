@@ -52,6 +52,7 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                       routes: state.routes,
                       markers: state.markers,
                       polylines: state.polylines,
+                      reward: state.gameRoute?.reward,
                     ),
                     Positioned(
                       top: 16,
@@ -63,10 +64,10 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                         toggleToInit: toggleToInit,
                         toggleToPlay: toggleToPlay,
                         breakGame: breakGame,
-                        looseGame: looseGame,
-                        balance: 17.04,
-                        speed: 1,
-                        seconds: state.gameRoute?.seconds ?? 0,
+                        // TODO: set variable
+                        balance: 0.0,
+                        speed: state.speed,
+                        seconds: state.seconds,
                       ),
                     ),
                     if (state.status == GameStateType.playing ||

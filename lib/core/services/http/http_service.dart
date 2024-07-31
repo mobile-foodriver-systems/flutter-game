@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:food_driver/core/errors/exceptions/exceptions.dart';
 import 'package:food_driver/core/platform/network_info.dart';
-import 'package:food_driver/core/services/interceptors/api_interceptor.dart';
 import 'package:food_driver/core/services/interceptors/auth_interceptor.dart';
 import 'package:food_driver/di/injection.dart';
 
@@ -44,7 +43,6 @@ abstract class HttpService {
   Dio _initDio() => _dio
     ..interceptors.addAll([
       getIt<AuthInterceptor>(),
-      getIt<ApiInterceptor>(),
     ]);
 
   HttpService(

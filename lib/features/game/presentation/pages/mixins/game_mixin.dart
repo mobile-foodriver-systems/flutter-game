@@ -14,24 +14,20 @@ mixin GameMixin on State<GamePageBody> {
   }
 
   void toggleToInit() {
-    _bloc.add(const GameInitializedEvent()); 
+    _bloc.add(const GameInitializedEvent());
   }
 
   void toggleToPlay() {
-    _bloc.add(const GameChangeStateTypeEvent(GameStateType.playing));
+    _bloc.add(const GamePlayEvent());
   }
 
   void onTap() {
-    if (_bloc.state.status != GameStateType.playing) {
-      return;
+    if (_bloc.state.status == GameStateType.playing) {
+      _bloc.add(const GameTapEvent());
     }
   }
 
   void breakGame() {
     _bloc.add(const GameBreakEvent());
-  }
-
-  void looseGame() {
-    _bloc.add(const GameLooseEvent());
   }
 }

@@ -9,5 +9,9 @@ class GameState with _$GameState {
     @Default(null) DriveRouteEntity? gameRoute,
     @Default({}) Set<Marker> markers,
     @Default({}) Set<Polyline> polylines,
+    @Default(0) int tapCount,
+    @Default(null) Timer? timer,
+    @Default(0) num speed,
+    @Default(0) int seconds,
   }) = _GameState;
 }

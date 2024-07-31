@@ -4,9 +4,6 @@ mixin MapMixin on State<GameMap> {
   Completer<GoogleMapController> get _controller;
   late final GameBloc _bloc = context.read<GameBloc>();
 
-  // Set<Marker> markers = {};
-  // Set<Polyline> polylines = {};
-
   @override
   void initState() {
     super.initState();
@@ -30,12 +27,15 @@ mixin MapMixin on State<GameMap> {
 
   Future<void> createMarkers() async {
     _bloc.add(GameAddMarkersEvent(await RouteMarker.createMarkers(
-      routes: widget.routes,
-      onTap: (route) => onMarkerTap(route),
+      entities: widget.routes
+          .map((route) => route.markerEntity)
+          .whereType<MarkerEntity>()
+          .toSet(),
+      onTap: (routeId) => onMarkerTap(routeId),
     )));
   }
 
-  void onMarkerTap(DriveRouteEntity route) {
-    _bloc.add(GameStartEvent(route));
+  void onMarkerTap(int routeId) {
+    _bloc.add(GameStartEvent(routeId));
   }
 }

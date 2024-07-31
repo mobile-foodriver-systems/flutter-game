@@ -22,6 +22,10 @@ mixin _$GameState {
   DriveRouteEntity? get gameRoute => throw _privateConstructorUsedError;
   Set<Marker> get markers => throw _privateConstructorUsedError;
   Set<Polyline> get polylines => throw _privateConstructorUsedError;
+  int get tapCount => throw _privateConstructorUsedError;
+  Timer? get timer => throw _privateConstructorUsedError;
+  num get speed => throw _privateConstructorUsedError;
+  int get seconds => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GameStateCopyWith<GameState> get copyWith =>
@@ -39,7 +43,11 @@ abstract class $GameStateCopyWith<$Res> {
       List<DriveRouteEntity> routes,
       DriveRouteEntity? gameRoute,
       Set<Marker> markers,
-      Set<Polyline> polylines});
+      Set<Polyline> polylines,
+      int tapCount,
+      Timer? timer,
+      num speed,
+      int seconds});
 }
 
 /// @nodoc
@@ -61,6 +69,10 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
     Object? gameRoute = freezed,
     Object? markers = null,
     Object? polylines = null,
+    Object? tapCount = null,
+    Object? timer = freezed,
+    Object? speed = null,
+    Object? seconds = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -87,6 +99,22 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.polylines
           : polylines // ignore: cast_nullable_to_non_nullable
               as Set<Polyline>,
+      tapCount: null == tapCount
+          ? _value.tapCount
+          : tapCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      timer: freezed == timer
+          ? _value.timer
+          : timer // ignore: cast_nullable_to_non_nullable
+              as Timer?,
+      speed: null == speed
+          ? _value.speed
+          : speed // ignore: cast_nullable_to_non_nullable
+              as num,
+      seconds: null == seconds
+          ? _value.seconds
+          : seconds // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -105,7 +133,11 @@ abstract class _$$GameStateImplCopyWith<$Res>
       List<DriveRouteEntity> routes,
       DriveRouteEntity? gameRoute,
       Set<Marker> markers,
-      Set<Polyline> polylines});
+      Set<Polyline> polylines,
+      int tapCount,
+      Timer? timer,
+      num speed,
+      int seconds});
 }
 
 /// @nodoc
@@ -125,6 +157,10 @@ class __$$GameStateImplCopyWithImpl<$Res>
     Object? gameRoute = freezed,
     Object? markers = null,
     Object? polylines = null,
+    Object? tapCount = null,
+    Object? timer = freezed,
+    Object? speed = null,
+    Object? seconds = null,
   }) {
     return _then(_$GameStateImpl(
       status: null == status
@@ -151,6 +187,22 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value._polylines
           : polylines // ignore: cast_nullable_to_non_nullable
               as Set<Polyline>,
+      tapCount: null == tapCount
+          ? _value.tapCount
+          : tapCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      timer: freezed == timer
+          ? _value.timer
+          : timer // ignore: cast_nullable_to_non_nullable
+              as Timer?,
+      speed: null == speed
+          ? _value.speed
+          : speed // ignore: cast_nullable_to_non_nullable
+              as num,
+      seconds: null == seconds
+          ? _value.seconds
+          : seconds // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -164,7 +216,11 @@ class _$GameStateImpl implements _GameState {
       final List<DriveRouteEntity> routes = const [],
       this.gameRoute = null,
       final Set<Marker> markers = const {},
-      final Set<Polyline> polylines = const {}})
+      final Set<Polyline> polylines = const {},
+      this.tapCount = 0,
+      this.timer = null,
+      this.speed = 0,
+      this.seconds = 0})
       : _routes = routes,
         _markers = markers,
         _polylines = polylines;
@@ -206,8 +262,21 @@ class _$GameStateImpl implements _GameState {
   }
 
   @override
+  @JsonKey()
+  final int tapCount;
+  @override
+  @JsonKey()
+  final Timer? timer;
+  @override
+  @JsonKey()
+  final num speed;
+  @override
+  @JsonKey()
+  final int seconds;
+
+  @override
   String toString() {
-    return 'GameState(status: $status, cityId: $cityId, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines)';
+    return 'GameState(status: $status, cityId: $cityId, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, tapCount: $tapCount, timer: $timer, speed: $speed, seconds: $seconds)';
   }
 
   @override
@@ -222,7 +291,12 @@ class _$GameStateImpl implements _GameState {
                 other.gameRoute == gameRoute) &&
             const DeepCollectionEquality().equals(other._markers, _markers) &&
             const DeepCollectionEquality()
-                .equals(other._polylines, _polylines));
+                .equals(other._polylines, _polylines) &&
+            (identical(other.tapCount, tapCount) ||
+                other.tapCount == tapCount) &&
+            (identical(other.timer, timer) || other.timer == timer) &&
+            (identical(other.speed, speed) || other.speed == speed) &&
+            (identical(other.seconds, seconds) || other.seconds == seconds));
   }
 
   @override
@@ -233,7 +307,11 @@ class _$GameStateImpl implements _GameState {
       const DeepCollectionEquality().hash(_routes),
       gameRoute,
       const DeepCollectionEquality().hash(_markers),
-      const DeepCollectionEquality().hash(_polylines));
+      const DeepCollectionEquality().hash(_polylines),
+      tapCount,
+      timer,
+      speed,
+      seconds);
 
   @JsonKey(ignore: true)
   @override
@@ -249,7 +327,11 @@ abstract class _GameState implements GameState {
       final List<DriveRouteEntity> routes,
       final DriveRouteEntity? gameRoute,
       final Set<Marker> markers,
-      final Set<Polyline> polylines}) = _$GameStateImpl;
+      final Set<Polyline> polylines,
+      final int tapCount,
+      final Timer? timer,
+      final num speed,
+      final int seconds}) = _$GameStateImpl;
 
   @override
   GameStateType get status;
@@ -263,6 +345,14 @@ abstract class _GameState implements GameState {
   Set<Marker> get markers;
   @override
   Set<Polyline> get polylines;
+  @override
+  int get tapCount;
+  @override
+  Timer? get timer;
+  @override
+  num get speed;
+  @override
+  int get seconds;
   @override
   @JsonKey(ignore: true)
   _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>
