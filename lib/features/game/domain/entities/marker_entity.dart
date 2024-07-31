@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:food_driver/features/game/presentation/widgets/rps_custom_painter.dart';
+import 'package:food_driver/features/game/presentation/widgets/painters/driver_painter.dart';
+import 'package:food_driver/features/game/presentation/widgets/painters/finish_painter.dart';
+import 'package:food_driver/features/game/presentation/widgets/painters/route_painter.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 enum MarkerType {
@@ -8,22 +10,28 @@ enum MarkerType {
   driver,
   finish;
 
-  CustomPaint get painter {
+  CustomPaint painter({
+    num? reward,
+    int? seconds,
+  }) {
     switch (this) {
       case MarkerType.route:
         return CustomPaint(
           size: const Size(111, 51),
-          painter: RPSCustomPainter(),
+          painter: RoutePainter(
+            reward: reward,
+            seconds: seconds,
+          ),
         );
       case MarkerType.driver:
         return CustomPaint(
-          size: const Size(111, 51),
-          painter: RPSCustomPainter(),
+          size: const Size(55, 55),
+          painter: DriverPainter(),
         );
       case MarkerType.finish:
         return CustomPaint(
-          size: const Size(111, 51),
-          painter: RPSCustomPainter(),
+          size: const Size(55, 55),
+          painter: FinishPainter(),
         );
     }
   }

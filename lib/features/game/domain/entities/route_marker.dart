@@ -8,11 +8,13 @@ class RouteMarker {
   static Future<BitmapDescriptor?> createCustomMarkerBitmap({
     required MarkerEntity marker,
   }) async {
-    var tp = marker.markerType.painter;
+    var tp = marker.markerType.painter(
+      reward: marker.reward,
+      seconds: marker.seconds,
+    );
 
     PictureRecorder recorder = PictureRecorder();
     Canvas canvas = Canvas(recorder);
-
     tp.painter?.paint(canvas, const Size(111.0, 51.0));
 
     Picture p = recorder.endRecording();

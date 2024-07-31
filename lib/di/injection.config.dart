@@ -82,22 +82,15 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final registerModule = _$RegisterModule();
+    gh.factory<_i370.DioProvider>(() => _i370.DioProvider());
     await gh.factoryAsync<_i460.SharedPreferences>(
       () => registerModule.prefs,
       preResolve: true,
     );
-    gh.factory<_i370.DioProvider>(() => _i370.DioProvider());
     gh.singleton<_i973.InternetConnectionChecker>(
         () => registerModule.internetConnectionChecker);
     gh.singleton<_i895.Connectivity>(() => registerModule.connectivity);
     gh.singleton<String>(() => registerModule.locale);
-    gh.factory<_i824.StopUseCase>(
-      () => _i824.StopUseCase(),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
     gh.factory<_i930.PlayUseCase>(
       () => _i930.PlayUseCase(),
       registerFor: {
@@ -107,6 +100,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i353.StartUseCase>(
       () => _i353.StartUseCase(),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i824.StopUseCase>(
+      () => _i824.StopUseCase(),
       registerFor: {
         _dev,
         _prod,
@@ -201,15 +201,15 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i422.LogoutUseCase>(
-      () => _i422.LogoutUseCase(gh<_i55.AuthRepository>()),
+    gh.factory<_i1009.LoginByPasswordUseCase>(
+      () => _i1009.LoginByPasswordUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
         _dev,
         _prod,
       },
     );
-    gh.factory<_i1009.LoginByPasswordUseCase>(
-      () => _i1009.LoginByPasswordUseCase(gh<_i55.AuthRepository>()),
+    gh.factory<_i422.LogoutUseCase>(
+      () => _i422.LogoutUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
         _dev,
         _prod,

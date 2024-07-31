@@ -21,4 +21,6 @@ class AppColors {
   static const Color midGray = Color(0xFFA2AABB);
   static const Color lightGray = Color(0xFFC4C9D2);
   static const Color primary = red;
+
+  static const Color markerDarkRed = Color(0xFF980E13);
 }

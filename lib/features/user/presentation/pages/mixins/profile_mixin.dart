@@ -12,5 +12,6 @@ mixin ProfileMixin on State<ProfileBody> {
 
   void logout() => _authBloc.add(AuthLogoutEvent());
 
-  void deleteAccount() {}
+  // TODO: add method
+  void deleteAccount() => _authBloc.add(AuthLogoutEvent());
 }

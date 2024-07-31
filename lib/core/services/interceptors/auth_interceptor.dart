@@ -44,10 +44,10 @@ class AuthInterceptor extends InterceptorsWrapper {
       print("AAA ApiInterceptor IF");
       final response = await getAccessToken(NoParams());
       response.fold(
-        (error) => super.onError(err, handler),
+        (error) => handler.next(err),
         (result) async {
           if (result.accessToken?.isEmpty ?? true) {
-            super.onError(err, handler);
+            handler.next(err);
             return;
           }
           final options = Options(
@@ -61,18 +61,19 @@ class AuthInterceptor extends InterceptorsWrapper {
             data: err.requestOptions.data,
             queryParameters: err.requestOptions.queryParameters,
           );
-          return handler.resolve(cloneReq);
+          handler.resolve(cloneReq);
         },
       );
+      return;
     } else if (err.response?.statusCode == 401 &&
         (authEntity?.refreshToken?.isNotEmpty ?? false)) {
       print("AAA AuthInterceptor IF");
       final response = await refreshAuth.call(NoParams());
       response.fold(
-        (error) => super.onError(err, handler),
+        (error) => handler.next(err),
         (result) async {
           if (result.isEmpty) {
-            super.onError(err, handler);
+            handler.next(err);
             return;
           }
           final options = Options(
@@ -86,11 +87,12 @@ class AuthInterceptor extends InterceptorsWrapper {
             data: err.requestOptions.data,
             queryParameters: err.requestOptions.queryParameters,
           );
-          return handler.resolve(cloneReq);
+          handler.resolve(cloneReq);
         },
       );
+      return;
     }
     print("AAA AuthInterceptor ELSE");
-    super.onError(err, handler);
+    return handler.next(err);
   }
 }

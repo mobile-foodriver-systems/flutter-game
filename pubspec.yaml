@@ -59,6 +59,7 @@ flutter:
 flutter_native_splash:
   image: assets/splash.png
   color: "#ffffff"
+  android_screen_orientation: portrait
 flutter_intl:
   enabled: true
   class_name: S

@@ -18,7 +18,6 @@ class RegistrationPage extends StatelessWidget {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           decoration: scaffoldDecoration,

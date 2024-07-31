@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await configureDependencies(environment: Environment.dev);
   FlutterNativeSplash.remove();
