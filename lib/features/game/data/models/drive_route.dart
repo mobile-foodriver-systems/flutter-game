@@ -23,7 +23,7 @@ class DriveRoute {
     this.coordinateList = const [],
   });
 
-  Duration? get time => seconds == null ? null : Duration(seconds: seconds);
+  Duration? get time => Duration(seconds: seconds);
 
   factory DriveRoute.fromJson(Map<String, dynamic> json) =>
       _$DriveRouteFromJson(json);

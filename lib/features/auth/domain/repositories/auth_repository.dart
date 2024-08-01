@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:food_driver/core/errors/exceptions/exception_to_failure_converter.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/usecases/usecase.dart';

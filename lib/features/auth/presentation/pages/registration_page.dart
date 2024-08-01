@@ -21,6 +21,32 @@ class RegistrationPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<AuthBloc>(),
       child: BlocBuilder<AuthBloc, AuthState>(
+        // listener: (context, state) {
+        //   if (state.status == AuthStatus.authenticated) {
+        //     Navigator.of(context).pushAndRemoveUntil(
+        //         MaterialPageRoute(builder: (context) => const GamePage()),
+        //         (_) => false);
+        //     return;
+        //   }
+        //   print("AAA in listener");
+        //   print("AAA showSnackBar status: = ${state.status.toString()}");
+        //   if ((state.error?.message?.isEmpty ?? true) ||
+        //       state.status != AuthStatus.loading) {
+        //     return;
+        //   }
+        //   print("AAA showSnackBar status: = ${state.status.toString()}");
+        //   ScaffoldMessenger.of(context).showSnackBar(
+        //     SnackBar(
+        //       content: Center(
+        //         child: NotificationMessage(
+        //           message: state.error!.message!,
+        //         ),
+        //       ),
+        //       backgroundColor: Colors.transparent,
+        //       elevation: 0,
+        //     ),
+        //   );
+        // },
         builder: (context, state) {
           return GestureDetector(
             onTap: () {

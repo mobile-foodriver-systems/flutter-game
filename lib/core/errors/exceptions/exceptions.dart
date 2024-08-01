@@ -1,6 +1,5 @@
-part 'storage_exception.dart';
-
 part 'http_exception.dart';
+part 'storage_exception.dart';
 
 abstract class TlException implements Exception {
   final String? message;

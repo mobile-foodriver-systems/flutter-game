@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/auth/data/models/auth_status.dart';
 import 'package:food_driver/features/auth/domain/usecases/check_auth.dart';
@@ -84,7 +85,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthRegistrationEvent event,
     Emitter<AuthState> emit,
   ) async {
-    emit(state.copyWith(status: AuthStatus.loading));
+    emit(state.copyWith(
+      status: AuthStatus.loading,
+      error: null,
+    ));
     final response = await _registration.call(
       AuthParams(
         login: event.login,
@@ -94,9 +98,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     response.fold(
       (error) {
-        emit(state.copyWith(status: AuthStatus.unauthenticated));
+        print("AAA response.fold");
+        print("AAA message: = ${error.message}");
+        emit(state.copyWith(
+          status: AuthStatus.unauthenticated,
+          error: error,
+        ));
       },
       (result) {
+        print("AAA authenticated");
         emit(state.copyWith(status: AuthStatus.authenticated));
       },
     );

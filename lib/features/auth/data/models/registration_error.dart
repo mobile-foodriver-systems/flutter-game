@@ -7,19 +7,13 @@ part 'registration_error.g.dart';
 @JsonSerializable()
 class RegistrationError extends Failure {
   final String? errorCode;
-  final String? errorMessage;
   final List<RegError> errors;
   @override
-  @JsonKey(
-    name: "errorMessage",
-    includeToJson: false,
-    includeFromJson: false,
-  )
+  @JsonKey(name: "errorMessage")
   final String? message;
 
   const RegistrationError({
     this.errorCode,
-    this.errorMessage,
     this.errors = const [],
     this.message,
   });
@@ -27,7 +21,6 @@ class RegistrationError extends Failure {
   @override
   List<Object?> get props => [
         errorCode,
-        errorMessage,
         errors,
         message,
       ];

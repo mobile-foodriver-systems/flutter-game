@@ -3,6 +3,7 @@ import 'package:food_driver/core/services/http/app_http_service.dart';
 import 'package:food_driver/core/services/http/http_service.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/di/injection.dart';
+import 'package:food_driver/features/auth/domain/entities/auth_entity.dart';
 import 'package:food_driver/features/auth/domain/repositories/auth_repository.dart';
 import 'package:food_driver/features/auth/domain/usecases/get_access_token.dart';
 import 'package:food_driver/features/auth/domain/usecases/refresh_auth.dart';
@@ -37,62 +38,84 @@ class AuthInterceptor extends InterceptorsWrapper {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     print("AAA AuthInterceptor onError");
-    final authEntity = await authRepository.getAuthEntity();
-    if (err.response?.statusCode == 401 &&
-        (authEntity?.refreshToken?.isEmpty ?? true) &&
-        (authEntity?.accessToken?.isNotEmpty ?? false)) {
-      print("AAA ApiInterceptor IF");
-      final response = await getAccessToken(NoParams());
-      response.fold(
-        (error) => handler.next(err),
-        (result) async {
-          if (result.accessToken?.isEmpty ?? true) {
-            handler.next(err);
-            return;
-          }
-          final options = Options(
-            method: err.requestOptions.method,
-            headers: err.requestOptions.headers,
-          );
-          final cloneReq = await getIt<AppHttpService>().request(
-            path: err.requestOptions.path,
-            type: RequestType.typeFromString(err.requestOptions.method),
-            options: options,
-            data: err.requestOptions.data,
-            queryParameters: err.requestOptions.queryParameters,
-          );
-          handler.resolve(cloneReq);
-        },
-      );
+    AuthEntity? authEntity;
+    final hasAccessToken =
+        ((err.response?.requestOptions.headers.containsKey("Authorization") ??
+                false) &&
+            (err.response?.requestOptions.headers["Authorization"] is String) &&
+            err.response?.requestOptions.headers["Authorization"].isNotEmpty);
+    final hasUnauthorizedCode =
+        err.response?.statusCode == 401 || err.response?.statusCode == 403;
+    if (hasAccessToken && hasUnauthorizedCode) {
+      authEntity = await authRepository.getAuthEntity();
+      if (authEntity?.refreshToken?.isEmpty ?? true) {
+        await _getAccessToken(err, handler);
+        return;
+      }
+      await _updateAuthModel(err, handler);
       return;
-    } else if (err.response?.statusCode == 401 &&
-        (authEntity?.refreshToken?.isNotEmpty ?? false)) {
-      print("AAA AuthInterceptor IF");
-      final response = await refreshAuth.call(NoParams());
-      response.fold(
-        (error) => handler.next(err),
-        (result) async {
-          if (result.isEmpty) {
-            handler.next(err);
-            return;
-          }
-          final options = Options(
-            method: err.requestOptions.method,
-            headers: err.requestOptions.headers,
-          );
-          final cloneReq = await getIt<AppHttpService>().request(
-            path: err.requestOptions.path,
-            type: RequestType.typeFromString(err.requestOptions.method),
-            options: options,
-            data: err.requestOptions.data,
-            queryParameters: err.requestOptions.queryParameters,
-          );
-          handler.resolve(cloneReq);
-        },
-      );
+    } else if (hasUnauthorizedCode && !hasAccessToken) {
+      await _getAccessToken(err, handler);
       return;
     }
-    print("AAA AuthInterceptor ELSE");
-    return handler.next(err);
+    super.onError(err, handler);
+  }
+
+  Future<void> _getAccessToken(
+    DioException err,
+    ErrorInterceptorHandler handler,
+  ) async {
+    print("BBB _getAccessToken");
+    final response = await getAccessToken(NoParams());
+    response.fold(
+      (error) => handler.next(err),
+      (result) async {
+        if (result.accessToken?.isEmpty ?? true) {
+          handler.next(err);
+          return;
+        }
+        final options = Options(
+          method: err.requestOptions.method,
+          headers: err.requestOptions.headers,
+        );
+        final cloneReq = await getIt<AppHttpService>().request(
+          path: err.requestOptions.path,
+          type: RequestType.typeFromString(err.requestOptions.method),
+          options: options,
+          data: err.requestOptions.data,
+          queryParameters: err.requestOptions.queryParameters,
+        );
+        handler.resolve(cloneReq);
+      },
+    );
+  }
+
+  Future<void> _updateAuthModel(
+    DioException err,
+    ErrorInterceptorHandler handler,
+  ) async {
+    print("BBB _updateAuthModel");
+    final response = await refreshAuth.call(NoParams());
+    response.fold(
+      (error) => handler.next(err),
+      (result) async {
+        if (result.isEmpty) {
+          handler.next(err);
+          return;
+        }
+        final options = Options(
+          method: err.requestOptions.method,
+          headers: err.requestOptions.headers,
+        );
+        final cloneReq = await getIt<AppHttpService>().request(
+          path: err.requestOptions.path,
+          type: RequestType.typeFromString(err.requestOptions.method),
+          options: options,
+          data: err.requestOptions.data,
+          queryParameters: err.requestOptions.queryParameters,
+        );
+        handler.resolve(cloneReq);
+      },
+    );
   }
 }

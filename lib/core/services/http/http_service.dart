@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -126,7 +125,7 @@ abstract class HttpService {
       }
 
       final int? statusCode = response.statusCode;
-      if (statusCode == 200 || statusCode == 201 || statusCode == 403) {
+      if (statusCode == 200 || statusCode == 201) {
         return response;
       }
       if (statusCode == 401) {
@@ -143,26 +142,22 @@ abstract class HttpService {
     } on DioException catch (e) {
       final error = e.error;
       final response = e.response;
-
+      if (response?.data != null ||
+          ((response?.data is String) && (response!.data.isNotEmpty))) {
+        return response!;
+      }
       if (error is SocketException) {
         throw ServerErrorHttpException(message: error.message);
       }
       if (response == null) rethrow;
-      var data;
-      try {
-        data = jsonDecode(response.toString());
-      } catch (e) {
-        rethrow;
-      }
-
       if (response.statusCode == HttpStatus.badRequest) {
         throw const BadRequestHttpException(
           message: "error",
         );
       }
       if (response.statusCode == HttpStatus.unauthorized) {
-        throw UnauthorizedHttpException(
-          message: data['Error'],
+        throw const UnauthorizedHttpException(
+          message: "error",
         );
       }
       if (response.statusCode == HttpStatus.networkConnectTimeoutError) {

@@ -4,5 +4,6 @@ part of 'auth_bloc.dart';
 class AuthState with _$AuthState {
   const factory AuthState({
     @Default(AuthStatus.unknown) AuthStatus status,
+    @Default(null) Failure? error,
   }) = _AuthState;
 }

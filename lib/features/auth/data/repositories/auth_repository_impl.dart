@@ -103,8 +103,9 @@ class AuthRepositoryImpl extends AuthRepository {
     required String login,
     required String password,
   }) async {
+    Response<dynamic>? response;
     try {
-      final response = await _remoteDataSource.registration(
+      response = await _remoteDataSource.registration(
         login: login,
         password: password,
       );
@@ -114,7 +115,14 @@ class AuthRepositoryImpl extends AuthRepository {
         return Left(RegistrationError.fromJson(response.data));
       }
     } catch (e, s) {
-      return Left(ExceptionToFailureConverter.convert(e, s));
+      try {
+        if (response?.data != null) {
+          return Left(RegistrationError.fromJson(response?.data));
+        }
+        return Left(ExceptionToFailureConverter.convert(e, s));
+      } catch (e) {
+        return Left(ExceptionToFailureConverter.convert(e, s));
+      }
     }
   }
 
