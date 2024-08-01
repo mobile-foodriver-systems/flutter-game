@@ -112,4 +112,17 @@ class AuthRepositoryImpl extends AuthRepository {
       return false;
     }
   }
+
+  @override
+  Future<void> breakAccessToken() async {
+    final auth = await _localDataSource.getAuthModel();
+    await _localDataSource.saveAuthModel(
+        authModel: AuthModel(
+      accessToken: "break",
+      refreshToken: auth.refreshToken,
+      expiresIn: auth.expiresIn,
+      tokenType: auth.tokenType,
+      scope: auth.scope,
+    ));
+  }
 }
