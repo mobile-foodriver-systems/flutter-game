@@ -4,7 +4,7 @@ import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/auth/presentation/widgets/countdown_text_button.dart';
 import 'package:food_driver/features/game/presentation/pages/game_page.dart';
-import 'package:pinput/pinput.dart';
+// import 'package:pinput/pinput.dart';
 
 class ConfirmationCodePage extends StatefulWidget {
   const ConfirmationCodePage({
@@ -50,12 +50,12 @@ class _ConfirmationCodePageState extends State<ConfirmationCodePage> {
               ),
               const SizedBox(height: 24.0),
               const SizedBox(height: 52),
-              Pinput(
-                defaultPinTheme: defaultPinTheme,
-                controller: _controller,
-                onCompleted: (pin) => print(pin),
-                focusNode: focusNode,
-              ),
+              // Pinput(
+              //   defaultPinTheme: defaultPinTheme,
+              //   controller: _controller,
+              //   onCompleted: (pin) => print(pin),
+              //   focusNode: focusNode,
+              // ),
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 44.0),

@@ -99,17 +99,22 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<bool> registration({
+  Future<Either<Failure, NoParams>> registration({
     required String login,
     required String password,
   }) async {
     try {
-      return await _remoteDataSource.registration(
+      final response = await _remoteDataSource.registration(
         login: login,
         password: password,
       );
-    } catch (e) {
-      return false;
+      if (response.statusCode == 200) {
+        return Right(NoParams());
+      } else {
+        return Left(RegistrationError.fromJson(response.data));
+      }
+    } catch (e, s) {
+      return Left(ExceptionToFailureConverter.convert(e, s));
     }
   }
 

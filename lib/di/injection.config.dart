@@ -190,6 +190,12 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
+    gh.factory<_i917.GameBloc>(() => _i917.GameBloc(
+          gh<_i251.LoadUseCase>(),
+          gh<_i353.StartUseCase>(),
+          gh<_i930.PlayUseCase>(),
+          gh<_i824.StopUseCase>(),
+        ));
     gh.factory<_i978.LoadProfileUseCase>(
       () => _i978.LoadProfileUseCase(gh<_i687.UserRepository>()),
       registerFor: {
@@ -239,13 +245,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i917.GameBloc>(() => _i917.GameBloc(
-          gh<_i251.LoadUseCase>(),
-          gh<_i353.StartUseCase>(),
-          gh<_i930.PlayUseCase>(),
-          gh<_i824.StopUseCase>(),
-          gh<_i618.BreakAccessTokenUseCase>(),
-        ));
     gh.factory<_i223.UserBloc>(
         () => _i223.UserBloc(gh<_i978.LoadProfileUseCase>()));
     gh.factory<_i879.CheckAuthUseCase>(

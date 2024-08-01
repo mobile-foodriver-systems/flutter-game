@@ -93,11 +93,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<bool> registration({
+  Future<Response<dynamic>> registration({
     required String login,
     required String password,
   }) async {
-    final response = await _appHttpService.request(
+    return await _appHttpService.request(
       path: ApiRoutes.registration,
       type: RequestType.post,
       options: Options(contentType: 'application/json-patch+json'),
@@ -106,6 +106,5 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         "userName": login,
       },
     );
-    return response.statusCode == 200;
   }
 }

@@ -25,46 +25,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     this._checkAuth,
     this._registration,
   ) : super(const AuthState()) {
-    // on<_AuthStatusChanged>(_onAuthStatusChanged);
     on<AuthLoginByPasswordEvent>(_onAuthLoginByPassword);
     on<AuthLogoutEvent>(_onAuthLogout);
     on<AuthCheckEvent>(_onAuthCheck);
     on<AuthRegistrationEvent>(_onAuthRegistration);
-    // _authStatusSubscription = _authRepository.status.listen(
-    //   (status) => add(_AuthStatusChanged(status)),
-    // );
   }
-
-  // final AuthRepository _authRepository;
-
-  // late StreamSubscription<AuthStatus> _authStatusSubscription;
-
-  // @override
-  // Future<void> close() {
-  //   _authStatusSubscription.cancel();
-  //   return super.close();
-  // }
-
-  // Future<void> _onAuthStatusChanged(
-  //   _AuthStatusChanged event,
-  //   Emitter<AuthState> emit,
-  // ) async {
-  //   switch (event.status) {
-  //     case AuthStatus.unauthenticated:
-  //       return emit(const AuthState.unauthenticated());
-  //     case AuthStatus.authenticated:
-  //       return emit(
-  //         const AuthState.authenticated(),
-  //       );
-  //     case AuthStatus.unknown:
-  //       return emit(const AuthState.unknown());
-  //   }
-  // }
 
   void _onAuthLoginByPassword(
     AuthLoginByPasswordEvent event,
     Emitter<AuthState> emit,
   ) async {
+    emit(state.copyWith(status: AuthStatus.loading));
     final response = await _loginByPassword(
       AuthParams(
         login: event.login,
@@ -93,6 +64,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthCheckEvent event,
     Emitter<AuthState> emit,
   ) async {
+    emit(state.copyWith(status: AuthStatus.loading));
     final response = await _checkAuth.call(NoParams());
     response.fold(
       (error) {
@@ -112,12 +84,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthRegistrationEvent event,
     Emitter<AuthState> emit,
   ) async {
+    emit(state.copyWith(status: AuthStatus.loading));
     final response = await _registration.call(
       AuthParams(
         login: event.login,
         password: event.password,
       ),
     );
+
     response.fold(
       (error) {
         emit(state.copyWith(status: AuthStatus.unauthenticated));

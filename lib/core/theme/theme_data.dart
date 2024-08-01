@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:pinput/pinput.dart';
+// import 'package:pinput/pinput.dart';
 
 ThemeData appTheme(BuildContext context) {
   return ThemeData(
@@ -9,8 +9,6 @@ ThemeData appTheme(BuildContext context) {
     scaffoldBackgroundColor: AppColors.background,
     appBarTheme: const AppBarTheme(
       color: AppColors.white,
-      // surfaceTintColor: AppColors.white,
-      // elevation: 1,
     ),
     inputDecorationTheme: InputDecorationTheme(
       isDense: true,
@@ -115,16 +113,16 @@ const scaffoldDecoration = BoxDecoration(
   ),
 );
 
-final defaultPinTheme = PinTheme(
-  width: 48,
-  height: 48,
-  textStyle: const TextStyle(
-    fontSize: 20,
-    color: AppColors.pinCodeGray,
-    fontWeight: FontWeight.w600,
-  ),
-  decoration: BoxDecoration(
-    border: Border.all(color: AppColors.pinCodeGray),
-    borderRadius: BorderRadius.circular(10),
-  ),
-);
+// final defaultPinTheme = PinTheme(
+//   width: 48,
+//   height: 48,
+//   textStyle: const TextStyle(
+//     fontSize: 20,
+//     color: AppColors.pinCodeGray,
+//     fontWeight: FontWeight.w600,
+//   ),
+//   decoration: BoxDecoration(
+//     border: Border.all(color: AppColors.pinCodeGray),
+//     borderRadius: BorderRadius.circular(10),
+//   ),
+// );

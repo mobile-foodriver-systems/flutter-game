@@ -15,15 +15,20 @@ class RegistrationUseCase implements UseCase<AuthEntity, AuthParams> {
 
   @override
   Future<Either<Failure, AuthEntity>> call(AuthParams params) async {
-    if (await _authRepository.registration(
+    final response = await _authRepository.registration(
       login: params.login,
       password: params.password,
-    )) {
-      return await _authRepository.loginByPassword(
-        login: params.login,
-        password: params.password,
-      );
-    }
-    return const Left(UnauthorizedServerFailure());
+    );
+    return response.fold(
+      (error) {
+        return Left(error);
+      },
+      (result) async {
+        return await _authRepository.loginByPassword(
+          login: params.login,
+          password: params.password,
+        );
+      },
+    );
   }
 }

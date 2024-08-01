@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:dartz/dartz.dart';
 import 'package:food_driver/core/errors/exceptions/exception_to_failure_converter.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
+import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/auth/data/datasources/local/auth_local_data_source.dart';
 import 'package:food_driver/features/auth/data/datasources/remote/auth_remote_data_source.dart';
 import 'package:food_driver/features/auth/data/models/auth_model.dart';
+import 'package:food_driver/features/auth/data/models/registration_error.dart';
 import 'package:food_driver/features/auth/domain/entities/auth_entity.dart';
 import 'package:injectable/injectable.dart';
 
@@ -36,7 +38,7 @@ abstract class AuthRepository {
     required String refreshToken,
   });
 
-  Future<bool> registration({
+  Future<Either<Failure, NoParams>> registration({
     required String login,
     required String password,
   });

@@ -7,14 +7,6 @@ sealed class GameEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class GameChangeStateTypeEvent extends GameEvent {
-  final GameStateType status;
-  const GameChangeStateTypeEvent(this.status);
-
-  @override
-  List<Object> get props => [status];
-}
-
 final class GamePrepareInfoEvent extends GameEvent {
   const GamePrepareInfoEvent(this.cityId);
 

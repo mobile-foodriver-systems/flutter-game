@@ -33,7 +33,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     this._play,
     this._stop,
   ) : super(const GameState()) {
-    on<GameChangeStateTypeEvent>(_changeGameState);
     on<GamePrepareInfoEvent>(_prepareInfo);
     on<GameStartEvent>(_startGame);
     on<GamePlayEvent>(_playGame);
@@ -51,24 +50,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       .map((route) => route.markerEntity)
       .whereType<MarkerEntity>()
       .toSet();
-
-  void _changeGameState(
-    GameChangeStateTypeEvent event,
-    Emitter<GameState> emit,
-  ) {
-    switch (event.status) {
-      case GameStateType.error:
-      case GameStateType.loading:
-      case GameStateType.initialized:
-      case GameStateType.starting:
-      // _start(NoParams());
-      case GameStateType.playing:
-      // _play(NoParams());
-      case GameStateType.win:
-      case GameStateType.loose:
-    }
-    emit(state.copyWith(status: event.status));
-  }
 
   void _prepareInfo(
     GamePrepareInfoEvent event,

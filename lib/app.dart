@@ -68,6 +68,7 @@ class _AppViewState extends State<AppView> {
                   (route) => false,
                 );
               case AuthStatus.unknown:
+              case AuthStatus.loading:
                 break;
             }
           },
