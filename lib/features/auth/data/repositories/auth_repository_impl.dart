@@ -12,16 +12,6 @@ class AuthRepositoryImpl extends AuthRepository {
 
   final AuthRemoteDataSource _remoteDataSource;
   final AuthLocalDataSource _localDataSource;
-  // @override
-  // final StreamController<AuthStatus> controller =
-  //     StreamController<AuthStatus>();
-
-  // @override
-  // Stream<AuthStatus> get status async* {
-  //   await Future<void>.delayed(const Duration(seconds: 1));
-  //   yield AuthStatus.unauthenticated;
-  //   yield* controller.stream;
-  // }
 
   @override
   Future<Either<Failure, AuthEntity>> login({

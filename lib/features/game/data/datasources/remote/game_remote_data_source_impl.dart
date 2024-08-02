@@ -1,6 +1,6 @@
 import 'package:food_driver/core/services/http/app_http_service.dart';
 import 'package:food_driver/features/game/data/datasources/remote/game_remote_data_source.dart';
-import 'package:food_driver/features/game/data/models/city.dart';
+import 'package:food_driver/features/location/data/models/city.dart';
 import 'package:food_driver/features/game/data/models/drive_route.dart';
 import 'package:food_driver/features/game/data/models/lat_lng.dart';
 import 'package:food_driver/features/game/data/models/user_rating.dart';

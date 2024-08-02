@@ -15,10 +15,6 @@ import 'package:injectable/injectable.dart';
 part 'package:food_driver/features/auth/data/repositories/auth_repository_impl.dart';
 
 abstract class AuthRepository {
-  // StreamController<AuthStatus> get controller;
-
-  // Stream<AuthStatus> get status;
-
   Future<Either<Failure, AuthEntity>> login({
     required String email,
     required String code,

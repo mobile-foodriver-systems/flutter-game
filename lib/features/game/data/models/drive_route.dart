@@ -1,4 +1,4 @@
-import 'package:food_driver/features/game/data/models/city.dart';
+import 'package:food_driver/features/location/data/models/city.dart';
 import 'package:food_driver/features/game/data/models/lat_lng.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
 import 'package:json_annotation/json_annotation.dart';

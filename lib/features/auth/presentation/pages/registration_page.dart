@@ -9,7 +9,9 @@ import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/auth/data/models/auth_status.dart';
 import 'package:food_driver/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:food_driver/features/auth/presentation/pages/web_view_page.dart';
+import 'package:food_driver/features/auth/presentation/widgets/notification_message.dart';
 import 'package:food_driver/features/auth/presentation/widgets/registration_form.dart';
+import 'package:food_driver/features/game/presentation/pages/game_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/generated/l10n.dart';
 
@@ -20,33 +22,8 @@ class RegistrationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<AuthBloc>(),
-      child: BlocBuilder<AuthBloc, AuthState>(
-        // listener: (context, state) {
-        //   if (state.status == AuthStatus.authenticated) {
-        //     Navigator.of(context).pushAndRemoveUntil(
-        //         MaterialPageRoute(builder: (context) => const GamePage()),
-        //         (_) => false);
-        //     return;
-        //   }
-        //   print("AAA in listener");
-        //   print("AAA showSnackBar status: = ${state.status.toString()}");
-        //   if ((state.error?.message?.isEmpty ?? true) ||
-        //       state.status != AuthStatus.loading) {
-        //     return;
-        //   }
-        //   print("AAA showSnackBar status: = ${state.status.toString()}");
-        //   ScaffoldMessenger.of(context).showSnackBar(
-        //     SnackBar(
-        //       content: Center(
-        //         child: NotificationMessage(
-        //           message: state.error!.message!,
-        //         ),
-        //       ),
-        //       backgroundColor: Colors.transparent,
-        //       elevation: 0,
-        //     ),
-        //   );
-        // },
+      child: BlocConsumer<AuthBloc, AuthState>(
+        listener: showMessage,
         builder: (context, state) {
           return GestureDetector(
             onTap: () {
@@ -96,6 +73,33 @@ class RegistrationPage extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+  void showMessage(BuildContext context, AuthState state) {
+    if (state.status == AuthStatus.authenticated) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => const GamePage()),
+          (_) => false);
+      return;
+    }
+    print("AAA in listener");
+    print("AAA showSnackBar status: = ${state.status.toString()}");
+    if ((state.error?.message?.isEmpty ?? true) ||
+        state.status != AuthStatus.unauthenticated) {
+      return;
+    }
+    print("AAA showSnackBar status: = ${state.status.toString()}");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Center(
+          child: NotificationMessage(
+            message: state.error!.message!,
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
     );
   }

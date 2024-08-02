@@ -21,7 +21,6 @@ dependencies:
   # Core
   injectable: ^2.4.2
   get_it: ^7.7.0
-  shared_preferences: ^2.2.3
   bloc: ^8.1.4
   equatable: ^2.0.5
   flutter_bloc: ^8.1.6
@@ -34,9 +33,13 @@ dependencies:
   connectivity_plus: ^6.0.3
   internet_connection_checker: ^1.0.0+1
 
-  webview_flutter: ^4.8.0
+  # Services
+  geolocator: ^12.0.0
   google_maps_flutter: ^2.7.0
+  shared_preferences: ^2.2.3
 
+  webview_flutter: ^4.8.0
+  
   # UI
   # pinput: ^5.0.0
   flutter_native_splash: ^2.4.1

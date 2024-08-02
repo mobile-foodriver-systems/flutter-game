@@ -24,10 +24,13 @@ class RegistrationUseCase implements UseCase<AuthEntity, AuthParams> {
         return Left(error);
       },
       (result) async {
-        return await _authRepository.loginByPassword(
+        print("AAA before loginByPassword");
+        final response = await _authRepository.loginByPassword(
           login: params.login,
           password: params.password,
         );
+        print("AAA after loginByPassword");
+        return response;
       },
     );
   }

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:food_driver/features/game/data/models/city.dart';
+import 'package:food_driver/features/location/data/models/city.dart';
 import 'package:food_driver/features/game/data/models/lat_lng.dart';
 import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as gm;
