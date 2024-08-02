@@ -98,15 +98,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     response.fold(
       (error) {
-        print("AAA response.fold");
-        print("AAA message: = ${error.message}");
         emit(state.copyWith(
           status: AuthStatus.unauthenticated,
           error: error,
         ));
       },
       (result) {
-        print("AAA authenticated");
         emit(state.copyWith(status: AuthStatus.authenticated));
       },
     );

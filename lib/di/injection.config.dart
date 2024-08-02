@@ -53,8 +53,6 @@ import 'package:food_driver/features/game/domain/usecases/start.dart' as _i353;
 import 'package:food_driver/features/game/domain/usecases/stop.dart' as _i824;
 import 'package:food_driver/features/game/presentation/bloc/game_bloc.dart'
     as _i917;
-import 'package:food_driver/features/location/data/datasources/local/location_local_data_source.dart'
-    as _i865;
 import 'package:food_driver/features/location/data/datasources/remote/location_remote_data_source.dart'
     as _i208;
 import 'package:food_driver/features/location/domain/repositories/location_repository.dart'
@@ -139,13 +137,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.lazySingleton<_i865.LocationLocalDataSource>(
-      () => _i865.LocationLocalDataSourceImpl(gh<_i203.LocalStorageService>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
     gh.lazySingleton<_i528.AppHttpService>(
       () => _i528.AppHttpService(
         gh<_i370.DioProvider>(),
@@ -171,16 +162,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.lazySingleton<_i275.LocationRepository>(
-      () => _i275.LocationRepositoryImpl(
-        gh<_i865.LocationLocalDataSource>(),
-        gh<_i208.LocationRemoteDataSource>(),
-      ),
-      registerFor: {
-        _prod,
-        _dev,
-      },
-    );
     gh.lazySingleton<_i545.UserRemoteDataSource>(
       () => _i551.UserRemoteDataSourceImpl(gh<_i528.AppHttpService>()),
       registerFor: {
@@ -200,6 +181,13 @@ extension GetItInjectableX on _i174.GetIt {
       registerFor: {
         _dev,
         _prod,
+      },
+    );
+    gh.lazySingleton<_i275.LocationRepository>(
+      () => _i275.LocationRepositoryImpl(gh<_i208.LocationRemoteDataSource>()),
+      registerFor: {
+        _prod,
+        _dev,
       },
     );
     gh.factory<_i251.LoadUseCase>(
@@ -281,6 +269,12 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.lazySingleton<_i535.AuthInterceptor>(() => _i535.AuthInterceptor(
+          refreshAuth: gh<_i942.RefreshAuthUseCase>(),
+          authRepository: gh<_i55.AuthRepository>(),
+          getAccessToken: gh<_i245.GetAccessTokenUseCase>(),
+          logout: gh<_i422.LogoutUseCase>(),
+        ));
     gh.factory<_i223.UserBloc>(
         () => _i223.UserBloc(gh<_i978.LoadProfileUseCase>()));
     gh.factory<_i879.CheckAuthUseCase>(
@@ -293,11 +287,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.lazySingleton<_i535.AuthInterceptor>(() => _i535.AuthInterceptor(
-          refreshAuth: gh<_i942.RefreshAuthUseCase>(),
-          authRepository: gh<_i55.AuthRepository>(),
-          getAccessToken: gh<_i245.GetAccessTokenUseCase>(),
-        ));
     gh.factory<_i324.AuthBloc>(() => _i324.AuthBloc(
           gh<_i1009.LoginByPasswordUseCase>(),
           gh<_i422.LogoutUseCase>(),

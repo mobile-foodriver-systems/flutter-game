@@ -84,13 +84,10 @@ class RegistrationPage extends StatelessWidget {
           (_) => false);
       return;
     }
-    print("AAA in listener");
-    print("AAA showSnackBar status: = ${state.status.toString()}");
     if ((state.error?.message?.isEmpty ?? true) ||
         state.status != AuthStatus.unauthenticated) {
       return;
     }
-    print("AAA showSnackBar status: = ${state.status.toString()}");
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Center(

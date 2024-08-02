@@ -133,8 +133,14 @@ abstract class HttpService {
           message: response.statusMessage,
         );
       }
-      if (statusCode == 500) {
-        throw const ServerErrorHttpException();
+
+      if ((statusCode ?? 0) >= 400 &&
+          (response.data != null ||
+              ((response.data is String) && (response.data.isNotEmpty)))) {
+        throw DioException(
+          requestOptions: response.requestOptions,
+          response: response,
+        );
       }
       throw HttpMethodException(statusCode: statusCode);
     } on FormatException catch (e) {

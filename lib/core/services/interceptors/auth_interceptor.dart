@@ -6,6 +6,7 @@ import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/auth/domain/entities/auth_entity.dart';
 import 'package:food_driver/features/auth/domain/repositories/auth_repository.dart';
 import 'package:food_driver/features/auth/domain/usecases/get_access_token.dart';
+import 'package:food_driver/features/auth/domain/usecases/logout.dart';
 import 'package:food_driver/features/auth/domain/usecases/refresh_auth.dart';
 import 'package:injectable/injectable.dart';
 
@@ -15,20 +16,22 @@ class AuthInterceptor extends InterceptorsWrapper {
     required this.refreshAuth,
     required this.authRepository,
     required this.getAccessToken,
+    required this.logout,
   });
 
   final RefreshAuthUseCase refreshAuth;
   final AuthRepository authRepository;
   final GetAccessTokenUseCase getAccessToken;
+  final LogoutUseCase logout;
+
+  int attemptCount = 0;
 
   @override
   void onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    print("AAA AuthInterceptor onRequest");
     final authEntity = await authRepository.getAuthEntity();
-    print("AAA accessToken: = Bearer ${authEntity?.accessToken}");
     if (authEntity?.accessToken?.isNotEmpty ?? false) {
       options.headers['Authorization'] = 'Bearer ${authEntity?.accessToken}';
     }
@@ -48,16 +51,24 @@ class AuthInterceptor extends InterceptorsWrapper {
         err.response?.statusCode == 401 || err.response?.statusCode == 403;
     if (hasAccessToken && hasUnauthorizedCode) {
       authEntity = await authRepository.getAuthEntity();
-      if (authEntity?.refreshToken?.isEmpty ?? true) {
+      if (authEntity?.refreshToken?.isEmpty ?? true && attemptCount == 0) {
+        attemptCount++;
         await _getAccessToken(err, handler);
         return;
       }
-      await _updateAuthModel(err, handler);
-      return;
-    } else if (hasUnauthorizedCode && !hasAccessToken) {
+      if (attemptCount == 0) {
+        attemptCount++;
+        await _updateAuthModel(err, handler);
+        return;
+      } else {
+        await logout.call(NoParams());
+      }
+    } else if (hasUnauthorizedCode && !hasAccessToken && attemptCount == 0) {
+      attemptCount++;
       await _getAccessToken(err, handler);
       return;
     }
+    attemptCount = 0;
     super.onError(err, handler);
   }
 
