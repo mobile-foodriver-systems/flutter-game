@@ -34,27 +34,41 @@ class AuthRepositoryImpl extends AuthRepository {
     AuthModel? auth;
     try {
       auth = await _localDataSource.getAuthModel();
+      await _localDataSource.deleteAuthModel();
     } catch (e) {
       if (auth == null) return;
-      _localDataSource.deleteAuthModel();
       _remoteDataSource.logout(auth: auth.toEntity());
     }
   }
 
   @override
-  Future<Either<Failure, AuthEntity>> loginByPassword({
+  Future<Either<AuthError, AuthEntity>> loginByPassword({
     required String login,
     required String password,
   }) async {
+    Response<dynamic>? response;
     try {
-      final response = await _remoteDataSource.getAuthModelByPassword(
+      response = await _remoteDataSource.getAuthModelByPassword(
         login: login,
         password: password,
       );
-      await _localDataSource.saveAuthModel(authModel: response);
-      return Right(response.toEntity());
+      if (response.statusCode == 200) {
+        final authModel = AuthModel.fromJson(response.data);
+        await _localDataSource.saveAuthModel(authModel: authModel);
+        return Right(authModel.toEntity());
+      }
+      return Left(AuthError.fromJson(response.data));
     } catch (e, s) {
-      return Left(ExceptionToFailureConverter.convert(e, s));
+      try {
+        if (response?.data != null) {
+          return Left(AuthError.fromJson(response?.data));
+        }
+        return Left(
+            AuthError.fromFailure(ExceptionToFailureConverter.convert(e, s)));
+      } catch (e) {
+        return Left(
+            AuthError.fromFailure(ExceptionToFailureConverter.convert(e, s)));
+      }
     }
   }
 
@@ -94,7 +108,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, NoParams>> registration({
+  Future<Either<RegistrationError, NoParams>> registration({
     required String login,
     required String password,
   }) async {
@@ -106,17 +120,18 @@ class AuthRepositoryImpl extends AuthRepository {
       );
       if (response.statusCode == 200) {
         return Right(NoParams());
-      } else {
-        return Left(RegistrationError.fromJson(response.data));
       }
+      return Left(RegistrationError.fromJson(response.data));
     } catch (e, s) {
       try {
         if (response?.data != null) {
           return Left(RegistrationError.fromJson(response?.data));
         }
-        return Left(ExceptionToFailureConverter.convert(e, s));
+        return Left(RegistrationError.fromFailure(
+            ExceptionToFailureConverter.convert(e, s)));
       } catch (e) {
-        return Left(ExceptionToFailureConverter.convert(e, s));
+        return Left(RegistrationError.fromFailure(
+            ExceptionToFailureConverter.convert(e, s)));
       }
     }
   }

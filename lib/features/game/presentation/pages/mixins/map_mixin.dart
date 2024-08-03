@@ -4,12 +4,6 @@ mixin MapMixin on State<GameMap> {
   Completer<GoogleMapController> get _controller;
   late final GameBloc _bloc = context.read<GameBloc>();
 
-  @override
-  void initState() {
-    super.initState();
-    createMarkers();
-  }
-
   LatLng findInitPosition(LatLng defaultPosition) {
     final anyCoordinates = widget.routes
         .firstWhereOrNull((route) => route.coordinatesList.isNotEmpty)
@@ -23,6 +17,7 @@ mixin MapMixin on State<GameMap> {
 
   void onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
+    createMarkers();
   }
 
   Future<void> createMarkers() async {
@@ -37,5 +32,10 @@ mixin MapMixin on State<GameMap> {
 
   void onMarkerTap(int routeId) {
     _bloc.add(GameStartEvent(routeId));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

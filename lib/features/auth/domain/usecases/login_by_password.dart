@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
+import 'package:food_driver/features/auth/data/models/auth_error.dart';
 import 'package:food_driver/features/auth/domain/entities/auth_entity.dart';
 import 'package:food_driver/features/auth/domain/repositories/auth_repository.dart';
 import 'package:injectable/injectable.dart';
@@ -14,7 +14,7 @@ class LoginByPasswordUseCase implements UseCase<AuthEntity, AuthParams> {
   const LoginByPasswordUseCase(this._authRepository);
 
   @override
-  Future<Either<Failure, AuthEntity>> call(AuthParams params) async {
+  Future<Either<AuthError, AuthEntity>> call(AuthParams params) async {
     return await _authRepository.loginByPassword(
       login: params.login,
       password: params.password,

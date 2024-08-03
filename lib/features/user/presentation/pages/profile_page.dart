@@ -5,7 +5,7 @@ import 'package:food_driver/core/extensions/fdt_formatter.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/di/injection.dart';
-import 'package:food_driver/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:food_driver/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/user/data/models/user_status.dart';
@@ -114,9 +114,13 @@ class _ProfileBodyState extends State<ProfileBody> with ProfileMixin {
                           ),
                         ),
                         const SizedBox(height: 8.0),
-                        TextButton(
-                          onPressed: deleteAccount,
-                          child: Text(S.current.profilePageDeleteAccount),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: horizontalPaddingValue),
+                          child: TextButton(
+                            onPressed: deleteAccount,
+                            child: Text(S.current.profilePageDeleteAccount),
+                          ),
                         ),
                       ],
                     ),

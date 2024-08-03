@@ -17,7 +17,7 @@ abstract interface class AuthRemoteDataSource {
     required String code,
   });
 
-  Future<AuthModel> getAuthModelByPassword({
+  Future<Response<dynamic>> getAuthModelByPassword({
     required String login,
     required String password,
   });

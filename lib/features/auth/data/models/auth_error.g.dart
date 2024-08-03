@@ -8,10 +8,10 @@ part of 'auth_error.dart';
 
 AuthError _$AuthErrorFromJson(Map<String, dynamic> json) => AuthError(
       error: json['error'] as String?,
-      errorDescription: json['error_description'] as String?,
+      message: json['error_description'] as String?,
     );
 
 Map<String, dynamic> _$AuthErrorToJson(AuthError instance) => <String, dynamic>{
       'error': instance.error,
-      'error_description': instance.errorDescription,
+      'error_description': instance.message,
     };

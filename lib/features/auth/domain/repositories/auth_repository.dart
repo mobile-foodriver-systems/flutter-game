@@ -7,6 +7,7 @@ import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/auth/data/datasources/local/auth_local_data_source.dart';
 import 'package:food_driver/features/auth/data/datasources/remote/auth_remote_data_source.dart';
+import 'package:food_driver/features/auth/data/models/auth_error.dart';
 import 'package:food_driver/features/auth/data/models/auth_model.dart';
 import 'package:food_driver/features/auth/data/models/registration_error.dart';
 import 'package:food_driver/features/auth/domain/entities/auth_entity.dart';
@@ -20,7 +21,7 @@ abstract class AuthRepository {
     required String code,
   });
 
-  Future<Either<Failure, AuthEntity>> loginByPassword({
+  Future<Either<AuthError, AuthEntity>> loginByPassword({
     required String login,
     required String password,
   });
@@ -35,7 +36,7 @@ abstract class AuthRepository {
     required String refreshToken,
   });
 
-  Future<Either<Failure, NoParams>> registration({
+  Future<Either<RegistrationError, NoParams>> registration({
     required String login,
     required String password,
   });

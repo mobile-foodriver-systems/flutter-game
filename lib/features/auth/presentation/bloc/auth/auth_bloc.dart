@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/auth/data/models/auth_status.dart';
@@ -19,24 +20,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginByPasswordUseCase _loginByPassword;
   final LogoutUseCase _logout;
   final CheckAuthUseCase _checkAuth;
-  final RegistrationUseCase _registration;
   AuthBloc(
     this._loginByPassword,
     this._logout,
     this._checkAuth,
-    this._registration,
   ) : super(const AuthState()) {
     on<AuthLoginByPasswordEvent>(_onAuthLoginByPassword);
     on<AuthLogoutEvent>(_onAuthLogout);
     on<AuthCheckEvent>(_onAuthCheck);
-    on<AuthRegistrationEvent>(_onAuthRegistration);
   }
 
   void _onAuthLoginByPassword(
     AuthLoginByPasswordEvent event,
     Emitter<AuthState> emit,
   ) async {
-    emit(state.copyWith(status: AuthStatus.loading));
+    emit(state.copyWith(
+      status: AuthStatus.loading,
+      error: null,
+    ));
     final response = await _loginByPassword(
       AuthParams(
         login: event.login,
@@ -45,7 +46,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
     response.fold(
       (error) {
-        emit(state.copyWith(status: AuthStatus.unauthenticated));
+        emit(state.copyWith(
+          status: AuthStatus.unauthenticated,
+          error: error,
+        ));
       },
       (result) {
         emit(state.copyWith(status: AuthStatus.authenticated));
@@ -76,34 +80,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(state.copyWith(status: AuthStatus.unauthenticated));
           return;
         }
-        emit(state.copyWith(status: AuthStatus.authenticated));
-      },
-    );
-  }
-
-  void _onAuthRegistration(
-    AuthRegistrationEvent event,
-    Emitter<AuthState> emit,
-  ) async {
-    emit(state.copyWith(
-      status: AuthStatus.loading,
-      error: null,
-    ));
-    final response = await _registration.call(
-      AuthParams(
-        login: event.login,
-        password: event.password,
-      ),
-    );
-
-    response.fold(
-      (error) {
-        emit(state.copyWith(
-          status: AuthStatus.unauthenticated,
-          error: error,
-        ));
-      },
-      (result) {
         emit(state.copyWith(status: AuthStatus.authenticated));
       },
     );

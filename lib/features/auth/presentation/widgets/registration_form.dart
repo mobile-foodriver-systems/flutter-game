@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_driver/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:food_driver/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:food_driver/features/auth/presentation/bloc/registration/registration_bloc.dart';
 import 'package:food_driver/generated/l10n.dart';
 
 part 'package:food_driver/features/auth/presentation/pages/mixins/registration_mixin.dart';

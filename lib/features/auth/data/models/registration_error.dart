@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'registration_error.g.dart';
 
 @JsonSerializable()
-class RegistrationError extends Failure {
+class RegistrationError implements Failure {
   final String? errorCode;
   final List<RegError> errors;
   @override
@@ -25,7 +25,14 @@ class RegistrationError extends Failure {
         message,
       ];
 
+  factory RegistrationError.fromFailure(Failure failure) {
+    return RegistrationError(message: failure.message);
+  }
+
   factory RegistrationError.fromJson(Map<String, dynamic> json) =>
       _$RegistrationErrorFromJson(json);
   Map<String, dynamic> toJson() => _$RegistrationErrorToJson(this);
+
+  @override
+  bool? get stringify => null;
 }

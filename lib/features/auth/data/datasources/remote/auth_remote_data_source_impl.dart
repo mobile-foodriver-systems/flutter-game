@@ -54,11 +54,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<AuthModel> getAuthModelByPassword({
+  Future<Response<dynamic>> getAuthModelByPassword({
     required String login,
     required String password,
   }) async {
-    final response = await _appHttpService.request(
+    return await _appHttpService.request(
       path: ApiRoutes.token,
       type: RequestType.post,
       data: const Identity(
@@ -70,7 +70,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           'password': password,
         }),
     );
-    return AuthModel.fromJson(response.data);
   }
 
   @override

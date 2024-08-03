@@ -26,19 +26,3 @@ final class AuthLoginByPasswordEvent extends AuthEvent {
 }
 
 final class AuthCheckEvent extends AuthEvent {}
-
-final class AuthRegistrationEvent extends AuthEvent {
-  final String login;
-  final String password;
-
-  const AuthRegistrationEvent({
-    required this.login,
-    required this.password,
-  });
-
-  @override
-  List<Object> get props => [
-        login,
-        password,
-      ];
-}

@@ -5,13 +5,21 @@ mixin RegistrationMixin on State<RegistrationForm> {
   TextEditingController get loginController;
   TextEditingController get passwordController;
   TextEditingController get repeatPasswordController;
-  late final AuthBloc _bloc = context.read<AuthBloc>();
+  late final RegistrationBloc _registrationBloc =
+      context.read<RegistrationBloc>();
+  late final AuthBloc _authBloc = context.read<AuthBloc>();
 
   void submit() {
     if (formKey.currentState!.validate()) {
-      _bloc.add(AuthRegistrationEvent(
+      _registrationBloc.add(AuthRegistrationEvent(
         login: loginController.text,
         password: passwordController.text,
+        doLogin: () => _authBloc.add(
+          AuthLoginByPasswordEvent(
+            login: loginController.text,
+            password: passwordController.text,
+          ),
+        ),
       ));
     }
   }

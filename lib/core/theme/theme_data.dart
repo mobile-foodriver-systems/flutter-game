@@ -74,6 +74,9 @@ ThemeData appTheme(BuildContext context) {
           fontSize: 17,
           fontWeight: FontWeight.w600,
         ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
         foregroundColor: AppColors.textButtonGray,
         disabledForegroundColor: AppColors.lightGray,
         minimumSize: const Size.fromHeight(52),
