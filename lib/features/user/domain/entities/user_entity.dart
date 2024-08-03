@@ -18,6 +18,22 @@ class UserEntity extends Equatable {
     this.city,
   });
 
+  factory UserEntity.update({
+    UserEntity? user,
+    City? city,
+    String? walletAddress,
+    String? email,
+  }) {
+    return UserEntity(
+      id: user?.id ?? -1,
+      userName: user?.userName,
+      email: email ?? user?.email,
+      walletAddress: walletAddress ?? user?.walletAddress,
+      balance: user?.balance ?? 0,
+      city: city ?? user?.city,
+    );
+  }
+
   @override
   List<Object?> get props => [
         id,

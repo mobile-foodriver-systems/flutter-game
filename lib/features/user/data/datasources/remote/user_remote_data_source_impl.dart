@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:food_driver/constants/api_routes.dart';
 import 'package:food_driver/core/services/http/app_http_service.dart';
 import 'package:food_driver/core/services/http/http_service.dart';
@@ -18,15 +19,6 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   UserRemoteDataSourceImpl(
     this._appHttpService,
   );
-
-  @override
-  Future<num?> balance() async {
-    final response = await _appHttpService.request(
-      path: '',
-      type: RequestType.get,
-    );
-    return response.data.fromJson();
-  }
 
   @override
   Future<User> profile() async {
@@ -53,5 +45,39 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       type: RequestType.get,
     );
     return response.statusCode == 200;
+  }
+
+  @override
+  Future<Response<dynamic>> update({
+    required int id,
+    int? cityId,
+    String? email,
+    String? walletAddress,
+  }) async {
+    return await _appHttpService.request(
+      path: ApiRoutes.updateProfile.replaceFirst('{id}', id.toString()),
+      type: RequestType.put,
+      data: {
+        if (cityId != null) "cityId": cityId,
+        if (email?.isNotEmpty ?? false) "email": email,
+        if (walletAddress?.isNotEmpty ?? false) "walletAddress": walletAddress,
+      },
+    );
+  }
+
+  @override
+  Future<Response> updateLatLng({
+    required int id,
+    required double latitude,
+    required double longitude,
+  }) async {
+    return await _appHttpService.request(
+      path: ApiRoutes.updateLocation.replaceFirst('{id}', id.toString()),
+      type: RequestType.put,
+      data: {
+        "latitude": latitude,
+        "longitude": longitude,
+      },
+    );
   }
 }

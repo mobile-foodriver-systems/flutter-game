@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$UserState {
   UserStatus get status => throw _privateConstructorUsedError;
   UserEntity? get user => throw _privateConstructorUsedError;
+  Failure? get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UserStateCopyWith<UserState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $UserStateCopyWith<$Res> {
   factory $UserStateCopyWith(UserState value, $Res Function(UserState) then) =
       _$UserStateCopyWithImpl<$Res, UserState>;
   @useResult
-  $Res call({UserStatus status, UserEntity? user});
+  $Res call({UserStatus status, UserEntity? user, Failure? error});
 }
 
 /// @nodoc
@@ -47,6 +48,7 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
   $Res call({
     Object? status = null,
     Object? user = freezed,
+    Object? error = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -57,6 +59,10 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserEntity?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as Failure?,
     ) as $Val);
   }
 }
@@ -69,7 +75,7 @@ abstract class _$$UserStateImplCopyWith<$Res>
       __$$UserStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({UserStatus status, UserEntity? user});
+  $Res call({UserStatus status, UserEntity? user, Failure? error});
 }
 
 /// @nodoc
@@ -85,6 +91,7 @@ class __$$UserStateImplCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? user = freezed,
+    Object? error = freezed,
   }) {
     return _then(_$UserStateImpl(
       status: null == status
@@ -95,6 +102,10 @@ class __$$UserStateImplCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserEntity?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as Failure?,
     ));
   }
 }
@@ -102,7 +113,8 @@ class __$$UserStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UserStateImpl implements _UserState {
-  const _$UserStateImpl({this.status = UserStatus.loading, this.user = null});
+  const _$UserStateImpl(
+      {this.status = UserStatus.loading, this.user = null, this.error = null});
 
   @override
   @JsonKey()
@@ -110,10 +122,13 @@ class _$UserStateImpl implements _UserState {
   @override
   @JsonKey()
   final UserEntity? user;
+  @override
+  @JsonKey()
+  final Failure? error;
 
   @override
   String toString() {
-    return 'UserState(status: $status, user: $user)';
+    return 'UserState(status: $status, user: $user, error: $error)';
   }
 
   @override
@@ -122,11 +137,12 @@ class _$UserStateImpl implements _UserState {
         (other.runtimeType == runtimeType &&
             other is _$UserStateImpl &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, user);
+  int get hashCode => Object.hash(runtimeType, status, user, error);
 
   @JsonKey(ignore: true)
   @override
@@ -136,13 +152,17 @@ class _$UserStateImpl implements _UserState {
 }
 
 abstract class _UserState implements UserState {
-  const factory _UserState({final UserStatus status, final UserEntity? user}) =
-      _$UserStateImpl;
+  const factory _UserState(
+      {final UserStatus status,
+      final UserEntity? user,
+      final Failure? error}) = _$UserStateImpl;
 
   @override
   UserStatus get status;
   @override
   UserEntity? get user;
+  @override
+  Failure? get error;
   @override
   @JsonKey(ignore: true)
   _$$UserStateImplCopyWith<_$UserStateImpl> get copyWith =>

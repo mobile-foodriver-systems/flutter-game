@@ -1,17 +1,17 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'reg_error.dart';
+part of 'api_error.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-RegError _$RegErrorFromJson(Map<String, dynamic> json) => RegError(
+ApiError _$ApiErrorFromJson(Map<String, dynamic> json) => ApiError(
       errorCode: json['errorCode'] as String?,
-      errorMessage: json['errorMessage'] as String?,
+      message: json['errorMessage'] as String?,
     );
 
-Map<String, dynamic> _$RegErrorToJson(RegError instance) => <String, dynamic>{
+Map<String, dynamic> _$ApiErrorToJson(ApiError instance) => <String, dynamic>{
       'errorCode': instance.errorCode,
-      'errorMessage': instance.errorMessage,
+      'errorMessage': instance.message,
     };

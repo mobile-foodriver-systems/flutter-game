@@ -71,6 +71,9 @@ import 'package:food_driver/features/user/domain/repositories/user_repository.da
     as _i687;
 import 'package:food_driver/features/user/domain/usecases/load_profile.dart'
     as _i978;
+import 'package:food_driver/features/user/domain/usecases/update.dart' as _i238;
+import 'package:food_driver/features/user/domain/usecases/update_lat_lng.dart'
+    as _i198;
 import 'package:food_driver/features/user/presentation/bloc/user_bloc.dart'
     as _i223;
 import 'package:get_it/get_it.dart' as _i174;
@@ -229,6 +232,20 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i238.UpdateUserUseCase>(
+      () => _i238.UpdateUserUseCase(gh<_i687.UserRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i198.UpdateUserLatLngUseCase>(
+      () => _i198.UpdateUserLatLngUseCase(gh<_i687.UserRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i618.BreakAccessTokenUseCase>(
       () => _i618.BreakAccessTokenUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
@@ -279,8 +296,6 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i415.RegistrationBloc>(
         () => _i415.RegistrationBloc(gh<_i377.RegistrationUseCase>()));
-    gh.factory<_i223.UserBloc>(
-        () => _i223.UserBloc(gh<_i978.LoadProfileUseCase>()));
     gh.factory<_i879.CheckAuthUseCase>(
       () => _i879.CheckAuthUseCase(
         gh<_i55.AuthRepository>(),
@@ -291,6 +306,11 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i223.UserBloc>(() => _i223.UserBloc(
+          gh<_i978.LoadProfileUseCase>(),
+          gh<_i238.UpdateUserUseCase>(),
+          gh<_i198.UpdateUserLatLngUseCase>(),
+        ));
     gh.factory<_i667.AuthBloc>(() => _i667.AuthBloc(
           gh<_i1009.LoginByPasswordUseCase>(),
           gh<_i422.LogoutUseCase>(),

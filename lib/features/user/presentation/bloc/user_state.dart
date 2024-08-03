@@ -5,5 +5,6 @@ class UserState with _$UserState {
   const factory UserState({
     @Default(UserStatus.loading) UserStatus status,
     @Default(null) UserEntity? user,
+    @Default(null) Failure? error,
   }) = _UserState;
 }

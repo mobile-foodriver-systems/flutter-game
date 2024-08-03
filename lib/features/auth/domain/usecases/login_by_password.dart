@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/auth/data/models/auth_error.dart';
 import 'package:food_driver/features/auth/domain/entities/auth_entity.dart';
+import 'package:food_driver/features/auth/domain/entities/auth_params.dart';
 import 'package:food_driver/features/auth/domain/repositories/auth_repository.dart';
 import 'package:injectable/injectable.dart';
 
@@ -20,20 +21,4 @@ class LoginByPasswordUseCase implements UseCase<AuthEntity, AuthParams> {
       password: params.password,
     );
   }
-}
-
-class AuthParams extends Equatable {
-  final String login;
-  final String password;
-
-  const AuthParams({
-    required this.login,
-    required this.password,
-  });
-
-  @override
-  List<Object?> get props => [
-        login,
-        password,
-      ];
 }

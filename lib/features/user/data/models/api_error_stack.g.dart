@@ -1,24 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'registration_error.dart';
+part of 'api_error_stack.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-RegistrationError _$RegistrationErrorFromJson(Map<String, dynamic> json) =>
-    RegistrationError(
+ApiErrorStack _$ApiErrorStackFromJson(Map<String, dynamic> json) =>
+    ApiErrorStack(
       errorCode: json['errorCode'] as String?,
+      message: json['errorMessage'] as String?,
       errors: (json['errors'] as List<dynamic>?)
-              ?.map((e) => RegError.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => ApiError.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      message: json['errorMessage'] as String?,
     );
 
-Map<String, dynamic> _$RegistrationErrorToJson(RegistrationError instance) =>
+Map<String, dynamic> _$ApiErrorStackToJson(ApiErrorStack instance) =>
     <String, dynamic>{
       'errorCode': instance.errorCode,
-      'errors': instance.errors,
       'errorMessage': instance.message,
+      'errors': instance.errors,
     };

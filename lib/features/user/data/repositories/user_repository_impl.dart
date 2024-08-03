@@ -22,4 +22,68 @@ class UserRepositoryImpl extends UserRepository {
       );
     }
   }
+
+  @override
+  Future<Either<ApiErrorStack, NoParams>> updateUser({
+    required int id,
+    int? cityId,
+    String? email,
+    String? walletAddress,
+  }) async {
+    Response<dynamic>? response;
+    try {
+      response = await _remoteDataSource.update(
+        id: id,
+        cityId: cityId,
+        email: email,
+        walletAddress: walletAddress,
+      );
+      if (response.statusCode == 200) {
+        return Right(NoParams());
+      }
+      return Left(ApiErrorStack.fromJson(response.data));
+    } catch (e, s) {
+      try {
+        if (response?.data != null) {
+          return Left(ApiErrorStack.fromJson(response!.data));
+        }
+        return Left(ApiErrorStack.fromFailure(
+            ExceptionToFailureConverter.convert(e, s)));
+      } catch (e) {
+        return Left(ApiErrorStack.fromFailure(
+            ExceptionToFailureConverter.convert(e, s)));
+      }
+    }
+  }
+
+  @override
+  Future<Either<ApiErrorStack, NoParams>> updateUserLatLng({
+    required int id,
+    required double latitude,
+    required double longitude,
+  }) async {
+    Response<dynamic>? response;
+    try {
+      response = await _remoteDataSource.updateLatLng(
+        id: id,
+        latitude: latitude,
+        longitude: longitude,
+      );
+      if (response.statusCode == 200) {
+        return Right(NoParams());
+      }
+      return Left(ApiErrorStack.fromJson(response.data));
+    } catch (e, s) {
+      try {
+        if (response?.data != null) {
+          return Left(ApiErrorStack.fromJson(response!.data));
+        }
+        return Left(ApiErrorStack.fromFailure(
+            ExceptionToFailureConverter.convert(e, s)));
+      } catch (e) {
+        return Left(ApiErrorStack.fromFailure(
+            ExceptionToFailureConverter.convert(e, s)));
+      }
+    }
+  }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/auth/data/models/auth_status.dart';
+import 'package:food_driver/features/auth/domain/entities/auth_params.dart';
 import 'package:food_driver/features/auth/domain/usecases/check_auth.dart';
 import 'package:food_driver/features/auth/domain/usecases/login_by_password.dart';
 import 'package:food_driver/features/auth/domain/usecases/logout.dart';

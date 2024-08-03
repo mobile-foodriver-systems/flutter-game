@@ -108,7 +108,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<RegistrationError, NoParams>> registration({
+  Future<Either<ApiErrorStack, NoParams>> registration({
     required String login,
     required String password,
   }) async {
@@ -121,16 +121,16 @@ class AuthRepositoryImpl extends AuthRepository {
       if (response.statusCode == 200) {
         return Right(NoParams());
       }
-      return Left(RegistrationError.fromJson(response.data));
+      return Left(ApiErrorStack.fromJson(response.data));
     } catch (e, s) {
       try {
         if (response?.data != null) {
-          return Left(RegistrationError.fromJson(response?.data));
+          return Left(ApiErrorStack.fromJson(response?.data));
         }
-        return Left(RegistrationError.fromFailure(
+        return Left(ApiErrorStack.fromFailure(
             ExceptionToFailureConverter.convert(e, s)));
       } catch (e) {
-        return Left(RegistrationError.fromFailure(
+        return Left(ApiErrorStack.fromFailure(
             ExceptionToFailureConverter.convert(e, s)));
       }
     }
