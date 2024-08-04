@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthState {
   AuthStatus get status => throw _privateConstructorUsedError;
   Failure? get error => throw _privateConstructorUsedError;
+  UserEntity? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthStateCopyWith<AuthState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $AuthStateCopyWith<$Res> {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
       _$AuthStateCopyWithImpl<$Res, AuthState>;
   @useResult
-  $Res call({AuthStatus status, Failure? error});
+  $Res call({AuthStatus status, Failure? error, UserEntity? user});
 }
 
 /// @nodoc
@@ -47,6 +48,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
   $Res call({
     Object? status = null,
     Object? error = freezed,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -57,6 +59,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as Failure?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserEntity?,
     ) as $Val);
   }
 }
@@ -69,7 +75,7 @@ abstract class _$$AuthStateImplCopyWith<$Res>
       __$$AuthStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AuthStatus status, Failure? error});
+  $Res call({AuthStatus status, Failure? error, UserEntity? user});
 }
 
 /// @nodoc
@@ -85,6 +91,7 @@ class __$$AuthStateImplCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? error = freezed,
+    Object? user = freezed,
   }) {
     return _then(_$AuthStateImpl(
       status: null == status
@@ -95,6 +102,10 @@ class __$$AuthStateImplCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as Failure?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserEntity?,
     ));
   }
 }
@@ -102,7 +113,8 @@ class __$$AuthStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$AuthStateImpl implements _AuthState {
-  const _$AuthStateImpl({this.status = AuthStatus.unknown, this.error = null});
+  const _$AuthStateImpl(
+      {this.status = AuthStatus.unknown, this.error = null, this.user = null});
 
   @override
   @JsonKey()
@@ -110,10 +122,13 @@ class _$AuthStateImpl implements _AuthState {
   @override
   @JsonKey()
   final Failure? error;
+  @override
+  @JsonKey()
+  final UserEntity? user;
 
   @override
   String toString() {
-    return 'AuthState(status: $status, error: $error)';
+    return 'AuthState(status: $status, error: $error, user: $user)';
   }
 
   @override
@@ -122,11 +137,12 @@ class _$AuthStateImpl implements _AuthState {
         (other.runtimeType == runtimeType &&
             other is _$AuthStateImpl &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, error);
+  int get hashCode => Object.hash(runtimeType, status, error, user);
 
   @JsonKey(ignore: true)
   @override
@@ -136,13 +152,17 @@ class _$AuthStateImpl implements _AuthState {
 }
 
 abstract class _AuthState implements AuthState {
-  const factory _AuthState({final AuthStatus status, final Failure? error}) =
-      _$AuthStateImpl;
+  const factory _AuthState(
+      {final AuthStatus status,
+      final Failure? error,
+      final UserEntity? user}) = _$AuthStateImpl;
 
   @override
   AuthStatus get status;
   @override
   Failure? get error;
+  @override
+  UserEntity? get user;
   @override
   @JsonKey(ignore: true)
   _$$AuthStateImplCopyWith<_$AuthStateImpl> get copyWith =>

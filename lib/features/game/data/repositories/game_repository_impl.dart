@@ -20,4 +20,31 @@ class GameRepositoryImpl extends GameRepository {
       return Left(ExceptionToFailureConverter.convert(e, s));
     }
   }
+
+  @override
+  Future<Either<ApiErrorStack, RaitingList>> loadRaitingList({
+    int? radiusInKm,
+    int limit = 20,
+    int? offset,
+  }) async {
+    Response<dynamic>? response;
+    try {
+      response = await _remoteDataSource.getUsersRatingList();
+      if (response.statusCode == 200) {
+        return Right(RaitingList.fromJson(response.data));
+      }
+      return Left(ApiErrorStack.fromJson(response.data));
+    } catch (e, s) {
+      try {
+        if (response?.data != null) {
+          return Left(ApiErrorStack.fromJson(response!.data));
+        }
+        return Left(ApiErrorStack.fromFailure(
+            ExceptionToFailureConverter.convert(e, s)));
+      } catch (e) {
+        return Left(ApiErrorStack.fromFailure(
+            ExceptionToFailureConverter.convert(e, s)));
+      }
+    }
+  }
 }

@@ -25,4 +25,9 @@ final class AuthLoginByPasswordEvent extends AuthEvent {
       ];
 }
 
-final class AuthCheckEvent extends AuthEvent {}
+final class AuthCheckEvent extends AuthEvent {
+  const AuthCheckEvent();
+
+  @override
+  List<Object> get props => [];
+}

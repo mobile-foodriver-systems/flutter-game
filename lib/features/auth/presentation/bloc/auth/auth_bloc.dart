@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/auth/data/models/auth_status.dart';
@@ -8,7 +7,7 @@ import 'package:food_driver/features/auth/domain/entities/auth_params.dart';
 import 'package:food_driver/features/auth/domain/usecases/check_auth.dart';
 import 'package:food_driver/features/auth/domain/usecases/login_by_password.dart';
 import 'package:food_driver/features/auth/domain/usecases/logout.dart';
-import 'package:food_driver/features/auth/domain/usecases/registration.dart';
+import 'package:food_driver/features/user/domain/entities/user_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -77,8 +76,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(state.copyWith(status: AuthStatus.unauthenticated));
       },
       (result) {
-        if (result.refreshToken?.isEmpty ?? true) {
-          emit(state.copyWith(status: AuthStatus.unauthenticated));
+        final (auth, user) = result;
+        if (auth.refreshToken?.isEmpty ?? true) {
+          emit(state.copyWith(
+            status: AuthStatus.unauthenticated,
+            user: user,
+          ));
           return;
         }
         emit(state.copyWith(status: AuthStatus.authenticated));

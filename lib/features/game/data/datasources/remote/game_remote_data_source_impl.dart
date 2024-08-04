@@ -1,10 +1,4 @@
-import 'package:food_driver/core/services/http/app_http_service.dart';
-import 'package:food_driver/features/game/data/datasources/remote/game_remote_data_source.dart';
-import 'package:food_driver/features/location/data/models/city.dart';
-import 'package:food_driver/features/game/data/models/drive_route.dart';
-import 'package:food_driver/features/game/data/models/lat_lng.dart';
-import 'package:food_driver/features/game/data/models/user_rating.dart';
-import 'package:injectable/injectable.dart';
+part of "game_remote_data_source.dart";
 
 @LazySingleton(
   as: GameRemoteDataSource,
@@ -21,26 +15,19 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
   );
 
   @override
-  Future<List<UserRating>> getUsersRatingList() async {
-    // final response = await _appHttpService.request(
-    //   path: '',
-    //   type: RequestType.get,
-    // );
-    // return (response.data as List)
-    //     .map((i) => UserRating.fromJson(jsonDecode(i)))
-    //     .toList();
-    return [
-      const UserRating(name: "One", position: 1),
-      const UserRating(name: "Two", position: 2),
-      const UserRating(name: "Three", position: 3),
-      const UserRating(name: "Four", position: 4),
-      const UserRating(name: "Five", position: 5),
-      const UserRating(name: "Six", position: 6),
-      const UserRating(name: "Seven", position: 7),
-      const UserRating(name: "Eight", position: 8),
-      const UserRating(name: "Nine", position: 9),
-      const UserRating(name: "Ten", position: 10),
-    ];
+  Future<Response<dynamic>> getUsersRatingList({
+    int? radiusInKm,
+    int limit = 20,
+    int? offset,
+  }) async {
+    return await _appHttpService.request(
+        path: ApiRoutes.rating,
+        type: RequestType.get,
+        queryParameters: {
+          if (radiusInKm != null) "radiusInKm": radiusInKm,
+          "limit": limit,
+          if (offset != null) "offset": offset,
+        });
   }
 
   @override

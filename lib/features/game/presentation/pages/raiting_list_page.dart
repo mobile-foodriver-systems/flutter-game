@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
-import 'package:food_driver/features/game/data/models/user_sort_type.dart';
+import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart';
 import 'package:food_driver/features/game/presentation/widgets/custom_segmented_button.dart';
 import 'package:food_driver/features/game/presentation/widgets/users_list.dart';
 import 'package:food_driver/features/user/presentation/widgets/close_icon_button.dart';
 import 'package:food_driver/generated/l10n.dart';
 
-class ProgressListPage extends StatefulWidget {
-  const ProgressListPage({super.key});
+class RaitingListPage extends StatelessWidget {
+  const RaitingListPage({super.key});
 
-  @override
-  State<ProgressListPage> createState() => _ProgressListPageState();
-}
-
-class _ProgressListPageState extends State<ProgressListPage> {
-  var sortType = UsersSortType.global;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,12 +42,9 @@ class _ProgressListPageState extends State<ProgressListPage> {
                       ),
                       const SizedBox(height: 24),
                       CustomSegmentedButton(
-                        value: sortType,
+                        value: context.watch<RaitingBloc>().state.sort,
                         separator: const SizedBox(width: 4.0),
-                        onChanged: (value) {
-                          sortType = value;
-                          setState(() {});
-                        },
+                        onChanged: (_) {},
                       ),
                       const SizedBox(height: 24),
                       Expanded(

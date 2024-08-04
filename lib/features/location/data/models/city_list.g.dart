@@ -9,7 +9,7 @@ part of 'city_list.dart';
 CityList _$CityListFromJson(Map<String, dynamic> json) => CityList(
       count: (json['count'] as num?)?.toInt(),
       offset: (json['offset'] as num?)?.toInt(),
-      limit: (json['limit'] as num?)?.toInt(),
+      limit: (json['limit'] as num?)?.toInt() ?? 20,
       list: (json['list'] as List<dynamic>?)
               ?.map((e) => City.fromJson(e as Map<String, dynamic>))
               .toList() ??

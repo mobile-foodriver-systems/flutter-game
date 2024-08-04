@@ -1,41 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
+import 'package:food_driver/features/game/data/models/raiting_state_type.dart';
 import 'package:food_driver/features/game/data/models/user_rating.dart';
+import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart';
+import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/generated/l10n.dart';
 
-class UsersList extends StatelessWidget {
-  static const List<UserRating> list = [
-    UserRating(name: "test1", position: 1),
-    UserRating(name: "test2", position: 2),
-    UserRating(name: "test3", position: 3),
-    UserRating(name: "test4", position: 4),
-    UserRating(name: "test5", position: 5),
-    UserRating(name: "test6", position: 6),
-    UserRating(name: "test7", position: 7),
-    UserRating(name: "test8", position: 8),
-  ];
+part 'package:food_driver/features/game/presentation/pages/mixins/raiting_mixin.dart';
 
-  const UsersList({super.key});
+class UsersList extends StatefulWidget {
+  const UsersList({
+    super.key,
+  });
 
   @override
+  State<UsersList> createState() => _UsersListState();
+}
+
+class _UsersListState extends State<UsersList> with RaitingMixin {
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const _RaitingListHeader(),
-        Expanded(
-          child: ListView.separated(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return _UserRatingItem(rating: list[index]);
-            },
-            separatorBuilder: (context, index) {
-              return const SizedBox(height: 4.0);
-            },
-            itemCount: list.length,
-          ),
-        ),
-      ],
+    return BlocBuilder<RaitingBloc, RaitingState>(
+      builder: (BuildContext context, RaitingState state) {
+        return Column(
+          children: [
+            const _RaitingListHeader(),
+            if (state.status == RaitingStateType.loading)
+              const LoadingIndicator()
+            else if (state.status == RaitingStateType.success)
+              Expanded(
+                child: ListView.separated(
+                  controller: _scrollController,
+                  padding: EdgeInsets.zero,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return _UserRatingItem(
+                        rating: state.raitingList!.list[index]);
+                  },
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(height: 4.0);
+                  },
+                  itemCount: state.raitingList!.list.length,
+                ),
+              ),
+          ],
+        );
+      },
     );
   }
 }
@@ -58,7 +69,7 @@ class _UserRatingItem extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                rating.name ?? S.current.progressListPageUnknown,
+                rating.userName ?? S.current.progressListPageUnknown,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -69,7 +80,7 @@ class _UserRatingItem extends StatelessWidget {
             ),
             const SizedBox(width: 12.0),
             Text(
-              rating.position.toString(),
+              rating.balanceInFDT.toString(),
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,

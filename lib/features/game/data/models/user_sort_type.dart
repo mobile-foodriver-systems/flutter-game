@@ -12,4 +12,13 @@ enum UsersSortType {
         return S.current.progressListPageDistanceRadius;
     }
   }
+
+  int? get value {
+    switch (this) {
+      case UsersSortType.global:
+        return null;
+      case UsersSortType.distance:
+        return 100;
+    }
+  }
 }

@@ -6,8 +6,10 @@ import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/auth/data/models/auth_status.dart';
 import 'package:food_driver/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:food_driver/features/auth/presentation/pages/auth_page.dart';
+import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart';
 import 'package:food_driver/features/game/presentation/pages/game_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
+import 'package:food_driver/features/user/presentation/bloc/user_bloc.dart';
 import 'package:food_driver/generated/l10n.dart';
 
 class App extends StatelessWidget {
@@ -15,8 +17,18 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<AuthBloc>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => getIt<AuthBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => getIt<UserBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => getIt<RaitingBloc>(),
+        ),
+      ],
       child: const AppView(),
     );
   }
@@ -84,6 +96,6 @@ class _AppViewState extends State<AppView> {
   }
 
   Future<void> initApp(BuildContext context) async {
-    context.read<AuthBloc>().add(AuthCheckEvent());
+    context.read<AuthBloc>().add(const AuthCheckEvent());
   }
 }

@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
+import 'package:food_driver/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:food_driver/features/location/data/models/city.dart';
 import 'package:food_driver/features/user/data/models/user_status.dart';
 import 'package:food_driver/features/user/domain/entities/update_user_lat_lng_params.dart';
@@ -23,14 +26,24 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   final LoadProfileUseCase _loadProfile;
   final UpdateUserUseCase _update;
   final UpdateUserLatLngUseCase _updateLatLng;
+  final AuthBloc authBloc;
+  late final StreamSubscription authBlocSubscription;
   UserBloc(
     this._loadProfile,
     this._update,
     this._updateLatLng,
+    this.authBloc,
   ) : super(const UserState()) {
     on<UserLoadProfileEvent>(_load);
     on<UserUpdateEvent>(_userUpdate);
     on<UserUpdateLatLngEvent>(_userUpdateLatLng);
+    on<UserSetEvent>(_setUser);
+    authBlocSubscription = authBloc.stream.listen((state) {
+      if (state.user == null) {
+        return;
+      }
+      add(UserSetEvent(userEntity: state.user!));
+    });
   }
 
   void _load(
@@ -106,5 +119,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(state.copyWith(status: UserStatus.success));
       },
     );
+  }
+
+  void _setUser(
+    UserSetEvent event,
+    Emitter<UserState> emit,
+  ) {
+    emit(state.copyWith(
+      status: UserStatus.success,
+      user: event.userEntity,
+    ));
   }
 }

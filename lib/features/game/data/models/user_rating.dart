@@ -4,12 +4,16 @@ part 'user_rating.g.dart';
 
 @JsonSerializable()
 class UserRating {
-  final String? name;
-  final int? position;
+  final int? id;
+  final num? balanceInFDT;
+  final num? number;
+  final String? userName;
 
   const UserRating({
-    this.name,
-    this.position = 0,
+    this.id,
+    this.balanceInFDT = 0,
+    this.number = 0,
+    this.userName,
   });
 
   factory UserRating.fromJson(Map<String, dynamic> json) =>

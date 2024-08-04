@@ -1,7 +1,8 @@
 part of 'package:food_driver/features/game/presentation/pages/game_page.dart';
 
 mixin GameMixin on State<GamePageBody> {
-  late final GameBloc _bloc = context.read<GameBloc>();
+  late final GameBloc _gameBloc = context.read<GameBloc>();
+  late final UserBloc _userBloc = context.read<UserBloc>();
 
   @override
   void initState() {
@@ -12,31 +13,36 @@ mixin GameMixin on State<GamePageBody> {
   }
 
   Future<void> loadDriverRoutes() async {
-    _bloc.add(const GamePrepareInfoEvent(1));
+    _gameBloc.add(const GamePrepareInfoEvent(1));
   }
 
   void toggleToInit() {
-    _bloc.add(const GameInitializedEvent());
+    _gameBloc.add(const GameInitializedEvent());
   }
 
   void toggleToPlay() {
-    _bloc.add(const GamePlayEvent());
+    _gameBloc.add(const GamePlayEvent());
   }
 
   void onTap() {
-    if (_bloc.state.status == GameStateType.playing) {
-      _bloc.add(const GameTapEvent());
+    if (_gameBloc.state.status == GameStateType.playing) {
+      _gameBloc.add(const GameTapEvent());
     }
   }
 
   void breakGame() {
-    _bloc.add(const GameBreakEvent());
+    _gameBloc.add(const GameBreakEvent());
   }
 
   Future<void> _initGame() async {
     final navifator = Navigator.of(context);
+    if (_userBloc.state.user?.city != null) {
+      return;
+    }
     try {
       final Position position = await _determinePosition();
+      _userBloc.add(UserUpdateLatLngEvent(
+          latLng: LatLng(position.latitude, position.longitude)));
     } catch (e) {
       if (mounted) {
         navifator.push(

@@ -39,3 +39,14 @@ final class UserUpdateLatLngEvent extends UserEvent {
   @override
   List<Object> get props => [];
 }
+
+final class UserSetEvent extends UserEvent {
+  const UserSetEvent({
+    required this.userEntity,
+  });
+
+  final UserEntity userEntity;
+
+  @override
+  List<Object> get props => [userEntity];
+}

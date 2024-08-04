@@ -45,16 +45,18 @@ import 'package:food_driver/features/auth/presentation/bloc/registration/registr
     as _i415;
 import 'package:food_driver/features/game/data/datasources/remote/game_remote_data_source.dart'
     as _i259;
-import 'package:food_driver/features/game/data/datasources/remote/game_remote_data_source_impl.dart'
-    as _i423;
 import 'package:food_driver/features/game/domain/repositories/game_repository.dart'
     as _i927;
 import 'package:food_driver/features/game/domain/usecases/load.dart' as _i251;
+import 'package:food_driver/features/game/domain/usecases/load_raiting.dart'
+    as _i508;
 import 'package:food_driver/features/game/domain/usecases/play.dart' as _i930;
 import 'package:food_driver/features/game/domain/usecases/start.dart' as _i353;
 import 'package:food_driver/features/game/domain/usecases/stop.dart' as _i824;
-import 'package:food_driver/features/game/presentation/bloc/game_bloc.dart'
-    as _i917;
+import 'package:food_driver/features/game/presentation/bloc/game/game_bloc.dart'
+    as _i379;
+import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart'
+    as _i982;
 import 'package:food_driver/features/location/data/datasources/remote/location_remote_data_source.dart'
     as _i208;
 import 'package:food_driver/features/location/domain/repositories/location_repository.dart'
@@ -161,7 +163,7 @@ extension GetItInjectableX on _i174.GetIt {
       },
     );
     gh.lazySingleton<_i259.GameRemoteDataSource>(
-      () => _i423.GameRemoteDataSourceImpl(gh<_i528.AppHttpService>()),
+      () => _i259.GameRemoteDataSourceImpl(gh<_i528.AppHttpService>()),
       registerFor: {
         _dev,
         _prod,
@@ -202,6 +204,13 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i508.LoadRaitingUseCase>(
+      () => _i508.LoadRaitingUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.lazySingleton<_i687.UserRepository>(
       () => _i687.UserRepositoryImpl(gh<_i545.UserRemoteDataSource>()),
       registerFor: {
@@ -219,7 +228,7 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
-    gh.factory<_i917.GameBloc>(() => _i917.GameBloc(
+    gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
           gh<_i251.LoadUseCase>(),
           gh<_i353.StartUseCase>(),
           gh<_i930.PlayUseCase>(),
@@ -246,6 +255,8 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i982.RaitingBloc>(
+        () => _i982.RaitingBloc(gh<_i508.LoadRaitingUseCase>()));
     gh.factory<_i618.BreakAccessTokenUseCase>(
       () => _i618.BreakAccessTokenUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
@@ -306,15 +317,16 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i223.UserBloc>(() => _i223.UserBloc(
-          gh<_i978.LoadProfileUseCase>(),
-          gh<_i238.UpdateUserUseCase>(),
-          gh<_i198.UpdateUserLatLngUseCase>(),
-        ));
     gh.factory<_i667.AuthBloc>(() => _i667.AuthBloc(
           gh<_i1009.LoginByPasswordUseCase>(),
           gh<_i422.LogoutUseCase>(),
           gh<_i879.CheckAuthUseCase>(),
+        ));
+    gh.factory<_i223.UserBloc>(() => _i223.UserBloc(
+          gh<_i978.LoadProfileUseCase>(),
+          gh<_i238.UpdateUserUseCase>(),
+          gh<_i198.UpdateUserLatLngUseCase>(),
+          gh<_i667.AuthBloc>(),
         ));
     return this;
   }

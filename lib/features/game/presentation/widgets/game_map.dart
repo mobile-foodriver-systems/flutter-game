@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
 import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:food_driver/features/game/domain/entities/route_marker.dart';
-import 'package:food_driver/features/game/presentation/bloc/game_bloc.dart';
+import 'package:food_driver/features/game/presentation/bloc/game/game_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 part 'package:food_driver/features/game/presentation/pages/mixins/map_mixin.dart';
