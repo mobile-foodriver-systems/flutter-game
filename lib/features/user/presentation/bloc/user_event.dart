@@ -1,20 +1,13 @@
 part of 'user_bloc.dart';
 
-abstract class UserEvent extends Equatable {
-  const UserEvent();
-
-  @override
-  List<Object> get props => [];
-}
-
-final class UserLoadProfileEvent extends UserEvent {
+final class UserLoadProfileEvent extends AuthUserEvent {
   const UserLoadProfileEvent();
 
   @override
   List<Object> get props => [];
 }
 
-final class UserUpdateEvent extends UserEvent {
+final class UserUpdateEvent extends AuthUserEvent {
   const UserUpdateEvent({
     this.city,
     this.email,
@@ -29,7 +22,7 @@ final class UserUpdateEvent extends UserEvent {
   List<Object> get props => [];
 }
 
-final class UserUpdateLatLngEvent extends UserEvent {
+final class UserUpdateLatLngEvent extends AuthUserEvent {
   const UserUpdateLatLngEvent({
     required this.latLng,
   });
@@ -40,7 +33,7 @@ final class UserUpdateLatLngEvent extends UserEvent {
   List<Object> get props => [];
 }
 
-final class UserSetEvent extends UserEvent {
+final class UserSetEvent extends AuthUserEvent {
   const UserSetEvent({
     required this.userEntity,
   });

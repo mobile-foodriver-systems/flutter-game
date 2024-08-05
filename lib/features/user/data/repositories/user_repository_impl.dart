@@ -86,4 +86,15 @@ class UserRepositoryImpl extends UserRepository {
       }
     }
   }
+
+  @override
+  void addUserToStream({required UserEntity user}) {
+    _controller.sink.add(user);
+  }
+
+  @override
+  Future<UserEntity?> userFromStream() {
+    // TODO: implement userFromStream
+    throw UnimplementedError();
+  }
 }

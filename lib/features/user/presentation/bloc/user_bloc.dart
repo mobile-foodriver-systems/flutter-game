@@ -1,16 +1,15 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
-import 'package:food_driver/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:food_driver/features/auth/presentation/bloc/auth/auth_user_event.dart';
 import 'package:food_driver/features/location/data/models/city.dart';
 import 'package:food_driver/features/user/data/models/user_status.dart';
 import 'package:food_driver/features/user/domain/entities/update_user_lat_lng_params.dart';
 import 'package:food_driver/features/user/domain/entities/update_user_params.dart';
 import 'package:food_driver/features/user/domain/entities/user_entity.dart';
 import 'package:food_driver/features/user/domain/usecases/load_profile.dart';
+import 'package:food_driver/features/user/domain/usecases/set_user.dart';
 import 'package:food_driver/features/user/domain/usecases/update.dart';
 import 'package:food_driver/features/user/domain/usecases/update_lat_lng.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -22,28 +21,21 @@ part 'user_event.dart';
 part 'user_state.dart';
 
 @injectable
-class UserBloc extends Bloc<UserEvent, UserState> {
+class UserBloc extends Bloc<AuthUserEvent, UserState> {
   final LoadProfileUseCase _loadProfile;
   final UpdateUserUseCase _update;
   final UpdateUserLatLngUseCase _updateLatLng;
-  final AuthBloc authBloc;
-  late final StreamSubscription authBlocSubscription;
+  final SetUserUseCase _setUserUseCase;
   UserBloc(
     this._loadProfile,
     this._update,
     this._updateLatLng,
-    this.authBloc,
+    this._setUserUseCase,
   ) : super(const UserState()) {
     on<UserLoadProfileEvent>(_load);
     on<UserUpdateEvent>(_userUpdate);
     on<UserUpdateLatLngEvent>(_userUpdateLatLng);
     on<UserSetEvent>(_setUser);
-    authBlocSubscription = authBloc.stream.listen((state) {
-      if (state.user == null) {
-        return;
-      }
-      add(UserSetEvent(userEntity: state.user!));
-    });
   }
 
   void _load(
@@ -125,9 +117,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     UserSetEvent event,
     Emitter<UserState> emit,
   ) {
-    emit(state.copyWith(
-      status: UserStatus.success,
-      user: event.userEntity,
-    ));
+    _setUserUseCase.call(user)
   }
 }

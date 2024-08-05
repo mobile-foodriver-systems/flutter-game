@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:food_driver/core/errors/exceptions/exception_to_failure_converter.dart';
@@ -12,6 +14,8 @@ import 'package:injectable/injectable.dart';
 part 'package:food_driver/features/user/data/repositories/user_repository_impl.dart';
 
 abstract class UserRepository {
+  final _controller = StreamController<UserEntity?>();
+
   Future<Either<Failure, UserEntity>> getUser();
 
   Future<Either<ApiErrorStack, NoParams>> updateUser({
@@ -26,4 +30,10 @@ abstract class UserRepository {
     required double latitude,
     required double longitude,
   });
+
+  void addUserToStream({
+    required UserEntity user,
+  });
+
+  Future<UserEntity?> userFromStream();
 }

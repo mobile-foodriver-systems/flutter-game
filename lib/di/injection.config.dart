@@ -73,6 +73,8 @@ import 'package:food_driver/features/user/domain/repositories/user_repository.da
     as _i687;
 import 'package:food_driver/features/user/domain/usecases/load_profile.dart'
     as _i978;
+import 'package:food_driver/features/user/domain/usecases/set_user.dart'
+    as _i281;
 import 'package:food_driver/features/user/domain/usecases/update.dart' as _i238;
 import 'package:food_driver/features/user/domain/usecases/update_lat_lng.dart'
     as _i198;
@@ -99,17 +101,24 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final registerModule = _$RegisterModule();
-    gh.factory<_i370.DioProvider>(() => _i370.DioProvider());
     await gh.factoryAsync<_i460.SharedPreferences>(
       () => registerModule.prefs,
       preResolve: true,
     );
+    gh.factory<_i370.DioProvider>(() => _i370.DioProvider());
     gh.factory<_i510.CityBloc>(() => _i510.CityBloc());
     gh.factory<_i4.CountryBloc>(() => _i4.CountryBloc());
     gh.singleton<_i973.InternetConnectionChecker>(
         () => registerModule.internetConnectionChecker);
     gh.singleton<_i895.Connectivity>(() => registerModule.connectivity);
     gh.singleton<String>(() => registerModule.locale);
+    gh.factory<_i824.StopUseCase>(
+      () => _i824.StopUseCase(),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i930.PlayUseCase>(
       () => _i930.PlayUseCase(),
       registerFor: {
@@ -119,13 +128,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i353.StartUseCase>(
       () => _i353.StartUseCase(),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i824.StopUseCase>(
-      () => _i824.StopUseCase(),
       registerFor: {
         _dev,
         _prod,
@@ -255,15 +257,15 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i982.RaitingBloc>(
-        () => _i982.RaitingBloc(gh<_i508.LoadRaitingUseCase>()));
-    gh.factory<_i618.BreakAccessTokenUseCase>(
-      () => _i618.BreakAccessTokenUseCase(gh<_i55.AuthRepository>()),
+    gh.factory<_i281.SetUserUseCase>(
+      () => _i281.SetUserUseCase(gh<_i687.UserRepository>()),
       registerFor: {
         _dev,
         _prod,
       },
     );
+    gh.factory<_i982.RaitingBloc>(
+        () => _i982.RaitingBloc(gh<_i508.LoadRaitingUseCase>()));
     gh.factory<_i245.GetAccessTokenUseCase>(
       () => _i245.GetAccessTokenUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
@@ -271,15 +273,8 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i1009.LoginByPasswordUseCase>(
-      () => _i1009.LoginByPasswordUseCase(gh<_i55.AuthRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i422.LogoutUseCase>(
-      () => _i422.LogoutUseCase(gh<_i55.AuthRepository>()),
+    gh.factory<_i618.BreakAccessTokenUseCase>(
+      () => _i618.BreakAccessTokenUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
         _dev,
         _prod,
@@ -299,6 +294,26 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i422.LogoutUseCase>(
+      () => _i422.LogoutUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i1009.LoginByPasswordUseCase>(
+      () => _i1009.LoginByPasswordUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i223.UserBloc>(() => _i223.UserBloc(
+          gh<_i978.LoadProfileUseCase>(),
+          gh<_i238.UpdateUserUseCase>(),
+          gh<_i198.UpdateUserLatLngUseCase>(),
+          gh<_i281.SetUserUseCase>(),
+        ));
     gh.lazySingleton<_i535.AuthInterceptor>(() => _i535.AuthInterceptor(
           refreshAuth: gh<_i942.RefreshAuthUseCase>(),
           authRepository: gh<_i55.AuthRepository>(),
@@ -321,12 +336,6 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i1009.LoginByPasswordUseCase>(),
           gh<_i422.LogoutUseCase>(),
           gh<_i879.CheckAuthUseCase>(),
-        ));
-    gh.factory<_i223.UserBloc>(() => _i223.UserBloc(
-          gh<_i978.LoadProfileUseCase>(),
-          gh<_i238.UpdateUserUseCase>(),
-          gh<_i198.UpdateUserLatLngUseCase>(),
-          gh<_i667.AuthBloc>(),
         ));
     return this;
   }
