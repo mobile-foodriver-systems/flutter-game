@@ -38,5 +38,8 @@
     "countryListPageSelectCountry": "Select a country",
     "countryListPageDetectAutomatically": "Detect automatically",
     "countryListPageDone": "Done",
-    "cityListPageSelectCity": "Select a city"
+    "countryListPageCountry": "Country",
+    "cityListPageSelectCity": "Select a city",
+    "cityListPageCity": "City",
+    "listPageEmptyList": "The list is empty"
 }

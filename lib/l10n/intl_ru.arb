@@ -38,5 +38,8 @@
     "countryListPageSelectCountry": "Выберите страну",
     "countryListPageDetectAutomatically": "Определить автоматически",
     "countryListPageDone": "Готово",
-    "cityListPageSelectCity": "Выберите город"
+    "countryListPageCountry": "Страна",
+    "cityListPageSelectCity": "Выберите город",
+    "cityListPageCity": "Город",
+    "listPageEmptyList": "Список пуст"
 }

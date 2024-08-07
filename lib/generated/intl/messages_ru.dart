@@ -44,8 +44,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "authPageYourLogin": MessageLookupByLibrary.simpleMessage("Ваш логин"),
         "authPageYourPassword":
             MessageLookupByLibrary.simpleMessage("Ваш пароль"),
+        "cityListPageCity": MessageLookupByLibrary.simpleMessage("Город"),
         "cityListPageSelectCity":
             MessageLookupByLibrary.simpleMessage("Выберите город"),
+        "countryListPageCountry":
+            MessageLookupByLibrary.simpleMessage("Страна"),
         "countryListPageDetectAutomatically":
             MessageLookupByLibrary.simpleMessage("Определить автоматически"),
         "countryListPageDone": MessageLookupByLibrary.simpleMessage("Готово"),
@@ -65,6 +68,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Попробовать снова"),
         "gamePageYourReward":
             MessageLookupByLibrary.simpleMessage("Ваша награда"),
+        "listPageEmptyList":
+            MessageLookupByLibrary.simpleMessage("Список пуст"),
         "profilePageDeleteAccount":
             MessageLookupByLibrary.simpleMessage("Удалить аккаунт"),
         "profilePageEmail": MessageLookupByLibrary.simpleMessage("Почта"),

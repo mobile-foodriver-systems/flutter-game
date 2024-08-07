@@ -33,7 +33,6 @@ mixin GameMixin on State<GamePageBody> {
   }
 
   Future<void> _initGame() async {
-    final navifator = Navigator.of(context);
     if (widget.user.city != null) {
       loadDriverRoutes(cityId: widget.user.city!.id);
       return;
@@ -97,6 +96,7 @@ mixin GameMixin on State<GamePageBody> {
         return AlertDialog(
           content: SizedBox(
             height: MediaQuery.sizeOf(context).height * 0.62,
+            width: MediaQuery.sizeOf(context).width,
             child: const CountryListPage(),
           ),
           contentPadding:

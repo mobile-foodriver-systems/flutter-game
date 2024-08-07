@@ -5,8 +5,6 @@ import 'package:food_driver/features/location/data/datasources/remote/location_r
 import 'package:food_driver/features/location/data/models/city_list.dart';
 import 'package:food_driver/features/location/data/models/country_list.dart';
 import 'package:food_driver/features/location/data/models/user_location.dart';
-import 'package:food_driver/features/location/domain/entities/city_list_entity.dart';
-import 'package:food_driver/features/location/domain/entities/country_list_entity.dart';
 import 'package:food_driver/features/location/domain/entities/user_location_entity.dart';
 import 'package:injectable/injectable.dart';
 
@@ -18,13 +16,13 @@ abstract class LocationRepository {
     required double longitude,
   });
 
-  Future<Either<Failure, CountryListEntity>> getCountryList({
+  Future<Either<Failure, CountryList>> getCountryList({
     String? searchText,
     int limit = 20,
     int? offset,
   });
 
-  Future<Either<Failure, CityListEntity>> getCityList({
+  Future<Either<Failure, CityList>> getCityList({
     required int countryId,
     String? searchText,
     int limit = 20,

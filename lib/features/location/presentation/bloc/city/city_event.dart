@@ -6,3 +6,10 @@ sealed class CityEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+final class CityLoadEvent extends CityEvent {
+  const CityLoadEvent();
+
+  @override
+  List<Object> get props => [];
+}

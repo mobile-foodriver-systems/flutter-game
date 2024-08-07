@@ -10,4 +10,7 @@ class AssetsCatalog {
   static const String icFaceFrown = 'assets/ic_face_frown.png';
   static const String icFlag = 'assets/ic_flag.png';
   static const String icDriver = 'assets/ic_driver.png';
+  static const String icClear = 'assets/ic_clear.png';
+  static const String icSearch = 'assets/ic_search.png';
+  static const String icLocation = 'assets/ic_location.png';
 }

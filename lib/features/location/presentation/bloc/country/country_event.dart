@@ -6,3 +6,10 @@ sealed class CountryEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+final class CountryLoadEvent extends CountryEvent {
+  const CountryLoadEvent();
+
+  @override
+  List<Object> get props => [];
+}

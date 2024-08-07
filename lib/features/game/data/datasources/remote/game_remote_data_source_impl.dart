@@ -42,7 +42,7 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
     return [
       DriveRoute(
         id: 1,
-        city: const City(
+        city: City(
           id: 65345,
           name: "Pécs",
           countryId: 963,
@@ -68,7 +68,7 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
       ),
       DriveRoute(
         id: 2,
-        city: const City(
+        city: City(
           id: 65345,
           name: "Pécs",
           countryId: 963,

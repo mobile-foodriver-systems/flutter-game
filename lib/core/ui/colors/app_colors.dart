@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const Color background = Color(0xFFFEFFFF);
+  static const Color dialogBackgroundColor = Color(0xFFFAFBFB);
   static const Color textFieldGray = Color(0xFFF5F6F7);
   static const Color textFieldError = Color(0xFFFBE8E8);
   static const Color focusedBorder = Color(0xFF7A8699);
@@ -23,4 +24,8 @@ class AppColors {
   static const Color primary = red;
 
   static const Color markerDarkRed = Color(0xFF980E13);
+  static const Color activeRadioRed = Color(0xFFD62F50);
+  static const Color radioBorder = Color(0xFFC6B2B6);
+  static const Color labelRed = Color(0xFF840C10);
+  static const Color dividerLightGray = Color(0xFFEBEDF0);
 }

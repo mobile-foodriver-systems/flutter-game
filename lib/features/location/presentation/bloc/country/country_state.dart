@@ -4,5 +4,7 @@ part of 'country_bloc.dart';
 class CountryState with _$CountryState {
   const factory CountryState({
     @Default(ListStatus.initial) ListStatus status,
-  })  = _CountryState;
+    @Default(null) CountryList? countryList,
+    @Default(null) Failure? error,
+  }) = _CountryState;
 }

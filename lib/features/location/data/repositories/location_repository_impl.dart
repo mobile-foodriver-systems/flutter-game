@@ -28,7 +28,7 @@ class LocationRepositoryImpl extends LocationRepository {
   }
 
   @override
-  Future<Either<Failure, CityListEntity>> getCityList({
+  Future<Either<Failure, CityList>> getCityList({
     required int countryId,
     String? searchText,
     int limit = 20,
@@ -41,14 +41,14 @@ class LocationRepositoryImpl extends LocationRepository {
         limit: limit,
         offset: offset,
       );
-      return Right(response.toEntity());
+      return Right(response);
     } catch (e, s) {
       return Left(ExceptionToFailureConverter.convert(e, s));
     }
   }
 
   @override
-  Future<Either<Failure, CountryListEntity>> getCountryList({
+  Future<Either<Failure, CountryList>> getCountryList({
     String? searchText,
     int limit = 20,
     int? offset,
@@ -59,7 +59,7 @@ class LocationRepositoryImpl extends LocationRepository {
         limit: limit,
         offset: offset,
       );
-      return Right(response.toEntity());
+      return Right(response);
     } catch (e, s) {
       return Left(ExceptionToFailureConverter.convert(e, s));
     }

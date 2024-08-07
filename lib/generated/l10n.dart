@@ -440,11 +440,41 @@ class S {
     );
   }
 
+  /// `Country`
+  String get countryListPageCountry {
+    return Intl.message(
+      'Country',
+      name: 'countryListPageCountry',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Select a city`
   String get cityListPageSelectCity {
     return Intl.message(
       'Select a city',
       name: 'cityListPageSelectCity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `City`
+  String get cityListPageCity {
+    return Intl.message(
+      'City',
+      name: 'cityListPageCity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The list is empty`
+  String get listPageEmptyList {
+    return Intl.message(
+      'The list is empty',
+      name: 'listPageEmptyList',
       desc: '',
       args: [],
     );

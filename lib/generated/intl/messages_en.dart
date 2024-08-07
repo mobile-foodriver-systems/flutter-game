@@ -44,8 +44,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Your username"),
         "authPageYourPassword":
             MessageLookupByLibrary.simpleMessage("Your password"),
+        "cityListPageCity": MessageLookupByLibrary.simpleMessage("City"),
         "cityListPageSelectCity":
             MessageLookupByLibrary.simpleMessage("Select a city"),
+        "countryListPageCountry":
+            MessageLookupByLibrary.simpleMessage("Country"),
         "countryListPageDetectAutomatically":
             MessageLookupByLibrary.simpleMessage("Detect automatically"),
         "countryListPageDone": MessageLookupByLibrary.simpleMessage("Done"),
@@ -63,6 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "gamePageTryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
         "gamePageYourReward":
             MessageLookupByLibrary.simpleMessage("Your reward"),
+        "listPageEmptyList":
+            MessageLookupByLibrary.simpleMessage("The list is empty"),
         "profilePageDeleteAccount":
             MessageLookupByLibrary.simpleMessage("Delete an account"),
         "profilePageEmail": MessageLookupByLibrary.simpleMessage("Email"),
