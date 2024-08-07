@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/auth/presentation/bloc/auth/auth_user_event.dart';
@@ -117,6 +116,6 @@ class UserBloc extends Bloc<AuthUserEvent, UserState> {
     UserSetEvent event,
     Emitter<UserState> emit,
   ) {
-    _setUserUseCase.call(user)
+    _setUserUseCase.call(event.userEntity);
   }
 }

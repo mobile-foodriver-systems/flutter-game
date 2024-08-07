@@ -31,9 +31,9 @@ abstract class UserRepository {
     required double longitude,
   });
 
-  void addUserToStream({
+  void setUser({
     required UserEntity user,
   });
 
-  Future<UserEntity?> userFromStream();
+  Stream<UserEntity?> userFromStream();
 }

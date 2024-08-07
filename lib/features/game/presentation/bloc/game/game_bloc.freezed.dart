@@ -26,6 +26,7 @@ mixin _$GameState {
   Timer? get timer => throw _privateConstructorUsedError;
   num get speed => throw _privateConstructorUsedError;
   int get seconds => throw _privateConstructorUsedError;
+  UserEntity? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GameStateCopyWith<GameState> get copyWith =>
@@ -47,7 +48,8 @@ abstract class $GameStateCopyWith<$Res> {
       int tapCount,
       Timer? timer,
       num speed,
-      int seconds});
+      int seconds,
+      UserEntity? user});
 }
 
 /// @nodoc
@@ -73,6 +75,7 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
     Object? timer = freezed,
     Object? speed = null,
     Object? seconds = null,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -115,6 +118,10 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.seconds
           : seconds // ignore: cast_nullable_to_non_nullable
               as int,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserEntity?,
     ) as $Val);
   }
 }
@@ -137,7 +144,8 @@ abstract class _$$GameStateImplCopyWith<$Res>
       int tapCount,
       Timer? timer,
       num speed,
-      int seconds});
+      int seconds,
+      UserEntity? user});
 }
 
 /// @nodoc
@@ -161,6 +169,7 @@ class __$$GameStateImplCopyWithImpl<$Res>
     Object? timer = freezed,
     Object? speed = null,
     Object? seconds = null,
+    Object? user = freezed,
   }) {
     return _then(_$GameStateImpl(
       status: null == status
@@ -203,6 +212,10 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value.seconds
           : seconds // ignore: cast_nullable_to_non_nullable
               as int,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserEntity?,
     ));
   }
 }
@@ -220,7 +233,8 @@ class _$GameStateImpl implements _GameState {
       this.tapCount = 0,
       this.timer = null,
       this.speed = 0,
-      this.seconds = 0})
+      this.seconds = 0,
+      this.user = null})
       : _routes = routes,
         _markers = markers,
         _polylines = polylines;
@@ -273,10 +287,13 @@ class _$GameStateImpl implements _GameState {
   @override
   @JsonKey()
   final int seconds;
+  @override
+  @JsonKey()
+  final UserEntity? user;
 
   @override
   String toString() {
-    return 'GameState(status: $status, cityId: $cityId, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, tapCount: $tapCount, timer: $timer, speed: $speed, seconds: $seconds)';
+    return 'GameState(status: $status, cityId: $cityId, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, tapCount: $tapCount, timer: $timer, speed: $speed, seconds: $seconds, user: $user)';
   }
 
   @override
@@ -296,7 +313,8 @@ class _$GameStateImpl implements _GameState {
                 other.tapCount == tapCount) &&
             (identical(other.timer, timer) || other.timer == timer) &&
             (identical(other.speed, speed) || other.speed == speed) &&
-            (identical(other.seconds, seconds) || other.seconds == seconds));
+            (identical(other.seconds, seconds) || other.seconds == seconds) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
@@ -311,7 +329,8 @@ class _$GameStateImpl implements _GameState {
       tapCount,
       timer,
       speed,
-      seconds);
+      seconds,
+      user);
 
   @JsonKey(ignore: true)
   @override
@@ -331,7 +350,8 @@ abstract class _GameState implements GameState {
       final int tapCount,
       final Timer? timer,
       final num speed,
-      final int seconds}) = _$GameStateImpl;
+      final int seconds,
+      final UserEntity? user}) = _$GameStateImpl;
 
   @override
   GameStateType get status;
@@ -353,6 +373,8 @@ abstract class _GameState implements GameState {
   num get speed;
   @override
   int get seconds;
+  @override
+  UserEntity? get user;
   @override
   @JsonKey(ignore: true)
   _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>

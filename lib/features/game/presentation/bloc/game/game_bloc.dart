@@ -4,15 +4,18 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/location/data/models/city.dart';
+import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/game/data/models/game_state_type.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
 import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:food_driver/features/game/domain/entities/route_marker.dart';
+import 'package:food_driver/features/game/domain/usecases/get_user.dart';
 import 'package:food_driver/features/game/domain/usecases/load.dart';
 import 'package:food_driver/features/game/domain/usecases/play.dart';
 import 'package:food_driver/features/game/domain/usecases/start.dart';
 import 'package:food_driver/features/game/domain/usecases/stop.dart';
+import 'package:food_driver/features/location/data/models/city.dart';
+import 'package:food_driver/features/user/domain/entities/user_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:injectable/injectable.dart';
@@ -27,11 +30,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final StartUseCase _start;
   final PlayUseCase _play;
   final StopUseCase _stop;
+  final GetUserUseCase _getUserUseCase;
+  late final StreamSubscription subscription;
   GameBloc(
     this._load,
     this._start,
     this._play,
     this._stop,
+    this._getUserUseCase,
+    this.subscription,
   ) : super(const GameState()) {
     on<GamePrepareInfoEvent>(_prepareInfo);
     on<GameStartEvent>(_startGame);
@@ -44,6 +51,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameWinEvent>(_winGame);
     on<GameTapEvent>(_onTap);
     on<GameUpdateSpeedEvent>(_updateSpeed);
+    _subscribe();
   }
 
   Set<MarkerEntity> get markerEntities => state.routes
@@ -51,22 +59,35 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       .whereType<MarkerEntity>()
       .toSet();
 
-  void _prepareInfo(
-    GamePrepareInfoEvent event,
-    Emitter<GameState> emit,
-  ) async {
-    final response = await _load.call(event.cityId);
-    response.fold(
-      (error) {
-        emit(state.copyWith(status: GameStateType.error));
-      },
-      (result) {
-        emit(state.copyWith(
-          status: GameStateType.initialized,
-          routes: result,
-        ));
-      },
-    );
+  void _prepareInfo(GamePrepareInfoEvent event, Emitter<GameState> emit) async {
+    if (event.cityId != null) {
+      final response = await _load.call(event.cityId!);
+      response.fold(
+        (error) {
+          emit(state.copyWith(status: GameStateType.error));
+        },
+        (result) {
+          if (event.user != null) {
+            emit(state.copyWith(
+              status: GameStateType.initialized,
+              routes: result,
+              user: event.user,
+            ));
+          } else {
+            emit(state.copyWith(
+              status: GameStateType.loading,
+              routes: result,
+            ));
+          }
+        },
+      );
+    } else if (event.user != null) {
+      emit(state.copyWith(
+        status: GameStateType.loading,
+        routes: state.routes,
+        user: event.user,
+      ));
+    }
   }
 
   void _startGame(
@@ -225,5 +246,17 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     } else {
       add(GameUpdateSpeedEvent(seconds: max(state.seconds - 1, 0)));
     }
+  }
+
+  void _subscribe() {
+    subscription = _getUserUseCase.call(NoParams()).listen((user) {
+      add(GamePrepareInfoEvent(user: user));
+    });
+  }
+
+  @override
+  Future<void> close() {
+    subscription.cancel();
+    return super.close();
   }
 }

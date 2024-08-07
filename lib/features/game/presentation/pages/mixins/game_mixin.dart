@@ -2,19 +2,18 @@ part of 'package:food_driver/features/game/presentation/pages/game_page.dart';
 
 mixin GameMixin on State<GamePageBody> {
   late final GameBloc _gameBloc = context.read<GameBloc>();
-  late final UserBloc _userBloc = context.read<UserBloc>();
 
   @override
   void initState() {
     super.initState();
     _initGame();
     _determinePosition();
-    loadDriverRoutes();
+    // loadDriverRoutes();
   }
 
-  Future<void> loadDriverRoutes() async {
-    _gameBloc.add(const GamePrepareInfoEvent(1));
-  }
+  // Future<void> loadDriverRoutes() async {
+  //   _gameBloc.add(const GamePrepareInfoEvent(1));
+  // }
 
   void toggleToInit() {
     _gameBloc.add(const GameInitializedEvent());
@@ -35,20 +34,21 @@ mixin GameMixin on State<GamePageBody> {
   }
 
   Future<void> _initGame() async {
-    final navifator = Navigator.of(context);
-    if (_userBloc.state.user?.city != null) {
-      return;
-    }
-    try {
-      final Position position = await _determinePosition();
-      _userBloc.add(UserUpdateLatLngEvent(
-          latLng: LatLng(position.latitude, position.longitude)));
-    } catch (e) {
-      if (mounted) {
-        navifator.push(
-            MaterialPageRoute(builder: (context) => const CountryListPage()));
-      }
-    }
+    print("AAA _initGame user: = ${_gameBloc.state.user}");
+    // final navifator = Navigator.of(context);
+    // if (_userBloc.state.user?.city != null) {
+    //   return;
+    // }
+    // try {
+    //   final Position position = await _determinePosition();
+    //   _userBloc.add(UserUpdateLatLngEvent(
+    //       latLng: LatLng(position.latitude, position.longitude)));
+    // } catch (e) {
+    //   if (mounted) {
+    //     navifator.push(
+    //         MaterialPageRoute(builder: (context) => const CountryListPage()));
+    //   }
+    // }
   }
 
   Future<Position> _determinePosition() async {

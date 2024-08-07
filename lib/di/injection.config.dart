@@ -8,6 +8,8 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'dart:async' as _i687;
+
 import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
 import 'package:food_driver/core/platform/network_info.dart' as _i984;
 import 'package:food_driver/core/platform/network_info_impl.dart' as _i771;
@@ -47,6 +49,8 @@ import 'package:food_driver/features/game/data/datasources/remote/game_remote_da
     as _i259;
 import 'package:food_driver/features/game/domain/repositories/game_repository.dart'
     as _i927;
+import 'package:food_driver/features/game/domain/usecases/get_user.dart'
+    as _i953;
 import 'package:food_driver/features/game/domain/usecases/load.dart' as _i251;
 import 'package:food_driver/features/game/domain/usecases/load_raiting.dart'
     as _i508;
@@ -230,12 +234,6 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
-    gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
-          gh<_i251.LoadUseCase>(),
-          gh<_i353.StartUseCase>(),
-          gh<_i930.PlayUseCase>(),
-          gh<_i824.StopUseCase>(),
-        ));
     gh.factory<_i978.LoadProfileUseCase>(
       () => _i978.LoadProfileUseCase(gh<_i687.UserRepository>()),
       registerFor: {
@@ -264,8 +262,23 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i953.GetUserUseCase>(
+      () => _i953.GetUserUseCase(gh<_i687.UserRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i982.RaitingBloc>(
         () => _i982.RaitingBloc(gh<_i508.LoadRaitingUseCase>()));
+    gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
+          gh<_i251.LoadUseCase>(),
+          gh<_i353.StartUseCase>(),
+          gh<_i930.PlayUseCase>(),
+          gh<_i824.StopUseCase>(),
+          gh<_i953.GetUserUseCase>(),
+          gh<_i687.StreamSubscription<dynamic>>(),
+        ));
     gh.factory<_i245.GetAccessTokenUseCase>(
       () => _i245.GetAccessTokenUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
@@ -308,12 +321,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i223.UserBloc>(() => _i223.UserBloc(
-          gh<_i978.LoadProfileUseCase>(),
-          gh<_i238.UpdateUserUseCase>(),
-          gh<_i198.UpdateUserLatLngUseCase>(),
-          gh<_i281.SetUserUseCase>(),
-        ));
     gh.lazySingleton<_i535.AuthInterceptor>(() => _i535.AuthInterceptor(
           refreshAuth: gh<_i942.RefreshAuthUseCase>(),
           authRepository: gh<_i55.AuthRepository>(),
@@ -332,10 +339,17 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i223.UserBloc>(() => _i223.UserBloc(
+          gh<_i978.LoadProfileUseCase>(),
+          gh<_i238.UpdateUserUseCase>(),
+          gh<_i198.UpdateUserLatLngUseCase>(),
+          gh<_i281.SetUserUseCase>(),
+        ));
     gh.factory<_i667.AuthBloc>(() => _i667.AuthBloc(
           gh<_i1009.LoginByPasswordUseCase>(),
           gh<_i422.LogoutUseCase>(),
           gh<_i879.CheckAuthUseCase>(),
+          gh<_i281.SetUserUseCase>(),
         ));
     return this;
   }

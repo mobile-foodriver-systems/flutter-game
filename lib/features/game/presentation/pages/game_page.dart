@@ -17,7 +17,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 part 'package:food_driver/features/game/presentation/pages/mixins/game_mixin.dart';
 
 class GamePage extends StatelessWidget {
-  const GamePage({super.key});
+  const GamePage({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

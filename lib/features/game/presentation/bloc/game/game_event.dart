@@ -8,9 +8,13 @@ sealed class GameEvent extends Equatable {
 }
 
 final class GamePrepareInfoEvent extends GameEvent {
-  const GamePrepareInfoEvent(this.cityId);
+  const GamePrepareInfoEvent({
+    this.cityId,
+    this.user,
+  });
 
-  final int cityId;
+  final int? cityId;
+  final UserEntity? user;
 
   @override
   List<Object> get props => [];
