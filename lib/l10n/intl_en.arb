@@ -34,5 +34,9 @@
     "gamePageSomethingWrong": "Something went wrong",
     "registrationPageRegistration": "Registration",
     "registrationPageYourPassword": "Repeat the password",
-    "registrationPagePasswordsDoNotMatch": "Passwords don't match"
+    "registrationPagePasswordsDoNotMatch": "Passwords don't match",
+    "countryListPageSelectCountry": "Select a country",
+    "countryListPageDetectAutomatically": "Detect automatically",
+    "countryListPageDone": "Done",
+    "cityListPageSelectCity": "Select a city"
 }

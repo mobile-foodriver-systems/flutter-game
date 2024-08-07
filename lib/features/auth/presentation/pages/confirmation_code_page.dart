@@ -3,7 +3,7 @@ import 'package:food_driver/core/theme/theme_data.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/auth/presentation/widgets/countdown_text_button.dart';
-import 'package:food_driver/features/game/presentation/pages/game_page.dart';
+import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 // import 'package:pinput/pinput.dart';
 
 class ConfirmationCodePage extends StatefulWidget {
@@ -62,7 +62,8 @@ class _ConfirmationCodePageState extends State<ConfirmationCodePage> {
                 child: ElevatedButton(
                   // onPressed: confirmCode,
                   onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => const GamePage()),
+                      MaterialPageRoute(
+                          builder: (context) => const ErrorPage()),
                       (_) => false),
                   child: const Text("Подтвердить"),
                 ),

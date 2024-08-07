@@ -9,7 +9,9 @@ import 'package:food_driver/features/game/presentation/widgets/help_game_message
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/game/presentation/widgets/navigation.dart';
 import 'package:food_driver/features/game/presentation/widgets/tap_button.dart';
+import 'package:food_driver/features/location/data/models/country.dart';
 import 'package:food_driver/features/location/presentation/pages/country_list_page.dart';
+import 'package:food_driver/features/user/domain/entities/user_entity.dart';
 import 'package:food_driver/features/user/presentation/bloc/user_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -17,21 +19,28 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 part 'package:food_driver/features/game/presentation/pages/mixins/game_mixin.dart';
 
 class GamePage extends StatelessWidget {
+  final UserEntity user;
+
   const GamePage({
     super.key,
+    required this.user,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<GameBloc>(),
-      child: const GamePageBody(),
+      child: GamePageBody(user: user),
     );
   }
 }
 
 class GamePageBody extends StatefulWidget {
-  const GamePageBody({super.key});
+  final UserEntity user;
+  const GamePageBody({
+    super.key,
+    required this.user,
+  });
 
   @override
   State<GamePageBody> createState() => _GamePageBodyState();

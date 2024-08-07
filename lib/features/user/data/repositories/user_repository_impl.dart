@@ -86,14 +86,4 @@ class UserRepositoryImpl extends UserRepository {
       }
     }
   }
-
-  @override
-  void setUser({required UserEntity user}) {
-    _controller.sink.add(user);
-  }
-
-  @override
-  Stream<UserEntity?> userFromStream() {
-    return _controller.stream;
-  }
 }

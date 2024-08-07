@@ -409,6 +409,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Select a country`
+  String get countryListPageSelectCountry {
+    return Intl.message(
+      'Select a country',
+      name: 'countryListPageSelectCountry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Detect automatically`
+  String get countryListPageDetectAutomatically {
+    return Intl.message(
+      'Detect automatically',
+      name: 'countryListPageDetectAutomatically',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Done`
+  String get countryListPageDone {
+    return Intl.message(
+      'Done',
+      name: 'countryListPageDone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a city`
+  String get cityListPageSelectCity {
+    return Intl.message(
+      'Select a city',
+      name: 'cityListPageSelectCity',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

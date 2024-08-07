@@ -8,8 +8,6 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i687;
-
 import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
 import 'package:food_driver/core/platform/network_info.dart' as _i984;
 import 'package:food_driver/core/platform/network_info_impl.dart' as _i771;
@@ -49,8 +47,6 @@ import 'package:food_driver/features/game/data/datasources/remote/game_remote_da
     as _i259;
 import 'package:food_driver/features/game/domain/repositories/game_repository.dart'
     as _i927;
-import 'package:food_driver/features/game/domain/usecases/get_user.dart'
-    as _i953;
 import 'package:food_driver/features/game/domain/usecases/load.dart' as _i251;
 import 'package:food_driver/features/game/domain/usecases/load_raiting.dart'
     as _i508;
@@ -65,6 +61,8 @@ import 'package:food_driver/features/location/data/datasources/remote/location_r
     as _i208;
 import 'package:food_driver/features/location/domain/repositories/location_repository.dart'
     as _i275;
+import 'package:food_driver/features/location/domain/usecases/city_by_lat_lng.dart'
+    as _i680;
 import 'package:food_driver/features/location/presentation/bloc/city/city_bloc.dart'
     as _i510;
 import 'package:food_driver/features/location/presentation/bloc/country/country_bloc.dart'
@@ -77,8 +75,6 @@ import 'package:food_driver/features/user/domain/repositories/user_repository.da
     as _i687;
 import 'package:food_driver/features/user/domain/usecases/load_profile.dart'
     as _i978;
-import 'package:food_driver/features/user/domain/usecases/set_user.dart'
-    as _i281;
 import 'package:food_driver/features/user/domain/usecases/update.dart' as _i238;
 import 'package:food_driver/features/user/domain/usecases/update_lat_lng.dart'
     as _i198;
@@ -203,6 +199,13 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
+    gh.factory<_i680.CityByLatLngUseCase>(
+      () => _i680.CityByLatLngUseCase(gh<_i275.LocationRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i251.LoadUseCase>(
       () => _i251.LoadUseCase(gh<_i927.GameRepository>()),
       registerFor: {
@@ -234,6 +237,13 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
+    gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
+          gh<_i251.LoadUseCase>(),
+          gh<_i353.StartUseCase>(),
+          gh<_i930.PlayUseCase>(),
+          gh<_i824.StopUseCase>(),
+          gh<_i680.CityByLatLngUseCase>(),
+        ));
     gh.factory<_i978.LoadProfileUseCase>(
       () => _i978.LoadProfileUseCase(gh<_i687.UserRepository>()),
       registerFor: {
@@ -255,30 +265,8 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i281.SetUserUseCase>(
-      () => _i281.SetUserUseCase(gh<_i687.UserRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i953.GetUserUseCase>(
-      () => _i953.GetUserUseCase(gh<_i687.UserRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
     gh.factory<_i982.RaitingBloc>(
         () => _i982.RaitingBloc(gh<_i508.LoadRaitingUseCase>()));
-    gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
-          gh<_i251.LoadUseCase>(),
-          gh<_i353.StartUseCase>(),
-          gh<_i930.PlayUseCase>(),
-          gh<_i824.StopUseCase>(),
-          gh<_i953.GetUserUseCase>(),
-          gh<_i687.StreamSubscription<dynamic>>(),
-        ));
     gh.factory<_i245.GetAccessTokenUseCase>(
       () => _i245.GetAccessTokenUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
@@ -343,13 +331,11 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i978.LoadProfileUseCase>(),
           gh<_i238.UpdateUserUseCase>(),
           gh<_i198.UpdateUserLatLngUseCase>(),
-          gh<_i281.SetUserUseCase>(),
         ));
     gh.factory<_i667.AuthBloc>(() => _i667.AuthBloc(
           gh<_i1009.LoginByPasswordUseCase>(),
           gh<_i422.LogoutUseCase>(),
           gh<_i879.CheckAuthUseCase>(),
-          gh<_i281.SetUserUseCase>(),
         ));
     return this;
   }

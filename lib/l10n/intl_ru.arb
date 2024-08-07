@@ -34,5 +34,9 @@
     "gamePageSomethingWrong": "Что-то пошло не так",
     "registrationPageRegistration": "Регистрация",
     "registrationPageYourPassword": "Повторите пароль",
-    "registrationPagePasswordsDoNotMatch": "Пароли не совпадают"
+    "registrationPagePasswordsDoNotMatch": "Пароли не совпадают",
+    "countryListPageSelectCountry": "Выберите страну",
+    "countryListPageDetectAutomatically": "Определить автоматически",
+    "countryListPageDone": "Готово",
+    "cityListPageSelectCity": "Выберите город"
 }

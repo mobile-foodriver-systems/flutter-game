@@ -14,8 +14,6 @@ import 'package:injectable/injectable.dart';
 part 'package:food_driver/features/user/data/repositories/user_repository_impl.dart';
 
 abstract class UserRepository {
-  final _controller = StreamController<UserEntity?>();
-
   Future<Either<Failure, UserEntity>> getUser();
 
   Future<Either<ApiErrorStack, NoParams>> updateUser({
@@ -30,10 +28,4 @@ abstract class UserRepository {
     required double latitude,
     required double longitude,
   });
-
-  void setUser({
-    required UserEntity user,
-  });
-
-  Stream<UserEntity?> userFromStream();
 }

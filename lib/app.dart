@@ -7,6 +7,7 @@ import 'package:food_driver/features/auth/data/models/auth_status.dart';
 import 'package:food_driver/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:food_driver/features/auth/presentation/pages/auth_page.dart';
 import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart';
+import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/pages/game_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/user/presentation/bloc/user_bloc.dart';
@@ -70,8 +71,14 @@ class _AppViewState extends State<AppView> {
           listener: (context, state) {
             switch (state.status) {
               case AuthStatus.authenticated:
+                if (state.user == null) {
+                  _navigator.push(MaterialPageRoute(
+                      builder: (context) => const ErrorPage()));
+                  return;
+                }
                 _navigator.pushAndRemoveUntil<void>(
-                  MaterialPageRoute(builder: (context) => const GamePage()),
+                  MaterialPageRoute(
+                      builder: (context) => GamePage(user: state.user!)),
                   (route) => false,
                 );
               case AuthStatus.unauthenticated:

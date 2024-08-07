@@ -44,6 +44,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "authPageYourLogin": MessageLookupByLibrary.simpleMessage("Ваш логин"),
         "authPageYourPassword":
             MessageLookupByLibrary.simpleMessage("Ваш пароль"),
+        "cityListPageSelectCity":
+            MessageLookupByLibrary.simpleMessage("Выберите город"),
+        "countryListPageDetectAutomatically":
+            MessageLookupByLibrary.simpleMessage("Определить автоматически"),
+        "countryListPageDone": MessageLookupByLibrary.simpleMessage("Готово"),
+        "countryListPageSelectCountry":
+            MessageLookupByLibrary.simpleMessage("Выберите страну"),
         "gamePageBeginIn": m0,
         "gamePageClickOnTheDots": MessageLookupByLibrary.simpleMessage(
             "Жмите на точки для начала игры"),

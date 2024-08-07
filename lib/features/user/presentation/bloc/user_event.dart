@@ -25,12 +25,17 @@ final class UserUpdateEvent extends AuthUserEvent {
 final class UserUpdateLatLngEvent extends AuthUserEvent {
   const UserUpdateLatLngEvent({
     required this.latLng,
+    required this.userId,
   });
 
   final LatLng latLng;
+  final int userId;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        latLng,
+        userId,
+      ];
 }
 
 final class UserSetEvent extends AuthUserEvent {

@@ -2,18 +2,17 @@ part of 'package:food_driver/features/game/presentation/pages/game_page.dart';
 
 mixin GameMixin on State<GamePageBody> {
   late final GameBloc _gameBloc = context.read<GameBloc>();
+  late final UserBloc _userBloc = context.read<UserBloc>();
 
   @override
   void initState() {
     super.initState();
     _initGame();
-    _determinePosition();
-    // loadDriverRoutes();
   }
 
-  // Future<void> loadDriverRoutes() async {
-  //   _gameBloc.add(const GamePrepareInfoEvent(1));
-  // }
+  Future<void> loadDriverRoutes({required int cityId}) async {
+    _gameBloc.add(GamePrepareInfoEvent(cityId));
+  }
 
   void toggleToInit() {
     _gameBloc.add(const GameInitializedEvent());
@@ -34,21 +33,24 @@ mixin GameMixin on State<GamePageBody> {
   }
 
   Future<void> _initGame() async {
-    print("AAA _initGame user: = ${_gameBloc.state.user}");
-    // final navifator = Navigator.of(context);
-    // if (_userBloc.state.user?.city != null) {
-    //   return;
-    // }
-    // try {
-    //   final Position position = await _determinePosition();
-    //   _userBloc.add(UserUpdateLatLngEvent(
-    //       latLng: LatLng(position.latitude, position.longitude)));
-    // } catch (e) {
-    //   if (mounted) {
-    //     navifator.push(
-    //         MaterialPageRoute(builder: (context) => const CountryListPage()));
-    //   }
-    // }
+    final navifator = Navigator.of(context);
+    if (widget.user.city != null) {
+      loadDriverRoutes(cityId: widget.user.city!.id);
+      return;
+    }
+    try {
+      final Position position = await _determinePosition();
+      final latLng = LatLng(position.latitude, position.longitude);
+      _userBloc.add(UserUpdateLatLngEvent(
+        latLng: latLng,
+        userId: widget.user.id,
+      ));
+      _gameBloc.add(GetCityEvent(latLng: latLng));
+    } catch (e) {
+      if (mounted) {
+        final country = await showCountryDialog(context);
+      }
+    }
   }
 
   Future<Position> _determinePosition() async {
@@ -86,5 +88,22 @@ mixin GameMixin on State<GamePageBody> {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition();
+  }
+
+  Future<Country?> showCountryDialog(BuildContext context) async {
+    return await showDialog<Country>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: SizedBox(
+            height: MediaQuery.sizeOf(context).height * 0.62,
+            child: const CountryListPage(),
+          ),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25.0),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 36.0),
+        );
+      },
+    );
   }
 }

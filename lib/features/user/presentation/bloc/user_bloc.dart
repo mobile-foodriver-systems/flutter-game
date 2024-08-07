@@ -8,7 +8,6 @@ import 'package:food_driver/features/user/domain/entities/update_user_lat_lng_pa
 import 'package:food_driver/features/user/domain/entities/update_user_params.dart';
 import 'package:food_driver/features/user/domain/entities/user_entity.dart';
 import 'package:food_driver/features/user/domain/usecases/load_profile.dart';
-import 'package:food_driver/features/user/domain/usecases/set_user.dart';
 import 'package:food_driver/features/user/domain/usecases/update.dart';
 import 'package:food_driver/features/user/domain/usecases/update_lat_lng.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -24,17 +23,14 @@ class UserBloc extends Bloc<AuthUserEvent, UserState> {
   final LoadProfileUseCase _loadProfile;
   final UpdateUserUseCase _update;
   final UpdateUserLatLngUseCase _updateLatLng;
-  final SetUserUseCase _setUserUseCase;
   UserBloc(
     this._loadProfile,
     this._update,
     this._updateLatLng,
-    this._setUserUseCase,
   ) : super(const UserState()) {
     on<UserLoadProfileEvent>(_load);
     on<UserUpdateEvent>(_userUpdate);
     on<UserUpdateLatLngEvent>(_userUpdateLatLng);
-    on<UserSetEvent>(_setUser);
   }
 
   void _load(
@@ -96,7 +92,7 @@ class UserBloc extends Bloc<AuthUserEvent, UserState> {
   ) async {
     emit(state.copyWith(status: UserStatus.loading));
     final response = await _updateLatLng.call(UpdateUserLatLngParams(
-      id: state.user?.id ?? -1,
+      id: event.userId,
       latLng: event.latLng,
     ));
     response.fold(
@@ -110,12 +106,5 @@ class UserBloc extends Bloc<AuthUserEvent, UserState> {
         emit(state.copyWith(status: UserStatus.success));
       },
     );
-  }
-
-  void _setUser(
-    UserSetEvent event,
-    Emitter<UserState> emit,
-  ) {
-    _setUserUseCase.call(event.userEntity);
   }
 }

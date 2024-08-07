@@ -44,6 +44,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Your username"),
         "authPageYourPassword":
             MessageLookupByLibrary.simpleMessage("Your password"),
+        "cityListPageSelectCity":
+            MessageLookupByLibrary.simpleMessage("Select a city"),
+        "countryListPageDetectAutomatically":
+            MessageLookupByLibrary.simpleMessage("Detect automatically"),
+        "countryListPageDone": MessageLookupByLibrary.simpleMessage("Done"),
+        "countryListPageSelectCountry":
+            MessageLookupByLibrary.simpleMessage("Select a country"),
         "gamePageBeginIn": m0,
         "gamePageClickOnTheDots": MessageLookupByLibrary.simpleMessage(
             "Click on the dots to start the game"),
