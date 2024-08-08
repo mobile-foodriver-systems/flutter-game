@@ -40,7 +40,7 @@ class CountryBloc extends Bloc<CountryEvent, CountryState> {
     }
 
     emit(state.copyWith(status: ListStatus.loading));
-    final response = await _loadCountryUseCase(state.countryList == null
+    final params = state.countryList == null
         ? CountryParams()
         : CountryParams(
             offset: (state.countryList!.count ?? 0) <
@@ -48,13 +48,13 @@ class CountryBloc extends Bloc<CountryEvent, CountryState> {
                         state.countryList!.limit)
                 ? state.countryList!.offset ?? 0
                 : (state.countryList!.offset ?? 0) + state.countryList!.limit,
-          ));
+          );
+    final response = await _loadCountryUseCase(params);
     response.fold(
       (error) {
         emit(state.copyWith(status: ListStatus.error, error: error));
       },
       (result) {
-        print("AAA result.list.length: = ${result.list.length}");
         emit(state.copyWith(
           status: ListStatus.success,
           countryList: CountryList.update(
@@ -66,11 +66,10 @@ class CountryBloc extends Bloc<CountryEvent, CountryState> {
                   list: [],
                 ),
             list: result.list,
+            offset: params.offset ?? 0,
           ),
         ));
       },
     );
-    print(
-        "AAA totalCount: = ${state.countryList?.count}, list.length: = ${state.countryList?.list.length}");
   }
 }

@@ -16,11 +16,12 @@ class CountryList extends ApiList<Country> {
   factory CountryList.update({
     required CountryList countryList,
     required List<Country> list,
+    required int offset,
   }) {
     return CountryList(
       count: countryList.count,
       limit: countryList.limit,
-      offset: countryList.offset ?? 0,
+      offset: offset,
       list: [...countryList.list, ...list],
     );
   }

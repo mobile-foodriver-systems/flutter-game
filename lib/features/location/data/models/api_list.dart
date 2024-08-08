@@ -1,7 +1,7 @@
 abstract class ApiList<T> {
   final int? count;
   final int limit;
-  final int? offset;
+  int? offset;
   List<T> list;
 
   ApiList({

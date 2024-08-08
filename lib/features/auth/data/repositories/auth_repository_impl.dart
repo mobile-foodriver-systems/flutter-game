@@ -84,7 +84,6 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<Either<Failure, AuthEntity>> initAuthEntity() async {
-    print("AAA AuthRepository initAuthEntity");
     try {
       final response = await _remoteDataSource.initAuth();
       await _localDataSource.saveAuthModel(authModel: response);
