@@ -2,7 +2,7 @@ part of 'package:food_driver/features/location/presentation/pages/country_list_p
 
 mixin CountryMixin on State<CountryBody> {
   final _scrollController = ScrollController();
-  
+
   late final _bloc = context.read<CountryBloc>();
   Selectable? country;
 
@@ -20,9 +20,18 @@ mixin CountryMixin on State<CountryBody> {
     _scrollController.addListener(_onScroll);
   }
 
-  Future search() async {}
+  Future search(String searchString) async {
+    if (searchString.trim().isEmpty) {
+      return;
+    }
+    _bloc.add(CountryLoadEvent(searchText: searchString));
+  }
 
-  Future clear() async {}
+  Future clear() async {
+    setState(() {
+      country = null;
+    });
+  }
 
   void select(Selectable value) {
     setState(() {

@@ -8,8 +8,12 @@ sealed class CountryEvent extends Equatable {
 }
 
 final class CountryLoadEvent extends CountryEvent {
-  const CountryLoadEvent();
+  const CountryLoadEvent({this.searchText});
+
+  final String? searchText;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        if (searchText != null) searchText!,
+      ];
 }

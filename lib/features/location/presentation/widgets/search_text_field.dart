@@ -4,7 +4,7 @@ import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/location/data/models/selectable.dart';
 
 class SearchTextField<T extends Selectable> extends StatefulWidget {
-  final VoidCallback? search;
+  final void Function(String)? search;
   final VoidCallback? clear;
   final T? value;
   final String label;
@@ -60,12 +60,15 @@ class _SearchTextFieldState<T extends Selectable>
             prefixIconConstraints: iconConstraints,
             prefixIcon: IconButton(
               icon: Image.asset(AssetsCatalog.icSearch),
-              onPressed: widget.search,
+              onPressed: () => widget.search?.call(controller.text),
             ),
             suffixIconConstraints: iconConstraints,
             suffixIcon: IconButton(
               icon: Image.asset(AssetsCatalog.icClear),
-              onPressed: widget.clear,
+              onPressed: () {
+                controller.clear();
+                widget.clear?.call();
+              },
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
@@ -126,5 +129,12 @@ class _SearchTextFieldState<T extends Selectable>
       controller.text = widget.value?.name ?? "";
       setState(() {});
     }
+  }
+
+  @override
+  void dispose() {
+    focusNode.removeListener(focusListener);
+    controller.dispose();
+    super.dispose();
   }
 }

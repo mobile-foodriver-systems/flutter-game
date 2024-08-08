@@ -6,5 +6,6 @@ class CountryState with _$CountryState {
     @Default(ListStatus.initial) ListStatus status,
     @Default(null) CountryList? countryList,
     @Default(null) Failure? error,
+    @Default(null) String? searchText,
   }) = _CountryState;
 }

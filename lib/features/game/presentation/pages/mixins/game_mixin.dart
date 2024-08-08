@@ -46,8 +46,18 @@ mixin GameMixin on State<GamePageBody> {
       ));
       _gameBloc.add(GetCityEvent(latLng: latLng));
     } catch (e) {
-      if (mounted) {
-        final country = await showCountryDialog(context);
+      if (!mounted) {
+        return;
+      }
+      final country = await showSelectDialog<Country>(
+        context,
+        child: const CountryListPage(),
+      );
+      if (country != country && mounted) {
+        await showSelectDialog<City>(
+          context,
+          child: CityListPage(countryId: country!.id),
+        );
       }
     }
   }
@@ -98,6 +108,26 @@ mixin GameMixin on State<GamePageBody> {
             height: MediaQuery.sizeOf(context).height * 0.62,
             width: MediaQuery.sizeOf(context).width,
             child: const CountryListPage(),
+          ),
+          contentPadding: EdgeInsets.zero,
+          insetPadding: const EdgeInsets.symmetric(horizontal: 36.0),
+        );
+      },
+    );
+  }
+
+  Future<T?> showSelectDialog<T>(
+    BuildContext context, {
+    required Widget child,
+  }) async {
+    return await showDialog<T>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: SizedBox(
+            height: MediaQuery.sizeOf(context).height * 0.62,
+            width: MediaQuery.sizeOf(context).width,
+            child: child,
           ),
           contentPadding: EdgeInsets.zero,
           insetPadding: const EdgeInsets.symmetric(horizontal: 36.0),

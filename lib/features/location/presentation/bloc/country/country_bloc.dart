@@ -26,10 +26,12 @@ class CountryBloc extends Bloc<CountryEvent, CountryState> {
     CountryLoadEvent event,
     Emitter<CountryState> emit,
   ) async {
-    if (state.countryList == null) {
+    if (state.countryList == null || event.searchText != state.searchText) {
       emit(state.copyWith(
         status: ListStatus.initial,
         error: null,
+        searchText: event.searchText,
+        countryList: null,
       ));
     }
     if (state.countryList != null &&
@@ -38,16 +40,18 @@ class CountryBloc extends Bloc<CountryEvent, CountryState> {
         state.status == ListStatus.loading) {
       return;
     }
-
-    emit(state.copyWith(status: ListStatus.loading));
+    if (state.countryList != null) {
+      emit(state.copyWith(status: ListStatus.loading));
+    }
     final params = state.countryList == null
-        ? CountryParams()
+        ? CountryParams(searchText: event.searchText)
         : CountryParams(
             offset: (state.countryList!.count ?? 0) <
                     ((state.countryList!.offset ?? 0) +
                         state.countryList!.limit)
                 ? state.countryList!.offset ?? 0
                 : (state.countryList!.offset ?? 0) + state.countryList!.limit,
+            searchText: event.searchText,
           );
     final response = await _loadCountryUseCase(params);
     response.fold(

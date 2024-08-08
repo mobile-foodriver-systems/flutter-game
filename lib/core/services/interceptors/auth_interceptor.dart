@@ -76,7 +76,6 @@ class AuthInterceptor extends InterceptorsWrapper {
     DioException err,
     ErrorInterceptorHandler handler,
   ) async {
-    print("BBB _getAccessToken");
     final response = await getAccessToken(NoParams());
     response.fold(
       (error) => handler.next(err),
@@ -105,7 +104,6 @@ class AuthInterceptor extends InterceptorsWrapper {
     DioException err,
     ErrorInterceptorHandler handler,
   ) async {
-    print("BBB _updateAuthModel");
     final response = await refreshAuth.call(NoParams());
     response.fold(
       (error) => handler.next(err),

@@ -19,6 +19,7 @@ mixin _$CountryState {
   ListStatus get status => throw _privateConstructorUsedError;
   CountryList? get countryList => throw _privateConstructorUsedError;
   Failure? get error => throw _privateConstructorUsedError;
+  String? get searchText => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CountryStateCopyWith<CountryState> get copyWith =>
@@ -31,7 +32,11 @@ abstract class $CountryStateCopyWith<$Res> {
           CountryState value, $Res Function(CountryState) then) =
       _$CountryStateCopyWithImpl<$Res, CountryState>;
   @useResult
-  $Res call({ListStatus status, CountryList? countryList, Failure? error});
+  $Res call(
+      {ListStatus status,
+      CountryList? countryList,
+      Failure? error,
+      String? searchText});
 }
 
 /// @nodoc
@@ -50,6 +55,7 @@ class _$CountryStateCopyWithImpl<$Res, $Val extends CountryState>
     Object? status = null,
     Object? countryList = freezed,
     Object? error = freezed,
+    Object? searchText = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -64,6 +70,10 @@ class _$CountryStateCopyWithImpl<$Res, $Val extends CountryState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as Failure?,
+      searchText: freezed == searchText
+          ? _value.searchText
+          : searchText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -76,7 +86,11 @@ abstract class _$$CountryStateImplCopyWith<$Res>
       __$$CountryStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ListStatus status, CountryList? countryList, Failure? error});
+  $Res call(
+      {ListStatus status,
+      CountryList? countryList,
+      Failure? error,
+      String? searchText});
 }
 
 /// @nodoc
@@ -93,6 +107,7 @@ class __$$CountryStateImplCopyWithImpl<$Res>
     Object? status = null,
     Object? countryList = freezed,
     Object? error = freezed,
+    Object? searchText = freezed,
   }) {
     return _then(_$CountryStateImpl(
       status: null == status
@@ -107,6 +122,10 @@ class __$$CountryStateImplCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as Failure?,
+      searchText: freezed == searchText
+          ? _value.searchText
+          : searchText // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -117,7 +136,8 @@ class _$CountryStateImpl implements _CountryState {
   const _$CountryStateImpl(
       {this.status = ListStatus.initial,
       this.countryList = null,
-      this.error = null});
+      this.error = null,
+      this.searchText = null});
 
   @override
   @JsonKey()
@@ -128,10 +148,13 @@ class _$CountryStateImpl implements _CountryState {
   @override
   @JsonKey()
   final Failure? error;
+  @override
+  @JsonKey()
+  final String? searchText;
 
   @override
   String toString() {
-    return 'CountryState(status: $status, countryList: $countryList, error: $error)';
+    return 'CountryState(status: $status, countryList: $countryList, error: $error, searchText: $searchText)';
   }
 
   @override
@@ -142,11 +165,14 @@ class _$CountryStateImpl implements _CountryState {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.countryList, countryList) ||
                 other.countryList == countryList) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.searchText, searchText) ||
+                other.searchText == searchText));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, countryList, error);
+  int get hashCode =>
+      Object.hash(runtimeType, status, countryList, error, searchText);
 
   @JsonKey(ignore: true)
   @override
@@ -159,7 +185,8 @@ abstract class _CountryState implements CountryState {
   const factory _CountryState(
       {final ListStatus status,
       final CountryList? countryList,
-      final Failure? error}) = _$CountryStateImpl;
+      final Failure? error,
+      final String? searchText}) = _$CountryStateImpl;
 
   @override
   ListStatus get status;
@@ -167,6 +194,8 @@ abstract class _CountryState implements CountryState {
   CountryList? get countryList;
   @override
   Failure? get error;
+  @override
+  String? get searchText;
   @override
   @JsonKey(ignore: true)
   _$$CountryStateImplCopyWith<_$CountryStateImpl> get copyWith =>
