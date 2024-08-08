@@ -24,6 +24,7 @@ class SearchTextField<T extends Selectable> extends StatefulWidget {
 class _SearchTextFieldState<T extends Selectable>
     extends State<SearchTextField<T>> {
   final TextEditingController controller = TextEditingController();
+  final FocusNode focusNode = FocusNode();
 
   bool editable = false;
 
@@ -32,6 +33,7 @@ class _SearchTextFieldState<T extends Selectable>
     if (widget.value?.name?.isNotEmpty ?? false) {
       controller.text = widget.value!.name!;
     }
+    focusNode.addListener(focusListener);
     super.initState();
   }
 
@@ -46,65 +48,83 @@ class _SearchTextFieldState<T extends Selectable>
       fontWeight: FontWeight.w500,
       color: AppColors.black,
     );
-    if (widget.value == null || editable && widget.value != null) {
-      return TextField(
-        controller: controller,
-        style: textStyle,
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(vertical: 4.0),
-          fillColor: AppColors.textFieldGray,
-          prefixIconConstraints: iconConstraints,
-          prefixIcon: IconButton(
-            icon: Image.asset(AssetsCatalog.icSearch),
-            onPressed: widget.search,
+    return Stack(
+      children: [
+        TextField(
+          controller: controller,
+          focusNode: focusNode,
+          style: textStyle,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(vertical: 4.0),
+            fillColor: AppColors.textFieldGray,
+            prefixIconConstraints: iconConstraints,
+            prefixIcon: IconButton(
+              icon: Image.asset(AssetsCatalog.icSearch),
+              onPressed: widget.search,
+            ),
+            suffixIconConstraints: iconConstraints,
+            suffixIcon: IconButton(
+              icon: Image.asset(AssetsCatalog.icClear),
+              onPressed: widget.clear,
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide.none,
+            ),
           ),
-          suffixIconConstraints: iconConstraints,
-          suffixIcon: IconButton(
-            icon: Image.asset(AssetsCatalog.icClear),
-            onPressed: widget.clear,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-            borderSide: BorderSide.none,
-          ),
+          keyboardType: TextInputType.text,
+          textInputAction: TextInputAction.done,
+          textCapitalization: TextCapitalization.words,
         ),
-        keyboardType: TextInputType.text,
-        textInputAction: TextInputAction.done,
-        textCapitalization: TextCapitalization.words,
-      );
-    }
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          editable = !editable;
-        });
-      },
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16.0),
-          color: AppColors.white,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                widget.label,
-                style: const TextStyle(
-                  color: AppColors.labelRed,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.normal,
+        if (widget.value != null && !(editable && widget.value != null))
+          GestureDetector(
+            onTap: () {
+              FocusScope.of(context).requestFocus(focusNode);
+              setState(() {
+                editable = !editable;
+              });
+            },
+            child: DecoratedBox(
+              decoration:
+                  const BoxDecoration(color: AppColors.dialogBackgroundColor),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16.0),
+                  color: AppColors.white,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0, vertical: 8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Text(
+                        widget.label,
+                        style: const TextStyle(
+                          color: AppColors.labelRed,
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      Text(
+                        widget.value?.name ?? "",
+                        style: textStyle,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              Text(
-                widget.value?.name ?? "",
-                style: textStyle,
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+      ],
     );
+  }
+
+  void focusListener() {
+    if (!focusNode.hasFocus && widget.value != null) {
+      editable = false;
+      controller.text = widget.value?.name ?? "";
+      setState(() {});
+    }
   }
 }

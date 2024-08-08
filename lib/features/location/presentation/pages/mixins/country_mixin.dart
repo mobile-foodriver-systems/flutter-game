@@ -2,6 +2,7 @@ part of 'package:food_driver/features/location/presentation/pages/country_list_p
 
 mixin CountryMixin on State<CountryBody> {
   final _scrollController = ScrollController();
+  
   late final _bloc = context.read<CountryBloc>();
   Selectable? country;
 
@@ -31,5 +32,9 @@ mixin CountryMixin on State<CountryBody> {
 
   void _onScroll() {
     if (_isBottom) _bloc.add(const CountryLoadEvent());
+  }
+
+  void unfocusSearchField() {
+    FocusScope.of(context).unfocus();
   }
 }

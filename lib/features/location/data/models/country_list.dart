@@ -14,14 +14,14 @@ class CountryList extends ApiList<Country> {
   });
 
   factory CountryList.update({
-    required CountryList raitingList,
+    required CountryList countryList,
     required List<Country> list,
   }) {
     return CountryList(
-      count: raitingList.count,
-      limit: raitingList.limit,
-      offset: raitingList.offset,
-      list: [...raitingList.list, ...list],
+      count: countryList.count,
+      limit: countryList.limit,
+      offset: countryList.offset ?? 0,
+      list: [...countryList.list, ...list],
     );
   }
 

@@ -33,61 +33,68 @@ class CountryBody extends StatefulWidget {
 class _CountryBodyState extends State<CountryBody> with CountryMixin {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          S.current.countryListPageSelectCountry,
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                fontSize: 28,
-                fontWeight: FontWeight.w600,
+    return GestureDetector(
+      onTap: unfocusSearchField,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              S.current.countryListPageSelectCountry,
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            const SizedBox(height: 20),
+            SearchTextField(
+              key: ObjectKey(country),
+              value: country,
+              label: S.current.countryListPageCountry,
+              search: search,
+              clear: clear,
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: BlocBuilder<CountryBloc, CountryState>(
+                builder: (BuildContext context, CountryState state) {
+                  return InteractiveList<Country>(
+                    status: state.status,
+                    error: state.error,
+                    list: state.countryList?.list ?? [],
+                    listView: ListView.separated(
+                      controller: _scrollController,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        final value = state.countryList?.list[index];
+                        return value == null
+                            ? const SizedBox()
+                            : ListItem(
+                                key: ValueKey(value.id),
+                                select: select,
+                                isActive: value.id == country?.id &&
+                                    value.name == country?.name,
+                                value: value,
+                              );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const Divider();
+                      },
+                      itemCount: state.countryList?.list.length ?? 0,
+                    ),
+                  );
+                },
               ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pop(country),
+              child: Text(S.current.countryListPageDone),
+            ),
+          ],
         ),
-        const SizedBox(height: 20),
-        SearchTextField(
-          key: ObjectKey(country),
-          value: country,
-          label: S.current.countryListPageCountry,
-          search: search,
-          clear: clear,
-        ),
-        const SizedBox(height: 20),
-        Expanded(
-          child: BlocBuilder<CountryBloc, CountryState>(
-            builder: (BuildContext context, CountryState state) {
-              return InteractiveList<Country>(
-                status: state.status,
-                error: state.error,
-                list: state.countryList?.list ?? [],
-                listView: ListView.separated(
-                  controller: _scrollController,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    final value = state.countryList?.list[index];
-                    return value == null
-                        ? const SizedBox()
-                        : ListItem(
-                            select: select,
-                            isActive: value.id == country?.id &&
-                                value.name == country?.name,
-                            value: value,
-                          );
-                  },
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const Divider();
-                  },
-                  itemCount: state.countryList?.list.length ?? 0,
-                ),
-              );
-            },
-          ),
-        ),
-        const SizedBox(height: 20),
-        ElevatedButton(
-          onPressed: () => Navigator.of(context).pop(country),
-          child: Text(S.current.countryListPageDone),
-        ),
-      ],
+      ),
     );
   }
 }

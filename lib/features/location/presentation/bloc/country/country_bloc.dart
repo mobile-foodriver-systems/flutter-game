@@ -32,26 +32,45 @@ class CountryBloc extends Bloc<CountryEvent, CountryState> {
         error: null,
       ));
     }
+    if (state.countryList != null &&
+            (state.countryList?.list.length ?? 0) >=
+                (state.countryList?.count ?? 0) ||
+        state.status == ListStatus.loading) {
+      return;
+    }
+
+    emit(state.copyWith(status: ListStatus.loading));
     final response = await _loadCountryUseCase(state.countryList == null
         ? CountryParams()
         : CountryParams(
-            offset: (state.countryList!.offset ?? 0) + state.countryList!.limit,
+            offset: (state.countryList!.count ?? 0) <
+                    ((state.countryList!.offset ?? 0) +
+                        state.countryList!.limit)
+                ? state.countryList!.offset ?? 0
+                : (state.countryList!.offset ?? 0) + state.countryList!.limit,
           ));
     response.fold(
       (error) {
         emit(state.copyWith(status: ListStatus.error, error: error));
       },
       (result) {
+        print("AAA result.list.length: = ${result.list.length}");
         emit(state.copyWith(
           status: ListStatus.success,
-          countryList: state.countryList == null
-              ? result
-              : CountryList.update(
-                  raitingList: state.countryList!,
-                  list: result.list,
+          countryList: CountryList.update(
+            countryList: state.countryList ??
+                CountryList(
+                  count: result.count,
+                  limit: result.limit,
+                  offset: 0,
+                  list: [],
                 ),
+            list: result.list,
+          ),
         ));
       },
     );
+    print(
+        "AAA totalCount: = ${state.countryList?.count}, list.length: = ${state.countryList?.list.length}");
   }
 }

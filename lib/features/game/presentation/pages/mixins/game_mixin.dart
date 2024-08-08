@@ -99,8 +99,7 @@ mixin GameMixin on State<GamePageBody> {
             width: MediaQuery.sizeOf(context).width,
             child: const CountryListPage(),
           ),
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 25.0),
+          contentPadding: EdgeInsets.zero,
           insetPadding: const EdgeInsets.symmetric(horizontal: 36.0),
         );
       },
