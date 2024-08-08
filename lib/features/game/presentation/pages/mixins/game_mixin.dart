@@ -99,23 +99,6 @@ mixin GameMixin on State<GamePageBody> {
     return await Geolocator.getCurrentPosition();
   }
 
-  Future<Country?> showCountryDialog(BuildContext context) async {
-    return await showDialog<Country>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: SizedBox(
-            height: MediaQuery.sizeOf(context).height * 0.62,
-            width: MediaQuery.sizeOf(context).width,
-            child: const CountryListPage(),
-          ),
-          contentPadding: EdgeInsets.zero,
-          insetPadding: const EdgeInsets.symmetric(horizontal: 36.0),
-        );
-      },
-    );
-  }
-
   Future<T?> showSelectDialog<T>(
     BuildContext context, {
     required Widget child,
