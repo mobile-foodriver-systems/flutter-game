@@ -8,8 +8,10 @@ sealed class CityEvent extends Equatable {
 }
 
 final class CityLoadEvent extends CityEvent {
-  const CityLoadEvent();
+  const CityLoadEvent({this.searchText});
+
+  final String? searchText;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [if (searchText != null) searchText!];
 }

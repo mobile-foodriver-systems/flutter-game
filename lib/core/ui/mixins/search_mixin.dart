@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:food_driver/features/location/data/models/selectable.dart';
 
-mixin SearchMixin<T> on State<T> {
+mixin SearchMixin<T extends StatefulWidget> on State<T> {
+  void Function({String? searchText}) get load;
 
-  void Function(String? searchText) get load;
-
-  final _scrollController = ScrollController();
+  final scrollController = ScrollController();
 
   Selectable? country;
   String? searchText;
 
   bool get _isBottom {
-    if (!_scrollController.hasClients) return false;
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.offset;
+    if (!scrollController.hasClients) return false;
+    final maxScroll = scrollController.position.maxScrollExtent;
+    final currentScroll = scrollController.offset;
     return currentScroll >= (maxScroll * 0.9);
   }
 
   @override
   void initState() {
     super.initState();
-    _bloc.add(const CountryLoadEvent());
-    _scrollController.addListener(_onScroll);
+    load();
+    scrollController.addListener(_onScroll);
   }
 
   Future search(String searchString) async {
@@ -29,12 +28,12 @@ mixin SearchMixin<T> on State<T> {
       return;
     }
     searchText = searchString;
-    _bloc.add(CountryLoadEvent(searchText: searchText));
+    load(searchText: searchText);
   }
 
   Future clear() async {
     if (searchText?.isNotEmpty ?? false) {
-      _bloc.add(const CountryLoadEvent(searchText: null));
+      load();
     }
     country = null;
     searchText = null;
@@ -49,7 +48,7 @@ mixin SearchMixin<T> on State<T> {
 
   void _onScroll() {
     if (_isBottom) {
-      _bloc.add(CountryLoadEvent(searchText: searchText));
+      load(searchText: searchText);
     }
   }
 
@@ -59,7 +58,7 @@ mixin SearchMixin<T> on State<T> {
 
   @override
   void dispose() {
-    _scrollController.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 }

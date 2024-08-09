@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_driver/core/ui/mixins/search_mixin.dart';
 import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/location/data/models/country.dart';
-import 'package:food_driver/features/location/data/models/selectable.dart';
 import 'package:food_driver/features/location/presentation/bloc/country/country_bloc.dart';
 import 'package:food_driver/features/location/presentation/widgets/interactive_list.dart';
 import 'package:food_driver/features/location/presentation/widgets/list_item.dart';
 import 'package:food_driver/features/location/presentation/widgets/search_text_field.dart';
 import 'package:food_driver/generated/l10n.dart';
 
-part 'package:food_driver/features/location/presentation/pages/mixins/country_mixin.dart';
+// part 'package:food_driver/features/location/presentation/pages/mixins/country_mixin.dart';
 
 class CountryListPage extends StatelessWidget {
   const CountryListPage({super.key});
@@ -30,7 +30,9 @@ class CountryBody extends StatefulWidget {
   State<CountryBody> createState() => _CountryBodyState();
 }
 
-class _CountryBodyState extends State<CountryBody> with CountryMixin {
+class _CountryBodyState extends State<CountryBody>
+    with SearchMixin<CountryBody> //CountryMixin
+{
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -64,7 +66,7 @@ class _CountryBodyState extends State<CountryBody> with CountryMixin {
                     error: state.error,
                     list: state.countryList?.list ?? [],
                     listView: ListView.separated(
-                      controller: _scrollController,
+                      controller: scrollController,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         final value = state.countryList?.list[index];
@@ -97,4 +99,8 @@ class _CountryBodyState extends State<CountryBody> with CountryMixin {
       ),
     );
   }
+
+  @override
+  void Function({String? searchText}) get load => ({String? searchText}) =>
+      context.read<CountryBloc>().add(CountryLoadEvent(searchText: searchText));
 }
