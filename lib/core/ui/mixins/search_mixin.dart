@@ -1,9 +1,12 @@
-part of 'package:food_driver/features/location/presentation/pages/country_list_page.dart';
+import 'package:flutter/material.dart';
+import 'package:food_driver/features/location/data/models/selectable.dart';
 
-mixin CountryMixin on State<CountryBody> {
+mixin SearchMixin<T> on State<T> {
+
+  void Function(String? searchText) get load;
+
   final _scrollController = ScrollController();
 
-  late final _bloc = context.read<CountryBloc>();
   Selectable? country;
   String? searchText;
 

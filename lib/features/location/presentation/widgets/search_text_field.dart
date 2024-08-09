@@ -78,6 +78,7 @@ class _SearchTextFieldState<T extends Selectable>
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.done,
           textCapitalization: TextCapitalization.words,
+          onChanged: (value) => widget.search?.call(controller.text),
         ),
         if (widget.value != null && !(editable && widget.value != null))
           GestureDetector(
