@@ -13,6 +13,19 @@ class CityList extends ApiList<City> {
     super.list,
   });
 
+  factory CityList.update({
+    required CityList cityList,
+    required List<City> list,
+    required int offset,
+  }) {
+    return CityList(
+      count: cityList.count,
+      limit: cityList.limit,
+      offset: offset,
+      list: [...cityList.list, ...list],
+    );
+  }
+
   factory CityList.fromJson(Map<String, dynamic> json) =>
       _$CityListFromJson(json);
   Map<String, dynamic> toJson() => _$CityListToJson(this);

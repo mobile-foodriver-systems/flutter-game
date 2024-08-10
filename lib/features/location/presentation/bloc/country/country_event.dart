@@ -1,6 +1,13 @@
 part of 'country_bloc.dart';
 
-final class CountryLoadEvent extends LocationEvent {
+sealed class CountryEvent extends Equatable {
+  const CountryEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+final class CountryLoadEvent extends CountryEvent {
   const CountryLoadEvent({this.searchText});
 
   final String? searchText;

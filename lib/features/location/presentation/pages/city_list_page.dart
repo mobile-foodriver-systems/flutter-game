@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/ui/mixins/search_mixin.dart';
 import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/location/data/models/selectable.dart';
-import 'package:food_driver/features/location/presentation/bloc/base_location_bloc.dart';
 import 'package:food_driver/features/location/presentation/bloc/city/city_bloc.dart';
 import 'package:food_driver/features/location/presentation/pages/base_location_page.dart';
 import 'package:food_driver/features/location/presentation/widgets/interactive_list.dart';
@@ -48,17 +47,17 @@ class _CityBodyState extends State<CityBody> with SearchMixin<CityBody> {
       value: value,
       search: search,
       clear: clear,
-      child: BlocBuilder<CityBloc, BaseLocationState>(
-        builder: (BuildContext context, BaseLocationState state) {
+      child: BlocBuilder<CityBloc, CityState>(
+        builder: (BuildContext context, CityState state) {
           return InteractiveList<Selectable>(
             status: state.status,
             error: state.error,
-            list: state.apiList?.list ?? [],
+            list: state.cityList?.list ?? [],
             listView: ListView.separated(
               controller: scrollController,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
-                final item = state.apiList?.list[index];
+                final item = state.cityList?.list[index];
                 return item == null
                     ? const SizedBox()
                     : ListItem(
@@ -72,7 +71,7 @@ class _CityBodyState extends State<CityBody> with SearchMixin<CityBody> {
               separatorBuilder: (BuildContext context, int index) {
                 return const Divider();
               },
-              itemCount: state.apiList?.list.length ?? 0,
+              itemCount: state.cityList?.list.length ?? 0,
             ),
           );
         },
@@ -81,6 +80,9 @@ class _CityBodyState extends State<CityBody> with SearchMixin<CityBody> {
   }
 
   @override
-  void Function({String? searchText}) get load => ({String? searchText}) =>
-      context.read<CityBloc>().add(CityLoadEvent(searchText: searchText));
+  void Function({String? searchText}) get load =>
+      ({String? searchText}) => context.read<CityBloc>().add(CityLoadEvent(
+            searchText: searchText,
+            countryId: widget.countryId,
+          ));
 }

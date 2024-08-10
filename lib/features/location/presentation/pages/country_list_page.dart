@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/ui/mixins/search_mixin.dart';
 import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/location/data/models/selectable.dart';
-import 'package:food_driver/features/location/presentation/bloc/base_location_bloc.dart';
 import 'package:food_driver/features/location/presentation/bloc/country/country_bloc.dart';
 import 'package:food_driver/features/location/presentation/pages/base_location_page.dart';
 import 'package:food_driver/features/location/presentation/widgets/interactive_list.dart';
@@ -42,17 +41,17 @@ class _CountryBodyState extends State<CountryBody>
       value: value,
       search: search,
       clear: clear,
-      child: BlocBuilder<CountryBloc, BaseLocationState>(
-        builder: (BuildContext context, BaseLocationState state) {
+      child: BlocBuilder<CountryBloc, CountryState>(
+        builder: (BuildContext context, CountryState state) {
           return InteractiveList<Selectable>(
             status: state.status,
             error: state.error,
-            list: state.apiList?.list ?? [],
+            list: state.countryList?.list ?? [],
             listView: ListView.separated(
               controller: scrollController,
               shrinkWrap: true,
               itemBuilder: (BuildContext context, int index) {
-                final item = state.apiList?.list[index];
+                final item = state.countryList?.list[index];
                 return item == null
                     ? const SizedBox()
                     : ListItem(
@@ -66,7 +65,7 @@ class _CountryBodyState extends State<CountryBody>
               separatorBuilder: (BuildContext context, int index) {
                 return const Divider();
               },
-              itemCount: state.apiList?.list.length ?? 0,
+              itemCount: state.countryList?.list.length ?? 0,
             ),
           );
         },

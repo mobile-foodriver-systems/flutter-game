@@ -37,6 +37,7 @@ mixin GameMixin on State<GamePageBody> {
       loadDriverRoutes(cityId: widget.user.city!.id);
       return;
     }
+    City? city;
     try {
       final Position position = await _determinePosition();
       final latLng = LatLng(position.latitude, position.longitude);
@@ -53,11 +54,16 @@ mixin GameMixin on State<GamePageBody> {
         context,
         child: const CountryListPage(),
       );
-      if (country != country && mounted) {
-        await showSelectDialog<City>(
+      if (country != null && mounted) {
+        city = await showSelectDialog<City>(
           context,
-          child: CityListPage(countryId: country!.id),
+          child: CityListPage(countryId: country.id),
         );
+      }
+      if (city != null) {
+        // TODO: updateUserProfile
+        loadDriverRoutes(cityId: city.id);
+        return;
       }
     }
   }
