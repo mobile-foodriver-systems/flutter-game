@@ -7,7 +7,7 @@ part of 'user_rating.dart';
 // **************************************************************************
 
 UserRating _$UserRatingFromJson(Map<String, dynamic> json) => UserRating(
-      id: (json['id'] as num?)?.toInt(),
+      id: (json['id'] as num).toInt(),
       balanceInFDT: json['balanceInFDT'] as num? ?? 0,
       number: json['number'] as num? ?? 0,
       userName: json['userName'] as String?,

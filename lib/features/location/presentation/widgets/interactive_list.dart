@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
+import 'package:food_driver/features/location/data/models/api_list.dart';
 import 'package:food_driver/features/location/data/models/list_status.dart';
+import 'package:food_driver/features/location/data/models/selectable.dart';
 import 'package:food_driver/generated/l10n.dart';
 
-class InteractiveList<T> extends StatelessWidget {
+class InteractiveList<T extends Selectable> extends StatelessWidget {
   const InteractiveList({
     super.key,
     required this.status,

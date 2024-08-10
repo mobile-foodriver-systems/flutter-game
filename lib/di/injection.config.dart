@@ -67,6 +67,8 @@ import 'package:food_driver/features/location/domain/usecases/load_city.dart'
     as _i1067;
 import 'package:food_driver/features/location/domain/usecases/load_country.dart'
     as _i980;
+import 'package:food_driver/features/location/presentation/bloc/base_location_bloc.dart'
+    as _i922;
 import 'package:food_driver/features/location/presentation/bloc/city/city_bloc.dart'
     as _i510;
 import 'package:food_driver/features/location/presentation/bloc/country/country_bloc.dart'
@@ -110,6 +112,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => registerModule.prefs,
       preResolve: true,
     );
+    gh.factory<_i510.CityBloc>(() => _i510.CityBloc());
+    gh.factory<_i4.CountryBloc>(() => _i4.CountryBloc());
+    gh.factory<_i922.BaseLocationBloc>(() => _i922.BaseLocationBloc());
     gh.singleton<_i973.InternetConnectionChecker>(
         () => registerModule.internetConnectionChecker);
     gh.singleton<_i895.Connectivity>(() => registerModule.connectivity);
@@ -236,8 +241,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i510.CityBloc>(
-        () => _i510.CityBloc(gh<_i1067.LoadCityUseCase>()));
     gh.lazySingleton<_i687.UserRepository>(
       () => _i687.UserRepositoryImpl(gh<_i545.UserRemoteDataSource>()),
       registerFor: {
@@ -255,8 +258,6 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
-    gh.factory<_i4.CountryBloc>(
-        () => _i4.CountryBloc(gh<_i980.LoadCountryUseCase>()));
     gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
           gh<_i251.LoadUseCase>(),
           gh<_i353.StartUseCase>(),

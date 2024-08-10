@@ -6,7 +6,7 @@ mixin SearchMixin<T extends StatefulWidget> on State<T> {
 
   final scrollController = ScrollController();
 
-  Selectable? country;
+  Selectable? value;
   String? searchText;
 
   bool get _isBottom {
@@ -35,13 +35,13 @@ mixin SearchMixin<T extends StatefulWidget> on State<T> {
     if (searchText?.isNotEmpty ?? false) {
       load();
     }
-    country = null;
+    value = null;
     searchText = null;
     setState(() {});
   }
 
-  void select(Selectable value) {
-    country = value;
+  void select(Selectable selectavle) {
+    value = selectavle;
     searchText = null;
     setState(() {});
   }

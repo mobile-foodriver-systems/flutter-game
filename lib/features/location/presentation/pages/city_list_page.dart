@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/ui/mixins/search_mixin.dart';
 import 'package:food_driver/di/injection.dart';
+import 'package:food_driver/features/location/data/models/selectable.dart';
+import 'package:food_driver/features/location/presentation/bloc/base_location_bloc.dart';
 import 'package:food_driver/features/location/presentation/bloc/city/city_bloc.dart';
+import 'package:food_driver/features/location/presentation/pages/base_location_page.dart';
+import 'package:food_driver/features/location/presentation/widgets/interactive_list.dart';
+import 'package:food_driver/features/location/presentation/widgets/list_item.dart';
+import 'package:food_driver/generated/l10n.dart';
 
 class CityListPage extends StatelessWidget {
   final int countryId;
@@ -35,14 +41,42 @@ class CityBody extends StatefulWidget {
 class _CityBodyState extends State<CityBody> with SearchMixin<CityBody> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CityBloc, CityState>(
-      builder: (BuildContext context, CityState state) {
-        return const Scaffold(
-          body: SafeArea(
-            child: SizedBox(),
-          ),
-        );
-      },
+    return BaseLocationPage<Selectable>(
+      unfocusSearchField: unfocusSearchField,
+      selectText: S.current.cityListPageSelectCity,
+      searchFieldLable: S.current.cityListPageCity,
+      value: value,
+      search: search,
+      clear: clear,
+      child: BlocBuilder<CityBloc, BaseLocationState>(
+        builder: (BuildContext context, BaseLocationState state) {
+          return InteractiveList<Selectable>(
+            status: state.status,
+            error: state.error,
+            list: state.apiList?.list ?? [],
+            listView: ListView.separated(
+              controller: scrollController,
+              shrinkWrap: true,
+              itemBuilder: (BuildContext context, int index) {
+                final item = state.apiList?.list[index];
+                return item == null
+                    ? const SizedBox()
+                    : ListItem(
+                        key: ValueKey(item.id),
+                        select: select,
+                        isActive:
+                            item.id == value?.id && item.name == value?.name,
+                        item: item,
+                      );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return const Divider();
+              },
+              itemCount: state.apiList?.list.length ?? 0,
+            ),
+          );
+        },
+      ),
     );
   }
 

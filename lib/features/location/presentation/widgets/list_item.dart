@@ -7,19 +7,19 @@ class ListItem<T extends Selectable> extends StatelessWidget {
   const ListItem({
     super.key,
     required this.select,
-    required this.value,
+    required this.item,
     required this.isActive,
   });
 
   final void Function(T) select;
-  final T value;
+  final T item;
   final bool isActive;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      onTap: () => select(value),
+      onTap: () => select(item),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
@@ -30,7 +30,7 @@ class ListItem<T extends Selectable> extends StatelessWidget {
             ),
             Flexible(
               child: Text(
-                value.name ?? "",
+                item.name ?? "",
                 style: TextStyle(
                   fontSize: 12.0,
                   fontWeight: FontWeight.w500,
