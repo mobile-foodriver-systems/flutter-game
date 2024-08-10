@@ -25,7 +25,6 @@ class UserRepositoryImpl extends UserRepository {
 
   @override
   Future<Either<ApiErrorStack, NoParams>> updateUser({
-    required int id,
     int? cityId,
     String? email,
     String? walletAddress,
@@ -33,7 +32,6 @@ class UserRepositoryImpl extends UserRepository {
     Response<dynamic>? response;
     try {
       response = await _remoteDataSource.update(
-        id: id,
         cityId: cityId,
         email: email,
         walletAddress: walletAddress,
@@ -61,14 +59,12 @@ class UserRepositoryImpl extends UserRepository {
 
   @override
   Future<Either<ApiErrorStack, NoParams>> updateUserLatLng({
-    required int id,
     required double latitude,
     required double longitude,
   }) async {
     Response<dynamic>? response;
     try {
       response = await _remoteDataSource.updateLatLng(
-        id: id,
         latitude: latitude,
         longitude: longitude,
       );

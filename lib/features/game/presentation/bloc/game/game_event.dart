@@ -100,11 +100,16 @@ final class GameUpdateSpeedEvent extends GameEvent {
 final class GetCityEvent extends GameEvent {
   const GetCityEvent({
     required this.latLng,
+    this.updateCity,
   });
 
   final LatLng latLng;
+  final void Function(City)? updateCity;
   @override
-  List<Object> get props => [latLng];
+  List<Object> get props => [
+        latLng,
+        if (updateCity != null) updateCity!,
+      ];
 }
 
 final class GameNoCityEvent extends GameEvent {

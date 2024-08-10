@@ -47,9 +47,11 @@ mixin GameMixin on State<GamePageBody> {
       final latLng = LatLng(position.latitude, position.longitude);
       _userBloc.add(UserUpdateLatLngEvent(
         latLng: latLng,
-        userId: widget.user.id,
       ));
-      _gameBloc.add(GetCityEvent(latLng: latLng));
+      _gameBloc.add(GetCityEvent(
+        latLng: latLng,
+        updateCity: (city) => _userBloc.add(UserUpdateEvent(city: city)),
+      ));
       return;
     }
 
@@ -68,7 +70,7 @@ mixin GameMixin on State<GamePageBody> {
       );
     }
     if (city != null) {
-      _userBloc.add(UserUpdateEvent(userId: widget.user.id, city: city));
+      _userBloc.add(UserUpdateEvent(city: city));
       loadDriverRoutes(city: city);
       return;
     }

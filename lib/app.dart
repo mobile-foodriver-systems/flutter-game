@@ -10,6 +10,7 @@ import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc
 import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/pages/game_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
+import 'package:food_driver/features/localization/presentation/bloc/localization_bloc.dart';
 import 'package:food_driver/features/user/presentation/bloc/user_bloc.dart';
 import 'package:food_driver/generated/l10n.dart';
 
@@ -28,6 +29,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => getIt<RaitingBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => getIt<LocalizationBloc>(),
         ),
       ],
       child: const AppView(),
@@ -104,5 +108,6 @@ class _AppViewState extends State<AppView> {
 
   Future<void> initApp(BuildContext context) async {
     context.read<AuthBloc>().add(const AuthCheckEvent());
+    context.read<LocalizationBloc>().add(const LocalizationEvent());
   }
 }

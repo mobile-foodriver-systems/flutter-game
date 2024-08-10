@@ -147,6 +147,6 @@ class AuthInterceptor extends InterceptorsWrapper {
         ? ""
         : "\nBODY:\n${response.requestOptions.data.toString()}";
 
-    log('REQUEST\nmethod: ${response.requestOptions.method}, url: ${response.requestOptions.path}, code: ${response.statusCode}, statusMessage: ${response.statusMessage}$headers$params$body\nRESPONSE\n${response.data.toString()}');
+    log('REQUEST\nmethod: ${response.requestOptions.method}, url: ${response.requestOptions.baseUrl}${response.requestOptions.path}, code: ${response.statusCode}, statusMessage: ${response.statusMessage}$headers$params$body\nRESPONSE\n${response.data.toString()}');
   }
 }

@@ -17,8 +17,8 @@ class UpdateUserUseCase implements UseCase<NoParams, UpdateUserParams> {
 
   @override
   Future<Either<ApiErrorStack, NoParams>> call(UpdateUserParams params) async {
+    print("AAA updateUser UseCase");
     return await _userRepository.updateUser(
-      id: params.id,
       cityId: params.cityId,
       email: params.email,
       walletAddress: params.walletAddress,

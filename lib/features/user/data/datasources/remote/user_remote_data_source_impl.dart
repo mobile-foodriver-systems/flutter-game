@@ -49,13 +49,12 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
 
   @override
   Future<Response<dynamic>> update({
-    required int id,
     int? cityId,
     String? email,
     String? walletAddress,
   }) async {
     return await _appHttpService.request(
-      path: ApiRoutes.updateProfile.replaceFirst('{id}', id.toString()),
+      path: ApiRoutes.updateProfile,
       type: RequestType.put,
       options: Options(contentType: 'application/json-patch+json'),
       data: {
@@ -68,12 +67,11 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
 
   @override
   Future<Response> updateLatLng({
-    required int id,
     required double latitude,
     required double longitude,
   }) async {
     return await _appHttpService.request(
-      path: ApiRoutes.updateLocation.replaceFirst('{id}', id.toString()),
+      path: ApiRoutes.updateLocation,
       type: RequestType.put,
       data: {
         "latitude": latitude,

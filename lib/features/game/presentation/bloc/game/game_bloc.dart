@@ -237,6 +237,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GetCityEvent event,
     Emitter<GameState> emit,
   ) async {
+    print("AAA _tryGetCity");
     if (state.status != GameStateType.loading) {
       emit(state.copyWith(status: GameStateType.loading));
     }
@@ -247,6 +248,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       },
       (result) {
         if (result.city?.id != null) {
+          event.updateCity?.call(result.city!);
           add(GamePrepareInfoEvent(result.city!));
           return;
         }

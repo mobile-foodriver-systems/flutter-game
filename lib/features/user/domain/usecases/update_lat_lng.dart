@@ -20,7 +20,6 @@ class UpdateUserLatLngUseCase
   Future<Either<ApiErrorStack, NoParams>> call(
       UpdateUserLatLngParams params) async {
     return await _userRepository.updateUserLatLng(
-      id: params.id,
       latitude: params.latLng.latitude,
       longitude: params.latLng.longitude,
     );

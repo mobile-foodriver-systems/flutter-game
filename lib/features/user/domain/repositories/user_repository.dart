@@ -18,14 +18,12 @@ abstract class UserRepository {
   Future<Either<Failure, UserEntity>> getUser();
 
   Future<Either<ApiErrorStack, NoParams>> updateUser({
-    required int id,
     int? cityId,
     String? email,
     String? walletAddress,
   });
 
   Future<Either<ApiErrorStack, NoParams>> updateUserLatLng({
-    required int id,
     required double latitude,
     required double longitude,
   });

@@ -5,8 +5,8 @@ class ApiRoutes {
   // User
   static const String registration = '/game/api/v1/account';
   static const String profile = '/game/api/v1/account/my';
-  static const String updateProfile = '/game/api/v1/account/{id}';
-  static const String updateLocation = '/game/api/v1/account/{id}/location';
+  static const String updateProfile = '/game/api/v1/account';
+  static const String updateLocation = '/game/api/v1/account/location';
   static const String rating = '/game/api/v1/rating';
 
   // Game

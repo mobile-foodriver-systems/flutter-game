@@ -60,7 +60,6 @@ class UserBloc extends Bloc<AuthUserEvent, UserState> {
       error: null,
     ));
     final response = await _update.call(UpdateUserParams(
-      id: event.userId,
       cityId: event.city?.id,
       email: event.email,
       walletAddress: event.walletAddress,
@@ -92,7 +91,6 @@ class UserBloc extends Bloc<AuthUserEvent, UserState> {
   ) async {
     emit(state.copyWith(status: UserStatus.loading));
     final response = await _updateLatLng.call(UpdateUserLatLngParams(
-      id: event.userId,
       latLng: event.latLng,
     ));
     response.fold(
