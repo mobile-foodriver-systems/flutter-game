@@ -82,3 +82,9 @@ class UnknownServerFailure extends Failure {
     super.message,
   });
 }
+
+class EmptyDataFailure extends Failure {
+  const EmptyDataFailure({
+    super.message,
+  });
+}

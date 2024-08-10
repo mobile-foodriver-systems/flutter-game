@@ -106,3 +106,10 @@ final class GetCityEvent extends GameEvent {
   @override
   List<Object> get props => [latLng];
 }
+
+final class GameNoCityEvent extends GameEvent {
+  const GameNoCityEvent();
+
+  @override
+  List<Object> get props => [];
+}

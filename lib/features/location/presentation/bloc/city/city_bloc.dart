@@ -23,7 +23,8 @@ class CityBloc extends Bloc<CityEvent, CityState> {
     CityLoadEvent event,
     Emitter<CityState> emit,
   ) async {
-    if (state.cityList == null || event.searchText != state.searchText) {
+    if ((state.cityList == null || event.searchText != state.searchText) &&
+        state.status != ListStatus.loading) {
       emit(state.copyWith(
         status: ListStatus.initial,
         error: null,
@@ -32,7 +33,9 @@ class CityBloc extends Bloc<CityEvent, CityState> {
       ));
     }
     if (state.cityList != null &&
-        (state.cityList?.list.length ?? 0) >= (state.cityList?.count ?? 0)) {
+            (state.cityList?.list.length ?? 0) >=
+                (state.cityList?.count ?? 0) ||
+        state.status == ListStatus.loading) {
       return;
     }
     if (state.cityList != null) {

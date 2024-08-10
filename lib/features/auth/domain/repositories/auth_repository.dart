@@ -11,6 +11,7 @@ import 'package:food_driver/features/auth/data/models/auth_error.dart';
 import 'package:food_driver/features/auth/data/models/auth_model.dart';
 import 'package:food_driver/features/auth/domain/entities/auth_entity.dart';
 import 'package:food_driver/features/user/data/models/api_error_stack.dart';
+import 'package:food_driver/generated/l10n.dart';
 import 'package:injectable/injectable.dart';
 
 part 'package:food_driver/features/auth/data/repositories/auth_repository_impl.dart';

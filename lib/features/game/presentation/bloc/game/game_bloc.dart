@@ -49,6 +49,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameTapEvent>(_onTap);
     on<GameUpdateSpeedEvent>(_updateSpeed);
     on<GetCityEvent>(_tryGetCity);
+    on<GameNoCityEvent>(_noCity);
   }
 
   Set<MarkerEntity> get markerEntities => state.routes
@@ -242,7 +243,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     final response = await _userLocationByLatLng.call(event.latLng);
     response.fold(
       (error) {
-        emit(state.copyWith(status: GameStateType.error));
+        emit(state.copyWith(status: GameStateType.noCity));
       },
       (result) {
         if (result.city?.id != null) {
@@ -252,5 +253,14 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         emit(state.copyWith(status: GameStateType.error));
       },
     );
+  }
+
+  void _noCity(
+    GameNoCityEvent event,
+    Emitter<GameState> emit,
+  ) {
+    if (state.status != GameStateType.noCity) {
+      emit(state.copyWith(status: GameStateType.noCity));
+    }
   }
 }

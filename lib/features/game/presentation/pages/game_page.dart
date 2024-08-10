@@ -70,6 +70,7 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                       markers: state.markers,
                       polylines: state.polylines,
                       reward: state.gameRoute?.reward,
+                      determineLocation: tryGetCity,
                     ),
                     Positioned(
                       top: 16,

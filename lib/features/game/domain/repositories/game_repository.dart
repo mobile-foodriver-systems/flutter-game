@@ -7,6 +7,7 @@ import 'package:food_driver/features/game/data/models/drive_route.dart';
 import 'package:food_driver/features/game/data/models/raiting_list.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
 import 'package:food_driver/features/user/data/models/api_error_stack.dart';
+import 'package:food_driver/generated/l10n.dart';
 import 'package:injectable/injectable.dart';
 
 part 'package:food_driver/features/game/data/repositories/game_repository_impl.dart';

@@ -26,7 +26,8 @@ class CountryBloc extends Bloc<CountryEvent, CountryState> {
     CountryLoadEvent event,
     Emitter<CountryState> emit,
   ) async {
-    if (state.countryList == null || event.searchText != state.searchText) {
+    if ((state.countryList == null || event.searchText != state.searchText) &&
+        state.status != ListStatus.loading) {
       emit(state.copyWith(
         status: ListStatus.initial,
         error: null,
@@ -35,8 +36,9 @@ class CountryBloc extends Bloc<CountryEvent, CountryState> {
       ));
     }
     if (state.countryList != null &&
-        (state.countryList?.list.length ?? 0) >=
-            (state.countryList?.count ?? 0)) {
+            (state.countryList?.list.length ?? 0) >=
+                (state.countryList?.count ?? 0) ||
+        state.status == ListStatus.loading) {
       return;
     }
     if (state.countryList != null) {

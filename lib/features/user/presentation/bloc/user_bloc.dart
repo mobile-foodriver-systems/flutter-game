@@ -60,7 +60,7 @@ class UserBloc extends Bloc<AuthUserEvent, UserState> {
       error: null,
     ));
     final response = await _update.call(UpdateUserParams(
-      id: state.user?.id ?? -1,
+      id: event.userId,
       cityId: event.city?.id,
       email: event.email,
       walletAddress: event.walletAddress,

@@ -57,6 +57,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     return await _appHttpService.request(
       path: ApiRoutes.updateProfile.replaceFirst('{id}', id.toString()),
       type: RequestType.put,
+      options: Options(contentType: 'application/json-patch+json'),
       data: {
         if (cityId != null) "cityId": cityId,
         if (email?.isNotEmpty ?? false) "email": email,

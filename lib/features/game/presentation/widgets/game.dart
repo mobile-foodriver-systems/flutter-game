@@ -9,15 +9,15 @@ import 'package:food_driver/generated/l10n.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Game extends StatelessWidget {
-  const Game({
-    super.key,
-    required this.type,
-    required this.toggleToInit,
-    this.reward,
-    this.routes = const [],
-    this.markers = const <Marker>{},
-    this.polylines = const <Polyline>{},
-  });
+  const Game(
+      {super.key,
+      required this.type,
+      required this.toggleToInit,
+      this.reward,
+      this.routes = const [],
+      this.markers = const <Marker>{},
+      this.polylines = const <Polyline>{},
+      required this.determineLocation});
 
   final GameStateType type;
   final num? reward;
@@ -25,6 +25,7 @@ class Game extends StatelessWidget {
   final List<DriveRouteEntity> routes;
   final Set<Marker> markers;
   final Set<Polyline> polylines;
+  final VoidCallback determineLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +33,8 @@ class Game extends StatelessWidget {
       case GameStateType.error:
       case GameStateType.loading:
         return const SizedBox();
+      case GameStateType.noCity:
+        return _NoCity(determineLocation: determineLocation);
       case GameStateType.initialized:
       case GameStateType.playing:
       case GameStateType.starting:
@@ -48,6 +51,26 @@ class Game extends StatelessWidget {
       case GameStateType.loose:
         return _LooseGame(toggleToInit: toggleToInit);
     }
+  }
+}
+
+class _NoCity extends StatelessWidget {
+  const _NoCity({required this.determineLocation});
+
+  final VoidCallback determineLocation;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Align(
+        alignment: Alignment.center,
+        child: ElevatedButton(
+          onPressed: determineLocation,
+          child: Text(S.current.gamePageDetermineTheLocation),
+        ),
+      ),
+    );
   }
 }
 

@@ -37,38 +37,45 @@ mixin GameMixin on State<GamePageBody> {
       loadDriverRoutes(city: widget.user.city!);
       return;
     }
-    City? city;
-    try {
-      final Position position = await _determinePosition();
+    await tryGetCity();
+  }
+
+  Future<void> tryGetCity() async {
+    final Position? position = await _determineLocation();
+
+    if (position != null) {
       final latLng = LatLng(position.latitude, position.longitude);
       _userBloc.add(UserUpdateLatLngEvent(
         latLng: latLng,
         userId: widget.user.id,
       ));
       _gameBloc.add(GetCityEvent(latLng: latLng));
-    } catch (e) {
-      if (!mounted) {
-        return;
-      }
-      final country = await showSelectDialog<Country>(
-        context,
-        child: const CountryListPage(),
-      );
-      if (country != null && mounted) {
-        city = await showSelectDialog<City>(
-          context,
-          child: CityListPage(countryId: country.id),
-        );
-      }
-      if (city != null) {
-        _userBloc.add(UserUpdateEvent(city: city));
-        loadDriverRoutes(city: city);
-        return;
-      }
+      return;
     }
+
+    if (!mounted) {
+      return;
+    }
+    City? city;
+    final country = await showSelectDialog<Country>(
+      context,
+      child: const CountryListPage(),
+    );
+    if (country != null && mounted) {
+      city = await showSelectDialog<City>(
+        context,
+        child: CityListPage(countryId: country.id),
+      );
+    }
+    if (city != null) {
+      _userBloc.add(UserUpdateEvent(userId: widget.user.id, city: city));
+      loadDriverRoutes(city: city);
+      return;
+    }
+    _gameBloc.add(const GameNoCityEvent());
   }
 
-  Future<Position> _determinePosition() async {
+  Future<Position?> _determineLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -78,7 +85,7 @@ mixin GameMixin on State<GamePageBody> {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
       // App to enable the location services.
-      return Future.error('Location services are disabled.');
+      return null;
     }
 
     permission = await Geolocator.checkPermission();
@@ -90,14 +97,13 @@ mixin GameMixin on State<GamePageBody> {
         // Android's shouldShowRequestPermissionRationale
         // returned true. According to Android guidelines
         // your App should show an explanatory UI now.
-        return Future.error('Location permissions are denied');
+        return null;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
       // Permissions are denied forever, handle appropriately.
-      return Future.error(
-          'Location permissions are permanently denied, we cannot request permissions.');
+      return null;
     }
 
     // When we reach here, permissions are granted and we can

@@ -380,6 +380,16 @@ class S {
     );
   }
 
+  /// `Determine the location`
+  String get gamePageDetermineTheLocation {
+    return Intl.message(
+      'Determine the location',
+      name: 'gamePageDetermineTheLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Registration`
   String get registrationPageRegistration {
     return Intl.message(
