@@ -60,7 +60,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GamePrepareInfoEvent event,
     Emitter<GameState> emit,
   ) async {
-    final response = await _load.call(event.cityId);
+    final response = await _load.call(event.city.id);
     response.fold(
       (error) {
         emit(state.copyWith(status: GameStateType.error));
@@ -246,7 +246,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       },
       (result) {
         if (result.city?.id != null) {
-          add(GamePrepareInfoEvent(result.city!.id));
+          add(GamePrepareInfoEvent(result.city!));
           return;
         }
         emit(state.copyWith(status: GameStateType.error));

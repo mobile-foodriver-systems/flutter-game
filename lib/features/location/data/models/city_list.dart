@@ -22,7 +22,7 @@ class CityList extends ApiList<City> {
       count: cityList.count,
       limit: cityList.limit,
       offset: offset,
-      list: [...cityList.list, ...list],
+      list: {...cityList.list, ...list}.toList(),
     );
   }
 

@@ -15,7 +15,19 @@ class Country extends Selectable {
     this.name,
   });
 
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is Country &&
+            other.id == id &&
+            other.name == name);
+  }
+
   factory Country.fromJson(Map<String, dynamic> json) =>
       _$CountryFromJson(json);
   Map<String, dynamic> toJson() => _$CountryToJson(this);
+
+  @override
+  int get hashCode => Object.hash(id, name);
 }

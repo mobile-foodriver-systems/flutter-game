@@ -4,7 +4,7 @@ part of 'game_bloc.dart';
 class GameState with _$GameState {
   const factory GameState({
     @Default(GameStateType.loading) GameStateType status,
-    @Default(null) City? cityId,
+    @Default(null) City? city,
     @Default([]) List<DriveRouteEntity> routes,
     @Default(null) DriveRouteEntity? gameRoute,
     @Default({}) Set<Marker> markers,

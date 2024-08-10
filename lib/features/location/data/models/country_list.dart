@@ -22,7 +22,7 @@ class CountryList extends ApiList<Country> {
       count: countryList.count,
       limit: countryList.limit,
       offset: offset,
-      list: [...countryList.list, ...list],
+      list: {...countryList.list, ...list}.toList(),
     );
   }
 

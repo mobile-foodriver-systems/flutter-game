@@ -10,8 +10,8 @@ mixin GameMixin on State<GamePageBody> {
     _initGame();
   }
 
-  Future<void> loadDriverRoutes({required int cityId}) async {
-    _gameBloc.add(GamePrepareInfoEvent(cityId));
+  Future<void> loadDriverRoutes({required City city}) async {
+    _gameBloc.add(GamePrepareInfoEvent(city));
   }
 
   void toggleToInit() {
@@ -34,7 +34,7 @@ mixin GameMixin on State<GamePageBody> {
 
   Future<void> _initGame() async {
     if (widget.user.city != null) {
-      loadDriverRoutes(cityId: widget.user.city!.id);
+      loadDriverRoutes(city: widget.user.city!);
       return;
     }
     City? city;
@@ -61,8 +61,8 @@ mixin GameMixin on State<GamePageBody> {
         );
       }
       if (city != null) {
-        // TODO: updateUserProfile
-        loadDriverRoutes(cityId: city.id);
+        _userBloc.add(UserUpdateEvent(city: city));
+        loadDriverRoutes(city: city);
         return;
       }
     }

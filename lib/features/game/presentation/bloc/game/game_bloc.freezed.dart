@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$GameState {
   GameStateType get status => throw _privateConstructorUsedError;
-  City? get cityId => throw _privateConstructorUsedError;
+  City? get city => throw _privateConstructorUsedError;
   List<DriveRouteEntity> get routes => throw _privateConstructorUsedError;
   DriveRouteEntity? get gameRoute => throw _privateConstructorUsedError;
   Set<Marker> get markers => throw _privateConstructorUsedError;
@@ -40,7 +40,7 @@ abstract class $GameStateCopyWith<$Res> {
   @useResult
   $Res call(
       {GameStateType status,
-      City? cityId,
+      City? city,
       List<DriveRouteEntity> routes,
       DriveRouteEntity? gameRoute,
       Set<Marker> markers,
@@ -66,7 +66,7 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
   @override
   $Res call({
     Object? status = null,
-    Object? cityId = freezed,
+    Object? city = freezed,
     Object? routes = null,
     Object? gameRoute = freezed,
     Object? markers = null,
@@ -82,9 +82,9 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as GameStateType,
-      cityId: freezed == cityId
-          ? _value.cityId
-          : cityId // ignore: cast_nullable_to_non_nullable
+      city: freezed == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
               as City?,
       routes: null == routes
           ? _value.routes
@@ -136,7 +136,7 @@ abstract class _$$GameStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {GameStateType status,
-      City? cityId,
+      City? city,
       List<DriveRouteEntity> routes,
       DriveRouteEntity? gameRoute,
       Set<Marker> markers,
@@ -160,7 +160,7 @@ class __$$GameStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
-    Object? cityId = freezed,
+    Object? city = freezed,
     Object? routes = null,
     Object? gameRoute = freezed,
     Object? markers = null,
@@ -176,9 +176,9 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as GameStateType,
-      cityId: freezed == cityId
-          ? _value.cityId
-          : cityId // ignore: cast_nullable_to_non_nullable
+      city: freezed == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
               as City?,
       routes: null == routes
           ? _value._routes
@@ -225,7 +225,7 @@ class __$$GameStateImplCopyWithImpl<$Res>
 class _$GameStateImpl implements _GameState {
   const _$GameStateImpl(
       {this.status = GameStateType.loading,
-      this.cityId = null,
+      this.city = null,
       final List<DriveRouteEntity> routes = const [],
       this.gameRoute = null,
       final Set<Marker> markers = const {},
@@ -244,7 +244,7 @@ class _$GameStateImpl implements _GameState {
   final GameStateType status;
   @override
   @JsonKey()
-  final City? cityId;
+  final City? city;
   final List<DriveRouteEntity> _routes;
   @override
   @JsonKey()
@@ -293,7 +293,7 @@ class _$GameStateImpl implements _GameState {
 
   @override
   String toString() {
-    return 'GameState(status: $status, cityId: $cityId, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, tapCount: $tapCount, timer: $timer, speed: $speed, seconds: $seconds, user: $user)';
+    return 'GameState(status: $status, city: $city, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, tapCount: $tapCount, timer: $timer, speed: $speed, seconds: $seconds, user: $user)';
   }
 
   @override
@@ -302,7 +302,7 @@ class _$GameStateImpl implements _GameState {
         (other.runtimeType == runtimeType &&
             other is _$GameStateImpl &&
             (identical(other.status, status) || other.status == status) &&
-            (identical(other.cityId, cityId) || other.cityId == cityId) &&
+            (identical(other.city, city) || other.city == city) &&
             const DeepCollectionEquality().equals(other._routes, _routes) &&
             (identical(other.gameRoute, gameRoute) ||
                 other.gameRoute == gameRoute) &&
@@ -321,7 +321,7 @@ class _$GameStateImpl implements _GameState {
   int get hashCode => Object.hash(
       runtimeType,
       status,
-      cityId,
+      city,
       const DeepCollectionEquality().hash(_routes),
       gameRoute,
       const DeepCollectionEquality().hash(_markers),
@@ -342,7 +342,7 @@ class _$GameStateImpl implements _GameState {
 abstract class _GameState implements GameState {
   const factory _GameState(
       {final GameStateType status,
-      final City? cityId,
+      final City? city,
       final List<DriveRouteEntity> routes,
       final DriveRouteEntity? gameRoute,
       final Set<Marker> markers,
@@ -356,7 +356,7 @@ abstract class _GameState implements GameState {
   @override
   GameStateType get status;
   @override
-  City? get cityId;
+  City? get city;
   @override
   List<DriveRouteEntity> get routes;
   @override
