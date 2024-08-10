@@ -27,7 +27,6 @@ class CountryBloc extends Bloc<CountryEvent, CountryState> {
     Emitter<CountryState> emit,
   ) async {
     if (state.countryList == null || event.searchText != state.searchText) {
-      print("AAA ListStatus.initial ");
       emit(state.copyWith(
         status: ListStatus.initial,
         error: null,

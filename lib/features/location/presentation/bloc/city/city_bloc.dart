@@ -32,9 +32,7 @@ class CityBloc extends Bloc<CityEvent, CityState> {
       ));
     }
     if (state.cityList != null &&
-            (state.cityList?.list.length ?? 0) >=
-                (state.cityList?.count ?? 0) ||
-        state.status == ListStatus.loading) {
+        (state.cityList?.list.length ?? 0) >= (state.cityList?.count ?? 0)) {
       return;
     }
     if (state.cityList != null) {
