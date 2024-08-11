@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
+import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart';
 import 'package:food_driver/features/game/presentation/widgets/custom_segmented_button.dart';
 import 'package:food_driver/features/game/presentation/widgets/users_list.dart';
@@ -32,28 +33,39 @@ class RaitingListPage extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        S.current.progressListPageRatingOfParticipants,
-                        style: Theme.of(context).textTheme.titleLarge,
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 24),
-                      CustomSegmentedButton(
-                        value: context.watch<RaitingBloc>().state.sort,
-                        separator: const SizedBox(width: 4.0),
-                        onChanged: (_) {},
-                      ),
-                      const SizedBox(height: 24),
-                      Expanded(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12.0),
-                          child: const UsersList(),
+                  child: BlocProvider(
+                    create: (_) => getIt<RaitingBloc>(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          S.current.progressListPageRatingOfParticipants,
+                          style: Theme.of(context).textTheme.titleLarge,
+                          textAlign: TextAlign.center,
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 24),
+                        BlocBuilder<RaitingBloc, RaitingState>(
+                          builder: (BuildContext context, RaitingState state) {
+                            return CustomSegmentedButton(
+                              value: state.sort,
+                              separator: const SizedBox(width: 4.0),
+                              onChanged: (sort) {
+                                context
+                                    .read<RaitingBloc>()
+                                    .add(RaitingLoadEvent(sort: sort));
+                              },
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 24),
+                        Expanded(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12.0),
+                            child: const UsersList(),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

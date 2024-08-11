@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/game/data/models/raiting_state_type.dart';
 import 'package:food_driver/features/game/data/models/user_rating.dart';
 import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart';
-import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
+import 'package:food_driver/features/location/data/models/selectable.dart';
+import 'package:food_driver/features/location/presentation/widgets/interactive_list.dart';
 import 'package:food_driver/generated/l10n.dart';
 
 part 'package:food_driver/features/game/presentation/pages/mixins/raiting_mixin.dart';
@@ -21,16 +21,17 @@ class UsersList extends StatefulWidget {
 class _UsersListState extends State<UsersList> with RaitingMixin {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RaitingBloc, RaitingState>(
-      builder: (BuildContext context, RaitingState state) {
-        return Column(
-          children: [
-            const _RaitingListHeader(),
-            if (state.status == RaitingStateType.loading)
-              const LoadingIndicator()
-            else if (state.status == RaitingStateType.success)
-              Expanded(
-                child: ListView.separated(
+    return Column(
+      children: [
+        const _RaitingListHeader(),
+        BlocBuilder<RaitingBloc, RaitingState>(
+          builder: (BuildContext context, RaitingState state) {
+            return Expanded(
+              child: InteractiveList<Selectable>(
+                status: state.status,
+                error: state.error,
+                list: state.raitingList?.list ?? [],
+                listView: ListView.separated(
                   controller: _scrollController,
                   padding: EdgeInsets.zero,
                   shrinkWrap: true,
@@ -41,12 +42,13 @@ class _UsersListState extends State<UsersList> with RaitingMixin {
                   separatorBuilder: (context, index) {
                     return const SizedBox(height: 4.0);
                   },
-                  itemCount: state.raitingList!.list.length,
+                  itemCount: state.raitingList?.list.length ?? 0,
                 ),
               ),
-          ],
-        );
-      },
+            );
+          },
+        ),
+      ],
     );
   }
 }

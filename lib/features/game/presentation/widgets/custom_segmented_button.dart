@@ -17,15 +17,15 @@ class CustomSegmentedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final buttons = UsersSortType.values.map((t) {
-      if (t == value) {
+    final buttons = UsersSortType.values.map((sortType) {
+      if (sortType == value) {
         return Expanded(
-          child: _ActiveSegmentedButton(type: t),
+          child: _ActiveSegmentedButton(type: sortType),
         );
       }
       return Expanded(
         child: _InactiveSegmentedButton(
-          type: t,
+          type: sortType,
           onChanged: onChanged,
         ),
       );

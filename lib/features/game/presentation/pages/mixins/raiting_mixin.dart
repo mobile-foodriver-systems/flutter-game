@@ -27,6 +27,6 @@ mixin RaitingMixin on State<UsersList> {
   }
 
   void _onScroll() {
-    if (_isBottom) _bloc.add(const RaitingLoadEvent());
+    if (_isBottom) _bloc.add(RaitingLoadEvent(sort: _bloc.state.sort));
   }
 }

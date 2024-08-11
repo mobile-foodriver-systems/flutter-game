@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RaitingState {
-  RaitingStateType get status => throw _privateConstructorUsedError;
+  ListStatus get status => throw _privateConstructorUsedError;
   UsersSortType get sort => throw _privateConstructorUsedError;
   RaitingList? get raitingList => throw _privateConstructorUsedError;
   Failure? get error => throw _privateConstructorUsedError;
@@ -33,7 +33,7 @@ abstract class $RaitingStateCopyWith<$Res> {
       _$RaitingStateCopyWithImpl<$Res, RaitingState>;
   @useResult
   $Res call(
-      {RaitingStateType status,
+      {ListStatus status,
       UsersSortType sort,
       RaitingList? raitingList,
       Failure? error});
@@ -61,7 +61,7 @@ class _$RaitingStateCopyWithImpl<$Res, $Val extends RaitingState>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as RaitingStateType,
+              as ListStatus,
       sort: null == sort
           ? _value.sort
           : sort // ignore: cast_nullable_to_non_nullable
@@ -87,7 +87,7 @@ abstract class _$$RaitingStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {RaitingStateType status,
+      {ListStatus status,
       UsersSortType sort,
       RaitingList? raitingList,
       Failure? error});
@@ -113,7 +113,7 @@ class __$$RaitingStateImplCopyWithImpl<$Res>
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as RaitingStateType,
+              as ListStatus,
       sort: null == sort
           ? _value.sort
           : sort // ignore: cast_nullable_to_non_nullable
@@ -134,14 +134,14 @@ class __$$RaitingStateImplCopyWithImpl<$Res>
 
 class _$RaitingStateImpl implements _RaitingState {
   const _$RaitingStateImpl(
-      {this.status = RaitingStateType.loading,
+      {this.status = ListStatus.initial,
       this.sort = UsersSortType.global,
       this.raitingList = null,
       this.error = null});
 
   @override
   @JsonKey()
-  final RaitingStateType status;
+  final ListStatus status;
   @override
   @JsonKey()
   final UsersSortType sort;
@@ -182,13 +182,13 @@ class _$RaitingStateImpl implements _RaitingState {
 
 abstract class _RaitingState implements RaitingState {
   const factory _RaitingState(
-      {final RaitingStateType status,
+      {final ListStatus status,
       final UsersSortType sort,
       final RaitingList? raitingList,
       final Failure? error}) = _$RaitingStateImpl;
 
   @override
-  RaitingStateType get status;
+  ListStatus get status;
   @override
   UsersSortType get sort;
   @override

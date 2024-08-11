@@ -16,12 +16,13 @@ class RaitingList extends ApiList<UserRating> {
   factory RaitingList.update({
     required RaitingList raitingList,
     required List<UserRating> list,
+    required int offset,
   }) {
     return RaitingList(
       count: raitingList.count,
       limit: raitingList.limit,
-      offset: raitingList.offset,
-      list: [...raitingList.list, ...list],
+      offset: offset,
+      list: {...raitingList.list, ...list}.toList(),
     );
   }
 

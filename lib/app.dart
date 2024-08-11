@@ -28,9 +28,6 @@ class App extends StatelessWidget {
           create: (_) => getIt<UserBloc>(),
         ),
         BlocProvider(
-          create: (_) => getIt<RaitingBloc>(),
-        ),
-        BlocProvider(
           create: (_) => getIt<LocalizationBloc>(),
         ),
       ],

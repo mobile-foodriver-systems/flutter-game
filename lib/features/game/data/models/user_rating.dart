@@ -24,4 +24,15 @@ class UserRating extends Selectable {
 
   @override
   String? get name => userName;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is UserRating &&
+            other.id == id);
+  }
+
+  @override
+  int get hashCode => id;
 }
