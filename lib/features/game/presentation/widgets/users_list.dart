@@ -12,7 +12,10 @@ part 'package:food_driver/features/game/presentation/pages/mixins/raiting_mixin.
 class UsersList extends StatefulWidget {
   const UsersList({
     super.key,
+    required this.userId,
   });
+
+  final int userId;
 
   @override
   State<UsersList> createState() => _UsersListState();
@@ -37,7 +40,10 @@ class _UsersListState extends State<UsersList> with RaitingMixin {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return _UserRatingItem(
-                        rating: state.raitingList!.list[index]);
+                      rating: state.raitingList!.list[index],
+                      isActive:
+                          state.raitingList!.list[index].id == widget.userId,
+                    );
                   },
                   separatorBuilder: (context, index) {
                     return const SizedBox(height: 4.0);
@@ -55,14 +61,20 @@ class _UsersListState extends State<UsersList> with RaitingMixin {
 
 class _UserRatingItem extends StatelessWidget {
   const _UserRatingItem({
-    super.key,
     required this.rating,
+    this.isActive = false,
   });
 
   final UserRating rating;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme.titleSmall?.copyWith(
+          fontSize: 20,
+          fontWeight: FontWeight.w600,
+          color: isActive ? AppColors.red : AppColors.black,
+        );
     return DecoratedBox(
       decoration: const BoxDecoration(color: AppColors.textFieldGray),
       child: Padding(
@@ -72,10 +84,7 @@ class _UserRatingItem extends StatelessWidget {
             Expanded(
               child: Text(
                 rating.userName ?? S.current.progressListPageUnknown,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
+                style: textStyle,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -83,10 +92,7 @@ class _UserRatingItem extends StatelessWidget {
             const SizedBox(width: 12.0),
             Text(
               rating.balanceInFDT.toString(),
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
+              style: textStyle,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),

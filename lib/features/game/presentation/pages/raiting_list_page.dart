@@ -9,7 +9,12 @@ import 'package:food_driver/features/user/presentation/widgets/close_icon_button
 import 'package:food_driver/generated/l10n.dart';
 
 class RaitingListPage extends StatelessWidget {
-  const RaitingListPage({super.key});
+  final int userId;
+
+  const RaitingListPage({
+    super.key,
+    required this.userId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +66,7 @@ class RaitingListPage extends StatelessWidget {
                         Expanded(
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12.0),
-                            child: const UsersList(),
+                            child: UsersList(userId: userId),
                           ),
                         ),
                       ],

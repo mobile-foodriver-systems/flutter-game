@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/game/presentation/pages/raiting_list_page.dart';
 
 class ProgressIconButton extends StatelessWidget {
-  const ProgressIconButton({super.key});
+  const ProgressIconButton({
+    super.key,
+    required this.onPressed,
+  });
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +17,7 @@ class ProgressIconButton extends StatelessWidget {
       decoration: iconButtonDecoration,
       child: IconButton(
         color: AppColors.white,
-        onPressed: () => Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const RaitingListPage())),
+        onPressed: onPressed,
         icon: Image.asset(AssetsCatalog.icCup),
       ),
     );

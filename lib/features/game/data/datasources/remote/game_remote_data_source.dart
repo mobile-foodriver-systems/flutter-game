@@ -13,7 +13,7 @@ abstract interface class GameRemoteDataSource {
   Future<Response<dynamic>> getUsersRatingList({
     int? radiusInKm,
     int limit = 20,
-    int? offset,
+    int offset = 0,
   });
 
   Future<List<DriveRoute>> getDriveRoutesList({required int cityId});

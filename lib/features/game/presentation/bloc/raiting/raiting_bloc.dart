@@ -45,7 +45,7 @@ class RaitingBloc extends Bloc<RaitingEvent, RaitingState> {
       emit(state.copyWith(status: ListStatus.loading));
     }
     final params = state.raitingList == null
-        ? RaitingParams()
+        ? RaitingParams(radiusInKm: event.sort.value)
         : RaitingParams(
             offset: (state.raitingList!.count ?? 0) <
                     ((state.raitingList!.offset ?? 0) +

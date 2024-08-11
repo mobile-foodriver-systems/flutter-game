@@ -132,4 +132,7 @@ mixin GameMixin on State<GamePageBody> {
       },
     );
   }
+
+  void openRaitingList() => Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => RaitingListPage(userId: widget.user.id)));
 }

@@ -29,7 +29,11 @@ class GameRepositoryImpl extends GameRepository {
   }) async {
     Response<dynamic>? response;
     try {
-      response = await _remoteDataSource.getUsersRatingList();
+      response = await _remoteDataSource.getUsersRatingList(
+        radiusInKm: radiusInKm,
+        limit: limit,
+        offset: offset ?? 0,
+      );
       if (response.statusCode == 200) {
         return Right(RaitingList.fromJson(response.data));
       }
