@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/constants/config.dart';
-import 'package:food_driver/core/extensions/fdt_formatter.dart';
+import 'package:food_driver/core/extensions/fdc_formatter.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/di/injection.dart';
@@ -96,7 +96,7 @@ class _ProfileBodyState extends State<ProfileBody> with ProfileMixin {
                         const SizedBox(height: 4.0),
                         Center(
                           child: Text(
-                            state.user!.balance.fdt,
+                            state.user!.balance.fdc,
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ),

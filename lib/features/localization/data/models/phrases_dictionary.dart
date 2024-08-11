@@ -32,12 +32,32 @@ class PhrasesDictionary {
   final String? gamePageTapToGo;
   final String? gamePageBeginIn;
   final String? gamePageTapSpeed;
-  final String? gamePageLost;
+  final String? gamePageSorry;
   final String? gamePageTryAgain;
-  final String? gamePageYourReward;
+  final String? gamePageYouEarned;
   final String? gamePagePlayMore;
   final String? gamePageSomethingWrong;
   final String? gamePageDetermineTheLocation;
+  final String? gamePageWinText1;
+  final String? gamePageWinText2;
+  final String? gamePageWinText3;
+  final String? gamePageWinText4;
+  final String? gamePageWinText5;
+  final String? gamePageWinText6;
+  final String? gamePageWinText7;
+  final String? gamePageWinText8;
+  final String? gamePageWinText9;
+  final String? gamePageWinText10;
+  final String? gamePageLooseText1;
+  final String? gamePageLooseText2;
+  final String? gamePageLooseText3;
+  final String? gamePageLooseText4;
+  final String? gamePageLooseText5;
+  final String? gamePageLooseText6;
+  final String? gamePageLooseText7;
+  final String? gamePageLooseText8;
+  final String? gamePageLooseText9;
+  final String? gamePageLooseText10;
   final String? registrationPageRegistration;
   final String? registrationPageYourPassword;
   final String? registrationPagePasswordsDoNotMatch;
@@ -78,12 +98,32 @@ class PhrasesDictionary {
     this.gamePageTapToGo,
     this.gamePageBeginIn,
     this.gamePageTapSpeed,
-    this.gamePageLost,
+    this.gamePageSorry,
     this.gamePageTryAgain,
-    this.gamePageYourReward,
+    this.gamePageYouEarned,
     this.gamePagePlayMore,
     this.gamePageSomethingWrong,
     this.gamePageDetermineTheLocation,
+    this.gamePageWinText1,
+    this.gamePageWinText2,
+    this.gamePageWinText3,
+    this.gamePageWinText4,
+    this.gamePageWinText5,
+    this.gamePageWinText6,
+    this.gamePageWinText7,
+    this.gamePageWinText8,
+    this.gamePageWinText9,
+    this.gamePageWinText10,
+    this.gamePageLooseText1,
+    this.gamePageLooseText2,
+    this.gamePageLooseText3,
+    this.gamePageLooseText4,
+    this.gamePageLooseText5,
+    this.gamePageLooseText6,
+    this.gamePageLooseText7,
+    this.gamePageLooseText8,
+    this.gamePageLooseText9,
+    this.gamePageLooseText10,
     this.registrationPageRegistration,
     this.registrationPageYourPassword,
     this.registrationPagePasswordsDoNotMatch,

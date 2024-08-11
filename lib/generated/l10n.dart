@@ -330,11 +330,11 @@ class S {
     );
   }
 
-  /// `You've lost`
-  String get gamePageLost {
+  /// `Sorry`
+  String get gamePageSorry {
     return Intl.message(
-      'You\'ve lost',
-      name: 'gamePageLost',
+      'Sorry',
+      name: 'gamePageSorry',
       desc: '',
       args: [],
     );
@@ -350,11 +350,11 @@ class S {
     );
   }
 
-  /// `Your reward`
-  String get gamePageYourReward {
+  /// `You've earned it`
+  String get gamePageYouEarned {
     return Intl.message(
-      'Your reward',
-      name: 'gamePageYourReward',
+      'You\'ve earned it',
+      name: 'gamePageYouEarned',
       desc: '',
       args: [],
     );
@@ -385,6 +385,206 @@ class S {
     return Intl.message(
       'Determine the location',
       name: 'gamePageDetermineTheLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep it up 1`
+  String get gamePageWinText1 {
+    return Intl.message(
+      'Keep it up 1',
+      name: 'gamePageWinText1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep it up 2`
+  String get gamePageWinText2 {
+    return Intl.message(
+      'Keep it up 2',
+      name: 'gamePageWinText2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep it up 3`
+  String get gamePageWinText3 {
+    return Intl.message(
+      'Keep it up 3',
+      name: 'gamePageWinText3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep it up 4`
+  String get gamePageWinText4 {
+    return Intl.message(
+      'Keep it up 4',
+      name: 'gamePageWinText4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep it up 5`
+  String get gamePageWinText5 {
+    return Intl.message(
+      'Keep it up 5',
+      name: 'gamePageWinText5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep it up 6`
+  String get gamePageWinText6 {
+    return Intl.message(
+      'Keep it up 6',
+      name: 'gamePageWinText6',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep it up 7`
+  String get gamePageWinText7 {
+    return Intl.message(
+      'Keep it up 7',
+      name: 'gamePageWinText7',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep it up 8`
+  String get gamePageWinText8 {
+    return Intl.message(
+      'Keep it up 8',
+      name: 'gamePageWinText8',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep it up 9`
+  String get gamePageWinText9 {
+    return Intl.message(
+      'Keep it up 9',
+      name: 'gamePageWinText9',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keep it up 10`
+  String get gamePageWinText10 {
+    return Intl.message(
+      'Keep it up 10',
+      name: 'gamePageWinText10',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will succeed, try again 1`
+  String get gamePageLooseText1 {
+    return Intl.message(
+      'You will succeed, try again 1',
+      name: 'gamePageLooseText1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will succeed, try again 2`
+  String get gamePageLooseText2 {
+    return Intl.message(
+      'You will succeed, try again 2',
+      name: 'gamePageLooseText2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will succeed, try again 3`
+  String get gamePageLooseText3 {
+    return Intl.message(
+      'You will succeed, try again 3',
+      name: 'gamePageLooseText3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will succeed, try again 4`
+  String get gamePageLooseText4 {
+    return Intl.message(
+      'You will succeed, try again 4',
+      name: 'gamePageLooseText4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will succeed, try again 5`
+  String get gamePageLooseText5 {
+    return Intl.message(
+      'You will succeed, try again 5',
+      name: 'gamePageLooseText5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will succeed, try again 6`
+  String get gamePageLooseText6 {
+    return Intl.message(
+      'You will succeed, try again 6',
+      name: 'gamePageLooseText6',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will succeed, try again 7`
+  String get gamePageLooseText7 {
+    return Intl.message(
+      'You will succeed, try again 7',
+      name: 'gamePageLooseText7',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will succeed, try again 8`
+  String get gamePageLooseText8 {
+    return Intl.message(
+      'You will succeed, try again 8',
+      name: 'gamePageLooseText8',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will succeed, try again 9`
+  String get gamePageLooseText9 {
+    return Intl.message(
+      'You will succeed, try again 9',
+      name: 'gamePageLooseText9',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will succeed, try again 10`
+  String get gamePageLooseText10 {
+    return Intl.message(
+      'You will succeed, try again 10',
+      name: 'gamePageLooseText10',
       desc: '',
       args: [],
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_driver/core/extensions/fdt_formatter.dart';
+import 'package:food_driver/core/extensions/fdc_formatter.dart';
 import 'package:food_driver/core/extensions/time_formatter.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 
@@ -61,7 +61,7 @@ class RoutePainter extends CustomPainter {
       fontWeight: FontWeight.w600,
     );
     var textSpan = TextSpan(
-      text: reward?.fdt ?? '',
+      text: reward?.fdc ?? '',
       style: textStyle,
     );
     final textPainter = TextPainter(

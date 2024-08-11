@@ -7,6 +7,7 @@ import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/game.dart';
 import 'package:food_driver/features/game/presentation/widgets/help_game_message.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
+import 'package:food_driver/features/game/presentation/widgets/loose_or_win.dart';
 import 'package:food_driver/features/game/presentation/widgets/navigation.dart';
 import 'package:food_driver/features/game/presentation/widgets/tap_button.dart';
 import 'package:food_driver/features/location/data/models/city.dart';
@@ -65,13 +66,18 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                   children: [
                     Game(
                       type: state.status,
-                      toggleToInit: toggleToInit,
+                      //toggleToInit: toggleToInit,
                       routes: state.routes,
                       markers: state.markers,
                       polylines: state.polylines,
                       reward: state.gameRoute?.reward,
                       determineLocation: tryGetCity,
                     ),
+                    if (state.status == GameStateType.loose ||
+                        state.status == GameStateType.win)
+                      const LooseOrWin(
+                        balance: 0,
+                      ),
                     Positioned(
                       top: 16,
                       left: 0,

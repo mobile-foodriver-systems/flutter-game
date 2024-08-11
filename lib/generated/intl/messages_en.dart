@@ -59,15 +59,55 @@ class MessageLookup extends MessageLookupByLibrary {
             "Click on the dots to start the game"),
         "gamePageDetermineTheLocation":
             MessageLookupByLibrary.simpleMessage("Determine the location"),
-        "gamePageLost": MessageLookupByLibrary.simpleMessage("You\'ve lost"),
+        "gamePageLooseText1": MessageLookupByLibrary.simpleMessage(
+            "You will succeed, try again 1"),
+        "gamePageLooseText10": MessageLookupByLibrary.simpleMessage(
+            "You will succeed, try again 10"),
+        "gamePageLooseText2": MessageLookupByLibrary.simpleMessage(
+            "You will succeed, try again 2"),
+        "gamePageLooseText3": MessageLookupByLibrary.simpleMessage(
+            "You will succeed, try again 3"),
+        "gamePageLooseText4": MessageLookupByLibrary.simpleMessage(
+            "You will succeed, try again 4"),
+        "gamePageLooseText5": MessageLookupByLibrary.simpleMessage(
+            "You will succeed, try again 5"),
+        "gamePageLooseText6": MessageLookupByLibrary.simpleMessage(
+            "You will succeed, try again 6"),
+        "gamePageLooseText7": MessageLookupByLibrary.simpleMessage(
+            "You will succeed, try again 7"),
+        "gamePageLooseText8": MessageLookupByLibrary.simpleMessage(
+            "You will succeed, try again 8"),
+        "gamePageLooseText9": MessageLookupByLibrary.simpleMessage(
+            "You will succeed, try again 9"),
         "gamePagePlayMore": MessageLookupByLibrary.simpleMessage("Play more"),
         "gamePageSomethingWrong":
             MessageLookupByLibrary.simpleMessage("Something went wrong"),
+        "gamePageSorry": MessageLookupByLibrary.simpleMessage("Sorry"),
         "gamePageTapSpeed": m1,
         "gamePageTapToGo": MessageLookupByLibrary.simpleMessage("Tap\nto go"),
         "gamePageTryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
-        "gamePageYourReward":
-            MessageLookupByLibrary.simpleMessage("Your reward"),
+        "gamePageWinText1":
+            MessageLookupByLibrary.simpleMessage("Keep it up 1"),
+        "gamePageWinText10":
+            MessageLookupByLibrary.simpleMessage("Keep it up 10"),
+        "gamePageWinText2":
+            MessageLookupByLibrary.simpleMessage("Keep it up 2"),
+        "gamePageWinText3":
+            MessageLookupByLibrary.simpleMessage("Keep it up 3"),
+        "gamePageWinText4":
+            MessageLookupByLibrary.simpleMessage("Keep it up 4"),
+        "gamePageWinText5":
+            MessageLookupByLibrary.simpleMessage("Keep it up 5"),
+        "gamePageWinText6":
+            MessageLookupByLibrary.simpleMessage("Keep it up 6"),
+        "gamePageWinText7":
+            MessageLookupByLibrary.simpleMessage("Keep it up 7"),
+        "gamePageWinText8":
+            MessageLookupByLibrary.simpleMessage("Keep it up 8"),
+        "gamePageWinText9":
+            MessageLookupByLibrary.simpleMessage("Keep it up 9"),
+        "gamePageYouEarned":
+            MessageLookupByLibrary.simpleMessage("You\'ve earned it"),
         "listPageEmptyList":
             MessageLookupByLibrary.simpleMessage("The list is empty"),
         "profilePageDeleteAccount":

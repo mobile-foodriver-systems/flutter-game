@@ -59,17 +59,57 @@ class MessageLookup extends MessageLookupByLibrary {
             "Жмите на точки для начала игры"),
         "gamePageDetermineTheLocation":
             MessageLookupByLibrary.simpleMessage("Определить местоположение"),
-        "gamePageLost": MessageLookupByLibrary.simpleMessage("Вы проиграли"),
+        "gamePageLooseText1":
+            MessageLookupByLibrary.simpleMessage("Мотивационный текст 1"),
+        "gamePageLooseText10":
+            MessageLookupByLibrary.simpleMessage("Мотивационный текст 10"),
+        "gamePageLooseText2":
+            MessageLookupByLibrary.simpleMessage("Мотивационный текст 2"),
+        "gamePageLooseText3":
+            MessageLookupByLibrary.simpleMessage("Мотивационный текст 3"),
+        "gamePageLooseText4":
+            MessageLookupByLibrary.simpleMessage("Мотивационный текст 4"),
+        "gamePageLooseText5":
+            MessageLookupByLibrary.simpleMessage("Мотивационный текст 5"),
+        "gamePageLooseText6":
+            MessageLookupByLibrary.simpleMessage("Мотивационный текст 6"),
+        "gamePageLooseText7":
+            MessageLookupByLibrary.simpleMessage("Мотивационный текст 7"),
+        "gamePageLooseText8":
+            MessageLookupByLibrary.simpleMessage("Мотивационный текст 8"),
+        "gamePageLooseText9":
+            MessageLookupByLibrary.simpleMessage("Мотивационный текст 9"),
         "gamePagePlayMore": MessageLookupByLibrary.simpleMessage("Играть еще"),
         "gamePageSomethingWrong":
             MessageLookupByLibrary.simpleMessage("Что-то пошло не так"),
+        "gamePageSorry": MessageLookupByLibrary.simpleMessage("Извините"),
         "gamePageTapSpeed": m1,
         "gamePageTapToGo":
             MessageLookupByLibrary.simpleMessage("Кликай\nчтобы ехать"),
         "gamePageTryAgain":
             MessageLookupByLibrary.simpleMessage("Попробовать снова"),
-        "gamePageYourReward":
-            MessageLookupByLibrary.simpleMessage("Ваша награда"),
+        "gamePageWinText1":
+            MessageLookupByLibrary.simpleMessage("Успешный текст 1"),
+        "gamePageWinText10":
+            MessageLookupByLibrary.simpleMessage("Успешный текст 10"),
+        "gamePageWinText2":
+            MessageLookupByLibrary.simpleMessage("Успешный текст 2"),
+        "gamePageWinText3":
+            MessageLookupByLibrary.simpleMessage("Успешный текст 3"),
+        "gamePageWinText4":
+            MessageLookupByLibrary.simpleMessage("Успешный текст 4"),
+        "gamePageWinText5":
+            MessageLookupByLibrary.simpleMessage("Успешный текст 5"),
+        "gamePageWinText6":
+            MessageLookupByLibrary.simpleMessage("Успешный текст 6"),
+        "gamePageWinText7":
+            MessageLookupByLibrary.simpleMessage("Успешный текст 7"),
+        "gamePageWinText8":
+            MessageLookupByLibrary.simpleMessage("Успешный текст 8"),
+        "gamePageWinText9":
+            MessageLookupByLibrary.simpleMessage("Успешный текст 9"),
+        "gamePageYouEarned":
+            MessageLookupByLibrary.simpleMessage("Вы заработали"),
         "listPageEmptyList":
             MessageLookupByLibrary.simpleMessage("Список пуст"),
         "profilePageDeleteAccount":
