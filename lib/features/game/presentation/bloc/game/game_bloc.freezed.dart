@@ -27,6 +27,7 @@ mixin _$GameState {
   num get speed => throw _privateConstructorUsedError;
   int get seconds => throw _privateConstructorUsedError;
   UserEntity? get user => throw _privateConstructorUsedError;
+  LooseWinEntity? get looseWin => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GameStateCopyWith<GameState> get copyWith =>
@@ -49,7 +50,8 @@ abstract class $GameStateCopyWith<$Res> {
       Timer? timer,
       num speed,
       int seconds,
-      UserEntity? user});
+      UserEntity? user,
+      LooseWinEntity? looseWin});
 }
 
 /// @nodoc
@@ -76,6 +78,7 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
     Object? speed = null,
     Object? seconds = null,
     Object? user = freezed,
+    Object? looseWin = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -122,6 +125,10 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserEntity?,
+      looseWin: freezed == looseWin
+          ? _value.looseWin
+          : looseWin // ignore: cast_nullable_to_non_nullable
+              as LooseWinEntity?,
     ) as $Val);
   }
 }
@@ -145,7 +152,8 @@ abstract class _$$GameStateImplCopyWith<$Res>
       Timer? timer,
       num speed,
       int seconds,
-      UserEntity? user});
+      UserEntity? user,
+      LooseWinEntity? looseWin});
 }
 
 /// @nodoc
@@ -170,6 +178,7 @@ class __$$GameStateImplCopyWithImpl<$Res>
     Object? speed = null,
     Object? seconds = null,
     Object? user = freezed,
+    Object? looseWin = freezed,
   }) {
     return _then(_$GameStateImpl(
       status: null == status
@@ -216,6 +225,10 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserEntity?,
+      looseWin: freezed == looseWin
+          ? _value.looseWin
+          : looseWin // ignore: cast_nullable_to_non_nullable
+              as LooseWinEntity?,
     ));
   }
 }
@@ -234,7 +247,8 @@ class _$GameStateImpl implements _GameState {
       this.timer = null,
       this.speed = 0,
       this.seconds = 0,
-      this.user = null})
+      this.user = null,
+      this.looseWin = null})
       : _routes = routes,
         _markers = markers,
         _polylines = polylines;
@@ -290,10 +304,13 @@ class _$GameStateImpl implements _GameState {
   @override
   @JsonKey()
   final UserEntity? user;
+  @override
+  @JsonKey()
+  final LooseWinEntity? looseWin;
 
   @override
   String toString() {
-    return 'GameState(status: $status, city: $city, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, tapCount: $tapCount, timer: $timer, speed: $speed, seconds: $seconds, user: $user)';
+    return 'GameState(status: $status, city: $city, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, tapCount: $tapCount, timer: $timer, speed: $speed, seconds: $seconds, user: $user, looseWin: $looseWin)';
   }
 
   @override
@@ -314,7 +331,8 @@ class _$GameStateImpl implements _GameState {
             (identical(other.timer, timer) || other.timer == timer) &&
             (identical(other.speed, speed) || other.speed == speed) &&
             (identical(other.seconds, seconds) || other.seconds == seconds) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.user, user) || other.user == user) &&
+            const DeepCollectionEquality().equals(other.looseWin, looseWin));
   }
 
   @override
@@ -330,7 +348,8 @@ class _$GameStateImpl implements _GameState {
       timer,
       speed,
       seconds,
-      user);
+      user,
+      const DeepCollectionEquality().hash(looseWin));
 
   @JsonKey(ignore: true)
   @override
@@ -351,7 +370,8 @@ abstract class _GameState implements GameState {
       final Timer? timer,
       final num speed,
       final int seconds,
-      final UserEntity? user}) = _$GameStateImpl;
+      final UserEntity? user,
+      final LooseWinEntity? looseWin}) = _$GameStateImpl;
 
   @override
   GameStateType get status;
@@ -375,6 +395,8 @@ abstract class _GameState implements GameState {
   int get seconds;
   @override
   UserEntity? get user;
+  @override
+  LooseWinEntity? get looseWin;
   @override
   @JsonKey(ignore: true)
   _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>

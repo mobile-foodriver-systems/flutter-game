@@ -73,11 +73,10 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                       reward: state.gameRoute?.reward,
                       determineLocation: tryGetCity,
                     ),
-                    if (state.status == GameStateType.loose ||
-                        state.status == GameStateType.win)
-                      const LooseOrWin(
-                        balance: 0,
-                      ),
+                    if ((state.status == GameStateType.loose ||
+                            state.status == GameStateType.win) &&
+                        state.looseWin != null)
+                      LooseOrWin(looseWin: state.looseWin!),
                     Positioned(
                       top: 16,
                       left: 0,

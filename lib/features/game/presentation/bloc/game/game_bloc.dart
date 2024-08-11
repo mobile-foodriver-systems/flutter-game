@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/game/data/models/game_state_type.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
+import 'package:food_driver/features/game/domain/entities/loose_win_entity.dart';
 import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:food_driver/features/game/domain/entities/route_marker.dart';
 import 'package:food_driver/features/game/domain/usecases/load.dart';
@@ -160,12 +161,18 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   ) async {
     state.timer?.cancel();
     final (routes, markers) = await _updatedMarkers();
+    final progress = state.tapCount / max((state.gameRoute?.tapCount ?? 0), 1);
+    final looseWin = LooseWinEntity(
+      totalTime: state.gameRoute?.seconds ?? 0,
+      progress: progress > 1 ? 0 : progress,
+    );
     emit(state.copyWith(
       status: GameStateType.loose,
       polylines: {},
       timer: null,
       markers: markers,
       routes: routes,
+      looseWin: looseWin,
     ));
   }
 
@@ -181,6 +188,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       markers: markers,
       routes: routes,
       timer: null,
+      looseWin: LooseWinEntity(reward: state.gameRoute?.reward),
     ));
   }
 
