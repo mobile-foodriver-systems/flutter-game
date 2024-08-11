@@ -52,11 +52,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameNoCityEvent>(_noCity);
   }
 
-  Set<MarkerEntity> get markerEntities => state.routes
-      .map((route) => route.markerEntity)
-      .whereType<MarkerEntity>()
-      .toSet();
-
   void _prepareInfo(
     GamePrepareInfoEvent event,
     Emitter<GameState> emit,
@@ -133,12 +128,14 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameBreakEvent event,
     Emitter<GameState> emit,
   ) async {
+    state.timer?.cancel();
     final (routes, markers) = await _updatedMarkers();
     emit(state.copyWith(
       status: GameStateType.initialized,
       polylines: {},
       markers: markers,
       routes: routes,
+      timer: null,
     ));
   }
 
@@ -147,7 +144,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) async {
     final markers = await RouteMarker.createMarkers(
-      entities: markerEntities,
+      entities: markerEntities(state.routes),
       onTap: (routeId) => add(GameStartEvent(routeId)),
     );
     emit(state.copyWith(
@@ -161,6 +158,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameLooseEvent event,
     Emitter<GameState> emit,
   ) async {
+    state.timer?.cancel();
     final (routes, markers) = await _updatedMarkers();
     emit(state.copyWith(
       status: GameStateType.loose,
@@ -217,11 +215,16 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     var routes = [...state.routes];
     routes.removeWhere((route) => route.id == state.gameRoute?.id);
     final markers = await RouteMarker.createMarkers(
-      entities: markerEntities,
+      entities: markerEntities(routes),
       onTap: (routeId) => add(GameStartEvent(routeId)),
     );
     return (routes, markers);
   }
+
+  Set<MarkerEntity> markerEntities(List<DriveRouteEntity> routes) => routes
+      .map((route) => route.markerEntity)
+      .whereType<MarkerEntity>()
+      .toSet();
 
   void timerCallback(Timer timer) {
     if (state.seconds == 0) {
@@ -237,7 +240,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GetCityEvent event,
     Emitter<GameState> emit,
   ) async {
-    print("AAA _tryGetCity");
     if (state.status != GameStateType.loading) {
       emit(state.copyWith(status: GameStateType.loading));
     }

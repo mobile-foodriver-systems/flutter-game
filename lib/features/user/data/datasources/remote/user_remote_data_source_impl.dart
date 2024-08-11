@@ -26,6 +26,8 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       path: ApiRoutes.profile,
       type: RequestType.get,
     );
+    print(
+        "AAA type: = ${response.data.runtimeType}, data: = ${response.data}, response.statusCode: = ${response.statusCode}, response.statusMessage: = ${response.statusMessage}");
     return User.fromJson(response.data);
   }
 
