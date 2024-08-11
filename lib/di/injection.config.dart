@@ -30,6 +30,7 @@ import 'package:food_driver/features/auth/domain/usecases/broke_access_token.dar
     as _i618;
 import 'package:food_driver/features/auth/domain/usecases/check_auth.dart'
     as _i879;
+import 'package:food_driver/features/auth/domain/usecases/delete.dart' as _i684;
 import 'package:food_driver/features/auth/domain/usecases/get_access_token.dart'
     as _i245;
 import 'package:food_driver/features/auth/domain/usecases/login_by_password.dart'
@@ -359,6 +360,13 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i684.DeleteUseCase>(
+      () => _i684.DeleteUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.singleton<_i459.LocalizationBloc>(
         () => _i459.LocalizationBloc(gh<_i352.LoadLocalizationUseCase>()));
     gh.lazySingleton<_i535.AuthInterceptor>(() => _i535.AuthInterceptor(
@@ -388,6 +396,7 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i1009.LoginByPasswordUseCase>(),
           gh<_i422.LogoutUseCase>(),
           gh<_i879.CheckAuthUseCase>(),
+          gh<_i684.DeleteUseCase>(),
         ));
     return this;
   }

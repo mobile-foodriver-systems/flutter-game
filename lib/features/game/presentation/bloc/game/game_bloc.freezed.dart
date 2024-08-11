@@ -332,7 +332,8 @@ class _$GameStateImpl implements _GameState {
             (identical(other.speed, speed) || other.speed == speed) &&
             (identical(other.seconds, seconds) || other.seconds == seconds) &&
             (identical(other.user, user) || other.user == user) &&
-            const DeepCollectionEquality().equals(other.looseWin, looseWin));
+            (identical(other.looseWin, looseWin) ||
+                other.looseWin == looseWin));
   }
 
   @override
@@ -349,7 +350,7 @@ class _$GameStateImpl implements _GameState {
       speed,
       seconds,
       user,
-      const DeepCollectionEquality().hash(looseWin));
+      looseWin);
 
   @JsonKey(ignore: true)
   @override

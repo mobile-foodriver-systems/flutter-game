@@ -29,6 +29,8 @@ abstract class AuthRepository {
 
   Future<void> logout();
 
+  Future<void> delete();
+
   Future<AuthEntity?> getAuthEntity();
 
   Future<Either<Failure, AuthEntity>> initAuthEntity();

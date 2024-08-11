@@ -4,6 +4,7 @@ import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/auth/data/models/auth_status.dart';
 import 'package:food_driver/features/auth/domain/entities/auth_params.dart';
 import 'package:food_driver/features/auth/domain/usecases/check_auth.dart';
+import 'package:food_driver/features/auth/domain/usecases/delete.dart';
 import 'package:food_driver/features/auth/domain/usecases/login_by_password.dart';
 import 'package:food_driver/features/auth/domain/usecases/logout.dart';
 import 'package:food_driver/features/auth/presentation/bloc/auth/auth_user_event.dart';
@@ -20,14 +21,17 @@ class AuthBloc extends Bloc<AuthUserEvent, AuthState> {
   final LoginByPasswordUseCase _loginByPassword;
   final LogoutUseCase _logout;
   final CheckAuthUseCase _checkAuth;
+  final DeleteUseCase _delete;
   AuthBloc(
     this._loginByPassword,
     this._logout,
     this._checkAuth,
+    this._delete,
   ) : super(const AuthState()) {
     on<AuthLoginByPasswordEvent>(_onAuthLoginByPassword);
     on<AuthLogoutEvent>(_onAuthLogout);
     on<AuthCheckEvent>(_onAuthCheck);
+    on<AuthDeleteEvent>(_onAuthDelete);
   }
 
   void _onAuthLoginByPassword(
@@ -96,5 +100,13 @@ class AuthBloc extends Bloc<AuthUserEvent, AuthState> {
         }
       },
     );
+  }
+
+  void _onAuthDelete(
+    AuthDeleteEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    await _delete(NoParams());
+    emit(state.copyWith(status: AuthStatus.unauthenticated));
   }
 }

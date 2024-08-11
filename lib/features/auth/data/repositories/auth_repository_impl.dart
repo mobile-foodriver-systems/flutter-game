@@ -37,7 +37,7 @@ class AuthRepositoryImpl extends AuthRepository {
       await _localDataSource.deleteAuthModel();
     } catch (e) {
       if (auth == null) return;
-      _remoteDataSource.logout(auth: auth.toEntity());
+      _remoteDataSource.logout();
     }
   }
 
@@ -149,5 +149,13 @@ class AuthRepositoryImpl extends AuthRepository {
       tokenType: auth.tokenType,
       scope: auth.scope,
     ));
+  }
+
+  @override
+  Future<void> delete() async {
+    try {
+      await _remoteDataSource.delete();
+      _localDataSource.deleteAuthModel();
+    } catch (e) {}
   }
 }

@@ -24,3 +24,5 @@ final class AuthCheckEvent extends AuthUserEvent {
   @override
   List<Object> get props => [];
 }
+
+final class AuthDeleteEvent extends AuthUserEvent {}

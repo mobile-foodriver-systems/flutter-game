@@ -56,7 +56,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     String? walletAddress,
   }) async {
     return await _appHttpService.request(
-      path: ApiRoutes.updateProfile,
+      path: ApiRoutes.account,
       type: RequestType.put,
       options: Options(contentType: 'application/json-patch+json'),
       data: {

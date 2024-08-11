@@ -73,7 +73,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<void> logout({required AuthEntity auth}) async {
+  Future<void> logout() async {
     // await _appHttpService.request(
     //   path: '',
     //   type: RequestType.post,
@@ -97,13 +97,22 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     required String password,
   }) async {
     return await _appHttpService.request(
-      path: ApiRoutes.registration,
+      path: ApiRoutes.account,
       type: RequestType.post,
       options: Options(contentType: 'application/json-patch+json'),
       data: {
         "password": password,
         "userName": login,
       },
+    );
+  }
+
+  @override
+  Future delete() async {
+    return await _appHttpService.request(
+      path: ApiRoutes.account,
+      type: RequestType.delete,
+      options: Options(contentType: 'application/json-patch+json'),
     );
   }
 }
