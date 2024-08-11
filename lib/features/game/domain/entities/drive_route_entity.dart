@@ -8,18 +8,22 @@ class DriveRouteEntity extends Equatable {
   const DriveRouteEntity({
     required this.id,
     this.city,
-    this.tapCount,
-    this.seconds = 20,
-    this.reward = 0.02,
+    this.tapCount = 0,
+    this.seconds = 0,
+    this.reward = 0,
     this.coordinatesList = const [],
+    this.metersPerClick = 0,
+    this.distanceInMeters = 0,
   });
 
   final int id;
   final City? city;
-  final int? tapCount;
+  final int tapCount;
   final int seconds;
   final num reward;
   final List<LatLng?> coordinatesList;
+  final num metersPerClick;
+  final num distanceInMeters;
 
   List<LatLng> get coordinatesListSafe =>
       coordinatesList.whereType<LatLng>().toList();

@@ -325,6 +325,13 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i684.DeleteUseCase>(
+      () => _i684.DeleteUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i245.GetAccessTokenUseCase>(
       () => _i245.GetAccessTokenUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
@@ -355,13 +362,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i377.RegistrationUseCase>(
       () => _i377.RegistrationUseCase(gh<_i55.AuthRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i684.DeleteUseCase>(
-      () => _i684.DeleteUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
         _dev,
         _prod,

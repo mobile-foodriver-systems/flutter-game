@@ -1,6 +1,6 @@
-import 'package:food_driver/features/location/data/models/city.dart';
 import 'package:food_driver/features/game/data/models/lat_lng.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
+import 'package:food_driver/features/location/data/models/city.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'drive_route.g.dart';
@@ -9,21 +9,23 @@ part 'drive_route.g.dart';
 class DriveRoute {
   final int id;
   final City city;
-  final int? tapCount;
-  final int seconds;
-  final num reward;
+  final num? fdtForDistance;
   final List<LatLng?> coordinateList;
+  final int? timeForDistance;
+  final num? metersPerClick;
+  final num? distanceInMeters;
+  final int? clickCountForDistance;
 
   DriveRoute({
     required this.id,
     required this.city,
-    this.tapCount,
-    this.seconds = 20,
-    this.reward = 0.02,
+    this.fdtForDistance = 0,
     this.coordinateList = const [],
+    this.timeForDistance = 0,
+    this.metersPerClick = 0,
+    this.distanceInMeters = 0,
+    this.clickCountForDistance = 0,
   });
-
-  Duration? get time => Duration(seconds: seconds);
 
   factory DriveRoute.fromJson(Map<String, dynamic> json) =>
       _$DriveRouteFromJson(json);
@@ -35,10 +37,12 @@ extension DriveRouteX on DriveRoute {
     return DriveRouteEntity(
       id: id,
       city: city,
-      tapCount: tapCount,
-      seconds: seconds,
-      reward: reward,
+      tapCount: clickCountForDistance ?? 0,
+      seconds: timeForDistance ?? 0,
+      reward: fdtForDistance ?? 0,
       coordinatesList: coordinateList,
+      metersPerClick: metersPerClick ?? 0,
+      distanceInMeters: distanceInMeters ?? 0,
     );
   }
 }
