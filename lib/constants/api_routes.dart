@@ -18,4 +18,7 @@ class ApiRoutes {
 
   // Localization
   static const String localization = '/game/api/v1/localization';
+
+  // SignalR
+  static const String signalR = '/game/SignalR/v1/game';
 }

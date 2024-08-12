@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:food_driver/core/services/http/app_http_service.dart';
 import 'package:food_driver/core/services/http/http_service.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
@@ -132,7 +133,7 @@ class AuthInterceptor extends InterceptorsWrapper {
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
-    printRequestInfo(response: response);
+    if (kDebugMode) printRequestInfo(response: response);
     super.onResponse(response, handler);
   }
 

@@ -54,4 +54,27 @@ class GameRepositoryImpl extends GameRepository {
       }
     }
   }
+
+  @override
+  Future<void> moveOnRoute({required List<int> clickTimeList}) {
+    // TODO: implement moveOnRoute
+    throw UnimplementedError();
+  }
+
+  @override
+  void startGame({required int cityId}) {
+    _remoteDataSource.startGame(cityId: cityId);
+  }
+
+  @override
+  Future<GameActionResult?> stopGame() {
+    // TODO: implement stopGame
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<GameActionResult?> takeRoute({required int routeId}) {
+    // TODO: implement takeRoute
+    throw UnimplementedError();
+  }
 }

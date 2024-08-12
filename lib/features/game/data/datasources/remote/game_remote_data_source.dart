@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:food_driver/constants/api_routes.dart';
 import 'package:food_driver/core/services/http/app_http_service.dart';
+import 'package:food_driver/core/services/signal_r/app_signal_r_service.dart';
 import 'package:food_driver/core/services/http/http_service.dart';
+import 'package:food_driver/core/services/signal_r/signal_r_service.dart';
 import 'package:food_driver/features/game/data/models/drive_route.dart';
+import 'package:food_driver/features/game/data/models/game_action_result.dart';
 import 'package:food_driver/features/game/data/models/lat_lng.dart';
 import 'package:food_driver/features/location/data/models/city.dart';
 import 'package:injectable/injectable.dart';
@@ -17,4 +20,12 @@ abstract interface class GameRemoteDataSource {
   });
 
   Future<List<DriveRoute>> getDriveRoutesList({required int cityId});
+
+  void startGame({required int cityId});
+
+  void stopGame();
+
+  void takeRoute({required int routeId});
+
+  void moveOnRoute({required List<int> clickTimeList});
 }

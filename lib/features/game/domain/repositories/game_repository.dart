@@ -4,6 +4,7 @@ import 'package:food_driver/core/errors/exceptions/exception_to_failure_converte
 import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/features/game/data/datasources/remote/game_remote_data_source.dart';
 import 'package:food_driver/features/game/data/models/drive_route.dart';
+import 'package:food_driver/features/game/data/models/game_action_result.dart';
 import 'package:food_driver/features/game/data/models/raiting_list.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
 import 'package:food_driver/features/user/data/models/api_error_stack.dart';
@@ -22,4 +23,12 @@ abstract class GameRepository {
     int limit = 20,
     int? offset,
   });
+
+  void startGame({required int cityId});
+
+  Future<GameActionResult?> stopGame();
+
+  Future<GameActionResult?> takeRoute({required int routeId});
+
+  Future<void> moveOnRoute({required List<int> clickTimeList});
 }

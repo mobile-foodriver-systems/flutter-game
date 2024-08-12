@@ -16,6 +16,7 @@ import 'package:food_driver/features/location/data/models/country.dart';
 import 'package:food_driver/features/location/presentation/pages/city_list_page.dart';
 import 'package:food_driver/features/location/presentation/pages/country_list_page.dart';
 import 'package:food_driver/features/user/domain/entities/user_entity.dart';
+import 'package:food_driver/features/user/domain/repositories/user_repository.dart';
 import 'package:food_driver/features/user/presentation/bloc/user_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';

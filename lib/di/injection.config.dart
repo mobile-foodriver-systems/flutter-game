@@ -19,6 +19,8 @@ import 'package:food_driver/core/services/local_storage/local_storage_service.da
     as _i203;
 import 'package:food_driver/core/services/local_storage/local_storage_service_impl.dart'
     as _i58;
+import 'package:food_driver/core/services/signal_r/app_signal_r_service.dart'
+    as _i110;
 import 'package:food_driver/di/injection.dart' as _i442;
 import 'package:food_driver/features/auth/data/datasources/local/auth_local_data_source.dart'
     as _i927;
@@ -130,13 +132,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i353.StartUseCase>(
-      () => _i353.StartUseCase(),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
     gh.factory<_i824.StopUseCase>(
       () => _i824.StopUseCase(),
       registerFor: {
@@ -175,13 +170,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.lazySingleton<_i259.GameRemoteDataSource>(
-      () => _i259.GameRemoteDataSourceImpl(gh<_i528.AppHttpService>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
     gh.lazySingleton<_i929.LocalizationRemoteDataSource>(
       () => _i929.LocalizationRemoteDataSourceImpl(gh<_i528.AppHttpService>()),
       registerFor: {
@@ -194,13 +182,6 @@ extension GetItInjectableX on _i174.GetIt {
       registerFor: {
         _dev,
         _prod,
-      },
-    );
-    gh.lazySingleton<_i927.GameRepository>(
-      () => _i927.GameRepositoryImpl(gh<_i259.GameRemoteDataSource>()),
-      registerFor: {
-        _prod,
-        _dev,
       },
     );
     gh.lazySingleton<_i977.AuthRemoteDataSource>(
@@ -246,20 +227,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i251.LoadUseCase>(
-      () => _i251.LoadUseCase(gh<_i927.GameRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i508.LoadRaitingUseCase>(
-      () => _i508.LoadRaitingUseCase(gh<_i927.GameRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
     gh.factory<_i510.CityBloc>(
         () => _i510.CityBloc(gh<_i1067.LoadCityUseCase>()));
     gh.factory<_i352.LoadLocalizationUseCase>(
@@ -288,13 +255,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i4.CountryBloc>(
         () => _i4.CountryBloc(gh<_i980.LoadCountryUseCase>()));
-    gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
-          gh<_i251.LoadUseCase>(),
-          gh<_i353.StartUseCase>(),
-          gh<_i930.PlayUseCase>(),
-          gh<_i824.StopUseCase>(),
-          gh<_i680.CityByLatLngUseCase>(),
-        ));
     gh.factory<_i978.LoadProfileUseCase>(
       () => _i978.LoadProfileUseCase(gh<_i687.UserRepository>()),
       registerFor: {
@@ -316,8 +276,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i982.RaitingBloc>(
-        () => _i982.RaitingBloc(gh<_i508.LoadRaitingUseCase>()));
     gh.factory<_i618.BreakAccessTokenUseCase>(
       () => _i618.BreakAccessTokenUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
@@ -377,6 +335,13 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i415.RegistrationBloc>(
         () => _i415.RegistrationBloc(gh<_i377.RegistrationUseCase>()));
+    gh.lazySingleton<_i110.AppSignalRService>(
+      () => _i110.AppSignalRService(authRepository: gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i879.CheckAuthUseCase>(
       () => _i879.CheckAuthUseCase(
         gh<_i55.AuthRepository>(),
@@ -398,6 +363,53 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i879.CheckAuthUseCase>(),
           gh<_i684.DeleteUseCase>(),
         ));
+    gh.lazySingleton<_i259.GameRemoteDataSource>(
+      () => _i259.GameRemoteDataSourceImpl(
+        gh<_i528.AppHttpService>(),
+        gh<_i110.AppSignalRService>(),
+      ),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.lazySingleton<_i927.GameRepository>(
+      () => _i927.GameRepositoryImpl(gh<_i259.GameRemoteDataSource>()),
+      registerFor: {
+        _prod,
+        _dev,
+      },
+    );
+    gh.factory<_i251.LoadUseCase>(
+      () => _i251.LoadUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i508.LoadRaitingUseCase>(
+      () => _i508.LoadRaitingUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i353.StartUseCase>(
+      () => _i353.StartUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
+          gh<_i251.LoadUseCase>(),
+          gh<_i353.StartUseCase>(),
+          gh<_i930.PlayUseCase>(),
+          gh<_i824.StopUseCase>(),
+          gh<_i680.CityByLatLngUseCase>(),
+        ));
+    gh.factory<_i982.RaitingBloc>(
+        () => _i982.RaitingBloc(gh<_i508.LoadRaitingUseCase>()));
     return this;
   }
 }

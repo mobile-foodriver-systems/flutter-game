@@ -9,9 +9,11 @@ part of "game_remote_data_source.dart";
 )
 class GameRemoteDataSourceImpl implements GameRemoteDataSource {
   final AppHttpService _appHttpService;
+  final AppSignalRService _appSignalRService;
 
   GameRemoteDataSourceImpl(
     this._appHttpService,
+    this._appSignalRService,
   );
 
   @override
@@ -90,5 +92,40 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
         fdtForDistance: 0.4,
       ),
     ];
+  }
+
+  @override
+  void moveOnRoute({required List<int> clickTimeList}) {
+    _appSignalRService.invoke(
+      methodName: 'MoveOnRoute',
+      args: [
+        {"clickTimeList": clickTimeList}
+      ],
+    );
+  }
+
+  @override
+  void startGame({required int cityId}) {
+    _appSignalRService.invoke(
+      methodName: 'StartGame',
+      args: [
+        {"osmCityId": cityId},
+      ],
+    );
+  }
+
+  @override
+  void stopGame() {
+    _appSignalRService.invoke(methodName: 'StopGame');
+  }
+
+  @override
+  void takeRoute({required int routeId}) {
+    _appSignalRService.invoke(
+      methodName: 'TakeRoute',
+      args: [
+        {"osmRouteId": routeId}
+      ],
+    );
   }
 }

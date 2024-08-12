@@ -10,7 +10,6 @@ import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/pages/game_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/localization/presentation/bloc/localization_bloc.dart';
-import 'package:food_driver/features/user/presentation/bloc/user_bloc.dart';
 import 'package:food_driver/generated/l10n.dart';
 
 class App extends StatelessWidget {
@@ -22,9 +21,6 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (_) => getIt<AuthBloc>(),
-        ),
-        BlocProvider(
-          create: (_) => getIt<UserBloc>(),
         ),
         BlocProvider(
           create: (_) => getIt<LocalizationBloc>(),

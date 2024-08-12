@@ -2,7 +2,7 @@ part of 'package:food_driver/features/game/presentation/pages/game_page.dart';
 
 mixin GameMixin on State<GamePageBody> {
   late final GameBloc _gameBloc = context.read<GameBloc>();
-  late final UserBloc _userBloc = context.read<UserBloc>();
+  final UserRepository userRepository = getIt<UserRepository>();
 
   @override
   void initState() {
@@ -45,12 +45,13 @@ mixin GameMixin on State<GamePageBody> {
 
     if (position != null) {
       final latLng = LatLng(position.latitude, position.longitude);
-      _userBloc.add(UserUpdateLatLngEvent(
-        latLng: latLng,
-      ));
+      userRepository.updateUserLatLng(
+        latitude: latLng.latitude,
+        longitude: latLng.longitude,
+      );
       _gameBloc.add(GetCityEvent(
         latLng: latLng,
-        updateCity: (city) => _userBloc.add(UserUpdateEvent(city: city)),
+        updateCity: (city) => userRepository.updateUser(cityId: city.id),
       ));
       return;
     }
@@ -70,7 +71,7 @@ mixin GameMixin on State<GamePageBody> {
       );
     }
     if (city != null) {
-      _userBloc.add(UserUpdateEvent(city: city));
+      userRepository.updateUser(cityId: city.id);
       loadDriverRoutes(city: city);
       return;
     }

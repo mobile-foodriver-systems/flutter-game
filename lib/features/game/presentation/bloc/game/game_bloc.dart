@@ -14,6 +14,7 @@ import 'package:food_driver/features/game/domain/usecases/play.dart';
 import 'package:food_driver/features/game/domain/usecases/start.dart';
 import 'package:food_driver/features/game/domain/usecases/stop.dart';
 import 'package:food_driver/features/location/data/models/city.dart';
+import 'package:food_driver/features/location/domain/entities/user_location_entity.dart';
 import 'package:food_driver/features/location/domain/usecases/city_by_lat_lng.dart';
 import 'package:food_driver/features/user/domain/entities/user_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -57,18 +58,20 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GamePrepareInfoEvent event,
     Emitter<GameState> emit,
   ) async {
-    final response = await _load.call(event.city.id);
-    response.fold(
-      (error) {
-        emit(state.copyWith(status: GameStateType.error));
-      },
-      (result) {
-        emit(state.copyWith(
-          status: GameStateType.initialized,
-          routes: result,
-        ));
-      },
-    );
+    _start.call(event.city.id);
+    // TODO: listen stream
+    // final response = await _load.call(event.city.id);
+    // response.fold(
+    //   (error) {
+    //     emit(state.copyWith(status: GameStateType.error));
+    //   },
+    //   (result) {
+    //     emit(state.copyWith(
+    //       status: GameStateType.initialized,
+    //       routes: result,
+    //     ));
+    //   },
+    // );
   }
 
   void _startGame(
@@ -252,17 +255,33 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       emit(state.copyWith(status: GameStateType.loading));
     }
     final response = await _userLocationByLatLng.call(event.latLng);
+    UserLocationEntity? userLocation;
     response.fold(
       (error) {
         emit(state.copyWith(status: GameStateType.noCity));
       },
       (result) {
-        if (result.city?.id != null) {
-          event.updateCity?.call(result.city!);
-          add(GamePrepareInfoEvent(result.city!));
-          return;
-        }
+        userLocation = result;
+      },
+    );
+    if (userLocation == null) {
+      return;
+    }
+    if (userLocation!.city?.id == null) {
+      emit(state.copyWith(status: GameStateType.error));
+      return;
+    }
+    event.updateCity?.call(userLocation!.city!);
+    final response1 = await _load.call(userLocation!.city!.id);
+    response1.fold(
+      (error) {
         emit(state.copyWith(status: GameStateType.error));
+      },
+      (result) {
+        emit(state.copyWith(
+          status: GameStateType.initialized,
+          routes: result,
+        ));
       },
     );
   }
