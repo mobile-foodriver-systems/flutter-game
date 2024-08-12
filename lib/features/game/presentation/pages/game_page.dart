@@ -87,7 +87,7 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                         toggleToInit: toggleToInit,
                         toggleToPlay: toggleToPlay,
                         breakGame: breakGame,
-                        balance: state.balance,
+                        balance: state.balance ?? widget.user.balance,
                         speed: state.speed,
                         seconds: state.seconds,
                         openRaitingList: openRaitingList,
