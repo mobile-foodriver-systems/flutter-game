@@ -56,9 +56,8 @@ class GameRepositoryImpl extends GameRepository {
   }
 
   @override
-  Future<void> moveOnRoute({required List<int> clickTimeList}) {
-    // TODO: implement moveOnRoute
-    throw UnimplementedError();
+  void moveOnRoute({required List<int> clickTimeList}) {
+    _remoteDataSource.moveOnRoute(clickTimeList: clickTimeList);
   }
 
   @override
@@ -67,14 +66,12 @@ class GameRepositoryImpl extends GameRepository {
   }
 
   @override
-  Future<GameActionResult?> stopGame() {
-    // TODO: implement stopGame
-    throw UnimplementedError();
+  void stopGame() {
+    _remoteDataSource.stopGame();
   }
 
   @override
-  Future<GameActionResult?> takeRoute({required int routeId}) {
-    // TODO: implement takeRoute
-    throw UnimplementedError();
+  void takeRoute({required int routeId}) {
+    _remoteDataSource.takeRoute(routeId: routeId);
   }
 }

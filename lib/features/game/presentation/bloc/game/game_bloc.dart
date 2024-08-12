@@ -3,20 +3,22 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:food_driver/core/services/signal_r/app_signal_r_service.dart';
+import 'package:food_driver/core/services/signal_r/signal_r_service.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
+import 'package:food_driver/features/game/data/models/drive_route.dart';
 import 'package:food_driver/features/game/data/models/game_state_type.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
 import 'package:food_driver/features/game/domain/entities/loose_win_entity.dart';
 import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:food_driver/features/game/domain/entities/route_marker.dart';
 import 'package:food_driver/features/game/domain/usecases/load.dart';
-import 'package:food_driver/features/game/domain/usecases/play.dart';
+import 'package:food_driver/features/game/domain/usecases/send_tap.dart';
 import 'package:food_driver/features/game/domain/usecases/start.dart';
-import 'package:food_driver/features/game/domain/usecases/stop.dart';
+import 'package:food_driver/features/game/domain/usecases/take_route.dart';
 import 'package:food_driver/features/location/data/models/city.dart';
 import 'package:food_driver/features/location/domain/entities/user_location_entity.dart';
 import 'package:food_driver/features/location/domain/usecases/city_by_lat_lng.dart';
-import 'package:food_driver/features/user/domain/entities/user_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:injectable/injectable.dart';
@@ -30,14 +32,16 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final LoadUseCase _load;
   final CityByLatLngUseCase _userLocationByLatLng;
   final StartUseCase _start;
-  final PlayUseCase _play;
-  final StopUseCase _stop;
+  final TakeRouteUseCase _takeRoute;
+  final SendTapUseCase _sendTap;
+  final AppSignalRService _signalRService;
   GameBloc(
     this._load,
     this._start,
-    this._play,
-    this._stop,
+    this._takeRoute,
+    this._sendTap,
     this._userLocationByLatLng,
+    this._signalRService,
   ) : super(const GameState()) {
     on<GamePrepareInfoEvent>(_prepareInfo);
     on<GameStartEvent>(_startGame);
@@ -52,6 +56,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GameUpdateSpeedEvent>(_updateSpeed);
     on<GetCityEvent>(_tryGetCity);
     on<GameNoCityEvent>(_noCity);
+    on<GameAddRoutesEvent>(_addRoutes);
+    _signalRService.onEventSignalR.listen(signalRListener);
   }
 
   void _prepareInfo(
@@ -59,7 +65,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) async {
     _start.call(event.city.id);
-    // TODO: listen stream
     // final response = await _load.call(event.city.id);
     // response.fold(
     //   (error) {
@@ -101,6 +106,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GamePlayEvent event,
     Emitter<GameState> emit,
   ) {
+    if (state.gameRoute?.id != null) {
+      _takeRoute.call(state.gameRoute!.id);
+    }
     emit(state.copyWith(
       status: GameStateType.playing,
       timer: Timer.periodic(const Duration(seconds: 1), timerCallback),
@@ -192,6 +200,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       routes: routes,
       timer: null,
       looseWin: LooseWinEntity(reward: state.gameRoute?.reward),
+      balance: (state.balance ?? 0) + event.balance,
     ));
   }
 
@@ -201,7 +210,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   ) {
     final newCount = state.tapCount + 1;
     if ((state.gameRoute?.tapCount ?? 0) == newCount) {
-      add(const GameWinEvent());
+      _sendTap.call(
+          currentSecond:
+              max(((state.gameRoute?.seconds ?? 0) - state.seconds), 0),
+          tapCount: state.tapCount - state.tapInSecond);
       return;
     }
     emit(state.copyWith(
@@ -219,6 +231,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           ? 0
           : state.tapCount / ((state.gameRoute?.seconds ?? 0) - state.seconds),
       seconds: event.seconds,
+      tapInSecond: event.tapInSeconds,
     ));
   }
 
@@ -240,10 +253,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   void timerCallback(Timer timer) {
     if (state.seconds == 0) {
       timer.cancel();
-      add(const GameLooseEvent());
       return;
     } else {
-      add(GameUpdateSpeedEvent(seconds: max(state.seconds - 1, 0)));
+      final seconds = max(state.seconds - 1, 0);
+      _sendTap.call(
+          currentSecond: max(((state.gameRoute?.seconds ?? 0) - seconds), 0),
+          tapCount: state.tapCount - state.tapInSecond);
+      print(
+          "BBB currentSecond: = ${max(((state.gameRoute?.seconds ?? 0) - seconds), 0)}, tapCount: = ${state.tapCount - state.tapInSecond}");
+      add(GameUpdateSpeedEvent(seconds: seconds, tapInSeconds: state.tapCount));
     }
   }
 
@@ -293,5 +311,32 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     if (state.status != GameStateType.noCity) {
       emit(state.copyWith(status: GameStateType.noCity));
     }
+  }
+
+  void signalRListener(SignalREvent event) {
+    if (event is AddRoutesEvent) {
+      add(GameAddRoutesEvent(
+          routes: event.routes.map((route) => route.toEntity()).toList()));
+    } else if (event is RewardEvent) {
+      print("BBB RewardEvent");
+      add(GameWinEvent(balance: event.reward ?? 0));
+    } else if (event is RouteCompletedFailedEvent) {
+      print("BBB GameLooseEvent");
+      add(const GameLooseEvent());
+    }
+  }
+
+  void _addRoutes(
+    GameAddRoutesEvent event,
+    Emitter<GameState> emit,
+  ) {
+    if (state.routes.isEmpty && state.status == GameStateType.loading) {
+      emit(state.copyWith(
+        status: GameStateType.initialized,
+        routes: event.routes,
+      ));
+      return;
+    }
+    emit(state.copyWith(routes: event.routes));
   }
 }

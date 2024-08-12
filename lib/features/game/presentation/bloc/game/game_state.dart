@@ -13,7 +13,8 @@ class GameState with _$GameState {
     @Default(null) Timer? timer,
     @Default(0) num speed,
     @Default(0) int seconds,
-    @Default(null) UserEntity? user,
+    @Default(null) num? balance,
     @Default(null) LooseWinEntity? looseWin,
+    @Default(0) int tapInSecond,
   }) = _GameState;
 }

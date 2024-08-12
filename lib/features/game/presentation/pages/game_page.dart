@@ -17,7 +17,6 @@ import 'package:food_driver/features/location/presentation/pages/city_list_page.
 import 'package:food_driver/features/location/presentation/pages/country_list_page.dart';
 import 'package:food_driver/features/user/domain/entities/user_entity.dart';
 import 'package:food_driver/features/user/domain/repositories/user_repository.dart';
-import 'package:food_driver/features/user/presentation/bloc/user_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -68,7 +67,6 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                   children: [
                     Game(
                       type: state.status,
-                      //toggleToInit: toggleToInit,
                       routes: state.routes,
                       markers: state.markers,
                       polylines: state.polylines,
@@ -89,8 +87,7 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                         toggleToInit: toggleToInit,
                         toggleToPlay: toggleToPlay,
                         breakGame: breakGame,
-                        // TODO: set variable
-                        balance: 0.0,
+                        balance: state.balance,
                         speed: state.speed,
                         seconds: state.seconds,
                         openRaitingList: openRaitingList,

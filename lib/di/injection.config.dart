@@ -53,9 +53,11 @@ import 'package:food_driver/features/game/domain/repositories/game_repository.da
 import 'package:food_driver/features/game/domain/usecases/load.dart' as _i251;
 import 'package:food_driver/features/game/domain/usecases/load_raiting.dart'
     as _i508;
-import 'package:food_driver/features/game/domain/usecases/play.dart' as _i930;
+import 'package:food_driver/features/game/domain/usecases/send_tap.dart'
+    as _i135;
 import 'package:food_driver/features/game/domain/usecases/start.dart' as _i353;
-import 'package:food_driver/features/game/domain/usecases/stop.dart' as _i824;
+import 'package:food_driver/features/game/domain/usecases/take_route.dart'
+    as _i758;
 import 'package:food_driver/features/game/presentation/bloc/game/game_bloc.dart'
     as _i379;
 import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart'
@@ -125,20 +127,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => registerModule.internetConnectionChecker);
     gh.singleton<_i895.Connectivity>(() => registerModule.connectivity);
     gh.singleton<String>(() => registerModule.locale);
-    gh.factory<_i930.PlayUseCase>(
-      () => _i930.PlayUseCase(),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i824.StopUseCase>(
-      () => _i824.StopUseCase(),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
     gh.singleton<_i203.LocalStorageService>(
         () => _i58.LocalStorageServiceImpl(gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i984.NetworkInfo>(() => _i771.NetworkInfoImpl(
@@ -401,15 +389,30 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i135.SendTapUseCase>(
+      () => _i135.SendTapUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i758.TakeRouteUseCase>(
+      () => _i758.TakeRouteUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i982.RaitingBloc>(
+        () => _i982.RaitingBloc(gh<_i508.LoadRaitingUseCase>()));
     gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
           gh<_i251.LoadUseCase>(),
           gh<_i353.StartUseCase>(),
-          gh<_i930.PlayUseCase>(),
-          gh<_i824.StopUseCase>(),
+          gh<_i758.TakeRouteUseCase>(),
+          gh<_i135.SendTapUseCase>(),
           gh<_i680.CityByLatLngUseCase>(),
+          gh<_i110.AppSignalRService>(),
         ));
-    gh.factory<_i982.RaitingBloc>(
-        () => _i982.RaitingBloc(gh<_i508.LoadRaitingUseCase>()));
     return this;
   }
 }

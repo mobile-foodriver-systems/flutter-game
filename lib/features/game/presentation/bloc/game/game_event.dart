@@ -10,12 +10,17 @@ sealed class GameEvent extends Equatable {
 final class GamePrepareInfoEvent extends GameEvent {
   const GamePrepareInfoEvent(
     this.city,
+    this.balance,
   );
 
   final City city;
+  final num balance;
 
   @override
-  List<Object> get props => [city];
+  List<Object> get props => [
+        city,
+        balance,
+      ];
 }
 
 final class GameStartEvent extends GameEvent {
@@ -74,10 +79,14 @@ final class GameLooseEvent extends GameEvent {
 }
 
 final class GameWinEvent extends GameEvent {
-  const GameWinEvent();
+  const GameWinEvent({
+    required this.balance,
+  });
+
+  final num balance;
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [balance];
 }
 
 final class GameTapEvent extends GameEvent {
@@ -89,12 +98,17 @@ final class GameTapEvent extends GameEvent {
 
 final class GameUpdateSpeedEvent extends GameEvent {
   final int seconds;
+  final int tapInSeconds;
   const GameUpdateSpeedEvent({
     required this.seconds,
+    required this.tapInSeconds,
   });
 
   @override
-  List<Object> get props => [seconds];
+  List<Object> get props => [
+        seconds,
+        tapInSeconds,
+      ];
 }
 
 final class GetCityEvent extends GameEvent {
@@ -117,4 +131,15 @@ final class GameNoCityEvent extends GameEvent {
 
   @override
   List<Object> get props => [];
+}
+
+final class GameAddRoutesEvent extends GameEvent {
+  const GameAddRoutesEvent({
+    required this.routes,
+  });
+
+  final List<DriveRouteEntity> routes;
+
+  @override
+  List<Object> get props => [routes];
 }

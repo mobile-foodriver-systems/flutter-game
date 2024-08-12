@@ -11,7 +11,10 @@ mixin GameMixin on State<GamePageBody> {
   }
 
   Future<void> loadDriverRoutes({required City city}) async {
-    _gameBloc.add(GamePrepareInfoEvent(city));
+    _gameBloc.add(GamePrepareInfoEvent(
+      city,
+      widget.user.balance,
+    ));
   }
 
   void toggleToInit() {

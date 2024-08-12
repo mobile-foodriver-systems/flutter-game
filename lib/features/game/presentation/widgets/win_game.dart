@@ -84,8 +84,9 @@ class _WinGameState extends State<WinGame> {
                 child: Text(
                   winText!,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.segmentedTextGray,
                       ),
                 ),
               ),

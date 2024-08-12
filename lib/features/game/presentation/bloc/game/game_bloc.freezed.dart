@@ -26,8 +26,9 @@ mixin _$GameState {
   Timer? get timer => throw _privateConstructorUsedError;
   num get speed => throw _privateConstructorUsedError;
   int get seconds => throw _privateConstructorUsedError;
-  UserEntity? get user => throw _privateConstructorUsedError;
+  num? get balance => throw _privateConstructorUsedError;
   LooseWinEntity? get looseWin => throw _privateConstructorUsedError;
+  int get tapInSecond => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GameStateCopyWith<GameState> get copyWith =>
@@ -50,8 +51,9 @@ abstract class $GameStateCopyWith<$Res> {
       Timer? timer,
       num speed,
       int seconds,
-      UserEntity? user,
-      LooseWinEntity? looseWin});
+      num? balance,
+      LooseWinEntity? looseWin,
+      int tapInSecond});
 }
 
 /// @nodoc
@@ -77,8 +79,9 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
     Object? timer = freezed,
     Object? speed = null,
     Object? seconds = null,
-    Object? user = freezed,
+    Object? balance = freezed,
     Object? looseWin = freezed,
+    Object? tapInSecond = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -121,14 +124,18 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.seconds
           : seconds // ignore: cast_nullable_to_non_nullable
               as int,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserEntity?,
+      balance: freezed == balance
+          ? _value.balance
+          : balance // ignore: cast_nullable_to_non_nullable
+              as num?,
       looseWin: freezed == looseWin
           ? _value.looseWin
           : looseWin // ignore: cast_nullable_to_non_nullable
               as LooseWinEntity?,
+      tapInSecond: null == tapInSecond
+          ? _value.tapInSecond
+          : tapInSecond // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -152,8 +159,9 @@ abstract class _$$GameStateImplCopyWith<$Res>
       Timer? timer,
       num speed,
       int seconds,
-      UserEntity? user,
-      LooseWinEntity? looseWin});
+      num? balance,
+      LooseWinEntity? looseWin,
+      int tapInSecond});
 }
 
 /// @nodoc
@@ -177,8 +185,9 @@ class __$$GameStateImplCopyWithImpl<$Res>
     Object? timer = freezed,
     Object? speed = null,
     Object? seconds = null,
-    Object? user = freezed,
+    Object? balance = freezed,
     Object? looseWin = freezed,
+    Object? tapInSecond = null,
   }) {
     return _then(_$GameStateImpl(
       status: null == status
@@ -221,14 +230,18 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value.seconds
           : seconds // ignore: cast_nullable_to_non_nullable
               as int,
-      user: freezed == user
-          ? _value.user
-          : user // ignore: cast_nullable_to_non_nullable
-              as UserEntity?,
+      balance: freezed == balance
+          ? _value.balance
+          : balance // ignore: cast_nullable_to_non_nullable
+              as num?,
       looseWin: freezed == looseWin
           ? _value.looseWin
           : looseWin // ignore: cast_nullable_to_non_nullable
               as LooseWinEntity?,
+      tapInSecond: null == tapInSecond
+          ? _value.tapInSecond
+          : tapInSecond // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -247,8 +260,9 @@ class _$GameStateImpl implements _GameState {
       this.timer = null,
       this.speed = 0,
       this.seconds = 0,
-      this.user = null,
-      this.looseWin = null})
+      this.balance = null,
+      this.looseWin = null,
+      this.tapInSecond = 0})
       : _routes = routes,
         _markers = markers,
         _polylines = polylines;
@@ -303,14 +317,17 @@ class _$GameStateImpl implements _GameState {
   final int seconds;
   @override
   @JsonKey()
-  final UserEntity? user;
+  final num? balance;
   @override
   @JsonKey()
   final LooseWinEntity? looseWin;
+  @override
+  @JsonKey()
+  final int tapInSecond;
 
   @override
   String toString() {
-    return 'GameState(status: $status, city: $city, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, tapCount: $tapCount, timer: $timer, speed: $speed, seconds: $seconds, user: $user, looseWin: $looseWin)';
+    return 'GameState(status: $status, city: $city, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, tapCount: $tapCount, timer: $timer, speed: $speed, seconds: $seconds, balance: $balance, looseWin: $looseWin, tapInSecond: $tapInSecond)';
   }
 
   @override
@@ -331,9 +348,11 @@ class _$GameStateImpl implements _GameState {
             (identical(other.timer, timer) || other.timer == timer) &&
             (identical(other.speed, speed) || other.speed == speed) &&
             (identical(other.seconds, seconds) || other.seconds == seconds) &&
-            (identical(other.user, user) || other.user == user) &&
+            (identical(other.balance, balance) || other.balance == balance) &&
             (identical(other.looseWin, looseWin) ||
-                other.looseWin == looseWin));
+                other.looseWin == looseWin) &&
+            (identical(other.tapInSecond, tapInSecond) ||
+                other.tapInSecond == tapInSecond));
   }
 
   @override
@@ -349,8 +368,9 @@ class _$GameStateImpl implements _GameState {
       timer,
       speed,
       seconds,
-      user,
-      looseWin);
+      balance,
+      looseWin,
+      tapInSecond);
 
   @JsonKey(ignore: true)
   @override
@@ -371,8 +391,9 @@ abstract class _GameState implements GameState {
       final Timer? timer,
       final num speed,
       final int seconds,
-      final UserEntity? user,
-      final LooseWinEntity? looseWin}) = _$GameStateImpl;
+      final num? balance,
+      final LooseWinEntity? looseWin,
+      final int tapInSecond}) = _$GameStateImpl;
 
   @override
   GameStateType get status;
@@ -395,9 +416,11 @@ abstract class _GameState implements GameState {
   @override
   int get seconds;
   @override
-  UserEntity? get user;
+  num? get balance;
   @override
   LooseWinEntity? get looseWin;
+  @override
+  int get tapInSecond;
   @override
   @JsonKey(ignore: true)
   _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>
