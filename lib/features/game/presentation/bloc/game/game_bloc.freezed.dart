@@ -28,7 +28,12 @@ mixin _$GameState {
   int get seconds => throw _privateConstructorUsedError;
   num? get balance => throw _privateConstructorUsedError;
   LooseWinEntity? get looseWin => throw _privateConstructorUsedError;
+<<<<<<< HEAD
   int get tapInSecond => throw _privateConstructorUsedError;
+=======
+  double get distance => throw _privateConstructorUsedError;
+  Polyline? get polylineAfter => throw _privateConstructorUsedError;
+>>>>>>> feat/markers
 
   @JsonKey(ignore: true)
   $GameStateCopyWith<GameState> get copyWith =>
@@ -51,9 +56,16 @@ abstract class $GameStateCopyWith<$Res> {
       Timer? timer,
       num speed,
       int seconds,
+<<<<<<< HEAD
       num? balance,
       LooseWinEntity? looseWin,
       int tapInSecond});
+=======
+      UserEntity? user,
+      LooseWinEntity? looseWin,
+      double distance,
+      Polyline? polylineAfter});
+>>>>>>> feat/markers
 }
 
 /// @nodoc
@@ -81,7 +93,12 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
     Object? seconds = null,
     Object? balance = freezed,
     Object? looseWin = freezed,
+<<<<<<< HEAD
     Object? tapInSecond = null,
+=======
+    Object? distance = null,
+    Object? polylineAfter = freezed,
+>>>>>>> feat/markers
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -132,10 +149,21 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.looseWin
           : looseWin // ignore: cast_nullable_to_non_nullable
               as LooseWinEntity?,
+<<<<<<< HEAD
       tapInSecond: null == tapInSecond
           ? _value.tapInSecond
           : tapInSecond // ignore: cast_nullable_to_non_nullable
               as int,
+=======
+      distance: null == distance
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double,
+      polylineAfter: freezed == polylineAfter
+          ? _value.polylineAfter
+          : polylineAfter // ignore: cast_nullable_to_non_nullable
+              as Polyline?,
+>>>>>>> feat/markers
     ) as $Val);
   }
 }
@@ -159,9 +187,16 @@ abstract class _$$GameStateImplCopyWith<$Res>
       Timer? timer,
       num speed,
       int seconds,
+<<<<<<< HEAD
       num? balance,
       LooseWinEntity? looseWin,
       int tapInSecond});
+=======
+      UserEntity? user,
+      LooseWinEntity? looseWin,
+      double distance,
+      Polyline? polylineAfter});
+>>>>>>> feat/markers
 }
 
 /// @nodoc
@@ -187,7 +222,12 @@ class __$$GameStateImplCopyWithImpl<$Res>
     Object? seconds = null,
     Object? balance = freezed,
     Object? looseWin = freezed,
+<<<<<<< HEAD
     Object? tapInSecond = null,
+=======
+    Object? distance = null,
+    Object? polylineAfter = freezed,
+>>>>>>> feat/markers
   }) {
     return _then(_$GameStateImpl(
       status: null == status
@@ -238,10 +278,21 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value.looseWin
           : looseWin // ignore: cast_nullable_to_non_nullable
               as LooseWinEntity?,
+<<<<<<< HEAD
       tapInSecond: null == tapInSecond
           ? _value.tapInSecond
           : tapInSecond // ignore: cast_nullable_to_non_nullable
               as int,
+=======
+      distance: null == distance
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double,
+      polylineAfter: freezed == polylineAfter
+          ? _value.polylineAfter
+          : polylineAfter // ignore: cast_nullable_to_non_nullable
+              as Polyline?,
+>>>>>>> feat/markers
     ));
   }
 }
@@ -260,9 +311,16 @@ class _$GameStateImpl implements _GameState {
       this.timer = null,
       this.speed = 0,
       this.seconds = 0,
+<<<<<<< HEAD
       this.balance = null,
       this.looseWin = null,
       this.tapInSecond = 0})
+=======
+      this.user = null,
+      this.looseWin = null,
+      this.distance = 0,
+      this.polylineAfter = null})
+>>>>>>> feat/markers
       : _routes = routes,
         _markers = markers,
         _polylines = polylines;
@@ -323,11 +381,22 @@ class _$GameStateImpl implements _GameState {
   final LooseWinEntity? looseWin;
   @override
   @JsonKey()
+<<<<<<< HEAD
   final int tapInSecond;
 
   @override
   String toString() {
     return 'GameState(status: $status, city: $city, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, tapCount: $tapCount, timer: $timer, speed: $speed, seconds: $seconds, balance: $balance, looseWin: $looseWin, tapInSecond: $tapInSecond)';
+=======
+  final double distance;
+  @override
+  @JsonKey()
+  final Polyline? polylineAfter;
+
+  @override
+  String toString() {
+    return 'GameState(status: $status, city: $city, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, tapCount: $tapCount, timer: $timer, speed: $speed, seconds: $seconds, user: $user, looseWin: $looseWin, distance: $distance, polylineAfter: $polylineAfter)';
+>>>>>>> feat/markers
   }
 
   @override
@@ -351,8 +420,15 @@ class _$GameStateImpl implements _GameState {
             (identical(other.balance, balance) || other.balance == balance) &&
             (identical(other.looseWin, looseWin) ||
                 other.looseWin == looseWin) &&
+<<<<<<< HEAD
             (identical(other.tapInSecond, tapInSecond) ||
                 other.tapInSecond == tapInSecond));
+=======
+            (identical(other.distance, distance) ||
+                other.distance == distance) &&
+            (identical(other.polylineAfter, polylineAfter) ||
+                other.polylineAfter == polylineAfter));
+>>>>>>> feat/markers
   }
 
   @override
@@ -368,9 +444,16 @@ class _$GameStateImpl implements _GameState {
       timer,
       speed,
       seconds,
+<<<<<<< HEAD
       balance,
       looseWin,
       tapInSecond);
+=======
+      user,
+      looseWin,
+      distance,
+      polylineAfter);
+>>>>>>> feat/markers
 
   @JsonKey(ignore: true)
   @override
@@ -391,9 +474,16 @@ abstract class _GameState implements GameState {
       final Timer? timer,
       final num speed,
       final int seconds,
+<<<<<<< HEAD
       final num? balance,
       final LooseWinEntity? looseWin,
       final int tapInSecond}) = _$GameStateImpl;
+=======
+      final UserEntity? user,
+      final LooseWinEntity? looseWin,
+      final double distance,
+      final Polyline? polylineAfter}) = _$GameStateImpl;
+>>>>>>> feat/markers
 
   @override
   GameStateType get status;
@@ -420,7 +510,13 @@ abstract class _GameState implements GameState {
   @override
   LooseWinEntity? get looseWin;
   @override
+<<<<<<< HEAD
   int get tapInSecond;
+=======
+  double get distance;
+  @override
+  Polyline? get polylineAfter;
+>>>>>>> feat/markers
   @override
   @JsonKey(ignore: true)
   _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>

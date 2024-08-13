@@ -14,6 +14,8 @@ import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:food_driver/features/game/domain/entities/route_marker.dart';
 import 'package:food_driver/features/game/domain/usecases/load.dart';
 import 'package:food_driver/features/game/domain/usecases/send_tap.dart';
+import 'package:food_driver/features/game/domain/usecases/move_and_split_polyline.dart';
+import 'package:food_driver/features/game/domain/usecases/play.dart';
 import 'package:food_driver/features/game/domain/usecases/start.dart';
 import 'package:food_driver/features/game/domain/usecases/take_route.dart';
 import 'package:food_driver/features/location/data/models/city.dart';
@@ -35,6 +37,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final TakeRouteUseCase _takeRoute;
   final SendTapUseCase _sendTap;
   final AppSignalRService _signalRService;
+
+  final MoveAndSplitPolylineUseCase _moveAndSplitPolylineUseCase;
+
+  final velocity = 1.0; // meter on tap
+
   GameBloc(
     this._load,
     this._start,
@@ -42,6 +49,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     this._sendTap,
     this._userLocationByLatLng,
     this._signalRService,
+    this._moveAndSplitPolylineUseCase,
   ) : super(const GameState()) {
     on<GamePrepareInfoEvent>(_prepareInfo);
     on<GameStartEvent>(_startGame);
@@ -65,6 +73,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) async {
     _start.call(event.city.id);
+    await RouteMarker.preapareBitmaps();
     // final response = await _load.call(event.city.id);
     // response.fold(
     //   (error) {
@@ -91,6 +100,13 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       status: GameStateType.starting,
       gameRoute: route,
       markers: gameMarkers,
+      distance: 0,
+      polylineAfter: Polyline(
+        polylineId: PolylineId('${event.routeId}_after'),
+        points: route.points,
+        color: AppColors.black,
+        width: 2,
+      ),
       polylines: {
         Polyline(
           polylineId: PolylineId(event.routeId.toString()),
@@ -216,9 +232,44 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           tapCount: state.tapCount - state.tapInSecond);
       return;
     }
-    emit(state.copyWith(
-      tapCount: newCount,
+    var distanceDelta = (state.gameRoute?.metersPerClick ?? 0);
+    if (distanceDelta == 0) distanceDelta = 5;
+
+    final distance = state.distance + distanceDelta;
+    final moveRecords =
+        _moveAndSplitPolylineUseCase(MoveAndSplitPolylineUseCaseParams(
+      polylinePoints: state.gameRoute?.coordinatesListSafe
+              .map((e) => LatLng(e.latitude, e.longitude))
+              .toList() ??
+          [],
+      distance: distance,
     ));
+    emit(
+      state.copyWith(
+        tapCount: newCount,
+        distance: distance,
+        markers: RouteMarker.getMarkers(
+          entities: {
+            MarkerEntity(
+              markerId: -2,
+              coordinate: moveRecords.$3.last,
+              markerType: MarkerType.finish,
+            ),
+            MarkerEntity(
+              markerId: -1,
+              coordinate: moveRecords.$1,
+              markerType: MarkerType.driver,
+            ),
+          },
+        ),
+        polylineAfter: Polyline(
+          polylineId: PolylineId('${state.gameRoute?.id}_after'),
+          points: moveRecords.$3,
+          color: AppColors.black,
+          width: 2,
+        ),
+      ),
+    );
   }
 
   void _updateSpeed(

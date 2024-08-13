@@ -35,6 +35,29 @@ enum MarkerType {
         );
     }
   }
+
+  CustomPaint staticPainter() {
+    switch (this) {
+      case MarkerType.route:
+        return CustomPaint(
+          size: const Size(111, 51),
+          painter: RoutePainter(
+            reward: 0,
+            seconds: 0,
+          ),
+        );
+      case MarkerType.driver:
+        return CustomPaint(
+          size: const Size(55, 55),
+          painter: DriverPainter(),
+        );
+      case MarkerType.finish:
+        return CustomPaint(
+          size: const Size(55, 55),
+          painter: FinishPainter(),
+        );
+    }
+  }
 }
 
 class MarkerEntity extends Equatable {

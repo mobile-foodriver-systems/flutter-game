@@ -69,7 +69,8 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                       type: state.status,
                       routes: state.routes,
                       markers: state.markers,
-                      polylines: state.polylines,
+                      polylines:
+                          state.polylineAfter == null ? state.polylines : {state.polylineAfter!},
                       reward: state.gameRoute?.reward,
                       determineLocation: tryGetCity,
                     ),

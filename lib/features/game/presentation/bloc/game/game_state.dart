@@ -16,5 +16,7 @@ class GameState with _$GameState {
     @Default(null) num? balance,
     @Default(null) LooseWinEntity? looseWin,
     @Default(0) int tapInSecond,
+    @Default(0) double distance,
+    @Default(null) Polyline? polylineAfter,
   }) = _GameState;
 }
