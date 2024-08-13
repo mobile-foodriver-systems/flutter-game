@@ -10,6 +10,7 @@ import 'package:food_driver/features/game/domain/entities/loose_win_entity.dart'
 import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:food_driver/features/game/domain/entities/route_marker.dart';
 import 'package:food_driver/features/game/domain/usecases/load.dart';
+import 'package:food_driver/features/game/domain/usecases/move_and_split_polyline.dart';
 import 'package:food_driver/features/game/domain/usecases/play.dart';
 import 'package:food_driver/features/game/domain/usecases/start.dart';
 import 'package:food_driver/features/game/domain/usecases/stop.dart';
@@ -31,12 +32,17 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final StartUseCase _start;
   final PlayUseCase _play;
   final StopUseCase _stop;
+  final MoveAndSplitPolylineUseCase _moveAndSplitPolylineUseCase;
+
+  final velocity = 1.0; // meter on tap
+
   GameBloc(
     this._load,
     this._start,
     this._play,
     this._stop,
     this._userLocationByLatLng,
+    this._moveAndSplitPolylineUseCase,
   ) : super(const GameState()) {
     on<GamePrepareInfoEvent>(_prepareInfo);
     on<GameStartEvent>(_startGame);
@@ -57,6 +63,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GamePrepareInfoEvent event,
     Emitter<GameState> emit,
   ) async {
+    await RouteMarker.preapareBitmaps();
     final response = await _load.call(event.city.id);
     response.fold(
       (error) {
@@ -76,13 +83,19 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) async {
     final route = state.routes.firstWhere((route) => route.id == event.routeId);
-    final gameMarkers =
-        await RouteMarker.createMarkers(entities: route.startFinishEntities);
+    final gameMarkers = await RouteMarker.createMarkers(entities: route.startFinishEntities);
 
     emit(state.copyWith(
       status: GameStateType.starting,
       gameRoute: route,
       markers: gameMarkers,
+      distance: 0,
+      polylineAfter: Polyline(
+        polylineId: PolylineId('${event.routeId}_after'),
+        points: route.points,
+        color: AppColors.black,
+        width: 2,
+      ),
       polylines: {
         Polyline(
           polylineId: PolylineId(event.routeId.toString()),
@@ -201,9 +214,43 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       add(const GameWinEvent());
       return;
     }
-    emit(state.copyWith(
-      tapCount: newCount,
+    var distanceDelta = (state.gameRoute?.metersPerClick ?? 0);
+    if (distanceDelta == 0) distanceDelta = 5;
+
+    final distance = state.distance + distanceDelta;
+    final moveRecords = _moveAndSplitPolylineUseCase(MoveAndSplitPolylineUseCaseParams(
+      polylinePoints: state.gameRoute?.coordinatesListSafe
+              .map((e) => LatLng(e.latitude, e.longitude))
+              .toList() ??
+          [],
+      distance: distance,
     ));
+    emit(
+      state.copyWith(
+        tapCount: newCount,
+        distance: distance,
+        markers: RouteMarker.getMarkers(
+          entities: {
+            MarkerEntity(
+              markerId: -2,
+              coordinate: moveRecords.$3.last,
+              markerType: MarkerType.finish,
+            ),
+            MarkerEntity(
+              markerId: -1,
+              coordinate: moveRecords.$1,
+              markerType: MarkerType.driver,
+            ),
+          },
+        ),
+        polylineAfter: Polyline(
+          polylineId: PolylineId('${state.gameRoute?.id}_after'),
+          points: moveRecords.$3,
+          color: AppColors.black,
+          width: 2,
+        ),
+      ),
+    );
   }
 
   void _updateSpeed(
@@ -229,10 +276,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     return (routes, markers);
   }
 
-  Set<MarkerEntity> markerEntities(List<DriveRouteEntity> routes) => routes
-      .map((route) => route.markerEntity)
-      .whereType<MarkerEntity>()
-      .toSet();
+  Set<MarkerEntity> markerEntities(List<DriveRouteEntity> routes) =>
+      routes.map((route) => route.markerEntity).whereType<MarkerEntity>().toSet();
 
   void timerCallback(Timer timer) {
     if (state.seconds == 0) {

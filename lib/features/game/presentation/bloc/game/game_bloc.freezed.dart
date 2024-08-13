@@ -28,6 +28,8 @@ mixin _$GameState {
   int get seconds => throw _privateConstructorUsedError;
   UserEntity? get user => throw _privateConstructorUsedError;
   LooseWinEntity? get looseWin => throw _privateConstructorUsedError;
+  double get distance => throw _privateConstructorUsedError;
+  Polyline? get polylineAfter => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GameStateCopyWith<GameState> get copyWith =>
@@ -51,7 +53,9 @@ abstract class $GameStateCopyWith<$Res> {
       num speed,
       int seconds,
       UserEntity? user,
-      LooseWinEntity? looseWin});
+      LooseWinEntity? looseWin,
+      double distance,
+      Polyline? polylineAfter});
 }
 
 /// @nodoc
@@ -79,6 +83,8 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
     Object? seconds = null,
     Object? user = freezed,
     Object? looseWin = freezed,
+    Object? distance = null,
+    Object? polylineAfter = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -129,6 +135,14 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.looseWin
           : looseWin // ignore: cast_nullable_to_non_nullable
               as LooseWinEntity?,
+      distance: null == distance
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double,
+      polylineAfter: freezed == polylineAfter
+          ? _value.polylineAfter
+          : polylineAfter // ignore: cast_nullable_to_non_nullable
+              as Polyline?,
     ) as $Val);
   }
 }
@@ -153,7 +167,9 @@ abstract class _$$GameStateImplCopyWith<$Res>
       num speed,
       int seconds,
       UserEntity? user,
-      LooseWinEntity? looseWin});
+      LooseWinEntity? looseWin,
+      double distance,
+      Polyline? polylineAfter});
 }
 
 /// @nodoc
@@ -179,6 +195,8 @@ class __$$GameStateImplCopyWithImpl<$Res>
     Object? seconds = null,
     Object? user = freezed,
     Object? looseWin = freezed,
+    Object? distance = null,
+    Object? polylineAfter = freezed,
   }) {
     return _then(_$GameStateImpl(
       status: null == status
@@ -229,6 +247,14 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value.looseWin
           : looseWin // ignore: cast_nullable_to_non_nullable
               as LooseWinEntity?,
+      distance: null == distance
+          ? _value.distance
+          : distance // ignore: cast_nullable_to_non_nullable
+              as double,
+      polylineAfter: freezed == polylineAfter
+          ? _value.polylineAfter
+          : polylineAfter // ignore: cast_nullable_to_non_nullable
+              as Polyline?,
     ));
   }
 }
@@ -248,7 +274,9 @@ class _$GameStateImpl implements _GameState {
       this.speed = 0,
       this.seconds = 0,
       this.user = null,
-      this.looseWin = null})
+      this.looseWin = null,
+      this.distance = 0,
+      this.polylineAfter = null})
       : _routes = routes,
         _markers = markers,
         _polylines = polylines;
@@ -307,10 +335,16 @@ class _$GameStateImpl implements _GameState {
   @override
   @JsonKey()
   final LooseWinEntity? looseWin;
+  @override
+  @JsonKey()
+  final double distance;
+  @override
+  @JsonKey()
+  final Polyline? polylineAfter;
 
   @override
   String toString() {
-    return 'GameState(status: $status, city: $city, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, tapCount: $tapCount, timer: $timer, speed: $speed, seconds: $seconds, user: $user, looseWin: $looseWin)';
+    return 'GameState(status: $status, city: $city, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, tapCount: $tapCount, timer: $timer, speed: $speed, seconds: $seconds, user: $user, looseWin: $looseWin, distance: $distance, polylineAfter: $polylineAfter)';
   }
 
   @override
@@ -333,7 +367,11 @@ class _$GameStateImpl implements _GameState {
             (identical(other.seconds, seconds) || other.seconds == seconds) &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.looseWin, looseWin) ||
-                other.looseWin == looseWin));
+                other.looseWin == looseWin) &&
+            (identical(other.distance, distance) ||
+                other.distance == distance) &&
+            (identical(other.polylineAfter, polylineAfter) ||
+                other.polylineAfter == polylineAfter));
   }
 
   @override
@@ -350,7 +388,9 @@ class _$GameStateImpl implements _GameState {
       speed,
       seconds,
       user,
-      looseWin);
+      looseWin,
+      distance,
+      polylineAfter);
 
   @JsonKey(ignore: true)
   @override
@@ -372,7 +412,9 @@ abstract class _GameState implements GameState {
       final num speed,
       final int seconds,
       final UserEntity? user,
-      final LooseWinEntity? looseWin}) = _$GameStateImpl;
+      final LooseWinEntity? looseWin,
+      final double distance,
+      final Polyline? polylineAfter}) = _$GameStateImpl;
 
   @override
   GameStateType get status;
@@ -398,6 +440,10 @@ abstract class _GameState implements GameState {
   UserEntity? get user;
   @override
   LooseWinEntity? get looseWin;
+  @override
+  double get distance;
+  @override
+  Polyline? get polylineAfter;
   @override
   @JsonKey(ignore: true)
   _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>
