@@ -13,9 +13,8 @@ import 'package:food_driver/features/game/domain/entities/loose_win_entity.dart'
 import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:food_driver/features/game/domain/entities/route_marker.dart';
 import 'package:food_driver/features/game/domain/usecases/load.dart';
-import 'package:food_driver/features/game/domain/usecases/send_tap.dart';
 import 'package:food_driver/features/game/domain/usecases/move_and_split_polyline.dart';
-import 'package:food_driver/features/game/domain/usecases/play.dart';
+import 'package:food_driver/features/game/domain/usecases/send_tap.dart';
 import 'package:food_driver/features/game/domain/usecases/start.dart';
 import 'package:food_driver/features/game/domain/usecases/take_route.dart';
 import 'package:food_driver/features/location/data/models/city.dart';
@@ -65,7 +64,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GetCityEvent>(_tryGetCity);
     on<GameNoCityEvent>(_noCity);
     on<GameAddRoutesEvent>(_addRoutes);
-    _signalRService.onEventSignalR.listen(signalRListener);
+    _signalRService.onEventSignalR.asBroadcastStream().listen(signalRListener);
   }
 
   void _prepareInfo(
@@ -73,7 +72,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) async {
     _start.call(event.city.id);
-    await RouteMarker.preapareBitmaps();
+
     // final response = await _load.call(event.city.id);
     // response.fold(
     //   (error) {
@@ -377,10 +376,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
   }
 
-  void _addRoutes(
+  Future<void> _addRoutes(
     GameAddRoutesEvent event,
     Emitter<GameState> emit,
-  ) {
+  ) async {
+    await RouteMarker.preapareBitmaps();
     if (state.routes.isEmpty && state.status == GameStateType.loading) {
       emit(state.copyWith(
         status: GameStateType.initialized,
