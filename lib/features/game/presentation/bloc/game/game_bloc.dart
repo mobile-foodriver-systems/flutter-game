@@ -64,7 +64,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GetCityEvent>(_tryGetCity);
     on<GameNoCityEvent>(_noCity);
     on<GameAddRoutesEvent>(_addRoutes);
-    _signalRService.onEventSignalR.listen(signalRListener);
+    _signalRService.onEventSignalR.asBroadcastStream().listen(signalRListener);
   }
 
   void _prepareInfo(
@@ -72,7 +72,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) async {
     _start.call(event.city.id);
-    await RouteMarker.preapareBitmaps();
+
     // final response = await _load.call(event.city.id);
     // response.fold(
     //   (error) {
@@ -375,10 +375,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
   }
 
-  void _addRoutes(
+  Future<void> _addRoutes(
     GameAddRoutesEvent event,
     Emitter<GameState> emit,
-  ) {
+  ) async {
+    await RouteMarker.preapareBitmaps();
     if (state.routes.isEmpty && state.status == GameStateType.loading) {
       emit(state.copyWith(
         status: GameStateType.initialized,
