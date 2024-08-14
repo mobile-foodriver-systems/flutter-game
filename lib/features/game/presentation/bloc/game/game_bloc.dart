@@ -13,9 +13,8 @@ import 'package:food_driver/features/game/domain/entities/loose_win_entity.dart'
 import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:food_driver/features/game/domain/entities/route_marker.dart';
 import 'package:food_driver/features/game/domain/usecases/load.dart';
-import 'package:food_driver/features/game/domain/usecases/send_tap.dart';
 import 'package:food_driver/features/game/domain/usecases/move_and_split_polyline.dart';
-import 'package:food_driver/features/game/domain/usecases/play.dart';
+import 'package:food_driver/features/game/domain/usecases/send_tap.dart';
 import 'package:food_driver/features/game/domain/usecases/start.dart';
 import 'package:food_driver/features/game/domain/usecases/take_route.dart';
 import 'package:food_driver/features/location/data/models/city.dart';
@@ -93,8 +92,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) async {
     final route = state.routes.firstWhere((route) => route.id == event.routeId);
-    final gameMarkers =
-        await RouteMarker.createMarkers(entities: route.startFinishEntities);
+    final gameMarkers = RouteMarker.getMarkers(entities: route.startFinishEntities);
 
     emit(state.copyWith(
       status: GameStateType.starting,
@@ -162,6 +160,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       status: GameStateType.initialized,
       polylines: {},
       markers: markers,
+      polylineAfter: null,
+      distance: 0,
       routes: routes,
       timer: null,
     ));
@@ -199,6 +199,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       timer: null,
       markers: markers,
       routes: routes,
+      polylineAfter: null,
+      distance: 0,
       looseWin: looseWin,
     ));
   }
@@ -214,7 +216,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       polylines: {},
       markers: markers,
       routes: routes,
-      timer: null,
+      polylineAfter: null,
+      distance: 0,
       looseWin: LooseWinEntity(reward: state.gameRoute?.reward),
       balance: (state.balance ?? 0) + event.balance,
     ));
@@ -227,8 +230,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     final newCount = state.tapCount + 1;
     if ((state.gameRoute?.tapCount ?? 0) == newCount) {
       _sendTap.call(
-          currentSecond:
-              max(((state.gameRoute?.seconds ?? 0) - state.seconds), 0),
+          currentSecond: max(((state.gameRoute?.seconds ?? 0) - state.seconds), 0),
           tapCount: state.tapCount - state.tapInSecond);
       return;
     }
@@ -236,8 +238,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     if (distanceDelta == 0) distanceDelta = 5;
 
     final distance = state.distance + distanceDelta;
-    final moveRecords =
-        _moveAndSplitPolylineUseCase(MoveAndSplitPolylineUseCaseParams(
+    final moveRecords = _moveAndSplitPolylineUseCase(MoveAndSplitPolylineUseCaseParams(
       polylinePoints: state.gameRoute?.coordinatesListSafe
               .map((e) => LatLng(e.latitude, e.longitude))
               .toList() ??
@@ -296,10 +297,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     return (routes, markers);
   }
 
-  Set<MarkerEntity> markerEntities(List<DriveRouteEntity> routes) => routes
-      .map((route) => route.markerEntity)
-      .whereType<MarkerEntity>()
-      .toSet();
+  Set<MarkerEntity> markerEntities(List<DriveRouteEntity> routes) =>
+      routes.map((route) => route.markerEntity).whereType<MarkerEntity>().toSet();
 
   void timerCallback(Timer timer) {
     if (state.seconds == 0) {
@@ -366,8 +365,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   void signalRListener(SignalREvent event) {
     if (event is AddRoutesEvent) {
-      add(GameAddRoutesEvent(
-          routes: event.routes.map((route) => route.toEntity()).toList()));
+      add(GameAddRoutesEvent(routes: event.routes.map((route) => route.toEntity()).toList()));
     } else if (event is RewardEvent) {
       print("BBB RewardEvent");
       add(GameWinEvent(balance: event.reward ?? 0));

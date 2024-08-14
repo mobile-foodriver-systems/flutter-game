@@ -53,6 +53,8 @@ import 'package:food_driver/features/game/domain/repositories/game_repository.da
 import 'package:food_driver/features/game/domain/usecases/load.dart' as _i251;
 import 'package:food_driver/features/game/domain/usecases/load_raiting.dart'
     as _i508;
+import 'package:food_driver/features/game/domain/usecases/move_and_split_polyline.dart'
+    as _i510;
 import 'package:food_driver/features/game/domain/usecases/send_tap.dart'
     as _i135;
 import 'package:food_driver/features/game/domain/usecases/start.dart' as _i353;
@@ -127,6 +129,13 @@ extension GetItInjectableX on _i174.GetIt {
         () => registerModule.internetConnectionChecker);
     gh.singleton<_i895.Connectivity>(() => registerModule.connectivity);
     gh.singleton<String>(() => registerModule.locale);
+    gh.factory<_i510.MoveAndSplitPolylineUseCase>(
+      () => _i510.MoveAndSplitPolylineUseCase(),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.singleton<_i203.LocalStorageService>(
         () => _i58.LocalStorageServiceImpl(gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i984.NetworkInfo>(() => _i771.NetworkInfoImpl(
@@ -403,8 +412,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i982.RaitingBloc>(
-        () => _i982.RaitingBloc(gh<_i508.LoadRaitingUseCase>()));
     gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
           gh<_i251.LoadUseCase>(),
           gh<_i353.StartUseCase>(),
@@ -412,7 +419,10 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i135.SendTapUseCase>(),
           gh<_i680.CityByLatLngUseCase>(),
           gh<_i110.AppSignalRService>(),
+          gh<_i510.MoveAndSplitPolylineUseCase>(),
         ));
+    gh.factory<_i982.RaitingBloc>(
+        () => _i982.RaitingBloc(gh<_i508.LoadRaitingUseCase>()));
     return this;
   }
 }
