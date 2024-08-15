@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:food_driver/core/services/signal_r/app_signal_r_service.dart';
 import 'package:food_driver/core/services/signal_r/signal_r_service.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/game/data/models/drive_route.dart';
@@ -12,7 +11,6 @@ import 'package:food_driver/features/game/domain/entities/drive_route_entity.dar
 import 'package:food_driver/features/game/domain/entities/loose_win_entity.dart';
 import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:food_driver/features/game/domain/entities/route_marker.dart';
-import 'package:food_driver/features/game/domain/usecases/load.dart';
 import 'package:food_driver/features/game/domain/usecases/move_and_split_polyline.dart';
 import 'package:food_driver/features/game/domain/usecases/send_tap.dart';
 import 'package:food_driver/features/game/domain/usecases/start.dart';
@@ -30,7 +28,6 @@ part 'game_state.dart';
 
 @injectable
 class GameBloc extends Bloc<GameEvent, GameState> {
-  final LoadUseCase _load;
   final CityByLatLngUseCase _userLocationByLatLng;
   final StartUseCase _start;
   final TakeRouteUseCase _takeRoute;
@@ -40,9 +37,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final MoveAndSplitPolylineUseCase _moveAndSplitPolylineUseCase;
 
   final velocity = 1.0; // meter on tap
+  late final StreamSubscription _signalRSubscription;
 
   GameBloc(
-    this._load,
     this._start,
     this._takeRoute,
     this._sendTap,
@@ -64,7 +61,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     on<GetCityEvent>(_tryGetCity);
     on<GameNoCityEvent>(_noCity);
     on<GameAddRoutesEvent>(_addRoutes);
-    _signalRService.onEventSignalR.asBroadcastStream().listen(signalRListener);
+    _signalRSubscription = _signalRService.onEventSignalR
+        .asBroadcastStream()
+        .listen(signalRListener);
   }
 
   void _prepareInfo(
@@ -72,19 +71,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) async {
     _start.call(event.city.id);
-
-    // final response = await _load.call(event.city.id);
-    // response.fold(
-    //   (error) {
-    //     emit(state.copyWith(status: GameStateType.error));
-    //   },
-    //   (result) {
-    //     emit(state.copyWith(
-    //       status: GameStateType.initialized,
-    //       routes: result,
-    //     ));
-    //   },
-    // );
   }
 
   void _startGame(
@@ -92,7 +78,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) async {
     final route = state.routes.firstWhere((route) => route.id == event.routeId);
-    final gameMarkers = RouteMarker.getMarkers(entities: route.startFinishEntities);
+    final gameMarkers =
+        RouteMarker.getMarkers(entities: route.startFinishEntities);
 
     emit(state.copyWith(
       status: GameStateType.starting,
@@ -230,7 +217,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     final newCount = state.tapCount + 1;
     if ((state.gameRoute?.tapCount ?? 0) == newCount) {
       _sendTap.call(
-          currentSecond: max(((state.gameRoute?.seconds ?? 0) - state.seconds), 0),
+          currentSecond:
+              max(((state.gameRoute?.seconds ?? 0) - state.seconds), 0),
           tapCount: state.tapCount - state.tapInSecond);
       return;
     }
@@ -238,7 +226,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     if (distanceDelta == 0) distanceDelta = 5;
 
     final distance = state.distance + distanceDelta;
-    final moveRecords = _moveAndSplitPolylineUseCase(MoveAndSplitPolylineUseCaseParams(
+    final moveRecords =
+        _moveAndSplitPolylineUseCase(MoveAndSplitPolylineUseCaseParams(
       polylinePoints: state.gameRoute?.coordinatesListSafe
               .map((e) => LatLng(e.latitude, e.longitude))
               .toList() ??
@@ -297,8 +286,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     return (routes, markers);
   }
 
-  Set<MarkerEntity> markerEntities(List<DriveRouteEntity> routes) =>
-      routes.map((route) => route.markerEntity).whereType<MarkerEntity>().toSet();
+  Set<MarkerEntity> markerEntities(List<DriveRouteEntity> routes) => routes
+      .map((route) => route.markerEntity)
+      .whereType<MarkerEntity>()
+      .toSet();
 
   void timerCallback(Timer timer) {
     if (state.seconds == 0) {
@@ -309,8 +300,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       _sendTap.call(
           currentSecond: max(((state.gameRoute?.seconds ?? 0) - seconds), 0),
           tapCount: state.tapCount - state.tapInSecond);
-      print(
-          "BBB currentSecond: = ${max(((state.gameRoute?.seconds ?? 0) - seconds), 0)}, tapCount: = ${state.tapCount - state.tapInSecond}");
       add(GameUpdateSpeedEvent(seconds: seconds, tapInSeconds: state.tapCount));
     }
   }
@@ -340,18 +329,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       return;
     }
     event.updateCity?.call(userLocation!.city!);
-    final response1 = await _load.call(userLocation!.city!.id);
-    response1.fold(
-      (error) {
-        emit(state.copyWith(status: GameStateType.error));
-      },
-      (result) {
-        emit(state.copyWith(
-          status: GameStateType.initialized,
-          routes: result,
-        ));
-      },
-    );
+    add(GamePrepareInfoEvent(userLocation!.city!));
   }
 
   void _noCity(
@@ -365,12 +343,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
 
   void signalRListener(SignalREvent event) {
     if (event is AddRoutesEvent) {
-      add(GameAddRoutesEvent(routes: event.routes.map((route) => route.toEntity()).toList()));
+      add(GameAddRoutesEvent(
+          routes: event.routes.map((route) => route.toEntity()).toList()));
     } else if (event is RewardEvent) {
-      print("BBB RewardEvent");
       add(GameWinEvent(balance: event.reward ?? 0));
     } else if (event is RouteCompletedFailedEvent) {
-      print("BBB GameLooseEvent");
       add(const GameLooseEvent());
     }
   }
@@ -388,5 +365,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       return;
     }
     emit(state.copyWith(routes: event.routes));
+  }
+
+  @override
+  Future<void> close() async {
+    await _signalRSubscription.cancel();
+    await _signalRService.disconnect();
+    return super.close();
   }
 }

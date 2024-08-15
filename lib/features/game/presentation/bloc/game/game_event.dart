@@ -8,19 +8,12 @@ sealed class GameEvent extends Equatable {
 }
 
 final class GamePrepareInfoEvent extends GameEvent {
-  const GamePrepareInfoEvent(
-    this.city,
-    this.balance,
-  );
+  const GamePrepareInfoEvent(this.city);
 
   final City city;
-  final num balance;
 
   @override
-  List<Object> get props => [
-        city,
-        balance,
-      ];
+  List<Object> get props => [city];
 }
 
 final class GameStartEvent extends GameEvent {

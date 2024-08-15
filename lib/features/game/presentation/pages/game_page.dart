@@ -59,64 +59,66 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
           return const ErrorPage();
         }
         return Scaffold(
-          body: state.status == GameStateType.loading
-              ? const LoadingIndicator()
-              : Stack(
-                  fit: StackFit.expand,
-                  alignment: Alignment.topLeft,
-                  children: [
-                    Game(
-                      type: state.status,
-                      routes: state.routes,
-                      markers: state.markers,
-                      polylines:
-                          state.polylineAfter == null ? state.polylines : {state.polylineAfter!},
-                      reward: state.gameRoute?.reward,
-                      determineLocation: tryGetCity,
-                    ),
-                    if ((state.status == GameStateType.loose ||
-                            state.status == GameStateType.win) &&
-                        state.looseWin != null)
-                      LooseOrWin(looseWin: state.looseWin!),
-                    Positioned(
-                      top: 16,
-                      left: 0,
-                      right: 0,
-                      child: Navigation(
-                        key: ValueKey(state.status),
-                        type: state.status,
-                        toggleToInit: toggleToInit,
-                        toggleToPlay: toggleToPlay,
-                        breakGame: breakGame,
-                        balance: state.balance ?? widget.user.balance,
-                        speed: state.speed,
-                        seconds: state.seconds,
-                        openRaitingList: openRaitingList,
-                      ),
-                    ),
-                    if (state.status == GameStateType.playing ||
-                        state.status == GameStateType.starting)
-                      Positioned(
-                        left: 0,
-                        right: 0,
-                        bottom: 10,
-                        child: Center(
-                          child: TapButton(
-                            callback: onTap,
-                          ),
-                        ),
-                      ),
-                    if (state.status == GameStateType.initialized)
-                      const Positioned(
-                        bottom: 16.0,
-                        left: 0,
-                        right: 0,
-                        child: Center(
-                          child: HelpGameMessage(),
-                        ),
-                      ),
-                  ],
+          body: Stack(
+            fit: StackFit.expand,
+            alignment: Alignment.topLeft,
+            children: [
+              if (state.status == GameStateType.loading)
+                const LoadingIndicator()
+              else
+                Game(
+                  type: state.status,
+                  routes: state.routes,
+                  markers: state.markers,
+                  polylines: state.polylineAfter == null
+                      ? state.polylines
+                      : {state.polylineAfter!},
+                  reward: state.gameRoute?.reward,
+                  determineLocation: tryGetCity,
                 ),
+              if ((state.status == GameStateType.loose ||
+                      state.status == GameStateType.win) &&
+                  state.looseWin != null)
+                LooseOrWin(looseWin: state.looseWin!),
+              Positioned(
+                top: 16,
+                left: 0,
+                right: 0,
+                child: Navigation(
+                  key: ValueKey(state.status),
+                  type: state.status,
+                  toggleToInit: toggleToInit,
+                  toggleToPlay: toggleToPlay,
+                  breakGame: breakGame,
+                  balance: state.balance ?? widget.user.balance,
+                  speed: state.speed,
+                  seconds: state.seconds,
+                  openRaitingList: openRaitingList,
+                ),
+              ),
+              if (state.status == GameStateType.playing ||
+                  state.status == GameStateType.starting)
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 10,
+                  child: Center(
+                    child: TapButton(
+                      callback: onTap,
+                    ),
+                  ),
+                ),
+              if (state.status == GameStateType.initialized)
+                const Positioned(
+                  bottom: 16.0,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: HelpGameMessage(),
+                  ),
+                ),
+            ],
+          ),
         );
       },
     );

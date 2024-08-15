@@ -31,14 +31,10 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<void> logout() async {
-    AuthModel? auth;
     try {
-      auth = await _localDataSource.getAuthModel();
-      await _localDataSource.deleteAuthModel();
-    } catch (e) {
-      if (auth == null) return;
       _remoteDataSource.logout();
-    }
+      await _localDataSource.deleteAuthModel();
+    } catch (e) {}
   }
 
   @override
