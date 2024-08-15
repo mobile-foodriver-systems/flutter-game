@@ -173,6 +173,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameLooseEvent event,
     Emitter<GameState> emit,
   ) async {
+    if (state.status != GameStateType.playing) return;
     state.timer?.cancel();
     final (routes, markers) = await _updatedMarkers();
     final progress = state.tapCount / max((state.gameRoute?.tapCount ?? 0), 1);
@@ -196,6 +197,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameWinEvent event,
     Emitter<GameState> emit,
   ) async {
+    if (state.status != GameStateType.playing) return;
     state.timer?.cancel();
     final (routes, markers) = await _updatedMarkers();
     emit(state.copyWith(
