@@ -32,6 +32,12 @@ class Game extends StatelessWidget {
       case GameStateType.noCity:
         return _NoCity(determineLocation: determineLocation);
       case GameStateType.initialized:
+        return GameMap(
+          key: const ValueKey('initialized'),
+          routes: routes,
+          markers: markers,
+          polylines: const {},
+        );
       case GameStateType.playing:
       case GameStateType.starting:
       case GameStateType.win:
