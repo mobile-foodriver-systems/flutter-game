@@ -8,12 +8,19 @@ sealed class GameEvent extends Equatable {
 }
 
 final class GamePrepareInfoEvent extends GameEvent {
-  const GamePrepareInfoEvent(this.city);
+  const GamePrepareInfoEvent({
+    required this.city,
+    required this.balance,
+  });
 
   final City city;
+  final num balance;
 
   @override
-  List<Object> get props => [city];
+  List<Object> get props => [
+        city,
+        balance,
+      ];
 }
 
 final class GameStartEvent extends GameEvent {
@@ -107,15 +114,18 @@ final class GameUpdateSpeedEvent extends GameEvent {
 final class GetCityEvent extends GameEvent {
   const GetCityEvent({
     required this.latLng,
+    required this.balance,
     this.updateCity,
   });
 
   final LatLng latLng;
+  final num balance;
   final void Function(City)? updateCity;
   @override
   List<Object> get props => [
         latLng,
         if (updateCity != null) updateCity!,
+        balance,
       ];
 }
 

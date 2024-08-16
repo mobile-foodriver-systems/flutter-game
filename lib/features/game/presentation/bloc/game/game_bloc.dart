@@ -331,7 +331,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       return;
     }
     event.updateCity?.call(userLocation!.city!);
-    add(GamePrepareInfoEvent(userLocation!.city!));
+    add(GamePrepareInfoEvent(
+      city: userLocation!.city!,
+      balance: event.balance,
+    ));
   }
 
   void _noCity(
