@@ -13,33 +13,36 @@ class TapButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: callback,
-      child: SizedBox(
-        width: MediaQuery.sizeOf(context).width * 0.53,
-        height: MediaQuery.sizeOf(context).width * 0.53,
-        child: DecoratedBox(
-          decoration: const BoxDecoration(
-            color: AppColors.red,
-            shape: BoxShape.circle,
-          ),
-          child: Align(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(AssetsCatalog.icFinger),
-                const SizedBox(height: 8.0),
-                Text(
-                  S.current.gamePageTapToGo,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: AppColors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+    final width = MediaQuery.sizeOf(context).width * 0.53;
+    return ClipOval(
+      child: Material(
+        color: AppColors.red,
+        borderRadius: BorderRadius.circular(width),
+        child: InkWell(
+          onTap: callback,
+          splashColor: AppColors.blackRed,
+          splashFactory: InkSparkle.splashFactory,
+          child: SizedBox(
+            width: width,
+            height: width,
+            child: Align(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(AssetsCatalog.icFinger),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    S.current.gamePageTapToGo,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: AppColors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

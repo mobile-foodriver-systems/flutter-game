@@ -89,12 +89,8 @@ class AppSignalRService extends SignalRService {
     List<Object>? args,
   }) async {
     if (hubConnection == null) {
-      print("AAA try connect methodName: = $methodName");
       await connect();
-      print("AAA connected");
     }
-    print("AAA hubConnection?.state: = ${hubConnection?.state}");
-    print("AAA do invoke");
     return await hubConnection?.invoke(
       methodName,
       args: args,

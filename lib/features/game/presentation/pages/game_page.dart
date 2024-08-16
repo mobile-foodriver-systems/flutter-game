@@ -104,7 +104,8 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                   bottom: 10,
                   child: Center(
                     child: TapButton(
-                      callback: onTap,
+                      callback:
+                          state.status == GameStateType.starting ? null : onTap,
                     ),
                   ),
                 ),
