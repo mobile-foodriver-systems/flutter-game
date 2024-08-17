@@ -71,6 +71,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) async {
     _start.call(event.city.id);
+    emit(state.copyWith(balance: event.balance));
   }
 
   void _startGame(

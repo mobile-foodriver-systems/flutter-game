@@ -10,7 +10,7 @@ import 'package:food_driver/features/game/presentation/widgets/help_game_message
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/game/presentation/widgets/loose_or_win.dart';
 import 'package:food_driver/features/game/presentation/widgets/navigation.dart';
-import 'package:food_driver/features/game/presentation/widgets/tap_button.dart';
+import 'package:food_driver/features/game/presentation/widgets/multi_tap_button.dart';
 import 'package:food_driver/features/location/data/models/city.dart';
 import 'package:food_driver/features/location/data/models/country.dart';
 import 'package:food_driver/features/location/presentation/pages/city_list_page.dart';
@@ -103,7 +103,7 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                   right: 0,
                   bottom: 10,
                   child: Center(
-                    child: TapButton(
+                    child: MultiTapButton(
                       callback:
                           state.status == GameStateType.starting ? null : onTap,
                     ),
