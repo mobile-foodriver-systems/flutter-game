@@ -25,7 +25,7 @@ mixin _$GameState {
   int get tapCount => throw _privateConstructorUsedError;
   Timer? get timer => throw _privateConstructorUsedError;
   num get speed => throw _privateConstructorUsedError;
-  int get seconds => throw _privateConstructorUsedError;
+  double get seconds => throw _privateConstructorUsedError;
   num? get balance => throw _privateConstructorUsedError;
   LooseWinEntity? get looseWin => throw _privateConstructorUsedError;
   int get tapInSecond => throw _privateConstructorUsedError;
@@ -52,7 +52,7 @@ abstract class $GameStateCopyWith<$Res> {
       int tapCount,
       Timer? timer,
       num speed,
-      int seconds,
+      double seconds,
       num? balance,
       LooseWinEntity? looseWin,
       int tapInSecond,
@@ -129,7 +129,7 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
       seconds: null == seconds
           ? _value.seconds
           : seconds // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       balance: freezed == balance
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
@@ -172,7 +172,7 @@ abstract class _$$GameStateImplCopyWith<$Res>
       int tapCount,
       Timer? timer,
       num speed,
-      int seconds,
+      double seconds,
       num? balance,
       LooseWinEntity? looseWin,
       int tapInSecond,
@@ -247,7 +247,7 @@ class __$$GameStateImplCopyWithImpl<$Res>
       seconds: null == seconds
           ? _value.seconds
           : seconds // ignore: cast_nullable_to_non_nullable
-              as int,
+              as double,
       balance: freezed == balance
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
@@ -342,7 +342,7 @@ class _$GameStateImpl implements _GameState {
   final num speed;
   @override
   @JsonKey()
-  final int seconds;
+  final double seconds;
   @override
   @JsonKey()
   final num? balance;
@@ -430,7 +430,7 @@ abstract class _GameState implements GameState {
       final int tapCount,
       final Timer? timer,
       final num speed,
-      final int seconds,
+      final double seconds,
       final num? balance,
       final LooseWinEntity? looseWin,
       final int tapInSecond,
@@ -456,7 +456,7 @@ abstract class _GameState implements GameState {
   @override
   num get speed;
   @override
-  int get seconds;
+  double get seconds;
   @override
   num? get balance;
   @override

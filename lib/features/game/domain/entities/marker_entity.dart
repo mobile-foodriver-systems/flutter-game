@@ -58,6 +58,17 @@ enum MarkerType {
         );
     }
   }
+
+  int get value {
+    switch (this) {
+      case MarkerType.route:
+        return -3;
+      case MarkerType.driver:
+        return -1;
+      case MarkerType.finish:
+        return -2;
+    }
+  }
 }
 
 class MarkerEntity extends Equatable {

@@ -17,17 +17,6 @@ mixin MapMixin on State<GameMap> {
 
   void onMapCreated(GoogleMapController controller) {
     _controller.complete(controller);
-    createMarkers();
-  }
-
-  Future<void> createMarkers() async {
-    _bloc.add(GameAddMarkersEvent(await RouteMarker.createMarkers(
-      entities: widget.routes
-          .map((route) => route.markerEntity)
-          .whereType<MarkerEntity>()
-          .toSet(),
-      onTap: (routeId) => onMarkerTap(routeId),
-    )));
   }
 
   void onMarkerTap(int routeId) {

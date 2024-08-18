@@ -11,7 +11,7 @@ class Game extends StatelessWidget {
     required this.type,
     this.reward,
     this.routes = const [],
-    this.markers = const <Marker>{},
+    required this.markers,
     this.polylines = const <Polyline>{},
     required this.determineLocation,
   });

@@ -97,7 +97,7 @@ final class GameTapEvent extends GameEvent {
 }
 
 final class GameUpdateSpeedEvent extends GameEvent {
-  final int seconds;
+  final double seconds;
   final int tapInSeconds;
   const GameUpdateSpeedEvent({
     required this.seconds,

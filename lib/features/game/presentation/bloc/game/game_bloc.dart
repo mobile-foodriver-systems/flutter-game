@@ -113,10 +113,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
     emit(state.copyWith(
       status: GameStateType.playing,
-      timer: Timer.periodic(const Duration(seconds: 1), timerCallback),
+      timer: Timer.periodic(const Duration(milliseconds: 100), timerCallback),
       tapCount: 0,
       speed: 0,
-      seconds: state.gameRoute?.seconds ?? 0,
+      seconds: (state.gameRoute?.seconds ?? 0).toDouble(),
     ));
   }
 
@@ -221,7 +221,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     if ((state.gameRoute?.tapCount ?? 0) == newCount) {
       _sendTap.call(
           currentSecond:
-              max(((state.gameRoute?.seconds ?? 0) - state.seconds), 0),
+              max(((state.gameRoute?.seconds ?? 0) - state.seconds).ceil(), 0),
           tapCount: state.tapCount - state.tapInSecond);
       return;
     }
@@ -244,12 +244,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         markers: RouteMarker.getMarkers(
           entities: {
             MarkerEntity(
-              markerId: -2,
+              markerId: MarkerType.finish.value,
               coordinate: moveRecords.$3.last,
               markerType: MarkerType.finish,
             ),
             MarkerEntity(
-              markerId: -1,
+              markerId: MarkerType.driver.value,
               coordinate: moveRecords.$1,
               markerType: MarkerType.driver,
             ),
@@ -274,7 +274,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       speed: passedSeconds == 0
           ? 0
           : state.tapCount / ((state.gameRoute?.seconds ?? 0) - state.seconds),
-      seconds: event.seconds,
+      seconds: event.seconds.toDouble(),
       tapInSecond: event.tapInSeconds,
     ));
   }
@@ -299,11 +299,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       timer.cancel();
       return;
     } else {
-      final seconds = max(state.seconds - 1, 0);
+      final seconds = max(state.seconds - 0.1, 0);
       _sendTap.call(
-          currentSecond: max(((state.gameRoute?.seconds ?? 0) - seconds), 0),
+          currentSecond:
+              max(((state.gameRoute?.seconds ?? 0) - seconds).ceil(), 0),
           tapCount: state.tapCount - state.tapInSecond);
-      add(GameUpdateSpeedEvent(seconds: seconds, tapInSeconds: state.tapCount));
+      add(GameUpdateSpeedEvent(
+        seconds: seconds.toDouble(),
+        tapInSeconds: state.tapCount,
+      ));
     }
   }
 
@@ -362,15 +366,28 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameAddRoutesEvent event,
     Emitter<GameState> emit,
   ) async {
+    if (state.status == GameStateType.playing ||
+        state.status == GameStateType.starting) {
+      return;
+    }
     await RouteMarker.preapareBitmaps();
+    final markers = await RouteMarker.createMarkers(
+      entities: markerEntities(event.routes),
+      onTap: (routeId) => add(GameStartEvent(routeId)),
+    );
+
     if (state.routes.isEmpty && state.status == GameStateType.loading) {
       emit(state.copyWith(
         status: GameStateType.initialized,
         routes: event.routes,
+        markers: markers,
       ));
       return;
     }
-    emit(state.copyWith(routes: event.routes));
+    emit(state.copyWith(
+      routes: event.routes,
+      markers: markers,
+    ));
   }
 
   @override

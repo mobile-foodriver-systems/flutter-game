@@ -28,7 +28,7 @@ class Navigation extends StatelessWidget {
   final VoidCallback breakGame;
   final VoidCallback openRaitingList;
   final num? speed;
-  final int seconds;
+  final double seconds;
 
   @override
   Widget build(BuildContext context) {
