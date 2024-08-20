@@ -92,7 +92,7 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                   breakGame: breakGame,
                   balance: state.balance ?? widget.user.balance,
                   speed: state.speed,
-                  seconds: state.seconds,
+                  seconds: state.dseconds ~/ 10,
                   openRaitingList: openRaitingList,
                 ),
               ),

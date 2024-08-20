@@ -12,7 +12,7 @@ class GameProgress extends StatelessWidget {
   });
 
   final num? speed;
-  final double seconds;
+  final int seconds;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class GameProgress extends StatelessWidget {
             Image.asset(AssetsCatalog.icStopwatch),
             const SizedBox(width: 4.0),
             Text(
-              TimeFormatter.formatDuration(seconds.ceil()),
+              TimeFormatter.formatDuration(seconds),
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     fontWeight: FontWeight.w600,
                     color: AppColors.red,

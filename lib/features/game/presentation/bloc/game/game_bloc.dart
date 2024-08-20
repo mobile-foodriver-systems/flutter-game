@@ -39,7 +39,18 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final velocity = 1.0; // meter on tap
   late final StreamSubscription _signalRSubscription;
 
-  static const double _timerTick = 0.1;
+  static const int _timerTick = 1;
+  static const int speedSecondsTime = 30;
+
+  int get routeTotalDseconds => (state.gameRoute?.seconds ?? 0) * 10;
+  int get secondsFromStart => routeTotalDseconds - state.dseconds;
+  int get tapCount => state.secondsWithTapsMap.isEmpty
+      ? 0
+      : state.secondsWithTapsMap.values.reduce((a, b) => a + b);
+  int get tapInTimerTick => state.secondsWithTapsMap.containsKey(state.dseconds)
+      ? state.secondsWithTapsMap[state.dseconds] ?? 0
+      : 0;
+  int get currentSecond => (max(secondsFromStart, 0) / 10).ceil();
 
   GameBloc(
     this._start,
@@ -116,9 +127,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     emit(state.copyWith(
       status: GameStateType.playing,
       timer: Timer.periodic(const Duration(milliseconds: 100), timerCallback),
-      tapCount: 0,
       speed: 0,
-      seconds: (state.gameRoute?.seconds ?? 0).toDouble(),
+      dseconds: routeTotalDseconds,
     ));
   }
 
@@ -179,7 +189,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     if (state.status != GameStateType.playing) return;
     state.timer?.cancel();
     final (routes, markers) = await _updatedMarkers();
-    final progress = state.tapCount / max((state.gameRoute?.tapCount ?? 0), 1);
+    final progress = tapCount / max((state.gameRoute?.tapCount ?? 0), 1);
     final looseWin = LooseWinEntity(
       totalTime: state.gameRoute?.seconds ?? 0,
       progress: progress > 1 ? 0 : progress,
@@ -219,14 +229,21 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameTapEvent event,
     Emitter<GameState> emit,
   ) {
-    final newCount = state.tapCount + 1;
+    final newCount = tapCount + 1;
+    final currentS = max(currentSecond - 1, 0);
     if ((state.gameRoute?.tapCount ?? 0) == newCount) {
+      final lastSecondKeys = state.secondsWithTapsMap.keys
+          .where((key) => key ~/ 10 == currentS)
+          .toSet();
+      int taps = 0;
+      for (var key in lastSecondKeys) {
+        taps += state.secondsWithTapsMap[key] ?? 0;
+      }
       _sendTap.call(
-          currentSecond:
-              max(((state.gameRoute?.seconds ?? 0) - state.seconds).ceil(), 0),
-          tapCount: state.tapCount - state.tapInTimerTick);
-      print(
-          "FFFFF last second: = ${max(((state.gameRoute?.seconds ?? 0) - state.seconds).ceil(), 0)}, tapCount: = ${state.tapCount - state.tapInTimerTick}");
+        currentSecond: currentSecond,
+        tapCount: taps,
+      );
+      print("FFFFF last second: = $currentSecond, tapCount: = $taps");
       return;
     }
     var distanceDelta = (state.gameRoute?.metersPerClick ?? 0);
@@ -241,9 +258,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           [],
       distance: distance,
     ));
-    final gameSecond = (state.gameRoute?.seconds ?? 0) - state.seconds;
+    final gameSecond = secondsFromStart;
     print("DDDDD gameSecond: = $gameSecond");
-    Map<double, int> newMap = {...state.secondsWithTapsMap};
+    Map<int, int> newMap = {...state.secondsWithTapsMap};
     if (state.secondsWithTapsMap.containsKey(gameSecond)) {
       newMap[gameSecond] = newMap[gameSecond]! + 1;
     } else {
@@ -251,7 +268,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
     emit(
       state.copyWith(
-        tapCount: newCount,
         distance: distance,
         markers: RouteMarker.getMarkers(
           entities: {
@@ -282,13 +298,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameUpdateSpeedEvent event,
     Emitter<GameState> emit,
   ) {
-    final passedSeconds = (state.gameRoute?.seconds ?? 0) - state.seconds;
+    final passedSeconds = secondsFromStart;
     emit(state.copyWith(
-      speed: passedSeconds == 0
-          ? 0
-          : state.tapCount / ((state.gameRoute?.seconds ?? 0) - state.seconds),
-      seconds: event.seconds,
-      tapInTimerTick: event.tapInTimerTick,
+      speed: passedSeconds == 0 ? 0 : tapCount / passedSeconds,
+      dseconds: event.seconds,
     ));
   }
 
@@ -308,39 +321,38 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       .toSet();
 
   void timerCallback(Timer timer) {
-    if (state.seconds <= 0) {
+    if (state.dseconds <= 0) {
       timer.cancel();
       return;
     } else {
       print("FFFFF secondsWithTapsMap: = ${state.secondsWithTapsMap.length}");
-      final seconds = state.seconds - _timerTick;
-      final tapByTimerTick = state.tapCount - state.tapInTimerTick;
-      final intSecond = (seconds * 10).round() % 10 == 0
-          ? (state.gameRoute?.seconds ?? 0) - seconds.round()
-          : null;
-      if (intSecond != null) {
+      final dseconds = state.dseconds - _timerTick;
+
+      final dsecondToFinish = dseconds % 10 == 0 ? dseconds : null;
+      if (dsecondToFinish != null) {
+        final secondsFromStart =
+            (state.gameRoute?.seconds ?? 0) - dsecondToFinish ~/ 10;
         print(
-            "FFFFF intSecond: = $intSecond, tapByTimerTick: = $tapByTimerTick, keys: = ${state.secondsWithTapsMap.keys.length}");
+            "FFFFF second: = $secondsFromStart, tapByTimerTick: = $tapInTimerTick, keys: = ${state.secondsWithTapsMap.keys.length}");
         final keys = state.secondsWithTapsMap.keys
-            .where((key) => key.floor() == intSecond)
+            .where((key) => key ~/ 10 == secondsFromStart)
             .toSet();
         print("GGGGG keys: = ${keys.toString()}");
-        if (keys.isNotEmpty || tapByTimerTick != 0) {
-          var tapCountBySecond = tapByTimerTick;
+        final tapInTick = tapInTimerTick;
+        if (keys.isNotEmpty || tapInTick != 0) {
+          var tapCountBySecond = tapInTick;
           for (var key in keys) {
             tapCountBySecond += state.secondsWithTapsMap[key] ?? 0;
           }
           _sendTap.call(
-            currentSecond: intSecond,
+            currentSecond: secondsFromStart,
             tapCount: tapCountBySecond,
           );
-          print("FFFFF second: = $intSecond, tapCount: = $tapCountBySecond");
+          print(
+              "FFFFF second: = $secondsFromStart, tapCount: = $tapCountBySecond");
         }
       }
-      add(GameUpdateSpeedEvent(
-        seconds: seconds,
-        tapInTimerTick: state.tapCount,
-      ));
+      add(GameUpdateSpeedEvent(seconds: dseconds));
     }
   }
 

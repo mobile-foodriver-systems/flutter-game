@@ -9,15 +9,13 @@ class GameState with _$GameState {
     @Default(null) DriveRouteEntity? gameRoute,
     @Default({}) Set<Marker> markers,
     @Default({}) Set<Polyline> polylines,
-    @Default(0) int tapCount,
     @Default(null) Timer? timer,
     @Default(0) num speed,
-    @Default(0) double seconds,
+    @Default(0) int dseconds,
     @Default(null) num? balance,
     @Default(null) LooseWinEntity? looseWin,
-    @Default(0) int tapInTimerTick,
     @Default(0) double distance,
     @Default(null) Polyline? polylineAfter,
-    @Default({}) Map<double, int> secondsWithTapsMap,
+    @Default({}) Map<int, int> secondsWithTapsMap,
   }) = _GameState;
 }
