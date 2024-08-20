@@ -103,7 +103,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       path: ApiRoutes.account,
       type: RequestType.post,
       options: Options(
-          contentType: 'application/json-patch+json', headers: {'Authorization': 'No Auth'}),
+          contentType: 'application/json-patch+json',
+          headers: {'Authorization': 'No Auth'}),
       data: {
         "password": password,
         "userName": login,

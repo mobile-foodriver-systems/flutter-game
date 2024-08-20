@@ -39,6 +39,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final velocity = 1.0; // meter on tap
   late final StreamSubscription _signalRSubscription;
 
+  static const double _timerTick = 0.1;
+
   GameBloc(
     this._start,
     this._takeRoute,
@@ -222,7 +224,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       _sendTap.call(
           currentSecond:
               max(((state.gameRoute?.seconds ?? 0) - state.seconds).ceil(), 0),
-          tapCount: state.tapCount - state.tapInSecond);
+          tapCount: state.tapCount - state.tapInTimerTick);
+      print(
+          "FFFFF last second: = ${max(((state.gameRoute?.seconds ?? 0) - state.seconds).ceil(), 0)}, tapCount: = ${state.tapCount - state.tapInTimerTick}");
       return;
     }
     var distanceDelta = (state.gameRoute?.metersPerClick ?? 0);
@@ -237,6 +241,14 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           [],
       distance: distance,
     ));
+    final gameSecond = (state.gameRoute?.seconds ?? 0) - state.seconds;
+    print("DDDDD gameSecond: = $gameSecond");
+    Map<double, int> newMap = {...state.secondsWithTapsMap};
+    if (state.secondsWithTapsMap.containsKey(gameSecond)) {
+      newMap[gameSecond] = newMap[gameSecond]! + 1;
+    } else {
+      newMap[gameSecond] = 1;
+    }
     emit(
       state.copyWith(
         tapCount: newCount,
@@ -261,6 +273,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           color: AppColors.black,
           width: 2,
         ),
+        secondsWithTapsMap: newMap,
       ),
     );
   }
@@ -274,8 +287,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       speed: passedSeconds == 0
           ? 0
           : state.tapCount / ((state.gameRoute?.seconds ?? 0) - state.seconds),
-      seconds: event.seconds.toDouble(),
-      tapInSecond: event.tapInSeconds,
+      seconds: event.seconds,
+      tapInTimerTick: event.tapInTimerTick,
     ));
   }
 
@@ -295,18 +308,38 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       .toSet();
 
   void timerCallback(Timer timer) {
-    if (state.seconds == 0) {
+    if (state.seconds <= 0) {
       timer.cancel();
       return;
     } else {
-      final seconds = max(state.seconds - 0.1, 0);
-      _sendTap.call(
-          currentSecond:
-              max(((state.gameRoute?.seconds ?? 0) - seconds).ceil(), 0),
-          tapCount: state.tapCount - state.tapInSecond);
+      print("FFFFF secondsWithTapsMap: = ${state.secondsWithTapsMap.length}");
+      final seconds = state.seconds - _timerTick;
+      final tapByTimerTick = state.tapCount - state.tapInTimerTick;
+      final intSecond = (seconds * 10).round() % 10 == 0
+          ? (state.gameRoute?.seconds ?? 0) - seconds.round()
+          : null;
+      if (intSecond != null) {
+        print(
+            "FFFFF intSecond: = $intSecond, tapByTimerTick: = $tapByTimerTick, keys: = ${state.secondsWithTapsMap.keys.length}");
+        final keys = state.secondsWithTapsMap.keys
+            .where((key) => key.floor() == intSecond)
+            .toSet();
+        print("GGGGG keys: = ${keys.toString()}");
+        if (keys.isNotEmpty || tapByTimerTick != 0) {
+          var tapCountBySecond = tapByTimerTick;
+          for (var key in keys) {
+            tapCountBySecond += state.secondsWithTapsMap[key] ?? 0;
+          }
+          _sendTap.call(
+            currentSecond: intSecond,
+            tapCount: tapCountBySecond,
+          );
+          print("FFFFF second: = $intSecond, tapCount: = $tapCountBySecond");
+        }
+      }
       add(GameUpdateSpeedEvent(
-        seconds: seconds.toDouble(),
-        tapInSeconds: state.tapCount,
+        seconds: seconds,
+        tapInTimerTick: state.tapCount,
       ));
     }
   }
@@ -356,8 +389,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       add(GameAddRoutesEvent(
           routes: event.routes.map((route) => route.toEntity()).toList()));
     } else if (event is RewardEvent) {
+      print("AAA RewardEvent");
       add(GameWinEvent(balance: event.reward ?? 0));
     } else if (event is RouteCompletedFailedEvent) {
+      print("AAA GameLooseEvent");
       add(const GameLooseEvent());
     }
   }
