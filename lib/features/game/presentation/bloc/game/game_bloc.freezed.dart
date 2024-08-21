@@ -30,6 +30,8 @@ mixin _$GameState {
   double get distance => throw _privateConstructorUsedError;
   Polyline? get polylineAfter => throw _privateConstructorUsedError;
   Map<int, int> get secondsWithTapsMap => throw _privateConstructorUsedError;
+  bool get lastTapWasSend => throw _privateConstructorUsedError;
+  CameraPosition get cameraPosition => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GameStateCopyWith<GameState> get copyWith =>
@@ -55,7 +57,9 @@ abstract class $GameStateCopyWith<$Res> {
       LooseWinEntity? looseWin,
       double distance,
       Polyline? polylineAfter,
-      Map<int, int> secondsWithTapsMap});
+      Map<int, int> secondsWithTapsMap,
+      bool lastTapWasSend,
+      CameraPosition cameraPosition});
 }
 
 /// @nodoc
@@ -85,6 +89,8 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
     Object? distance = null,
     Object? polylineAfter = freezed,
     Object? secondsWithTapsMap = null,
+    Object? lastTapWasSend = null,
+    Object? cameraPosition = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -143,6 +149,14 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.secondsWithTapsMap
           : secondsWithTapsMap // ignore: cast_nullable_to_non_nullable
               as Map<int, int>,
+      lastTapWasSend: null == lastTapWasSend
+          ? _value.lastTapWasSend
+          : lastTapWasSend // ignore: cast_nullable_to_non_nullable
+              as bool,
+      cameraPosition: null == cameraPosition
+          ? _value.cameraPosition
+          : cameraPosition // ignore: cast_nullable_to_non_nullable
+              as CameraPosition,
     ) as $Val);
   }
 }
@@ -169,7 +183,9 @@ abstract class _$$GameStateImplCopyWith<$Res>
       LooseWinEntity? looseWin,
       double distance,
       Polyline? polylineAfter,
-      Map<int, int> secondsWithTapsMap});
+      Map<int, int> secondsWithTapsMap,
+      bool lastTapWasSend,
+      CameraPosition cameraPosition});
 }
 
 /// @nodoc
@@ -197,6 +213,8 @@ class __$$GameStateImplCopyWithImpl<$Res>
     Object? distance = null,
     Object? polylineAfter = freezed,
     Object? secondsWithTapsMap = null,
+    Object? lastTapWasSend = null,
+    Object? cameraPosition = null,
   }) {
     return _then(_$GameStateImpl(
       status: null == status
@@ -255,6 +273,14 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value._secondsWithTapsMap
           : secondsWithTapsMap // ignore: cast_nullable_to_non_nullable
               as Map<int, int>,
+      lastTapWasSend: null == lastTapWasSend
+          ? _value.lastTapWasSend
+          : lastTapWasSend // ignore: cast_nullable_to_non_nullable
+              as bool,
+      cameraPosition: null == cameraPosition
+          ? _value.cameraPosition
+          : cameraPosition // ignore: cast_nullable_to_non_nullable
+              as CameraPosition,
     ));
   }
 }
@@ -276,7 +302,10 @@ class _$GameStateImpl implements _GameState {
       this.looseWin = null,
       this.distance = 0,
       this.polylineAfter = null,
-      final Map<int, int> secondsWithTapsMap = const {}})
+      final Map<int, int> secondsWithTapsMap = const {},
+      this.lastTapWasSend = false,
+      this.cameraPosition = const CameraPosition(
+          target: GameBloc._defaultPosition, zoom: GameBloc._defaultZoom)})
       : _routes = routes,
         _markers = markers,
         _polylines = polylines,
@@ -350,8 +379,15 @@ class _$GameStateImpl implements _GameState {
   }
 
   @override
+  @JsonKey()
+  final bool lastTapWasSend;
+  @override
+  @JsonKey()
+  final CameraPosition cameraPosition;
+
+  @override
   String toString() {
-    return 'GameState(status: $status, city: $city, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, timer: $timer, speed: $speed, dseconds: $dseconds, balance: $balance, looseWin: $looseWin, distance: $distance, polylineAfter: $polylineAfter, secondsWithTapsMap: $secondsWithTapsMap)';
+    return 'GameState(status: $status, city: $city, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, timer: $timer, speed: $speed, dseconds: $dseconds, balance: $balance, looseWin: $looseWin, distance: $distance, polylineAfter: $polylineAfter, secondsWithTapsMap: $secondsWithTapsMap, lastTapWasSend: $lastTapWasSend, cameraPosition: $cameraPosition)';
   }
 
   @override
@@ -379,7 +415,11 @@ class _$GameStateImpl implements _GameState {
             (identical(other.polylineAfter, polylineAfter) ||
                 other.polylineAfter == polylineAfter) &&
             const DeepCollectionEquality()
-                .equals(other._secondsWithTapsMap, _secondsWithTapsMap));
+                .equals(other._secondsWithTapsMap, _secondsWithTapsMap) &&
+            (identical(other.lastTapWasSend, lastTapWasSend) ||
+                other.lastTapWasSend == lastTapWasSend) &&
+            (identical(other.cameraPosition, cameraPosition) ||
+                other.cameraPosition == cameraPosition));
   }
 
   @override
@@ -398,7 +438,9 @@ class _$GameStateImpl implements _GameState {
       looseWin,
       distance,
       polylineAfter,
-      const DeepCollectionEquality().hash(_secondsWithTapsMap));
+      const DeepCollectionEquality().hash(_secondsWithTapsMap),
+      lastTapWasSend,
+      cameraPosition);
 
   @JsonKey(ignore: true)
   @override
@@ -422,7 +464,9 @@ abstract class _GameState implements GameState {
       final LooseWinEntity? looseWin,
       final double distance,
       final Polyline? polylineAfter,
-      final Map<int, int> secondsWithTapsMap}) = _$GameStateImpl;
+      final Map<int, int> secondsWithTapsMap,
+      final bool lastTapWasSend,
+      final CameraPosition cameraPosition}) = _$GameStateImpl;
 
   @override
   GameStateType get status;
@@ -452,6 +496,10 @@ abstract class _GameState implements GameState {
   Polyline? get polylineAfter;
   @override
   Map<int, int> get secondsWithTapsMap;
+  @override
+  bool get lastTapWasSend;
+  @override
+  CameraPosition get cameraPosition;
   @override
   @JsonKey(ignore: true)
   _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>

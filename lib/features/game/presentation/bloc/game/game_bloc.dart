@@ -40,9 +40,15 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   late final StreamSubscription _signalRSubscription;
 
   static const int _timerTick = 1;
-  static const int speedSecondsTime = 30;
+  static const int speedSecondsTime = 20;
+  static const int startingSeconds = 3;
+  static const LatLng _defaultPosition =
+      LatLng(55.75399399999374, 37.62209300000001);
+  static const double _defaultZoom = 14.4746;
 
-  int get routeTotalDseconds => (state.gameRoute?.seconds ?? 0) * 10;
+  int get clearGameDseconds =>
+      max(((state.gameRoute?.seconds ?? 0) - startingSeconds), 0);
+  int get routeTotalDseconds => clearGameDseconds * 10;
   int get secondsFromStart => routeTotalDseconds - state.dseconds;
   int get tapCount => state.secondsWithTapsMap.isEmpty
       ? 0
@@ -84,13 +90,29 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) async {
     _start.call(event.city.id);
-    emit(state.copyWith(balance: event.balance));
+    if (event.city.location == null) {
+      emit(state.copyWith(
+        balance: event.balance,
+      ));
+      return;
+    }
+    emit(state.copyWith(
+      balance: event.balance,
+      cameraPosition: CameraPosition(
+        target: LatLng(
+          event.city.location!.latitude,
+          event.city.location!.longitude,
+        ),
+        zoom: state.cameraPosition.zoom,
+      ),
+    ));
   }
 
   void _startGame(
     GameStartEvent event,
     Emitter<GameState> emit,
   ) async {
+    _takeRoute.call(event.routeId);
     final route = state.routes.firstWhere((route) => route.id == event.routeId);
     final gameMarkers =
         RouteMarker.getMarkers(entities: route.startFinishEntities);
@@ -121,14 +143,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GamePlayEvent event,
     Emitter<GameState> emit,
   ) {
-    if (state.gameRoute?.id != null) {
-      _takeRoute.call(state.gameRoute!.id);
-    }
     emit(state.copyWith(
       status: GameStateType.playing,
       timer: Timer.periodic(const Duration(milliseconds: 100), timerCallback),
       speed: 0,
       dseconds: routeTotalDseconds,
+      lastTapWasSend: false,
     ));
   }
 
@@ -164,6 +184,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       distance: 0,
       routes: routes,
       timer: null,
+      secondsWithTapsMap: {},
+      lastTapWasSend: false,
+      cameraPosition: CameraPosition(
+        target: state.city?.location?.gmLatLng ?? state.cameraPosition.target,
+        zoom: state.cameraPosition.zoom,
+      ),
     ));
   }
 
@@ -191,7 +217,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     final (routes, markers) = await _updatedMarkers();
     final progress = tapCount / max((state.gameRoute?.tapCount ?? 0), 1);
     final looseWin = LooseWinEntity(
-      totalTime: state.gameRoute?.seconds ?? 0,
+      totalTime: max(state.gameRoute?.seconds ?? 0 - startingSeconds, 0),
       progress: progress > 1 ? 0 : progress,
     );
     emit(state.copyWith(
@@ -203,6 +229,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       polylineAfter: null,
       distance: 0,
       looseWin: looseWin,
+      secondsWithTapsMap: {},
+      lastTapWasSend: false,
+      cameraPosition: CameraPosition(
+        target: state.city?.location?.gmLatLng ?? state.cameraPosition.target,
+        zoom: state.cameraPosition.zoom,
+      ),
     ));
   }
 
@@ -222,6 +254,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       distance: 0,
       looseWin: LooseWinEntity(reward: state.gameRoute?.reward),
       balance: (state.balance ?? 0) + event.balance,
+      secondsWithTapsMap: {},
+      lastTapWasSend: false,
+      cameraPosition: CameraPosition(
+        target: state.city?.location?.gmLatLng ?? state.cameraPosition.target,
+        zoom: state.cameraPosition.zoom,
+      ),
     ));
   }
 
@@ -235,15 +273,19 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       final lastSecondKeys = state.secondsWithTapsMap.keys
           .where((key) => key ~/ 10 == currentS)
           .toSet();
-      int taps = 0;
+      int taps = 1;
       for (var key in lastSecondKeys) {
         taps += state.secondsWithTapsMap[key] ?? 0;
       }
-      _sendTap.call(
-        currentSecond: currentSecond,
-        tapCount: taps,
-      );
-      print("FFFFF last second: = $currentSecond, tapCount: = $taps");
+      if (!state.lastTapWasSend) {
+        _sendTap.call(
+          currentSecond: currentSecond,
+          tapCount: taps,
+        );
+        emit(state.copyWith(lastTapWasSend: true));
+        print(
+            "FFFFF last second: = $currentSecond, tapCount: = $taps, routeId: = ${state.gameRoute?.id}");
+      }
       return;
     }
     var distanceDelta = (state.gameRoute?.metersPerClick ?? 0);
@@ -259,7 +301,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       distance: distance,
     ));
     final gameSecond = secondsFromStart;
-    print("DDDDD gameSecond: = $gameSecond");
     Map<int, int> newMap = {...state.secondsWithTapsMap};
     if (state.secondsWithTapsMap.containsKey(gameSecond)) {
       newMap[gameSecond] = newMap[gameSecond]! + 1;
@@ -290,6 +331,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
           width: 2,
         ),
         secondsWithTapsMap: newMap,
+        cameraPosition: CameraPosition(
+          target: moveRecords.$1,
+          zoom: state.cameraPosition.zoom,
+        ),
       ),
     );
   }
@@ -299,8 +344,21 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) {
     final passedSeconds = secondsFromStart;
+    final (start, finish) =
+        (max(passedSeconds - speedSecondsTime, 0), passedSeconds);
+    final keysForInterval = state.secondsWithTapsMap.keys
+        .where((key) => key >= start && key <= finish)
+        .toList();
+    var tapsForInterval = 0;
+    for (var key in keysForInterval) {
+      tapsForInterval += state.secondsWithTapsMap[key] ?? 0;
+    }
+    final intervalDiffer = finish - start;
+    final speed = intervalDiffer > 10
+        ? tapsForInterval * 10 / intervalDiffer
+        : tapsForInterval;
     emit(state.copyWith(
-      speed: passedSeconds == 0 ? 0 : tapCount / passedSeconds,
+      speed: speed,
       dseconds: event.seconds,
     ));
   }
@@ -325,19 +383,14 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       timer.cancel();
       return;
     } else {
-      print("FFFFF secondsWithTapsMap: = ${state.secondsWithTapsMap.length}");
       final dseconds = state.dseconds - _timerTick;
 
       final dsecondToFinish = dseconds % 10 == 0 ? dseconds : null;
-      if (dsecondToFinish != null) {
-        final secondsFromStart =
-            (state.gameRoute?.seconds ?? 0) - dsecondToFinish ~/ 10;
-        print(
-            "FFFFF second: = $secondsFromStart, tapByTimerTick: = $tapInTimerTick, keys: = ${state.secondsWithTapsMap.keys.length}");
+      if (dsecondToFinish != null && !state.lastTapWasSend) {
+        final secondsFromStart = clearGameDseconds - dsecondToFinish ~/ 10;
         final keys = state.secondsWithTapsMap.keys
-            .where((key) => key ~/ 10 == secondsFromStart)
+            .where((key) => key ~/ 10 == secondsFromStart - 1)
             .toSet();
-        print("GGGGG keys: = ${keys.toString()}");
         final tapInTick = tapInTimerTick;
         if (keys.isNotEmpty || tapInTick != 0) {
           var tapCountBySecond = tapInTick;
@@ -349,7 +402,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             tapCount: tapCountBySecond,
           );
           print(
-              "FFFFF second: = $secondsFromStart, tapCount: = $tapCountBySecond");
+              "FFFFF second: = $secondsFromStart, tapCountBySecond: = $tapCountBySecond, tapCount: = $tapCount, total: = ${state.gameRoute?.tapCount}");
         }
       }
       add(GameUpdateSpeedEvent(seconds: dseconds));
@@ -401,10 +454,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       add(GameAddRoutesEvent(
           routes: event.routes.map((route) => route.toEntity()).toList()));
     } else if (event is RewardEvent) {
-      print("AAA RewardEvent");
+      print("FFFFF second RewardEvent");
       add(GameWinEvent(balance: event.reward ?? 0));
     } else if (event is RouteCompletedFailedEvent) {
-      print("AAA GameLooseEvent");
+      print("FFFFF second RouteCompletedFailedEvent");
       add(const GameLooseEvent());
     }
   }
@@ -428,6 +481,11 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         status: GameStateType.initialized,
         routes: event.routes,
         markers: markers,
+        cameraPosition: CameraPosition(
+          target: event.routes.first.coordinatesList.first?.gmLatLng ??
+              state.cameraPosition.target,
+          zoom: state.cameraPosition.zoom,
+        ),
       ));
       return;
     }

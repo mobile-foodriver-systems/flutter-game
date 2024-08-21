@@ -192,10 +192,10 @@ class _LegalInfo extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           const SizedBox(height: 16.0),
-          CustomTextButton(
-            text: S.current.profilePageOfferAgreement,
-            url: Config.offerAgreement,
-          ),
+          // CustomTextButton(
+          //   text: S.current.profilePageOfferAgreement,
+          //   url: Config.offerAgreement,
+          // ),
           CustomTextButton(
             text: S.current.authPagePrivacyPolicy,
             url: Config.privacyPolicy,

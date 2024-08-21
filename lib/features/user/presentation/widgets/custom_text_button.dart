@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_driver/constants/config.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/auth/presentation/pages/web_view_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomTextButton extends StatelessWidget {
   const CustomTextButton({
@@ -19,12 +20,7 @@ class CustomTextButton extends StatelessWidget {
         padding: EdgeInsets.zero,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       ),
-      onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => WebViewPage(
-          url: url,
-          title: text,
-        ),
-      )),
+      onPressed: _launchUrl,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -44,5 +40,11 @@ class CustomTextButton extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _launchUrl() async {
+    final uri = Uri.tryParse(Config.privacyPolicy);
+    if (uri == null) return;
+    launchUrl(uri);
   }
 }

@@ -17,5 +17,11 @@ class GameState with _$GameState {
     @Default(0) double distance,
     @Default(null) Polyline? polylineAfter,
     @Default({}) Map<int, int> secondsWithTapsMap,
+    @Default(false) bool lastTapWasSend,
+    @Default(CameraPosition(
+      target: GameBloc._defaultPosition,
+      zoom: GameBloc._defaultZoom,
+    ))
+    CameraPosition cameraPosition,
   }) = _GameState;
 }

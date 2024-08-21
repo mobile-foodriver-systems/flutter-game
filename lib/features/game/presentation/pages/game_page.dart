@@ -75,6 +75,7 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                       : {state.polylineAfter!},
                   reward: state.gameRoute?.reward,
                   determineLocation: tryGetCity,
+                  cameraPosition: state.cameraPosition,
                 ),
               if ((state.status == GameStateType.loose ||
                       state.status == GameStateType.win) &&

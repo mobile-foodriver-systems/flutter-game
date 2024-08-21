@@ -5,8 +5,8 @@ import 'package:food_driver/core/theme/theme_data.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/auth/presentation/pages/confirmation_code_page.dart';
-import 'package:food_driver/features/auth/presentation/pages/web_view_page.dart';
 import 'package:food_driver/features/auth/presentation/widgets/email_field.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EmailAuthPage extends StatelessWidget {
   const EmailAuthPage({super.key});
@@ -85,12 +85,7 @@ class _PrivacyPolicy extends StatelessWidget {
         children: [
           TextSpan(
             text: "политики конфиденциальности",
-            recognizer: TapGestureRecognizer()
-              ..onTap = () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const WebViewPage(
-                        url: Config.privacyPolicy,
-                        title: "Политика конфиденциальности",
-                      ))),
+            recognizer: TapGestureRecognizer()..onTap = _launchUrl,
             style: const TextStyle(
               shadows: [
                 Shadow(
@@ -111,5 +106,11 @@ class _PrivacyPolicy extends StatelessWidget {
           ?.copyWith(color: AppColors.lightGray),
       textAlign: TextAlign.center,
     );
+  }
+
+  Future<void> _launchUrl() async {
+    final uri = Uri.tryParse(Config.privacyPolicy);
+    if (uri == null) return;
+    launchUrl(uri);
   }
 }

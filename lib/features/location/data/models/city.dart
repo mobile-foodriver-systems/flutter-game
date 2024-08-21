@@ -1,3 +1,4 @@
+import 'package:food_driver/features/game/data/models/lat_lng.dart';
 import 'package:food_driver/features/location/data/models/selectable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -10,11 +11,13 @@ class City extends Selectable {
   @override
   final String? name;
   final int countryId;
+  final LatLng? location;
 
   City({
     required this.id,
     this.name,
     required this.countryId,
+    this.location,
   });
 
   @override
@@ -24,11 +27,12 @@ class City extends Selectable {
             other is City &&
             other.id == id &&
             other.name == name &&
-            other.countryId == countryId);
+            other.countryId == countryId &&
+            other.location == location);
   }
 
   @override
-  int get hashCode => Object.hash(id, name, countryId);
+  int get hashCode => Object.hash(id, name, countryId, location);
 
   factory City.fromJson(Map<String, dynamic> json) => _$CityFromJson(json);
   Map<String, dynamic> toJson() => _$CityToJson(this);

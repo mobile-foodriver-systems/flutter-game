@@ -14,11 +14,13 @@ class RouteMarker {
     if (_markersDescriptions.isNotEmpty) return;
     for (final markerType in MarkerType.values) {
       if (markerType == MarkerType.driver) {
-        _markersDescriptions[markerType] = await _svgToBitmapDescriptor('assets/user.svg');
+        _markersDescriptions[markerType] =
+            await _svgToBitmapDescriptor('assets/user.svg');
         continue;
       }
       if (markerType == MarkerType.finish) {
-        _markersDescriptions[markerType] = await _svgToBitmapDescriptor('assets/finish.svg');
+        _markersDescriptions[markerType] =
+            await _svgToBitmapDescriptor('assets/finish.svg');
         continue;
       }
       var tp = markerType.staticPainter();
@@ -42,7 +44,8 @@ class RouteMarker {
   }) {
     var markers = <Marker>{};
     for (var markerEntity in entities) {
-      BitmapDescriptor? bitmapDescriptor = _markersDescriptions[markerEntity.markerType];
+      BitmapDescriptor? bitmapDescriptor =
+          _markersDescriptions[markerEntity.markerType];
       if (bitmapDescriptor != null) {
         markers.add(Marker(
           icon: bitmapDescriptor,
@@ -80,7 +83,8 @@ class RouteMarker {
     return markers;
   }
 
-  static Future<BitmapDescriptor> _svgToBitmapDescriptor(String svgAssetPath) async {
+  static Future<BitmapDescriptor> _svgToBitmapDescriptor(
+      String svgAssetPath) async {
     return SvgPicture.asset(svgAssetPath).toBitmapDescriptor();
   }
 }

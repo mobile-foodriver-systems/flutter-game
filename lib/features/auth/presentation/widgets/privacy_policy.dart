@@ -2,8 +2,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/constants/config.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/auth/presentation/pages/web_view_page.dart';
 import 'package:food_driver/generated/l10n.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PrivacyPolicy extends StatelessWidget {
   const PrivacyPolicy({super.key});
@@ -16,12 +16,7 @@ class PrivacyPolicy extends StatelessWidget {
         children: [
           TextSpan(
             text: S.current.authPagePrivacyPolicyPart,
-            recognizer: TapGestureRecognizer()
-              ..onTap = () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => WebViewPage(
-                        url: Config.privacyPolicy,
-                        title: S.current.authPagePrivacyPolicy,
-                      ))),
+            recognizer: TapGestureRecognizer()..onTap = _launchUrl,
             style: const TextStyle(
               shadows: [
                 Shadow(
@@ -42,5 +37,11 @@ class PrivacyPolicy extends StatelessWidget {
           ?.copyWith(color: AppColors.lightGray),
       textAlign: TextAlign.center,
     );
+  }
+
+  Future<void> _launchUrl() async {
+    final uri = Uri.tryParse(Config.privacyPolicy);
+    if (uri == null) return;
+    launchUrl(uri);
   }
 }
