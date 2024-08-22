@@ -40,7 +40,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   late final StreamSubscription _signalRSubscription;
 
   static const int _timerTick = 1;
-  static const int speedSecondsTime = 20;
+  static const int speedSecondsTime = 10;
   static const int startingSeconds = 3;
   static const LatLng _defaultPosition =
       LatLng(55.75399399999374, 37.62209300000001);
