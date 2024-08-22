@@ -93,6 +93,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     if (event.city.location == null) {
       emit(state.copyWith(
         balance: event.balance,
+        city: event.city,
       ));
       return;
     }
@@ -105,6 +106,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         ),
         zoom: state.cameraPosition.zoom,
       ),
+      city: event.city,
     ));
   }
 
@@ -175,14 +177,17 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     Emitter<GameState> emit,
   ) async {
     state.timer?.cancel();
-    final (routes, markers) = await _updatedMarkers();
+    if (state.city?.id != null) {
+      _start.call(state.city!.id);
+    }
     emit(state.copyWith(
       status: GameStateType.initialized,
       polylines: {},
-      markers: markers,
+      markers: {},
       polylineAfter: null,
       distance: 0,
-      routes: routes,
+      routes: [],
+      gameRoute: null,
       timer: null,
       secondsWithTapsMap: {},
       lastTapWasSend: false,
@@ -214,7 +219,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   ) async {
     if (state.status != GameStateType.playing) return;
     state.timer?.cancel();
-    final (routes, markers) = await _updatedMarkers();
     final progress = tapCount / max((state.gameRoute?.tapCount ?? 0), 1);
     final looseWin = LooseWinEntity(
       totalTime: max(state.gameRoute?.seconds ?? 0 - startingSeconds, 0),
@@ -224,9 +228,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       status: GameStateType.loose,
       polylines: {},
       timer: null,
-      markers: markers,
-      routes: routes,
+      markers: {},
+      routes: [],
       polylineAfter: null,
+      gameRoute: null,
       distance: 0,
       looseWin: looseWin,
       secondsWithTapsMap: {},
@@ -244,12 +249,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   ) async {
     if (state.status != GameStateType.playing) return;
     state.timer?.cancel();
-    final (routes, markers) = await _updatedMarkers();
     emit(state.copyWith(
       status: GameStateType.win,
       polylines: {},
-      markers: markers,
-      routes: routes,
+      markers: {},
+      routes: [],
+      gameRoute: null,
       polylineAfter: null,
       distance: 0,
       looseWin: LooseWinEntity(reward: state.gameRoute?.reward),
@@ -361,16 +366,6 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       speed: speed,
       dseconds: event.seconds,
     ));
-  }
-
-  Future<(List<DriveRouteEntity>, Set<Marker>)> _updatedMarkers() async {
-    var routes = [...state.routes];
-    routes.removeWhere((route) => route.id == state.gameRoute?.id);
-    final markers = await RouteMarker.createMarkers(
-      entities: markerEntities(routes),
-      onTap: (routeId) => add(GameStartEvent(routeId)),
-    );
-    return (routes, markers);
   }
 
   Set<MarkerEntity> markerEntities(List<DriveRouteEntity> routes) => routes
