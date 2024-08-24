@@ -11,6 +11,7 @@ import 'package:food_driver/features/game/domain/entities/drive_route_entity.dar
 import 'package:food_driver/features/game/domain/entities/loose_win_entity.dart';
 import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:food_driver/features/game/domain/entities/route_marker.dart';
+import 'package:food_driver/features/game/domain/usecases/cancel_route.dart';
 import 'package:food_driver/features/game/domain/usecases/move_and_split_polyline.dart';
 import 'package:food_driver/features/game/domain/usecases/send_tap.dart';
 import 'package:food_driver/features/game/domain/usecases/start.dart';
@@ -31,6 +32,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final CityByLatLngUseCase _userLocationByLatLng;
   final StartUseCase _start;
   final TakeRouteUseCase _takeRoute;
+  final CancelRouteUseCase _cancelRoute;
   final SendTapUseCase _sendTap;
   final AppSignalRService _signalRService;
 
@@ -61,6 +63,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   GameBloc(
     this._start,
     this._takeRoute,
+    this._cancelRoute,
     this._sendTap,
     this._userLocationByLatLng,
     this._signalRService,
@@ -89,56 +92,75 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GamePrepareInfoEvent event,
     Emitter<GameState> emit,
   ) async {
-    _start.call(event.city.id);
-    if (event.city.location == null) {
-      emit(state.copyWith(
-        balance: event.balance,
-        city: event.city,
-      ));
-      return;
-    }
-    emit(state.copyWith(
-      balance: event.balance,
-      cameraPosition: CameraPosition(
-        target: LatLng(
-          event.city.location!.latitude,
-          event.city.location!.longitude,
-        ),
-        zoom: state.cameraPosition.zoom,
-      ),
-      city: event.city,
-    ));
+    final response = await _start.call(event.city.id);
+    response.fold(
+      (error) {
+        emit(state.copyWith(
+          balance: event.balance,
+          city: event.city,
+          status: GameStateType.error,
+        ));
+      },
+      (result) {
+        if (event.city.location == null) {
+          emit(state.copyWith(
+            balance: event.balance,
+            city: event.city,
+          ));
+          return;
+        }
+        emit(state.copyWith(
+          balance: event.balance,
+          cameraPosition: CameraPosition(
+            target: LatLng(
+              event.city.location!.latitude,
+              event.city.location!.longitude,
+            ),
+            zoom: state.cameraPosition.zoom,
+          ),
+          city: event.city,
+        ));
+      },
+    );
   }
 
   void _startGame(
     GameStartEvent event,
     Emitter<GameState> emit,
   ) async {
-    _takeRoute.call(event.routeId);
-    final route = state.routes.firstWhere((route) => route.id == event.routeId);
-    final gameMarkers =
-        RouteMarker.getMarkers(entities: route.startFinishEntities);
-
-    emit(state.copyWith(
-      status: GameStateType.starting,
-      gameRoute: route,
-      markers: gameMarkers,
-      distance: 0,
-      polylineAfter: Polyline(
-        polylineId: PolylineId('${event.routeId}_after'),
-        points: route.points,
-        color: AppColors.black,
-        width: 2,
-      ),
-      polylines: {
-        Polyline(
-          polylineId: PolylineId(event.routeId.toString()),
-          points: route.points,
-          color: AppColors.black,
-          width: 2,
-        ),
+    final response = await _takeRoute.call(event.routeId);
+    response.fold(
+      (error) {
+        return;
       },
-    ));
+      (result) {
+        final route =
+            state.routes.firstWhere((route) => route.id == event.routeId);
+        final gameMarkers =
+            RouteMarker.getMarkers(entities: route.startFinishEntities);
+
+        emit(state.copyWith(
+          status: GameStateType.starting,
+          gameRoute: route,
+          markers: gameMarkers,
+          distance: 0,
+          polylineAfter: Polyline(
+            polylineId: PolylineId('${event.routeId}_after'),
+            points: route.points,
+            color: AppColors.black,
+            width: 2,
+          ),
+          polylines: {
+            Polyline(
+              polylineId: PolylineId(event.routeId.toString()),
+              points: route.points,
+              color: AppColors.black,
+              width: 2,
+            ),
+          },
+        ));
+      },
+    );
   }
 
   void _playGame(
@@ -154,7 +176,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void _addMarkers(
+  void addMarkers(
     GameAddMarkersEvent event,
     Emitter<GameState> emit,
   ) {
@@ -163,7 +185,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void _addPolylines(
+  void addPolylines(
     GameAddPolylinesEvent event,
     Emitter<GameState> emit,
   ) {
@@ -172,7 +194,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void _breakGame(
+  void breakGame(
     GameBreakEvent event,
     Emitter<GameState> emit,
   ) async {
@@ -198,7 +220,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void _initializedGame(
+  void initializedGame(
     GameInitializedEvent event,
     Emitter<GameState> emit,
   ) async {
@@ -213,7 +235,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void _looseGame(
+  void looseGame(
     GameLooseEvent event,
     Emitter<GameState> emit,
   ) async {
@@ -243,7 +265,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void _winGame(
+  void winGame(
     GameWinEvent event,
     Emitter<GameState> emit,
   ) async {
@@ -268,7 +290,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void _onTap(
+  void onTap(
     GameTapEvent event,
     Emitter<GameState> emit,
   ) {
@@ -344,7 +366,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
-  void _updateSpeed(
+  void updateSpeed(
     GameUpdateSpeedEvent event,
     Emitter<GameState> emit,
   ) {
@@ -404,7 +426,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
   }
 
-  void _tryGetCity(
+  void tryGetCity(
     GetCityEvent event,
     Emitter<GameState> emit,
   ) async {
@@ -435,7 +457,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void _noCity(
+  void noCity(
     GameNoCityEvent event,
     Emitter<GameState> emit,
   ) {
@@ -457,7 +479,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
   }
 
-  Future<void> _addRoutes(
+  Future<void> addRoutes(
     GameAddRoutesEvent event,
     Emitter<GameState> emit,
   ) async {
