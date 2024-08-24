@@ -50,6 +50,8 @@ import 'package:food_driver/features/game/data/datasources/remote/game_remote_da
     as _i259;
 import 'package:food_driver/features/game/domain/repositories/game_repository.dart'
     as _i927;
+import 'package:food_driver/features/game/domain/usecases/cancel_route.dart'
+    as _i186;
 import 'package:food_driver/features/game/domain/usecases/load.dart' as _i251;
 import 'package:food_driver/features/game/domain/usecases/load_raiting.dart'
     as _i508;
@@ -412,11 +414,19 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i186.CancelRouteUseCase>(
+      () => _i186.CancelRouteUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i982.RaitingBloc>(
         () => _i982.RaitingBloc(gh<_i508.LoadRaitingUseCase>()));
     gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
           gh<_i353.StartUseCase>(),
           gh<_i758.TakeRouteUseCase>(),
+          gh<_i186.CancelRouteUseCase>(),
           gh<_i135.SendTapUseCase>(),
           gh<_i680.CityByLatLngUseCase>(),
           gh<_i48.AppSignalRService>(),

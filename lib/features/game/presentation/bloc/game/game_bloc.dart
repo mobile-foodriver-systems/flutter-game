@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:food_driver/core/services/signal_r/signal_r_service.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
+import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/game/data/models/drive_route.dart';
 import 'package:food_driver/features/game/data/models/game_state_type.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
@@ -176,7 +177,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void addMarkers(
+  void _addMarkers(
     GameAddMarkersEvent event,
     Emitter<GameState> emit,
   ) {
@@ -185,7 +186,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void addPolylines(
+  void _addPolylines(
     GameAddPolylinesEvent event,
     Emitter<GameState> emit,
   ) {
@@ -194,11 +195,12 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void breakGame(
+  void _breakGame(
     GameBreakEvent event,
     Emitter<GameState> emit,
   ) async {
     state.timer?.cancel();
+    await _cancelRoute.call(NoParams());
     if (state.city?.id != null) {
       _start.call(state.city!.id);
     }
@@ -220,7 +222,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void initializedGame(
+  void _initializedGame(
     GameInitializedEvent event,
     Emitter<GameState> emit,
   ) async {
@@ -235,7 +237,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void looseGame(
+  void _looseGame(
     GameLooseEvent event,
     Emitter<GameState> emit,
   ) async {
@@ -265,7 +267,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void winGame(
+  void _winGame(
     GameWinEvent event,
     Emitter<GameState> emit,
   ) async {
@@ -290,7 +292,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void onTap(
+  void _onTap(
     GameTapEvent event,
     Emitter<GameState> emit,
   ) {
@@ -366,7 +368,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     );
   }
 
-  void updateSpeed(
+  void _updateSpeed(
     GameUpdateSpeedEvent event,
     Emitter<GameState> emit,
   ) {
@@ -426,7 +428,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
   }
 
-  void tryGetCity(
+  void _tryGetCity(
     GetCityEvent event,
     Emitter<GameState> emit,
   ) async {
@@ -457,7 +459,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     ));
   }
 
-  void noCity(
+  void _noCity(
     GameNoCityEvent event,
     Emitter<GameState> emit,
   ) {
@@ -479,7 +481,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     }
   }
 
-  Future<void> addRoutes(
+  Future<void> _addRoutes(
     GameAddRoutesEvent event,
     Emitter<GameState> emit,
   ) async {
