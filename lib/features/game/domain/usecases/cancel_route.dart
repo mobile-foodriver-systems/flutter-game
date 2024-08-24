@@ -8,13 +8,13 @@ import 'package:injectable/injectable.dart';
 @dev
 @prod
 @injectable
-class StartUseCase implements UseCase<GameActionResult, int> {
-  StartUseCase(this._gameRepository);
+class CancelRouteUseCase implements UseCase<GameActionResult, NoParams> {
+  CancelRouteUseCase(this._gameRepository);
 
   final GameRepository _gameRepository;
 
   @override
-  Future<Either<Failure, GameActionResult>> call(int cityId) async {
-    return await _gameRepository.startGame(cityId: cityId);
+  Future<Either<Failure, GameActionResult>> call(NoParams _) async {
+    return await _gameRepository.cancelRoute();
   }
 }

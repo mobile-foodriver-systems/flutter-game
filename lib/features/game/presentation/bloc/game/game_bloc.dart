@@ -11,6 +11,7 @@ import 'package:food_driver/features/game/domain/entities/drive_route_entity.dar
 import 'package:food_driver/features/game/domain/entities/loose_win_entity.dart';
 import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:food_driver/features/game/domain/entities/route_marker.dart';
+import 'package:food_driver/features/game/domain/usecases/cancel_route.dart';
 import 'package:food_driver/features/game/domain/usecases/move_and_split_polyline.dart';
 import 'package:food_driver/features/game/domain/usecases/send_tap.dart';
 import 'package:food_driver/features/game/domain/usecases/start.dart';
@@ -31,6 +32,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final CityByLatLngUseCase _userLocationByLatLng;
   final StartUseCase _start;
   final TakeRouteUseCase _takeRoute;
+  final CancelRouteUseCase _cancelRoute;
   final SendTapUseCase _sendTap;
   final AppSignalRService _signalRService;
 
@@ -42,6 +44,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   GameBloc(
     this._start,
     this._takeRoute,
+    this._cancelRoute,
     this._sendTap,
     this._userLocationByLatLng,
     this._signalRService,
@@ -70,8 +73,19 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GamePrepareInfoEvent event,
     Emitter<GameState> emit,
   ) async {
-    _start.call(event.city.id);
-    emit(state.copyWith(balance: event.balance));
+    print("AAA _prepareInfo start game");
+    final response = await _start.call(event.city.id);
+    response.fold(
+      (error) {
+        emit(state.copyWith(
+          balance: event.balance,
+          status: GameStateType.error,
+        ));
+      },
+      (result) {
+        emit(state.copyWith(balance: event.balance));
+      },
+    );
   }
 
   void _startGame(
@@ -107,17 +121,26 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   void _playGame(
     GamePlayEvent event,
     Emitter<GameState> emit,
-  ) {
-    if (state.gameRoute?.id != null) {
-      _takeRoute.call(state.gameRoute!.id);
+  ) async {
+    if (state.gameRoute?.id == null) {
+      return;
     }
-    emit(state.copyWith(
-      status: GameStateType.playing,
-      timer: Timer.periodic(const Duration(milliseconds: 100), timerCallback),
-      tapCount: 0,
-      speed: 0,
-      seconds: (state.gameRoute?.seconds ?? 0).toDouble(),
-    ));
+    final response = await _takeRoute.call(state.gameRoute!.id);
+    response.fold(
+      (error) {
+        return;
+      },
+      (result) {
+        emit(state.copyWith(
+          status: GameStateType.playing,
+          timer:
+              Timer.periodic(const Duration(milliseconds: 100), timerCallback),
+          tapCount: 0,
+          speed: 0,
+          seconds: (state.gameRoute?.seconds ?? 0).toDouble(),
+        ));
+      },
+    );
   }
 
   void _addMarkers(

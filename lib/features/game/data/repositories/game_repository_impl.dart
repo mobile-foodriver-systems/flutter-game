@@ -61,8 +61,15 @@ class GameRepositoryImpl extends GameRepository {
   }
 
   @override
-  void startGame({required int cityId}) {
-    _remoteDataSource.startGame(cityId: cityId);
+  Future<Either<Failure, GameActionResult>> startGame({
+    required int cityId,
+  }) async {
+    try {
+      return Right(await _remoteDataSource.startGame(cityId: cityId));
+    } catch (e, s) {
+      return Left(
+          ApiErrorStack.fromFailure(ExceptionToFailureConverter.convert(e, s)));
+    }
   }
 
   @override
@@ -71,7 +78,24 @@ class GameRepositoryImpl extends GameRepository {
   }
 
   @override
-  void takeRoute({required int routeId}) {
-    _remoteDataSource.takeRoute(routeId: routeId);
+  Future<Either<Failure, GameActionResult>> takeRoute({
+    required int routeId,
+  }) async {
+    try {
+      return Right(await _remoteDataSource.takeRoute(routeId: routeId));
+    } catch (e, s) {
+      return Left(
+          ApiErrorStack.fromFailure(ExceptionToFailureConverter.convert(e, s)));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GameActionResult>> cancelRoute() async {
+    try {
+      return Right(await _remoteDataSource.cancelRoute());
+    } catch (e, s) {
+      return Left(
+          ApiErrorStack.fromFailure(ExceptionToFailureConverter.convert(e, s)));
+    }
   }
 }
