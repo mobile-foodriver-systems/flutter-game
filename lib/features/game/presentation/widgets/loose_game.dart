@@ -89,6 +89,7 @@ class _LooseGameState extends State<LooseGame> {
                         fontSize: 17.0,
                         fontWeight: FontWeight.w600,
                       ),
+                  textAlign: TextAlign.center,
                 ),
               ),
             Row(

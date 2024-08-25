@@ -88,6 +88,7 @@ class _WinGameState extends State<WinGame> {
                         fontWeight: FontWeight.w500,
                         color: AppColors.segmentedTextGray,
                       ),
+                  textAlign: TextAlign.center,
                 ),
               ),
           ],

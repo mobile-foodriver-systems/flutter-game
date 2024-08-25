@@ -5,9 +5,9 @@ import 'package:food_driver/features/game/data/models/game_state_type.dart';
 import 'package:food_driver/features/game/presentation/bloc/game/game_bloc.dart';
 import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/pages/raiting_list_page.dart';
+import 'package:food_driver/features/game/presentation/widgets/custom_loading_indicator.dart';
 import 'package:food_driver/features/game/presentation/widgets/game.dart';
 import 'package:food_driver/features/game/presentation/widgets/help_game_message.dart';
-import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/game/presentation/widgets/loose_or_win.dart';
 import 'package:food_driver/features/game/presentation/widgets/multi_tap_button.dart';
 import 'package:food_driver/features/game/presentation/widgets/navigation.dart';
@@ -64,7 +64,7 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
             alignment: Alignment.topLeft,
             children: [
               if (state.status == GameStateType.loading)
-                const LoadingIndicator()
+                const CustomLoadingIndiacator()
               else
                 Game(
                   type: state.status,

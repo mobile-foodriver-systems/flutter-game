@@ -139,7 +139,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             state.routes.firstWhere((route) => route.id == event.routeId);
         final gameMarkers =
             RouteMarker.getMarkers(entities: route.startFinishEntities);
-
+        if (route.coordinatesListSafe.isEmpty) {
+          return;
+        }
         emit(state.copyWith(
           status: GameStateType.starting,
           gameRoute: route,
@@ -159,6 +161,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
               width: 2,
             ),
           },
+          cameraPosition: CameraPosition(
+            target: route.startPoint!.gmLatLng,
+            zoom: state.cameraPosition.zoom,
+          ),
         ));
       },
     );

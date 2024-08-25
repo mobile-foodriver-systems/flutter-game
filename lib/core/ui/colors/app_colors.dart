@@ -30,4 +30,6 @@ class AppColors {
   static const Color radioBorder = Color(0xFFC6B2B6);
   static const Color labelRed = Color(0xFF840C10);
   static const Color dividerLightGray = Color(0xFFEBEDF0);
+
+  static const Color gifBackground = Color(0xFFFCF9F8);
 }
