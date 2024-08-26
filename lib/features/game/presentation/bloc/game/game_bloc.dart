@@ -501,7 +501,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       onTap: (routeId) => add(GameStartEvent(routeId)),
     );
 
-    if (state.routes.isEmpty && state.status == GameStateType.loading) {
+    if (state.routes.isEmpty || state.status == GameStateType.loading) {
       emit(state.copyWith(
         status: GameStateType.initialized,
         routes: event.routes,
@@ -513,6 +513,23 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         ),
       ));
       return;
+    }
+    if (state.routes.length == 3 &&
+        !(state.routes.any((route) {
+          final firstPoint = route.coordinatesListSafe.first;
+          return firstPoint.latitude == state.cameraPosition.target.latitude &&
+              firstPoint.longitude == state.cameraPosition.target.longitude;
+        }))) {
+      emit(state.copyWith(
+        status: GameStateType.initialized,
+        routes: event.routes,
+        markers: markers,
+        cameraPosition: CameraPosition(
+          target: event.routes.first.coordinatesList.first?.gmLatLng ??
+              state.cameraPosition.target,
+          zoom: state.cameraPosition.zoom,
+        ),
+      ));
     }
     emit(state.copyWith(
       routes: event.routes,

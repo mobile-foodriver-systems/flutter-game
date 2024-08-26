@@ -290,10 +290,10 @@ class S {
     );
   }
 
-  /// `Click on the dots to start the game`
+  /// `Take an order to start the game`
   String get gamePageClickOnTheDots {
     return Intl.message(
-      'Click on the dots to start the game',
+      'Take an order to start the game',
       name: 'gamePageClickOnTheDots',
       desc: '',
       args: [],

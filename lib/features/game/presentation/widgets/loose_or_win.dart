@@ -5,10 +5,12 @@ import 'package:food_driver/features/game/presentation/widgets/win_game.dart';
 
 class LooseOrWin extends StatelessWidget {
   final LooseWinEntity looseWin;
+  final VoidCallback breakGame;
 
   const LooseOrWin({
     super.key,
     required this.looseWin,
+    required this.breakGame,
   });
 
   @override
@@ -19,10 +21,14 @@ class LooseOrWin extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 36.0),
           child: looseWin.progress == null
-              ? WinGame(reward: looseWin.reward)
+              ? WinGame(
+                  reward: looseWin.reward,
+                  breakGame: breakGame,
+                )
               : LooseGame(
                   totalTime: looseWin.totalTime,
                   progress: looseWin.progress,
+                  breakGame: breakGame,
                 ),
         ),
       ),

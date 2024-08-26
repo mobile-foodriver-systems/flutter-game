@@ -80,7 +80,10 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
               if ((state.status == GameStateType.loose ||
                       state.status == GameStateType.win) &&
                   state.looseWin != null)
-                LooseOrWin(looseWin: state.looseWin!),
+                LooseOrWin(
+                  looseWin: state.looseWin!,
+                  breakGame: breakGame,
+                ),
               Positioned(
                 top: 16,
                 left: 0,

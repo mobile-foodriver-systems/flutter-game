@@ -9,11 +9,13 @@ import 'package:food_driver/generated/l10n.dart';
 class LooseGame extends StatefulWidget {
   final double? progress;
   final int? totalTime;
+  final VoidCallback breakGame;
 
   const LooseGame({
     super.key,
     this.totalTime,
     this.progress,
+    required this.breakGame,
   });
 
   @override
@@ -57,10 +59,6 @@ class _LooseGameState extends State<LooseGame> {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(
-          width: 2,
-          color: AppColors.red,
-        ),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -132,6 +130,11 @@ class _LooseGameState extends State<LooseGame> {
               ],
             ),
             const SizedBox(height: 15.0),
+            ElevatedButton(
+              onPressed: widget.breakGame,
+              child: Text(S.current.gamePagePlayMore),
+            ),
+            const SizedBox(height: 24.0),
           ],
         ),
       ),

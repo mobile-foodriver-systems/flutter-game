@@ -23,7 +23,7 @@
     "progressListPageUnknown": "Unknown",
     "progressListPageNick": "Nick",
     "progressListPageScore": "Score",
-    "gamePageClickOnTheDots": "Click on the dots to start the game",
+    "gamePageClickOnTheDots": "Take an order to start the game",
     "gamePageTapToGo": "Tap\nto go",
     "gamePageBeginIn": "Begin in: {seconds}",
     "gamePageTapSpeed": "{speed} tap/s",

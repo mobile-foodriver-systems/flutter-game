@@ -23,7 +23,7 @@
     "progressListPageUnknown": "Неизвестно",
     "progressListPageNick": "Ник",
     "progressListPageScore": "Рейтинг",
-    "gamePageClickOnTheDots": "Жмите на точки для начала игры",
+    "gamePageClickOnTheDots": "Возьмите заказ для начала игры",
     "gamePageTapToGo": "Кликай\nчтобы ехать",
     "gamePageBeginIn": "Старт через: {seconds}",
     "gamePageTapSpeed": "{speed} клк/сек",
