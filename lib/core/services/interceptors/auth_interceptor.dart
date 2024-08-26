@@ -33,12 +33,11 @@ class AuthInterceptor extends QueuedInterceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    var headers = options.headers;
-    if (headers['UnAuthorizedRequest'] == null) {
+    if (options.headers['UnAuthorizedRequest'] == null) {
       await _refreshCompleter?.future;
       final authEntity = await authRepository.getAuthEntity();
       if (authEntity?.accessToken?.isNotEmpty ?? false) {
-        headers[HttpHeaders.authorizationHeader] =
+        options.headers[HttpHeaders.authorizationHeader] =
             'Bearer ${authEntity?.accessToken}';
       }
     }
@@ -58,7 +57,8 @@ class AuthInterceptor extends QueuedInterceptor {
     };
 
     if (authorizationHeader == null) {
-      return handler.next(err);
+      await authRepository.initAuthEntity();
+      return handler.resolve(await retryRequest(err.requestOptions));
     }
     await _refreshCompleter?.future;
 
