@@ -62,6 +62,7 @@ PhrasesDictionary _$PhrasesDictionaryFromJson(Map<String, dynamic> json) =>
       json['gamePageLooseText8'] as String?,
       json['gamePageLooseText9'] as String?,
       json['gamePageLooseText10'] as String?,
+      json['gamePageDeliverAnother'] as String?,
       json['registrationPageRegistration'] as String?,
       json['registrationPageYourPassword'] as String?,
       json['registrationPagePasswordsDoNotMatch'] as String?,
@@ -131,6 +132,7 @@ Map<String, dynamic> _$PhrasesDictionaryToJson(PhrasesDictionary instance) =>
       'gamePageLooseText8': instance.gamePageLooseText8,
       'gamePageLooseText9': instance.gamePageLooseText9,
       'gamePageLooseText10': instance.gamePageLooseText10,
+      'gamePageDeliverAnother': instance.gamePageDeliverAnother,
       'registrationPageRegistration': instance.registrationPageRegistration,
       'registrationPageYourPassword': instance.registrationPageYourPassword,
       'registrationPagePasswordsDoNotMatch':

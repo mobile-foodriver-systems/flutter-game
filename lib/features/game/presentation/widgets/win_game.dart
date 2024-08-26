@@ -91,7 +91,10 @@ class _WinGameState extends State<WinGame> {
               ),
             ElevatedButton(
               onPressed: widget.breakGame,
-              child: Text(S.current.gamePagePlayMore),
+              child: Text(
+                S.current.gamePageDeliverAnother,
+                textAlign: TextAlign.center,
+              ),
             ),
             const SizedBox(height: 24.0),
           ],

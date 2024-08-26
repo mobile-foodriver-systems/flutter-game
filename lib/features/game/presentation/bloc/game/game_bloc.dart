@@ -16,7 +16,9 @@ import 'package:food_driver/features/game/domain/usecases/cancel_route.dart';
 import 'package:food_driver/features/game/domain/usecases/move_and_split_polyline.dart';
 import 'package:food_driver/features/game/domain/usecases/send_tap.dart';
 import 'package:food_driver/features/game/domain/usecases/start.dart';
+import 'package:food_driver/features/game/domain/usecases/stop_vibrate.dart';
 import 'package:food_driver/features/game/domain/usecases/take_route.dart';
+import 'package:food_driver/features/game/domain/usecases/vibrate.dart';
 import 'package:food_driver/features/location/data/models/city.dart';
 import 'package:food_driver/features/location/domain/entities/user_location_entity.dart';
 import 'package:food_driver/features/location/domain/usecases/city_by_lat_lng.dart';
@@ -36,6 +38,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   final CancelRouteUseCase _cancelRoute;
   final SendTapUseCase _sendTap;
   final AppSignalRService _signalRService;
+  final VibrateUseCase _vibrate;
+  final StopVibrateUseCase _stopVibrate;
 
   final MoveAndSplitPolylineUseCase _moveAndSplitPolylineUseCase;
 
@@ -69,6 +73,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     this._userLocationByLatLng,
     this._signalRService,
     this._moveAndSplitPolylineUseCase,
+    this._vibrate,
+    this._stopVibrate,
   ) : super(const GameState()) {
     on<GamePrepareInfoEvent>(_prepareInfo);
     on<GameStartEvent>(_startGame);
@@ -205,6 +211,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameBreakEvent event,
     Emitter<GameState> emit,
   ) async {
+    _stopVibrate.call();
     state.timer?.cancel();
     await _cancelRoute.call(NoParams());
     if (state.city?.id != null) {
@@ -247,6 +254,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameLooseEvent event,
     Emitter<GameState> emit,
   ) async {
+    _stopVibrate.call();
     if (state.status != GameStateType.playing) return;
     state.timer?.cancel();
     final progress = tapCount / max((state.gameRoute?.tapCount ?? 0), 1);
@@ -277,6 +285,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     GameWinEvent event,
     Emitter<GameState> emit,
   ) async {
+    _stopVibrate.call();
     if (state.status != GameStateType.playing) return;
     state.timer?.cancel();
     emit(state.copyWith(
@@ -301,7 +310,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
   void _onTap(
     GameTapEvent event,
     Emitter<GameState> emit,
-  ) {
+  ) async {
+    _vibrate.call();
     final newCount = tapCount + 1;
     final currentS = max(currentSecond - 1, 0);
     if ((state.gameRoute?.tapCount ?? 0) == newCount) {

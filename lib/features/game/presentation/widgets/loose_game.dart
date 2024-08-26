@@ -132,7 +132,10 @@ class _LooseGameState extends State<LooseGame> {
             const SizedBox(height: 15.0),
             ElevatedButton(
               onPressed: widget.breakGame,
-              child: Text(S.current.gamePagePlayMore),
+              child: Text(
+                S.current.gamePageDeliverAnother,
+                textAlign: TextAlign.center,
+              ),
             ),
             const SizedBox(height: 24.0),
           ],

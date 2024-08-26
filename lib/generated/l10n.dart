@@ -590,6 +590,16 @@ class S {
     );
   }
 
+  /// `To deliver another order`
+  String get gamePageDeliverAnother {
+    return Intl.message(
+      'To deliver another order',
+      name: 'gamePageDeliverAnother',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Registration`
   String get registrationPageRegistration {
     return Intl.message(

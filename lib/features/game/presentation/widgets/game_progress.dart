@@ -16,9 +16,10 @@ class GameProgress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final redFlag = [0, 2, 4, 6, 8, 10].any((i) => i == seconds);
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: redFlag ? AppColors.red : AppColors.white,
         borderRadius: BorderRadius.circular(100),
       ),
       child: Padding(
@@ -26,13 +27,16 @@ class GameProgress extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(AssetsCatalog.icStopwatch),
+            Image.asset(
+              AssetsCatalog.icStopwatch,
+              color: redFlag ? AppColors.white : AppColors.red,
+            ),
             const SizedBox(width: 4.0),
             Text(
               TimeFormatter.formatDuration(seconds),
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     fontWeight: FontWeight.w600,
-                    color: AppColors.red,
+                    color: redFlag ? AppColors.white : AppColors.red,
                   ),
             ),
             const SizedBox(width: 12.0),

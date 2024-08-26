@@ -57,6 +57,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "gamePageBeginIn": m0,
         "gamePageClickOnTheDots": MessageLookupByLibrary.simpleMessage(
             "Возьмите заказ для начала игры"),
+        "gamePageDeliverAnother":
+            MessageLookupByLibrary.simpleMessage("Доставить ещё один заказ"),
         "gamePageDetermineTheLocation":
             MessageLookupByLibrary.simpleMessage("Определить местоположение"),
         "gamePageLooseText1": MessageLookupByLibrary.simpleMessage(
