@@ -34,11 +34,13 @@ class AuthInterceptor extends QueuedInterceptor {
     RequestInterceptorHandler handler,
   ) async {
     var headers = options.headers;
-    await _refreshCompleter?.future;
-    final authEntity = await authRepository.getAuthEntity();
-    if (authEntity?.accessToken?.isNotEmpty ?? false) {
-      headers[HttpHeaders.authorizationHeader] =
-          'Bearer ${authEntity?.accessToken}';
+    if (headers['UnAuthorizedRequest'] == null) {
+      await _refreshCompleter?.future;
+      final authEntity = await authRepository.getAuthEntity();
+      if (authEntity?.accessToken?.isNotEmpty ?? false) {
+        headers[HttpHeaders.authorizationHeader] =
+            'Bearer ${authEntity?.accessToken}';
+      }
     }
     handler.next(options);
   }

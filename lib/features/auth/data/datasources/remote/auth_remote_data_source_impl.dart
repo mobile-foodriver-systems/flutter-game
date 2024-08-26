@@ -85,6 +85,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await _appHttpService.request(
       path: ApiRoutes.token,
       type: RequestType.post,
+      options: Options(headers: {'UnAuthorizedRequest' : 'true'}),
       data: const Identity(grantType: GrantType.refreshToken).toMap()
         ..addAll({'refresh_token': refreshToken}),
     );
