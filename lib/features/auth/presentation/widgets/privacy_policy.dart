@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:food_driver/constants/config.dart';
+import 'package:food_driver/constants/environment_constants.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/generated/l10n.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -40,7 +40,7 @@ class PrivacyPolicy extends StatelessWidget {
   }
 
   Future<void> _launchUrl() async {
-    final uri = Uri.tryParse(Config.privacyPolicy);
+    final uri = Uri.tryParse(EnvironmentConstants.privacyPolicyUrl);
     if (uri == null) return;
     launchUrl(uri);
   }

@@ -2,7 +2,9 @@ part of 'package:food_driver/core/services/signal_r/signal_r_service.dart';
 
 @LazySingleton(env: [Environment.dev, Environment.prod])
 class AppSignalRService extends SignalRService {
-  AppSignalRService({required super.authRepository});
+  AppSignalRService({
+    required super.authRepository,
+  });
 
   static HubConnection? hubConnection;
 
@@ -29,7 +31,7 @@ class AppSignalRService extends SignalRService {
     final accessToken = (await _persisting.getAuthEntity())?.accessToken;
     if (accessToken == null) return;
 
-    final uri = Uri.parse(Config.baseUrl);
+    final uri = Uri.parse(EnvironmentConstants.baseUrl);
 
     final formattedServerUrl = uri.replace(
       path: ApiRoutes.signalR,
