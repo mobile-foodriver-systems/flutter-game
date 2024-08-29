@@ -64,10 +64,14 @@ import 'package:food_driver/features/game/presentation/bloc/game/game_bloc.dart'
     as _i379;
 import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart'
     as _i982;
+import 'package:food_driver/features/localization/data/datasources/local/localization_local_data_source.dart'
+    as _i176;
 import 'package:food_driver/features/localization/data/datasources/remote/localization_remote_data_source.dart'
     as _i929;
 import 'package:food_driver/features/localization/domain/repositories/localization_repository.dart'
     as _i419;
+import 'package:food_driver/features/localization/domain/usecases/cache_localization.dart'
+    as _i744;
 import 'package:food_driver/features/localization/domain/usecases/load_localization.dart'
     as _i352;
 import 'package:food_driver/features/localization/presentation/bloc/localization_bloc.dart'
@@ -149,12 +153,28 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.lazySingleton<_i176.LocalizationLocalDataSource>(
+      () => _i176.LocalizationLocalDataSourceImpl(
+          gh<_i203.LocalStorageService>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.lazySingleton<_i528.AppHttpService>(
       () => _i528.AppHttpService(
         gh<_i370.DioProvider>(),
         gh<_i984.NetworkInfo>(),
         gh<String>(),
       ),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i744.CacheLocalizationUseCase>(
+      () => _i744.CacheLocalizationUseCase(
+          gh<_i176.LocalizationLocalDataSource>()),
       registerFor: {
         _dev,
         _prod,
@@ -273,6 +293,10 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.singleton<_i459.LocalizationBloc>(() => _i459.LocalizationBloc(
+          gh<_i352.LoadLocalizationUseCase>(),
+          gh<_i744.CacheLocalizationUseCase>(),
+        ));
     gh.factory<_i618.BreakAccessTokenUseCase>(
       () => _i618.BreakAccessTokenUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
@@ -322,8 +346,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.singleton<_i459.LocalizationBloc>(
-        () => _i459.LocalizationBloc(gh<_i352.LoadLocalizationUseCase>()));
     gh.lazySingleton<_i535.AuthInterceptor>(() => _i535.AuthInterceptor(
           refreshAuth: gh<_i942.RefreshAuthUseCase>(),
           authRepository: gh<_i55.AuthRepository>(),
