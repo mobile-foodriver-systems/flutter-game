@@ -19,16 +19,16 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
   @override
   Future<Response<dynamic>> getUsersRatingList({
     int? radiusInKm,
-    int limit = 20,
-    int offset = 0,
+    int? limit,
+    int? offset,
   }) async {
     return await _appHttpService.request(
         path: ApiRoutes.rating,
         type: RequestType.get,
         queryParameters: {
           if (radiusInKm != null) "radiusInKm": radiusInKm,
-          "limit": limit,
-          "offset": offset,
+          if (limit != null) "limit": limit,
+          if (offset != null) "offset": offset,
         });
   }
 

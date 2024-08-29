@@ -55,6 +55,8 @@ import 'package:food_driver/features/game/domain/usecases/cancel_route.dart'
 import 'package:food_driver/features/game/domain/usecases/load.dart' as _i251;
 import 'package:food_driver/features/game/domain/usecases/load_raiting.dart'
     as _i508;
+import 'package:food_driver/features/game/domain/usecases/load_user_raiting.dart'
+    as _i240;
 import 'package:food_driver/features/game/domain/usecases/move_and_split_polyline.dart'
     as _i510;
 import 'package:food_driver/features/game/domain/usecases/send_tap.dart'
@@ -418,6 +420,13 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i240.LoadUserRaitingUseCase>(
+      () => _i240.LoadUserRaitingUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i135.SendTapUseCase>(
       () => _i135.SendTapUseCase(gh<_i927.GameRepository>()),
       registerFor: {
@@ -439,8 +448,10 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i982.RaitingBloc>(
-        () => _i982.RaitingBloc(gh<_i508.LoadRaitingUseCase>()));
+    gh.factory<_i982.RaitingBloc>(() => _i982.RaitingBloc(
+          gh<_i508.LoadRaitingUseCase>(),
+          gh<_i240.LoadUserRaitingUseCase>(),
+        ));
     gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
           gh<_i353.StartUseCase>(),
           gh<_i758.TakeRouteUseCase>(),

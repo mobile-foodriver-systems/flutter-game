@@ -20,7 +20,7 @@ abstract class GameRepository {
 
   Future<Either<ApiErrorStack, RaitingList>> loadRaitingList({
     int? radiusInKm,
-    int limit = 20,
+    int? limit,
     int? offset,
   });
 

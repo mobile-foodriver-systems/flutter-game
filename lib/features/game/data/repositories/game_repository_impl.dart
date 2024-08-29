@@ -24,7 +24,7 @@ class GameRepositoryImpl extends GameRepository {
   @override
   Future<Either<ApiErrorStack, RaitingList>> loadRaitingList({
     int? radiusInKm,
-    int limit = 20,
+    int? limit,
     int? offset,
   }) async {
     Response<dynamic>? response;
@@ -32,7 +32,7 @@ class GameRepositoryImpl extends GameRepository {
       response = await _remoteDataSource.getUsersRatingList(
         radiusInKm: radiusInKm,
         limit: limit,
-        offset: offset ?? 0,
+        offset: offset,
       );
       if (response.statusCode == 200) {
         return Right(RaitingList.fromJson(response.data));

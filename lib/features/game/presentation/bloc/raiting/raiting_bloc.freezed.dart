@@ -20,6 +20,7 @@ mixin _$RaitingState {
   UsersSortType get sort => throw _privateConstructorUsedError;
   RaitingList? get raitingList => throw _privateConstructorUsedError;
   Failure? get error => throw _privateConstructorUsedError;
+  int? get position => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RaitingStateCopyWith<RaitingState> get copyWith =>
@@ -36,7 +37,8 @@ abstract class $RaitingStateCopyWith<$Res> {
       {ListStatus status,
       UsersSortType sort,
       RaitingList? raitingList,
-      Failure? error});
+      Failure? error,
+      int? position});
 }
 
 /// @nodoc
@@ -56,6 +58,7 @@ class _$RaitingStateCopyWithImpl<$Res, $Val extends RaitingState>
     Object? sort = null,
     Object? raitingList = freezed,
     Object? error = freezed,
+    Object? position = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -74,6 +77,10 @@ class _$RaitingStateCopyWithImpl<$Res, $Val extends RaitingState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as Failure?,
+      position: freezed == position
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -90,7 +97,8 @@ abstract class _$$RaitingStateImplCopyWith<$Res>
       {ListStatus status,
       UsersSortType sort,
       RaitingList? raitingList,
-      Failure? error});
+      Failure? error,
+      int? position});
 }
 
 /// @nodoc
@@ -108,6 +116,7 @@ class __$$RaitingStateImplCopyWithImpl<$Res>
     Object? sort = null,
     Object? raitingList = freezed,
     Object? error = freezed,
+    Object? position = freezed,
   }) {
     return _then(_$RaitingStateImpl(
       status: null == status
@@ -126,6 +135,10 @@ class __$$RaitingStateImplCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as Failure?,
+      position: freezed == position
+          ? _value.position
+          : position // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -137,7 +150,8 @@ class _$RaitingStateImpl implements _RaitingState {
       {this.status = ListStatus.initial,
       this.sort = UsersSortType.global,
       this.raitingList = null,
-      this.error = null});
+      this.error = null,
+      this.position = null});
 
   @override
   @JsonKey()
@@ -151,10 +165,13 @@ class _$RaitingStateImpl implements _RaitingState {
   @override
   @JsonKey()
   final Failure? error;
+  @override
+  @JsonKey()
+  final int? position;
 
   @override
   String toString() {
-    return 'RaitingState(status: $status, sort: $sort, raitingList: $raitingList, error: $error)';
+    return 'RaitingState(status: $status, sort: $sort, raitingList: $raitingList, error: $error, position: $position)';
   }
 
   @override
@@ -166,12 +183,14 @@ class _$RaitingStateImpl implements _RaitingState {
             (identical(other.sort, sort) || other.sort == sort) &&
             (identical(other.raitingList, raitingList) ||
                 other.raitingList == raitingList) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.position, position) ||
+                other.position == position));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, status, sort, raitingList, error);
+      Object.hash(runtimeType, status, sort, raitingList, error, position);
 
   @JsonKey(ignore: true)
   @override
@@ -185,7 +204,8 @@ abstract class _RaitingState implements RaitingState {
       {final ListStatus status,
       final UsersSortType sort,
       final RaitingList? raitingList,
-      final Failure? error}) = _$RaitingStateImpl;
+      final Failure? error,
+      final int? position}) = _$RaitingStateImpl;
 
   @override
   ListStatus get status;
@@ -195,6 +215,8 @@ abstract class _RaitingState implements RaitingState {
   RaitingList? get raitingList;
   @override
   Failure? get error;
+  @override
+  int? get position;
   @override
   @JsonKey(ignore: true)
   _$$RaitingStateImplCopyWith<_$RaitingStateImpl> get copyWith =>

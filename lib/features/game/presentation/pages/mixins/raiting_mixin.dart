@@ -14,7 +14,7 @@ mixin RaitingMixin on State<UsersList> {
   @override
   void initState() {
     super.initState();
-    _bloc.add(const RaitingLoadEvent());
+    _bloc.add(RaitingLoadEvent(userId: widget.userId));
     _scrollController.addListener(_onScroll);
   }
 

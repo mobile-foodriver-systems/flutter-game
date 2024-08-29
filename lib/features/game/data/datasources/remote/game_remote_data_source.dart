@@ -14,8 +14,8 @@ part 'game_remote_data_source_impl.dart';
 abstract interface class GameRemoteDataSource {
   Future<Response<dynamic>> getUsersRatingList({
     int? radiusInKm,
-    int limit = 20,
-    int offset = 0,
+    int? limit,
+    int? offset,
   });
 
   @Deprecated('Not used. Now all game methods calls in SignalR')
