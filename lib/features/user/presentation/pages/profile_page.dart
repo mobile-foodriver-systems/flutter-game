@@ -198,7 +198,7 @@ class _LegalInfo extends StatelessWidget {
           // ),
           CustomTextButton(
             text: S.current.authPagePrivacyPolicy,
-            url: EnvironmentConstants.privacyPolicyUrl,
+            url: EnvironmentConstants().privacyPolicyUrl,
           ),
         ],
       ),

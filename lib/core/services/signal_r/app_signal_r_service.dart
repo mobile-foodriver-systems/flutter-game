@@ -31,7 +31,7 @@ class AppSignalRService extends SignalRService {
     final accessToken = (await _persisting.getAuthEntity())?.accessToken;
     if (accessToken == null) return;
 
-    final uri = Uri.parse(EnvironmentConstants.baseUrl);
+    final uri = Uri.parse(EnvironmentConstants().baseUrl);
 
     final formattedServerUrl = uri.replace(
       path: ApiRoutes.signalR,

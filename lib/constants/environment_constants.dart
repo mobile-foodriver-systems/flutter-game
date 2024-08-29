@@ -1,5 +1,10 @@
-abstract class EnvironmentConstants {
-  static const baseUrl = String.fromEnvironment('base_url');
-  static const String privacyPolicyUrl =
-      String.fromEnvironment('privacy_policy_url');
+import 'package:flutter/services.dart';
+
+class EnvironmentConstants {
+  String get baseUrl => appFlavor == 'dev'
+      ? "https://staging.foodriver.site"
+      : "https://staging.foodriver.site";
+  String get privacyPolicyUrl => appFlavor == 'dev'
+      ? "https://staging.foodriver.site/api/v1/files/TermsofServices.pdf"
+      : "https://staging.foodriver.site/api/v1/files/TermsofServices.pdf";
 }

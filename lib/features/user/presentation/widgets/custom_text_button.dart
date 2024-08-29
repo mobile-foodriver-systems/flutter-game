@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_driver/constants/environment_constants.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:food_driver/features/auth/presentation/pages/pdf_page.dart';
 
 class CustomTextButton extends StatelessWidget {
   const CustomTextButton({
@@ -20,7 +20,11 @@ class CustomTextButton extends StatelessWidget {
         padding: EdgeInsets.zero,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       ),
-      onPressed: _launchUrl,
+      onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => PdfPage(
+                url: EnvironmentConstants().privacyPolicyUrl,
+                title: "Политика конфиденциальности",
+              ))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -40,11 +44,5 @@ class CustomTextButton extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Future<void> _launchUrl() async {
-    final uri = Uri.tryParse(EnvironmentConstants.privacyPolicyUrl);
-    if (uri == null) return;
-    launchUrl(uri);
   }
 }

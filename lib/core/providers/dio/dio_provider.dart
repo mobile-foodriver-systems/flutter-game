@@ -11,7 +11,7 @@ class DioProvider {
     print("AAA S: = ${locale.toString()}");
     return Dio(
       BaseOptions(
-        baseUrl: EnvironmentConstants.baseUrl,
+        baseUrl: EnvironmentConstants().baseUrl,
         connectTimeout: const Duration(seconds: 5),
         queryParameters: {"culture": locale},
         contentType: Headers.formUrlEncodedContentType,
