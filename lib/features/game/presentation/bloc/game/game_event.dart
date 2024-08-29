@@ -97,17 +97,15 @@ final class GameTapEvent extends GameEvent {
 }
 
 final class GameUpdateSpeedEvent extends GameEvent {
-  final double seconds;
-  final int tapInSeconds;
+  final int seconds;
+
   const GameUpdateSpeedEvent({
     required this.seconds,
-    required this.tapInSeconds,
   });
 
   @override
   List<Object> get props => [
         seconds,
-        tapInSeconds,
       ];
 }
 

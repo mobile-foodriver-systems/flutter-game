@@ -105,13 +105,14 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
   }
 
   @override
-  void startGame({required int cityId}) {
-    _appSignalRService.invoke(
+  Future<GameActionResult> startGame({required int cityId}) async {
+    final response = await _appSignalRService.invoke(
       methodName: 'StartGame',
       args: [
         {"osmCityId": cityId},
       ],
     );
+    return GameActionResult.fromJson(response as Map<String, dynamic>);
   }
 
   @override
@@ -120,12 +121,21 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
   }
 
   @override
-  void takeRoute({required int routeId}) {
-    _appSignalRService.invoke(
+  Future<GameActionResult> takeRoute({required int routeId}) async {
+    final response = await _appSignalRService.invoke(
       methodName: 'TakeRoute',
       args: [
         {"osmRouteId": routeId}
       ],
     );
+    return GameActionResult.fromJson(response as Map<String, dynamic>);
+  }
+
+  @override
+  Future<GameActionResult> cancelRoute() async {
+    final response = await _appSignalRService.invoke(
+      methodName: 'CancelRoute',
+    );
+    return GameActionResult.fromJson(response as Map<String, dynamic>);
   }
 }

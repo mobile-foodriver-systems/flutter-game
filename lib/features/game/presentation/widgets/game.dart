@@ -14,6 +14,7 @@ class Game extends StatelessWidget {
     required this.markers,
     this.polylines = const <Polyline>{},
     required this.determineLocation,
+    required this.cameraPosition,
   });
 
   final GameStateType type;
@@ -22,6 +23,7 @@ class Game extends StatelessWidget {
   final Set<Marker> markers;
   final Set<Polyline> polylines;
   final VoidCallback determineLocation;
+  final CameraPosition cameraPosition;
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +39,25 @@ class Game extends StatelessWidget {
           routes: routes,
           markers: markers,
           polylines: const {},
+          cameraPosition: cameraPosition,
         );
       case GameStateType.playing:
       case GameStateType.starting:
-      case GameStateType.win:
-      case GameStateType.loose:
         return GameMap(
+          key: const ValueKey('playingStarting'),
           routes: routes,
           markers: markers,
           polylines: polylines,
+          cameraPosition: cameraPosition,
+        );
+      case GameStateType.win:
+      case GameStateType.loose:
+        return GameMap(
+          key: const ValueKey('winLoose'),
+          routes: routes,
+          markers: markers,
+          polylines: polylines,
+          cameraPosition: cameraPosition,
         );
     }
   }

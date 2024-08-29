@@ -10,9 +10,11 @@ class WinGame extends StatefulWidget {
   const WinGame({
     super.key,
     this.reward,
+    required this.breakGame,
   });
 
   final num? reward;
+  final VoidCallback breakGame;
 
   @override
   State<WinGame> createState() => _WinGameState();
@@ -48,10 +50,6 @@ class _WinGameState extends State<WinGame> {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12.0),
-        border: Border.all(
-          width: 2,
-          color: AppColors.green,
-        ),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -88,8 +86,17 @@ class _WinGameState extends State<WinGame> {
                         fontWeight: FontWeight.w500,
                         color: AppColors.segmentedTextGray,
                       ),
+                  textAlign: TextAlign.center,
                 ),
               ),
+            ElevatedButton(
+              onPressed: widget.breakGame,
+              child: Text(
+                S.current.gamePageDeliverAnother,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(height: 24.0),
           ],
         ),
       ),

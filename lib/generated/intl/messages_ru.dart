@@ -56,29 +56,31 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Выберите страну"),
         "gamePageBeginIn": m0,
         "gamePageClickOnTheDots": MessageLookupByLibrary.simpleMessage(
-            "Жмите на точки для начала игры"),
+            "Возьмите заказ для начала игры"),
+        "gamePageDeliverAnother":
+            MessageLookupByLibrary.simpleMessage("Доставить ещё один заказ"),
         "gamePageDetermineTheLocation":
             MessageLookupByLibrary.simpleMessage("Определить местоположение"),
-        "gamePageLooseText1":
-            MessageLookupByLibrary.simpleMessage("Мотивационный текст 1"),
-        "gamePageLooseText10":
-            MessageLookupByLibrary.simpleMessage("Мотивационный текст 10"),
-        "gamePageLooseText2":
-            MessageLookupByLibrary.simpleMessage("Мотивационный текст 2"),
-        "gamePageLooseText3":
-            MessageLookupByLibrary.simpleMessage("Мотивационный текст 3"),
-        "gamePageLooseText4":
-            MessageLookupByLibrary.simpleMessage("Мотивационный текст 4"),
-        "gamePageLooseText5":
-            MessageLookupByLibrary.simpleMessage("Мотивационный текст 5"),
-        "gamePageLooseText6":
-            MessageLookupByLibrary.simpleMessage("Мотивационный текст 6"),
-        "gamePageLooseText7":
-            MessageLookupByLibrary.simpleMessage("Мотивационный текст 7"),
-        "gamePageLooseText8":
-            MessageLookupByLibrary.simpleMessage("Мотивационный текст 8"),
-        "gamePageLooseText9":
-            MessageLookupByLibrary.simpleMessage("Мотивационный текст 9"),
+        "gamePageLooseText1": MessageLookupByLibrary.simpleMessage(
+            "Вы не успели доставить заказ вовремя, но не отчаивайтесь — в следующий раз всё получится!"),
+        "gamePageLooseText10": MessageLookupByLibrary.simpleMessage(
+            "Вы все равно старательны, и это важно. В следующий раз обязательно получится!"),
+        "gamePageLooseText2": MessageLookupByLibrary.simpleMessage(
+            "Сегодня неудача, но вы учитесь на опыте. В следующий раз вы будете еще быстрее!"),
+        "gamePageLooseText3": MessageLookupByLibrary.simpleMessage(
+            "Не расстраивайтесь! Каждая неудача — это шаг к успеху в следующий раз."),
+        "gamePageLooseText4": MessageLookupByLibrary.simpleMessage(
+            "Обратите внимание на время — вы справитесь лучше в следующий раз!"),
+        "gamePageLooseText5": MessageLookupByLibrary.simpleMessage(
+            "Сегодня не все получилось, но впереди новые возможности для побед!"),
+        "gamePageLooseText6": MessageLookupByLibrary.simpleMessage(
+            "Вы приложили усилия, и это главное! В будущем вас ждет успех!"),
+        "gamePageLooseText7": MessageLookupByLibrary.simpleMessage(
+            "Неудача — это лишь временное явление! Будьте готовы к новым вызовам!"),
+        "gamePageLooseText8": MessageLookupByLibrary.simpleMessage(
+            "Ошибки — это опыт. В следующий раз вы точно доставите вовремя!"),
+        "gamePageLooseText9": MessageLookupByLibrary.simpleMessage(
+            "Одна неудача — это не конец. Верьте в себя и двигайтесь дальше!"),
         "gamePagePlayMore": MessageLookupByLibrary.simpleMessage("Играть еще"),
         "gamePageSomethingWrong":
             MessageLookupByLibrary.simpleMessage("Что-то пошло не так"),
@@ -88,26 +90,26 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Кликай\nчтобы ехать"),
         "gamePageTryAgain":
             MessageLookupByLibrary.simpleMessage("Попробовать снова"),
-        "gamePageWinText1":
-            MessageLookupByLibrary.simpleMessage("Успешный текст 1"),
-        "gamePageWinText10":
-            MessageLookupByLibrary.simpleMessage("Успешный текст 10"),
-        "gamePageWinText2":
-            MessageLookupByLibrary.simpleMessage("Успешный текст 2"),
-        "gamePageWinText3":
-            MessageLookupByLibrary.simpleMessage("Успешный текст 3"),
-        "gamePageWinText4":
-            MessageLookupByLibrary.simpleMessage("Успешный текст 4"),
-        "gamePageWinText5":
-            MessageLookupByLibrary.simpleMessage("Успешный текст 5"),
-        "gamePageWinText6":
-            MessageLookupByLibrary.simpleMessage("Успешный текст 6"),
-        "gamePageWinText7":
-            MessageLookupByLibrary.simpleMessage("Успешный текст 7"),
-        "gamePageWinText8":
-            MessageLookupByLibrary.simpleMessage("Успешный текст 8"),
-        "gamePageWinText9":
-            MessageLookupByLibrary.simpleMessage("Успешный текст 9"),
+        "gamePageWinText1": MessageLookupByLibrary.simpleMessage(
+            "Отличная работа! Заказ был доставлен точно в срок. Продолжайте в том же духе!"),
+        "gamePageWinText10": MessageLookupByLibrary.simpleMessage(
+            "Молодец! Заказ доставлен в срок, и вы принесли радость клиенту!"),
+        "gamePageWinText2": MessageLookupByLibrary.simpleMessage(
+            "Вы справились с задачей на отлично! Ваш клиент остался доволен — так держать!"),
+        "gamePageWinText3": MessageLookupByLibrary.simpleMessage(
+            "Восхитительно! Ваше стремление к скорости впечатляет. Следующий вызов ждет!"),
+        "gamePageWinText4": MessageLookupByLibrary.simpleMessage(
+            "Поздравляю! Вы доставили заказ вовремя, и это заслуживает аплодисментов."),
+        "gamePageWinText5": MessageLookupByLibrary.simpleMessage(
+            "Чудесная работа! Успешная доставка — это ваш супергеройский момент!"),
+        "gamePageWinText6": MessageLookupByLibrary.simpleMessage(
+            "Вы превзошли все ожидания и доставили все быстро и без проблем! Так держать!"),
+        "gamePageWinText7": MessageLookupByLibrary.simpleMessage(
+            "Замечательная работа! Ваши усилия не остались незамеченными. Продолжайте в том же духе!"),
+        "gamePageWinText8": MessageLookupByLibrary.simpleMessage(
+            "Вы невероятно эффективны — заказ доставлен вовремя! Продолжайте блистать!"),
+        "gamePageWinText9": MessageLookupByLibrary.simpleMessage(
+            "Здорово! Вы умеете работать под давлением, и это очень ценно."),
         "gamePageYouEarned":
             MessageLookupByLibrary.simpleMessage("Вы заработали"),
         "listPageEmptyList":

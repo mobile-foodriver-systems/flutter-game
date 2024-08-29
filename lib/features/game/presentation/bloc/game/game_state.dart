@@ -9,14 +9,19 @@ class GameState with _$GameState {
     @Default(null) DriveRouteEntity? gameRoute,
     @Default({}) Set<Marker> markers,
     @Default({}) Set<Polyline> polylines,
-    @Default(0) int tapCount,
     @Default(null) Timer? timer,
     @Default(0) num speed,
-    @Default(0) double seconds,
+    @Default(0) int dseconds,
     @Default(null) num? balance,
     @Default(null) LooseWinEntity? looseWin,
-    @Default(0) int tapInSecond,
     @Default(0) double distance,
     @Default(null) Polyline? polylineAfter,
+    @Default({}) Map<int, int> secondsWithTapsMap,
+    @Default(false) bool lastTapWasSend,
+    @Default(CameraPosition(
+      target: GameBloc._defaultPosition,
+      zoom: GameBloc._defaultZoom,
+    ))
+    CameraPosition cameraPosition,
   }) = _GameState;
 }

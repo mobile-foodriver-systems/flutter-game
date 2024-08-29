@@ -58,6 +58,7 @@ class PhrasesDictionary {
   final String? gamePageLooseText8;
   final String? gamePageLooseText9;
   final String? gamePageLooseText10;
+  final String? gamePageDeliverAnother;
   final String? registrationPageRegistration;
   final String? registrationPageYourPassword;
   final String? registrationPagePasswordsDoNotMatch;
@@ -124,6 +125,7 @@ class PhrasesDictionary {
     this.gamePageLooseText8,
     this.gamePageLooseText9,
     this.gamePageLooseText10,
+    this.gamePageDeliverAnother,
     this.registrationPageRegistration,
     this.registrationPageYourPassword,
     this.registrationPagePasswordsDoNotMatch,

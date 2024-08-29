@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/game/data/models/game_state_type.dart';
 import 'package:food_driver/features/game/presentation/bloc/game/game_bloc.dart';
 import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/pages/raiting_list_page.dart';
+import 'package:food_driver/features/game/presentation/widgets/custom_loading_indicator.dart';
 import 'package:food_driver/features/game/presentation/widgets/game.dart';
+import 'package:food_driver/features/game/presentation/widgets/game_debug.dart';
 import 'package:food_driver/features/game/presentation/widgets/help_game_message.dart';
-import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/game/presentation/widgets/loose_or_win.dart';
 import 'package:food_driver/features/game/presentation/widgets/multi_tap_button.dart';
 import 'package:food_driver/features/game/presentation/widgets/navigation.dart';
@@ -64,7 +66,7 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
             alignment: Alignment.topLeft,
             children: [
               if (state.status == GameStateType.loading)
-                const LoadingIndicator()
+                const CustomLoadingIndiacator()
               else
                 Game(
                   type: state.status,
@@ -75,11 +77,15 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                       : {state.polylineAfter!},
                   reward: state.gameRoute?.reward,
                   determineLocation: tryGetCity,
+                  cameraPosition: state.cameraPosition,
                 ),
               if ((state.status == GameStateType.loose ||
                       state.status == GameStateType.win) &&
                   state.looseWin != null)
-                LooseOrWin(looseWin: state.looseWin!),
+                LooseOrWin(
+                  looseWin: state.looseWin!,
+                  breakGame: breakGame,
+                ),
               Positioned(
                 top: 16,
                 left: 0,
@@ -92,7 +98,7 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                   breakGame: breakGame,
                   balance: state.balance ?? widget.user.balance,
                   speed: state.speed,
-                  seconds: state.seconds,
+                  seconds: state.dseconds ~/ 10,
                   openRaitingList: openRaitingList,
                 ),
               ),
@@ -116,6 +122,18 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                   right: 0,
                   child: Center(
                     child: HelpGameMessage(),
+                  ),
+                ),
+              if (appFlavor == 'dev' &&
+                  (state.status == GameStateType.playing ||
+                      state.status == GameStateType.starting))
+                Positioned(
+                  top: 110.0,
+                  left: 0,
+                  right: 0,
+                  child: GameDebug(
+                    userId: widget.user.id.toString(),
+                    routeId: state.gameRoute?.id.toString(),
                   ),
                 ),
             ],

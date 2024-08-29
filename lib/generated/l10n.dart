@@ -290,10 +290,10 @@ class S {
     );
   }
 
-  /// `Click on the dots to start the game`
+  /// `Take an order to start the game`
   String get gamePageClickOnTheDots {
     return Intl.message(
-      'Click on the dots to start the game',
+      'Take an order to start the game',
       name: 'gamePageClickOnTheDots',
       desc: '',
       args: [],
@@ -390,201 +390,211 @@ class S {
     );
   }
 
-  /// `Keep it up 1`
+  /// `Great job! The order was delivered on time. Keep up the good work!`
   String get gamePageWinText1 {
     return Intl.message(
-      'Keep it up 1',
+      'Great job! The order was delivered on time. Keep up the good work!',
       name: 'gamePageWinText1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Keep it up 2`
+  /// `You coped with the task perfectly! Your client was satisfied — keep it up!`
   String get gamePageWinText2 {
     return Intl.message(
-      'Keep it up 2',
+      'You coped with the task perfectly! Your client was satisfied — keep it up!',
       name: 'gamePageWinText2',
       desc: '',
       args: [],
     );
   }
 
-  /// `Keep it up 3`
+  /// `Amazing! Your commitment to speed is impressive. The next challenge is waiting!`
   String get gamePageWinText3 {
     return Intl.message(
-      'Keep it up 3',
+      'Amazing! Your commitment to speed is impressive. The next challenge is waiting!',
       name: 'gamePageWinText3',
       desc: '',
       args: [],
     );
   }
 
-  /// `Keep it up 4`
+  /// `Congratulations! You delivered the order on time, and it deserves applause.`
   String get gamePageWinText4 {
     return Intl.message(
-      'Keep it up 4',
+      'Congratulations! You delivered the order on time, and it deserves applause.',
       name: 'gamePageWinText4',
       desc: '',
       args: [],
     );
   }
 
-  /// `Keep it up 5`
+  /// `Wonderful job! Successful delivery is your superhero moment!`
   String get gamePageWinText5 {
     return Intl.message(
-      'Keep it up 5',
+      'Wonderful job! Successful delivery is your superhero moment!',
       name: 'gamePageWinText5',
       desc: '',
       args: [],
     );
   }
 
-  /// `Keep it up 6`
+  /// `You exceeded all expectations and delivered everything quickly and without problems! Keep it up !`
   String get gamePageWinText6 {
     return Intl.message(
-      'Keep it up 6',
+      'You exceeded all expectations and delivered everything quickly and without problems! Keep it up !',
       name: 'gamePageWinText6',
       desc: '',
       args: [],
     );
   }
 
-  /// `Keep it up 7`
+  /// `Wonderful job! Your efforts have not gone unnoticed. Keep up the good work!`
   String get gamePageWinText7 {
     return Intl.message(
-      'Keep it up 7',
+      'Wonderful job! Your efforts have not gone unnoticed. Keep up the good work!',
       name: 'gamePageWinText7',
       desc: '',
       args: [],
     );
   }
 
-  /// `Keep it up 8`
+  /// `You are incredibly efficient — the order is delivered on time! Keep shining!`
   String get gamePageWinText8 {
     return Intl.message(
-      'Keep it up 8',
+      'You are incredibly efficient — the order is delivered on time! Keep shining!',
       name: 'gamePageWinText8',
       desc: '',
       args: [],
     );
   }
 
-  /// `Keep it up 9`
+  /// `Great! You know how to work under pressure, and it's very valuable.`
   String get gamePageWinText9 {
     return Intl.message(
-      'Keep it up 9',
+      'Great! You know how to work under pressure, and it\'s very valuable.',
       name: 'gamePageWinText9',
       desc: '',
       args: [],
     );
   }
 
-  /// `Keep it up 10`
+  /// `Well done! The order was delivered on time, and you brought joy to the customer!`
   String get gamePageWinText10 {
     return Intl.message(
-      'Keep it up 10',
+      'Well done! The order was delivered on time, and you brought joy to the customer!',
       name: 'gamePageWinText10',
       desc: '',
       args: [],
     );
   }
 
-  /// `You will succeed, try again 1`
+  /// `You did not manage to deliver the order on time, but do not despair — next time everything will work out!`
   String get gamePageLooseText1 {
     return Intl.message(
-      'You will succeed, try again 1',
+      'You did not manage to deliver the order on time, but do not despair — next time everything will work out!',
       name: 'gamePageLooseText1',
       desc: '',
       args: [],
     );
   }
 
-  /// `You will succeed, try again 2`
+  /// `Today is a failure, but you learn from experience. Next time you will be even faster!`
   String get gamePageLooseText2 {
     return Intl.message(
-      'You will succeed, try again 2',
+      'Today is a failure, but you learn from experience. Next time you will be even faster!',
       name: 'gamePageLooseText2',
       desc: '',
       args: [],
     );
   }
 
-  /// `You will succeed, try again 3`
+  /// `Don't get upset! Every failure is a step towards success next time.`
   String get gamePageLooseText3 {
     return Intl.message(
-      'You will succeed, try again 3',
+      'Don\'t get upset! Every failure is a step towards success next time.',
       name: 'gamePageLooseText3',
       desc: '',
       args: [],
     );
   }
 
-  /// `You will succeed, try again 4`
+  /// `Pay attention to the time — you will do better next time!`
   String get gamePageLooseText4 {
     return Intl.message(
-      'You will succeed, try again 4',
+      'Pay attention to the time — you will do better next time!',
       name: 'gamePageLooseText4',
       desc: '',
       args: [],
     );
   }
 
-  /// `You will succeed, try again 5`
+  /// `Not everything worked out today, but there are new opportunities ahead for victories!`
   String get gamePageLooseText5 {
     return Intl.message(
-      'You will succeed, try again 5',
+      'Not everything worked out today, but there are new opportunities ahead for victories!',
       name: 'gamePageLooseText5',
       desc: '',
       args: [],
     );
   }
 
-  /// `You will succeed, try again 6`
+  /// `You made an effort, and that's the main thing! Success awaits you in the future!`
   String get gamePageLooseText6 {
     return Intl.message(
-      'You will succeed, try again 6',
+      'You made an effort, and that\'s the main thing! Success awaits you in the future!',
       name: 'gamePageLooseText6',
       desc: '',
       args: [],
     );
   }
 
-  /// `You will succeed, try again 7`
+  /// `Failure is only a temporary phenomenon! Get ready for new challenges!`
   String get gamePageLooseText7 {
     return Intl.message(
-      'You will succeed, try again 7',
+      'Failure is only a temporary phenomenon! Get ready for new challenges!',
       name: 'gamePageLooseText7',
       desc: '',
       args: [],
     );
   }
 
-  /// `You will succeed, try again 8`
+  /// `Mistakes are an experience. Next time you will definitely deliver on time!`
   String get gamePageLooseText8 {
     return Intl.message(
-      'You will succeed, try again 8',
+      'Mistakes are an experience. Next time you will definitely deliver on time!',
       name: 'gamePageLooseText8',
       desc: '',
       args: [],
     );
   }
 
-  /// `You will succeed, try again 9`
+  /// `One failure is not the end. Believe in yourself and move on!`
   String get gamePageLooseText9 {
     return Intl.message(
-      'You will succeed, try again 9',
+      'One failure is not the end. Believe in yourself and move on!',
       name: 'gamePageLooseText9',
       desc: '',
       args: [],
     );
   }
 
-  /// `You will succeed, try again 10`
+  /// `You are diligent anyway, and this is important. Next time it will definitely work!`
   String get gamePageLooseText10 {
     return Intl.message(
-      'You will succeed, try again 10',
+      'You are diligent anyway, and this is important. Next time it will definitely work!',
       name: 'gamePageLooseText10',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To deliver another order`
+  String get gamePageDeliverAnother {
+    return Intl.message(
+      'To deliver another order',
+      name: 'gamePageDeliverAnother',
       desc: '',
       args: [],
     );

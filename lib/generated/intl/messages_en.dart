@@ -56,29 +56,31 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Select a country"),
         "gamePageBeginIn": m0,
         "gamePageClickOnTheDots": MessageLookupByLibrary.simpleMessage(
-            "Click on the dots to start the game"),
+            "Take an order to start the game"),
+        "gamePageDeliverAnother":
+            MessageLookupByLibrary.simpleMessage("To deliver another order"),
         "gamePageDetermineTheLocation":
             MessageLookupByLibrary.simpleMessage("Determine the location"),
         "gamePageLooseText1": MessageLookupByLibrary.simpleMessage(
-            "You will succeed, try again 1"),
+            "You did not manage to deliver the order on time, but do not despair — next time everything will work out!"),
         "gamePageLooseText10": MessageLookupByLibrary.simpleMessage(
-            "You will succeed, try again 10"),
+            "You are diligent anyway, and this is important. Next time it will definitely work!"),
         "gamePageLooseText2": MessageLookupByLibrary.simpleMessage(
-            "You will succeed, try again 2"),
+            "Today is a failure, but you learn from experience. Next time you will be even faster!"),
         "gamePageLooseText3": MessageLookupByLibrary.simpleMessage(
-            "You will succeed, try again 3"),
+            "Don\'t get upset! Every failure is a step towards success next time."),
         "gamePageLooseText4": MessageLookupByLibrary.simpleMessage(
-            "You will succeed, try again 4"),
+            "Pay attention to the time — you will do better next time!"),
         "gamePageLooseText5": MessageLookupByLibrary.simpleMessage(
-            "You will succeed, try again 5"),
+            "Not everything worked out today, but there are new opportunities ahead for victories!"),
         "gamePageLooseText6": MessageLookupByLibrary.simpleMessage(
-            "You will succeed, try again 6"),
+            "You made an effort, and that\'s the main thing! Success awaits you in the future!"),
         "gamePageLooseText7": MessageLookupByLibrary.simpleMessage(
-            "You will succeed, try again 7"),
+            "Failure is only a temporary phenomenon! Get ready for new challenges!"),
         "gamePageLooseText8": MessageLookupByLibrary.simpleMessage(
-            "You will succeed, try again 8"),
+            "Mistakes are an experience. Next time you will definitely deliver on time!"),
         "gamePageLooseText9": MessageLookupByLibrary.simpleMessage(
-            "You will succeed, try again 9"),
+            "One failure is not the end. Believe in yourself and move on!"),
         "gamePagePlayMore": MessageLookupByLibrary.simpleMessage("Play more"),
         "gamePageSomethingWrong":
             MessageLookupByLibrary.simpleMessage("Something went wrong"),
@@ -86,26 +88,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "gamePageTapSpeed": m1,
         "gamePageTapToGo": MessageLookupByLibrary.simpleMessage("Tap\nto go"),
         "gamePageTryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
-        "gamePageWinText1":
-            MessageLookupByLibrary.simpleMessage("Keep it up 1"),
-        "gamePageWinText10":
-            MessageLookupByLibrary.simpleMessage("Keep it up 10"),
-        "gamePageWinText2":
-            MessageLookupByLibrary.simpleMessage("Keep it up 2"),
-        "gamePageWinText3":
-            MessageLookupByLibrary.simpleMessage("Keep it up 3"),
-        "gamePageWinText4":
-            MessageLookupByLibrary.simpleMessage("Keep it up 4"),
-        "gamePageWinText5":
-            MessageLookupByLibrary.simpleMessage("Keep it up 5"),
-        "gamePageWinText6":
-            MessageLookupByLibrary.simpleMessage("Keep it up 6"),
-        "gamePageWinText7":
-            MessageLookupByLibrary.simpleMessage("Keep it up 7"),
-        "gamePageWinText8":
-            MessageLookupByLibrary.simpleMessage("Keep it up 8"),
-        "gamePageWinText9":
-            MessageLookupByLibrary.simpleMessage("Keep it up 9"),
+        "gamePageWinText1": MessageLookupByLibrary.simpleMessage(
+            "Great job! The order was delivered on time. Keep up the good work!"),
+        "gamePageWinText10": MessageLookupByLibrary.simpleMessage(
+            "Well done! The order was delivered on time, and you brought joy to the customer!"),
+        "gamePageWinText2": MessageLookupByLibrary.simpleMessage(
+            "You coped with the task perfectly! Your client was satisfied — keep it up!"),
+        "gamePageWinText3": MessageLookupByLibrary.simpleMessage(
+            "Amazing! Your commitment to speed is impressive. The next challenge is waiting!"),
+        "gamePageWinText4": MessageLookupByLibrary.simpleMessage(
+            "Congratulations! You delivered the order on time, and it deserves applause."),
+        "gamePageWinText5": MessageLookupByLibrary.simpleMessage(
+            "Wonderful job! Successful delivery is your superhero moment!"),
+        "gamePageWinText6": MessageLookupByLibrary.simpleMessage(
+            "You exceeded all expectations and delivered everything quickly and without problems! Keep it up !"),
+        "gamePageWinText7": MessageLookupByLibrary.simpleMessage(
+            "Wonderful job! Your efforts have not gone unnoticed. Keep up the good work!"),
+        "gamePageWinText8": MessageLookupByLibrary.simpleMessage(
+            "You are incredibly efficient — the order is delivered on time! Keep shining!"),
+        "gamePageWinText9": MessageLookupByLibrary.simpleMessage(
+            "Great! You know how to work under pressure, and it\'s very valuable."),
         "gamePageYouEarned":
             MessageLookupByLibrary.simpleMessage("You\'ve earned it"),
         "listPageEmptyList":

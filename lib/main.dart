@@ -9,7 +9,8 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await configureDependencies(environment: Environment.dev);
+  await configureDependencies(
+      environment: appFlavor == 'dev' ? Environment.dev : Environment.prod);
   FlutterNativeSplash.remove();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
