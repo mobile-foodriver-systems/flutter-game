@@ -2,7 +2,6 @@
 
 abstract class  LocaleKeys {
   static const authPageLoginToAccount = 'authPageLoginToAccount';
-  static const test = 'test';
   static const authPageUsername = 'authPageUsername';
   static const authPagePassword = 'authPagePassword';
   static const authPageLogin = 'authPageLogin';

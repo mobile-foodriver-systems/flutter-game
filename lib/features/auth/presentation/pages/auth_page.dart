@@ -7,6 +7,10 @@ import 'package:food_driver/features/auth/presentation/pages/mixins/auth_mixin.d
 import 'package:food_driver/features/auth/presentation/widgets/login_by_password.dart';
 
 class AuthPage extends StatelessWidget with AuthMixin {
+  static MaterialPageRoute get route => MaterialPageRoute(
+        builder: (context) => const AuthPage(),
+      );
+
   const AuthPage({super.key});
 
   @override

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
 import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/auth/data/models/auth_status.dart';
@@ -64,31 +65,35 @@ class _AppViewState extends State<AppView> {
       title: 'Food Driver',
       theme: appTheme(context),
       builder: (context, child) {
-        return BlocListener<AuthBloc, AuthState>(
-          listener: (context, state) {
+        return BlocBuilder<AuthBloc, AuthState>(
+          builder: (BuildContext context, AuthState state) {
+            FlutterNativeSplash.remove();
             switch (state.status) {
               case AuthStatus.authenticated:
                 if (state.user == null) {
-                  _navigator.push(MaterialPageRoute(
-                      builder: (context) => const ErrorPage()));
-                  return;
+                  return Navigator(
+                    key: _navigatorKey,
+                    onGenerateRoute: (_) => ErrorPage.route,
+                  );
                 }
-                _navigator.pushAndRemoveUntil<void>(
-                  MaterialPageRoute(
-                      builder: (context) => GamePage(user: state.user!)),
-                  (route) => false,
+                return Navigator(
+                  key: _navigatorKey,
+                  onGenerateRoute: (_) => GamePage.route(
+                    user: state.user!,
+                  ),
                 );
               case AuthStatus.unauthenticated:
-                _navigator.pushAndRemoveUntil<void>(
-                  MaterialPageRoute(builder: (context) => const AuthPage()),
-                  (route) => false,
+                return Navigator(
+                  key: _navigatorKey,
+                  onGenerateRoute: (_) => AuthPage.route,
                 );
               case AuthStatus.unknown:
               case AuthStatus.loading:
-                break;
             }
+            return const Scaffold(
+              body: LoadingIndicator(),
+            );
           },
-          child: child,
         );
       },
       onGenerateRoute: (_) => MaterialPageRoute(

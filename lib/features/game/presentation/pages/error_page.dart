@@ -4,6 +4,10 @@ import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
 
 class ErrorPage extends StatelessWidget {
+  static MaterialPageRoute get route => MaterialPageRoute(
+        builder: (context) => const ErrorPage(),
+      );
+
   const ErrorPage({super.key});
 
   @override

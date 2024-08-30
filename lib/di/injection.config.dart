@@ -13,8 +13,6 @@ import 'package:food_driver/core/platform/network_info.dart' as _i984;
 import 'package:food_driver/core/platform/network_info_impl.dart' as _i771;
 import 'package:food_driver/core/providers/dio/dio_provider.dart' as _i370;
 import 'package:food_driver/core/services/http/app_http_service.dart' as _i528;
-import 'package:food_driver/core/services/http/logger_interceptor.dart'
-    as _i735;
 import 'package:food_driver/core/services/interceptors/auth_interceptor.dart'
     as _i535;
 import 'package:food_driver/core/services/local_storage/local_storage_service.dart'
@@ -168,10 +166,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.lazySingleton<_i735.LoggerInterceptor>(() => _i735.LoggerInterceptor(
-          shouldLogRequest: gh<bool>(),
-          shouldLogResponse: gh<bool>(),
-        ));
     gh.singleton<_i203.LocalStorageService>(
         () => _i58.LocalStorageServiceImpl(gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i984.NetworkInfo>(() => _i771.NetworkInfoImpl(

@@ -49,7 +49,7 @@ class _CountdownTextState extends State<CountdownText> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         child: Text(
-          LocaleKeys.gamePageBeginIn.tr(args: [_seconds.toString()]),
+          LocaleKeys.gamePageBeginIn.tr(namedArgs: {'seconds': _seconds.toString()}),
           style: Theme.of(context)
               .textTheme
               .bodyLarge

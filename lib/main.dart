@@ -14,11 +14,11 @@ void main() async {
   await configureDependencies(
     environment: appFlavor == 'dev' ? Environment.dev : Environment.prod,
   );
+  await EasyLocalization.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
-  await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
       supportedLocales: const [
@@ -30,5 +30,4 @@ void main() async {
       child: const App(),
     ),
   );
-  FlutterNativeSplash.remove();
 }

@@ -32,6 +32,11 @@ class GamePage extends StatelessWidget {
     required this.user,
   });
 
+  static MaterialPageRoute route({required UserEntity user}) =>
+      MaterialPageRoute(
+        builder: (context) => GamePage(user: user),
+      );
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -43,6 +48,7 @@ class GamePage extends StatelessWidget {
 
 class GamePageBody extends StatefulWidget {
   final UserEntity user;
+
   const GamePageBody({
     super.key,
     required this.user,

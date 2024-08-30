@@ -42,9 +42,9 @@ class GameProgress extends StatelessWidget {
             ),
             const SizedBox(width: 12.0),
             Text(
-              LocaleKeys.gamePageTapSpeed.tr(args: [
-                (speed ?? 0).toStringAsFixed(1),
-              ]),
+              LocaleKeys.gamePageTapSpeed.tr(namedArgs: {
+                'speed': (speed ?? 0).toStringAsFixed(1),
+              }),
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge
