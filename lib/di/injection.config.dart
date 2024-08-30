@@ -50,16 +50,24 @@ import 'package:food_driver/features/game/data/datasources/remote/game_remote_da
     as _i259;
 import 'package:food_driver/features/game/domain/repositories/game_repository.dart'
     as _i927;
+import 'package:food_driver/features/game/domain/usecases/cancel_route.dart'
+    as _i186;
 import 'package:food_driver/features/game/domain/usecases/load.dart' as _i251;
 import 'package:food_driver/features/game/domain/usecases/load_raiting.dart'
     as _i508;
+import 'package:food_driver/features/game/domain/usecases/load_user_raiting.dart'
+    as _i240;
 import 'package:food_driver/features/game/domain/usecases/move_and_split_polyline.dart'
     as _i510;
 import 'package:food_driver/features/game/domain/usecases/send_tap.dart'
     as _i135;
 import 'package:food_driver/features/game/domain/usecases/start.dart' as _i353;
+import 'package:food_driver/features/game/domain/usecases/stop_vibrate.dart'
+    as _i690;
 import 'package:food_driver/features/game/domain/usecases/take_route.dart'
     as _i758;
+import 'package:food_driver/features/game/domain/usecases/vibrate.dart'
+    as _i520;
 import 'package:food_driver/features/game/presentation/bloc/game/game_bloc.dart'
     as _i379;
 import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart'
@@ -135,6 +143,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<String>(() => registerModule.locale);
     gh.factory<_i510.MoveAndSplitPolylineUseCase>(
       () => _i510.MoveAndSplitPolylineUseCase(),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i690.StopVibrateUseCase>(
+      () => _i690.StopVibrateUseCase(),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i520.VibrateUseCase>(
+      () => _i520.VibrateUseCase(),
       registerFor: {
         _dev,
         _prod,
@@ -399,6 +421,13 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
+    gh.factory<_i186.CancelRouteUseCase>(
+      () => _i186.CancelRouteUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i251.LoadUseCase>(
       () => _i251.LoadUseCase(gh<_i927.GameRepository>()),
       registerFor: {
@@ -408,6 +437,13 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i508.LoadRaitingUseCase>(
       () => _i508.LoadRaitingUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i240.LoadUserRaitingUseCase>(
+      () => _i240.LoadUserRaitingUseCase(gh<_i927.GameRepository>()),
       registerFor: {
         _dev,
         _prod,
@@ -434,15 +470,20 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i982.RaitingBloc>(
-        () => _i982.RaitingBloc(gh<_i508.LoadRaitingUseCase>()));
+    gh.factory<_i982.RaitingBloc>(() => _i982.RaitingBloc(
+          gh<_i508.LoadRaitingUseCase>(),
+          gh<_i240.LoadUserRaitingUseCase>(),
+        ));
     gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
           gh<_i353.StartUseCase>(),
           gh<_i758.TakeRouteUseCase>(),
+          gh<_i186.CancelRouteUseCase>(),
           gh<_i135.SendTapUseCase>(),
           gh<_i680.CityByLatLngUseCase>(),
           gh<_i48.AppSignalRService>(),
           gh<_i510.MoveAndSplitPolylineUseCase>(),
+          gh<_i520.VibrateUseCase>(),
+          gh<_i690.StopVibrateUseCase>(),
         ));
     return this;
   }

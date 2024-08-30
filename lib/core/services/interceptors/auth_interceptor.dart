@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:food_driver/core/services/http/app_http_service.dart';
@@ -32,14 +33,13 @@ class AuthInterceptor extends QueuedInterceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    if (options.headers['Authorization'] != 'No Auth') {
+    if (options.headers['UnAuthorizedRequest'] == null) {
       await _refreshCompleter?.future;
       final authEntity = await authRepository.getAuthEntity();
       if (authEntity?.accessToken?.isNotEmpty ?? false) {
-        options.headers['Authorization'] = 'Bearer ${authEntity?.accessToken}';
+        options.headers[HttpHeaders.authorizationHeader] =
+            'Bearer ${authEntity?.accessToken}';
       }
-    } else {
-      options.headers.remove('Authorization');
     }
     handler.next(options);
   }
@@ -47,30 +47,28 @@ class AuthInterceptor extends QueuedInterceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode != 401 && err.response?.statusCode != 403) {
-      handler.next(err);
-      return;
+      return handler.next(err);
     }
 
-    String? authorizationHeader = switch (err.response?.requestOptions.headers["Authorization"]) {
+    String? authorizationHeader = switch (
+        err.response?.requestOptions.headers[HttpHeaders.authorizationHeader]) {
       String bearer => bearer,
       _ => null,
     };
 
     if (authorizationHeader == null) {
-      handler.next(err);
-      return;
+      await authRepository.initAuthEntity();
+      return handler.resolve(await retryRequest(err.requestOptions));
     }
     await _refreshCompleter?.future;
 
     final authEntity = await authRepository.getAuthEntity();
     if (authEntity?.accessToken?.isEmpty ?? true) {
-      handler.next(err);
-      return;
+      return handler.next(err);
     } else {
       final newHeader = 'Bearer ${authEntity?.accessToken}';
       if (newHeader != authorizationHeader) {
-        handler.resolve(await retryRequest(err.requestOptions));
-        return;
+        return handler.resolve(await retryRequest(err.requestOptions));
       }
     }
 
@@ -80,15 +78,14 @@ class AuthInterceptor extends QueuedInterceptor {
     refreshResponse.fold(
       (error) {
         _refreshCompleter?.complete(false);
-        handler.next(err);
+        return handler.next(err);
       },
       (result) async {
         _refreshCompleter?.complete(true);
         if (result.isEmpty) {
-          handler.next(err);
-          return;
+          return handler.next(err);
         }
-        handler.resolve(await retryRequest(err.requestOptions));
+        return handler.resolve(await retryRequest(err.requestOptions));
       },
     );
   }

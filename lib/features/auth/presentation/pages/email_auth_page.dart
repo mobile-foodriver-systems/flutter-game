@@ -1,11 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:food_driver/constants/config.dart';
+import 'package:food_driver/constants/environment_constants.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/auth/presentation/pages/confirmation_code_page.dart';
-import 'package:food_driver/features/auth/presentation/pages/web_view_page.dart';
+import 'package:food_driver/features/auth/presentation/pages/pdf_page.dart';
 import 'package:food_driver/features/auth/presentation/widgets/email_field.dart';
 
 class EmailAuthPage extends StatelessWidget {
@@ -87,8 +87,8 @@ class _PrivacyPolicy extends StatelessWidget {
             text: "политики конфиденциальности",
             recognizer: TapGestureRecognizer()
               ..onTap = () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const WebViewPage(
-                        url: Config.privacyPolicy,
+                  builder: (context) => PdfPage(
+                        url: EnvironmentConstants().privacyPolicyUrl,
                         title: "Политика конфиденциальности",
                       ))),
             style: const TextStyle(

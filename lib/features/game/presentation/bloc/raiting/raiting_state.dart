@@ -7,5 +7,6 @@ class RaitingState with _$RaitingState {
     @Default(UsersSortType.global) UsersSortType sort,
     @Default(null) RaitingList? raitingList,
     @Default(null) Failure? error,
+    @Default(null) int? position,
   }) = _RaitingState;
 }

@@ -22,15 +22,16 @@ mixin _$GameState {
   DriveRouteEntity? get gameRoute => throw _privateConstructorUsedError;
   Set<Marker> get markers => throw _privateConstructorUsedError;
   Set<Polyline> get polylines => throw _privateConstructorUsedError;
-  int get tapCount => throw _privateConstructorUsedError;
   Timer? get timer => throw _privateConstructorUsedError;
   num get speed => throw _privateConstructorUsedError;
-  double get seconds => throw _privateConstructorUsedError;
+  int get dseconds => throw _privateConstructorUsedError;
   num? get balance => throw _privateConstructorUsedError;
   LooseWinEntity? get looseWin => throw _privateConstructorUsedError;
-  int get tapInSecond => throw _privateConstructorUsedError;
   double get distance => throw _privateConstructorUsedError;
   Polyline? get polylineAfter => throw _privateConstructorUsedError;
+  Map<int, int> get secondsWithTapsMap => throw _privateConstructorUsedError;
+  bool get lastTapWasSend => throw _privateConstructorUsedError;
+  CameraPosition get cameraPosition => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $GameStateCopyWith<GameState> get copyWith =>
@@ -49,15 +50,16 @@ abstract class $GameStateCopyWith<$Res> {
       DriveRouteEntity? gameRoute,
       Set<Marker> markers,
       Set<Polyline> polylines,
-      int tapCount,
       Timer? timer,
       num speed,
-      double seconds,
+      int dseconds,
       num? balance,
       LooseWinEntity? looseWin,
-      int tapInSecond,
       double distance,
-      Polyline? polylineAfter});
+      Polyline? polylineAfter,
+      Map<int, int> secondsWithTapsMap,
+      bool lastTapWasSend,
+      CameraPosition cameraPosition});
 }
 
 /// @nodoc
@@ -79,15 +81,16 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
     Object? gameRoute = freezed,
     Object? markers = null,
     Object? polylines = null,
-    Object? tapCount = null,
     Object? timer = freezed,
     Object? speed = null,
-    Object? seconds = null,
+    Object? dseconds = null,
     Object? balance = freezed,
     Object? looseWin = freezed,
-    Object? tapInSecond = null,
     Object? distance = null,
     Object? polylineAfter = freezed,
+    Object? secondsWithTapsMap = null,
+    Object? lastTapWasSend = null,
+    Object? cameraPosition = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -114,10 +117,6 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.polylines
           : polylines // ignore: cast_nullable_to_non_nullable
               as Set<Polyline>,
-      tapCount: null == tapCount
-          ? _value.tapCount
-          : tapCount // ignore: cast_nullable_to_non_nullable
-              as int,
       timer: freezed == timer
           ? _value.timer
           : timer // ignore: cast_nullable_to_non_nullable
@@ -126,10 +125,10 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.speed
           : speed // ignore: cast_nullable_to_non_nullable
               as num,
-      seconds: null == seconds
-          ? _value.seconds
-          : seconds // ignore: cast_nullable_to_non_nullable
-              as double,
+      dseconds: null == dseconds
+          ? _value.dseconds
+          : dseconds // ignore: cast_nullable_to_non_nullable
+              as int,
       balance: freezed == balance
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
@@ -138,10 +137,6 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.looseWin
           : looseWin // ignore: cast_nullable_to_non_nullable
               as LooseWinEntity?,
-      tapInSecond: null == tapInSecond
-          ? _value.tapInSecond
-          : tapInSecond // ignore: cast_nullable_to_non_nullable
-              as int,
       distance: null == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
@@ -150,6 +145,18 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.polylineAfter
           : polylineAfter // ignore: cast_nullable_to_non_nullable
               as Polyline?,
+      secondsWithTapsMap: null == secondsWithTapsMap
+          ? _value.secondsWithTapsMap
+          : secondsWithTapsMap // ignore: cast_nullable_to_non_nullable
+              as Map<int, int>,
+      lastTapWasSend: null == lastTapWasSend
+          ? _value.lastTapWasSend
+          : lastTapWasSend // ignore: cast_nullable_to_non_nullable
+              as bool,
+      cameraPosition: null == cameraPosition
+          ? _value.cameraPosition
+          : cameraPosition // ignore: cast_nullable_to_non_nullable
+              as CameraPosition,
     ) as $Val);
   }
 }
@@ -169,15 +176,16 @@ abstract class _$$GameStateImplCopyWith<$Res>
       DriveRouteEntity? gameRoute,
       Set<Marker> markers,
       Set<Polyline> polylines,
-      int tapCount,
       Timer? timer,
       num speed,
-      double seconds,
+      int dseconds,
       num? balance,
       LooseWinEntity? looseWin,
-      int tapInSecond,
       double distance,
-      Polyline? polylineAfter});
+      Polyline? polylineAfter,
+      Map<int, int> secondsWithTapsMap,
+      bool lastTapWasSend,
+      CameraPosition cameraPosition});
 }
 
 /// @nodoc
@@ -197,15 +205,16 @@ class __$$GameStateImplCopyWithImpl<$Res>
     Object? gameRoute = freezed,
     Object? markers = null,
     Object? polylines = null,
-    Object? tapCount = null,
     Object? timer = freezed,
     Object? speed = null,
-    Object? seconds = null,
+    Object? dseconds = null,
     Object? balance = freezed,
     Object? looseWin = freezed,
-    Object? tapInSecond = null,
     Object? distance = null,
     Object? polylineAfter = freezed,
+    Object? secondsWithTapsMap = null,
+    Object? lastTapWasSend = null,
+    Object? cameraPosition = null,
   }) {
     return _then(_$GameStateImpl(
       status: null == status
@@ -232,10 +241,6 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value._polylines
           : polylines // ignore: cast_nullable_to_non_nullable
               as Set<Polyline>,
-      tapCount: null == tapCount
-          ? _value.tapCount
-          : tapCount // ignore: cast_nullable_to_non_nullable
-              as int,
       timer: freezed == timer
           ? _value.timer
           : timer // ignore: cast_nullable_to_non_nullable
@@ -244,10 +249,10 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value.speed
           : speed // ignore: cast_nullable_to_non_nullable
               as num,
-      seconds: null == seconds
-          ? _value.seconds
-          : seconds // ignore: cast_nullable_to_non_nullable
-              as double,
+      dseconds: null == dseconds
+          ? _value.dseconds
+          : dseconds // ignore: cast_nullable_to_non_nullable
+              as int,
       balance: freezed == balance
           ? _value.balance
           : balance // ignore: cast_nullable_to_non_nullable
@@ -256,10 +261,6 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value.looseWin
           : looseWin // ignore: cast_nullable_to_non_nullable
               as LooseWinEntity?,
-      tapInSecond: null == tapInSecond
-          ? _value.tapInSecond
-          : tapInSecond // ignore: cast_nullable_to_non_nullable
-              as int,
       distance: null == distance
           ? _value.distance
           : distance // ignore: cast_nullable_to_non_nullable
@@ -268,6 +269,18 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value.polylineAfter
           : polylineAfter // ignore: cast_nullable_to_non_nullable
               as Polyline?,
+      secondsWithTapsMap: null == secondsWithTapsMap
+          ? _value._secondsWithTapsMap
+          : secondsWithTapsMap // ignore: cast_nullable_to_non_nullable
+              as Map<int, int>,
+      lastTapWasSend: null == lastTapWasSend
+          ? _value.lastTapWasSend
+          : lastTapWasSend // ignore: cast_nullable_to_non_nullable
+              as bool,
+      cameraPosition: null == cameraPosition
+          ? _value.cameraPosition
+          : cameraPosition // ignore: cast_nullable_to_non_nullable
+              as CameraPosition,
     ));
   }
 }
@@ -282,18 +295,21 @@ class _$GameStateImpl implements _GameState {
       this.gameRoute = null,
       final Set<Marker> markers = const {},
       final Set<Polyline> polylines = const {},
-      this.tapCount = 0,
       this.timer = null,
       this.speed = 0,
-      this.seconds = 0,
+      this.dseconds = 0,
       this.balance = null,
       this.looseWin = null,
-      this.tapInSecond = 0,
       this.distance = 0,
-      this.polylineAfter = null})
+      this.polylineAfter = null,
+      final Map<int, int> secondsWithTapsMap = const {},
+      this.lastTapWasSend = false,
+      this.cameraPosition = const CameraPosition(
+          target: GameBloc._defaultPosition, zoom: GameBloc._defaultZoom)})
       : _routes = routes,
         _markers = markers,
-        _polylines = polylines;
+        _polylines = polylines,
+        _secondsWithTapsMap = secondsWithTapsMap;
 
   @override
   @JsonKey()
@@ -333,16 +349,13 @@ class _$GameStateImpl implements _GameState {
 
   @override
   @JsonKey()
-  final int tapCount;
-  @override
-  @JsonKey()
   final Timer? timer;
   @override
   @JsonKey()
   final num speed;
   @override
   @JsonKey()
-  final double seconds;
+  final int dseconds;
   @override
   @JsonKey()
   final num? balance;
@@ -351,17 +364,30 @@ class _$GameStateImpl implements _GameState {
   final LooseWinEntity? looseWin;
   @override
   @JsonKey()
-  final int tapInSecond;
-  @override
-  @JsonKey()
   final double distance;
   @override
   @JsonKey()
   final Polyline? polylineAfter;
+  final Map<int, int> _secondsWithTapsMap;
+  @override
+  @JsonKey()
+  Map<int, int> get secondsWithTapsMap {
+    if (_secondsWithTapsMap is EqualUnmodifiableMapView)
+      return _secondsWithTapsMap;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_secondsWithTapsMap);
+  }
+
+  @override
+  @JsonKey()
+  final bool lastTapWasSend;
+  @override
+  @JsonKey()
+  final CameraPosition cameraPosition;
 
   @override
   String toString() {
-    return 'GameState(status: $status, city: $city, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, tapCount: $tapCount, timer: $timer, speed: $speed, seconds: $seconds, balance: $balance, looseWin: $looseWin, tapInSecond: $tapInSecond, distance: $distance, polylineAfter: $polylineAfter)';
+    return 'GameState(status: $status, city: $city, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, timer: $timer, speed: $speed, dseconds: $dseconds, balance: $balance, looseWin: $looseWin, distance: $distance, polylineAfter: $polylineAfter, secondsWithTapsMap: $secondsWithTapsMap, lastTapWasSend: $lastTapWasSend, cameraPosition: $cameraPosition)';
   }
 
   @override
@@ -377,20 +403,23 @@ class _$GameStateImpl implements _GameState {
             const DeepCollectionEquality().equals(other._markers, _markers) &&
             const DeepCollectionEquality()
                 .equals(other._polylines, _polylines) &&
-            (identical(other.tapCount, tapCount) ||
-                other.tapCount == tapCount) &&
             (identical(other.timer, timer) || other.timer == timer) &&
             (identical(other.speed, speed) || other.speed == speed) &&
-            (identical(other.seconds, seconds) || other.seconds == seconds) &&
+            (identical(other.dseconds, dseconds) ||
+                other.dseconds == dseconds) &&
             (identical(other.balance, balance) || other.balance == balance) &&
             (identical(other.looseWin, looseWin) ||
                 other.looseWin == looseWin) &&
-            (identical(other.tapInSecond, tapInSecond) ||
-                other.tapInSecond == tapInSecond) &&
             (identical(other.distance, distance) ||
                 other.distance == distance) &&
             (identical(other.polylineAfter, polylineAfter) ||
-                other.polylineAfter == polylineAfter));
+                other.polylineAfter == polylineAfter) &&
+            const DeepCollectionEquality()
+                .equals(other._secondsWithTapsMap, _secondsWithTapsMap) &&
+            (identical(other.lastTapWasSend, lastTapWasSend) ||
+                other.lastTapWasSend == lastTapWasSend) &&
+            (identical(other.cameraPosition, cameraPosition) ||
+                other.cameraPosition == cameraPosition));
   }
 
   @override
@@ -402,15 +431,16 @@ class _$GameStateImpl implements _GameState {
       gameRoute,
       const DeepCollectionEquality().hash(_markers),
       const DeepCollectionEquality().hash(_polylines),
-      tapCount,
       timer,
       speed,
-      seconds,
+      dseconds,
       balance,
       looseWin,
-      tapInSecond,
       distance,
-      polylineAfter);
+      polylineAfter,
+      const DeepCollectionEquality().hash(_secondsWithTapsMap),
+      lastTapWasSend,
+      cameraPosition);
 
   @JsonKey(ignore: true)
   @override
@@ -427,15 +457,16 @@ abstract class _GameState implements GameState {
       final DriveRouteEntity? gameRoute,
       final Set<Marker> markers,
       final Set<Polyline> polylines,
-      final int tapCount,
       final Timer? timer,
       final num speed,
-      final double seconds,
+      final int dseconds,
       final num? balance,
       final LooseWinEntity? looseWin,
-      final int tapInSecond,
       final double distance,
-      final Polyline? polylineAfter}) = _$GameStateImpl;
+      final Polyline? polylineAfter,
+      final Map<int, int> secondsWithTapsMap,
+      final bool lastTapWasSend,
+      final CameraPosition cameraPosition}) = _$GameStateImpl;
 
   @override
   GameStateType get status;
@@ -450,23 +481,25 @@ abstract class _GameState implements GameState {
   @override
   Set<Polyline> get polylines;
   @override
-  int get tapCount;
-  @override
   Timer? get timer;
   @override
   num get speed;
   @override
-  double get seconds;
+  int get dseconds;
   @override
   num? get balance;
   @override
   LooseWinEntity? get looseWin;
   @override
-  int get tapInSecond;
-  @override
   double get distance;
   @override
   Polyline? get polylineAfter;
+  @override
+  Map<int, int> get secondsWithTapsMap;
+  @override
+  bool get lastTapWasSend;
+  @override
+  CameraPosition get cameraPosition;
   @override
   @JsonKey(ignore: true)
   _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>

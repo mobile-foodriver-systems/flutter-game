@@ -8,10 +8,17 @@ sealed class RaitingEvent extends Equatable {
 }
 
 class RaitingLoadEvent extends RaitingEvent {
-  const RaitingLoadEvent({this.sort = UsersSortType.global});
+  const RaitingLoadEvent({
+    this.sort = UsersSortType.global,
+    this.userId,
+  });
 
   final UsersSortType sort;
+  final int? userId;
 
   @override
-  List<Object> get props => [sort];
+  List<Object> get props => [
+        sort,
+        if (userId != null) userId!,
+      ];
 }

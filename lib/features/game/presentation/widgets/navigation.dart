@@ -28,7 +28,7 @@ class Navigation extends StatelessWidget {
   final VoidCallback breakGame;
   final VoidCallback openRaitingList;
   final num? speed;
-  final double seconds;
+  final int seconds;
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +77,8 @@ class Navigation extends StatelessWidget {
   void onPressed() {
     if (type == GameStateType.starting ||
         type == GameStateType.win ||
-        type == GameStateType.loose) {
-      toggleToInit();
-    } else if (type == GameStateType.playing) {
+        type == GameStateType.loose ||
+        type == GameStateType.playing) {
       breakGame();
     }
   }

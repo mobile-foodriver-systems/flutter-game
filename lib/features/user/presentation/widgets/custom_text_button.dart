@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_driver/constants/environment_constants.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/auth/presentation/pages/web_view_page.dart';
+import 'package:food_driver/features/auth/presentation/pages/pdf_page.dart';
 
 class CustomTextButton extends StatelessWidget {
   const CustomTextButton({
@@ -20,11 +21,10 @@ class CustomTextButton extends StatelessWidget {
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       ),
       onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => WebViewPage(
-          url: url,
-          title: text,
-        ),
-      )),
+          builder: (context) => PdfPage(
+                url: EnvironmentConstants().privacyPolicyUrl,
+                title: "Политика конфиденциальности",
+              ))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

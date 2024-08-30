@@ -31,7 +31,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }) async {
     final response = await _appHttpService.request(
       path: '',
-      options: Options(headers: {'Authorization': 'No Auth'}),
       type: RequestType.post,
       queryParameters: {"email": email},
     );
@@ -46,7 +45,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await _appHttpService.request(
       path: '',
       type: RequestType.post,
-      options: Options(headers: {'Authorization': 'No Auth'}),
       queryParameters: {
         "email": email,
         "code": code,
@@ -87,7 +85,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await _appHttpService.request(
       path: ApiRoutes.token,
       type: RequestType.post,
-      options: Options(headers: {'Authorization': 'No Auth'}),
+      options: Options(headers: {'UnAuthorizedRequest': 'true'}),
       data: const Identity(grantType: GrantType.refreshToken).toMap()
         ..addAll({'refresh_token': refreshToken}),
     );
@@ -103,7 +101,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       path: ApiRoutes.account,
       type: RequestType.post,
       options: Options(
-          contentType: 'application/json-patch+json', headers: {'Authorization': 'No Auth'}),
+        contentType: 'application/json-patch+json',
+      ),
       data: {
         "password": password,
         "userName": login,
