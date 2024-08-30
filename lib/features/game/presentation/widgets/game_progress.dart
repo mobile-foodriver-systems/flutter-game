@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/extensions/time_formatter.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class GameProgress extends StatelessWidget {
   const GameProgress({
@@ -41,7 +42,9 @@ class GameProgress extends StatelessWidget {
             ),
             const SizedBox(width: 12.0),
             Text(
-              S.current.gamePageTapSpeed((speed ?? 0).toStringAsFixed(1)),
+              LocaleKeys.gamePageTapSpeed.tr(args: [
+                (speed ?? 0).toStringAsFixed(1),
+              ]),
               style: Theme.of(context)
                   .textTheme
                   .bodyLarge

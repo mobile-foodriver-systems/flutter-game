@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/ui/mixins/search_mixin.dart';
@@ -7,10 +8,11 @@ import 'package:food_driver/features/location/presentation/bloc/city/city_bloc.d
 import 'package:food_driver/features/location/presentation/pages/base_location_page.dart';
 import 'package:food_driver/features/location/presentation/widgets/interactive_list.dart';
 import 'package:food_driver/features/location/presentation/widgets/list_item.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class CityListPage extends StatelessWidget {
   final int countryId;
+
   const CityListPage({
     super.key,
     required this.countryId,
@@ -42,8 +44,8 @@ class _CityBodyState extends State<CityBody> with SearchMixin<CityBody> {
   Widget build(BuildContext context) {
     return BaseLocationPage<Selectable>(
       unfocusSearchField: unfocusSearchField,
-      selectText: S.current.cityListPageSelectCity,
-      searchFieldLable: S.current.cityListPageCity,
+      selectText: LocaleKeys.cityListPageSelectCity.tr(),
+      searchFieldLable: LocaleKeys.cityListPageCity.tr(),
       value: value,
       search: search,
       clear: clear,

@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:food_driver/features/auth/presentation/bloc/registration/registration_bloc.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 part 'package:food_driver/features/auth/presentation/pages/mixins/registration_mixin.dart';
 
@@ -40,11 +41,11 @@ class _RegistrationFormState extends State<RegistrationForm>
               autofillHints: const [AutofillHints.nickname],
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
-                label: Text(S.current.authPageYourLogin),
+                label: Text(LocaleKeys.authPageYourLogin.tr()),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.current.authPageUsername;
+                  return LocaleKeys.authPageUsername.tr();
                 }
                 return null;
               },
@@ -58,11 +59,11 @@ class _RegistrationFormState extends State<RegistrationForm>
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
-                label: Text(S.current.authPageYourPassword),
+                label: Text(LocaleKeys.authPageYourPassword.tr()),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.current.authPagePassword;
+                  return LocaleKeys.authPagePassword.tr();
                 }
                 return null;
               },
@@ -76,14 +77,14 @@ class _RegistrationFormState extends State<RegistrationForm>
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.done,
               decoration: InputDecoration(
-                label: Text(S.current.registrationPageYourPassword),
+                label: Text(LocaleKeys.registrationPageYourPassword.tr()),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.current.authPagePassword;
+                  return LocaleKeys.authPagePassword.tr();
                 }
                 if (value != passwordController.text) {
-                  return S.current.registrationPagePasswordsDoNotMatch;
+                  return LocaleKeys.registrationPagePasswordsDoNotMatch.tr();
                 }
                 return null;
               },
@@ -93,7 +94,7 @@ class _RegistrationFormState extends State<RegistrationForm>
             padding: const EdgeInsets.symmetric(horizontal: 44.0),
             child: ElevatedButton(
               onPressed: submit,
-              child: Text(S.current.registrationPageRegistration),
+              child: Text(LocaleKeys.registrationPageRegistration.tr()),
             ),
           ),
         ],

@@ -118,7 +118,10 @@ class AuthRepositoryImpl extends AuthRepository {
       }
       return Left((response.data?.isEmpty ?? true)
           ? ApiErrorStack.fromFailure(
-              EmptyDataFailure(message: S.current.gamePageSomethingWrong))
+              EmptyDataFailure(
+                message: LocaleKeys.gamePageSomethingWrong.tr(),
+              ),
+            )
           : ApiErrorStack.fromJson(response.data));
     } catch (e, s) {
       try {

@@ -1,7 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/features/location/data/models/selectable.dart';
 import 'package:food_driver/features/location/presentation/widgets/search_text_field.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class BaseLocationPage<T extends Selectable> extends StatelessWidget {
   const BaseLocationPage({
@@ -52,7 +53,7 @@ class BaseLocationPage<T extends Selectable> extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () => Navigator.of(context).pop(value),
-              child: Text(S.current.countryListPageDone),
+              child: Text(LocaleKeys.countryListPageDone.tr()),
             ),
           ],
         ),

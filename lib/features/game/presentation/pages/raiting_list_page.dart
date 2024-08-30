@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
@@ -6,7 +7,7 @@ import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc
 import 'package:food_driver/features/game/presentation/widgets/custom_segmented_button.dart';
 import 'package:food_driver/features/game/presentation/widgets/users_list.dart';
 import 'package:food_driver/features/user/presentation/widgets/close_icon_button.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class RaitingListPage extends StatelessWidget {
   final int userId;
@@ -44,7 +45,7 @@ class RaitingListPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Text(
-                          S.current.progressListPageRatingOfParticipants,
+                          LocaleKeys.progressListPageRatingOfParticipants.tr(),
                           style: Theme.of(context).textTheme.titleLarge,
                           textAlign: TextAlign.center,
                         ),

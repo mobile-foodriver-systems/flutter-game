@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/features/auth/presentation/widgets/privacy_policy.dart';
 import 'package:food_driver/features/auth/presentation/widgets/registration_form.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class Registration extends StatelessWidget {
   const Registration({super.key});
@@ -16,7 +17,7 @@ class Registration extends StatelessWidget {
         Image.asset(AssetsCatalog.logo),
         const Spacer(flex: 56),
         Text(
-          S.current.registrationPageRegistration,
+          LocaleKeys.registrationPageRegistration.tr(),
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.titleLarge,
         ),

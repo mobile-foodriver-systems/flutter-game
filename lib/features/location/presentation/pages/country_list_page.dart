@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/ui/mixins/search_mixin.dart';
@@ -7,9 +8,7 @@ import 'package:food_driver/features/location/presentation/bloc/country/country_
 import 'package:food_driver/features/location/presentation/pages/base_location_page.dart';
 import 'package:food_driver/features/location/presentation/widgets/interactive_list.dart';
 import 'package:food_driver/features/location/presentation/widgets/list_item.dart';
-import 'package:food_driver/generated/l10n.dart';
-
-// part 'package:food_driver/features/location/presentation/pages/mixins/country_mixin.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class CountryListPage extends StatelessWidget {
   const CountryListPage({super.key});
@@ -36,8 +35,8 @@ class _CountryBodyState extends State<CountryBody>
   Widget build(BuildContext context) {
     return BaseLocationPage<Selectable>(
       unfocusSearchField: unfocusSearchField,
-      selectText: S.current.countryListPageSelectCountry,
-      searchFieldLable: S.current.countryListPageCountry,
+      selectText: LocaleKeys.countryListPageSelectCountry.tr(),
+      searchFieldLable: LocaleKeys.countryListPageCountry.tr(),
       value: value,
       search: search,
       clear: clear,

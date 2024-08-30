@@ -17,7 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$LocalizationState {
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
+  TResult when<TResult extends Object?>(
+    TResult Function(SupportedLocales? locales) $default, {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() success,
@@ -25,7 +26,8 @@ mixin _$LocalizationState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(SupportedLocales? locales)? $default, {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? success,
@@ -33,7 +35,8 @@ mixin _$LocalizationState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(SupportedLocales? locales)? $default, {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? success,
@@ -42,7 +45,8 @@ mixin _$LocalizationState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
+  TResult map<TResult extends Object?>(
+    TResult Function(_LocalizationState value) $default, {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
@@ -50,7 +54,8 @@ mixin _$LocalizationState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_LocalizationState value)? $default, {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
@@ -58,7 +63,8 @@ mixin _$LocalizationState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_LocalizationState value)? $default, {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
@@ -123,7 +129,8 @@ class _$InitialImpl implements _Initial {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
+  TResult when<TResult extends Object?>(
+    TResult Function(SupportedLocales? locales) $default, {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() success,
@@ -134,7 +141,8 @@ class _$InitialImpl implements _Initial {
 
   @override
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(SupportedLocales? locales)? $default, {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? success,
@@ -145,7 +153,8 @@ class _$InitialImpl implements _Initial {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(SupportedLocales? locales)? $default, {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? success,
@@ -160,7 +169,8 @@ class _$InitialImpl implements _Initial {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
+  TResult map<TResult extends Object?>(
+    TResult Function(_LocalizationState value) $default, {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
@@ -171,7 +181,8 @@ class _$InitialImpl implements _Initial {
 
   @override
   @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_LocalizationState value)? $default, {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
@@ -182,7 +193,8 @@ class _$InitialImpl implements _Initial {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_LocalizationState value)? $default, {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
@@ -237,7 +249,8 @@ class _$LoadingImpl implements _Loading {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
+  TResult when<TResult extends Object?>(
+    TResult Function(SupportedLocales? locales) $default, {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() success,
@@ -248,7 +261,8 @@ class _$LoadingImpl implements _Loading {
 
   @override
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(SupportedLocales? locales)? $default, {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? success,
@@ -259,7 +273,8 @@ class _$LoadingImpl implements _Loading {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(SupportedLocales? locales)? $default, {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? success,
@@ -274,7 +289,8 @@ class _$LoadingImpl implements _Loading {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
+  TResult map<TResult extends Object?>(
+    TResult Function(_LocalizationState value) $default, {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
@@ -285,7 +301,8 @@ class _$LoadingImpl implements _Loading {
 
   @override
   @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_LocalizationState value)? $default, {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
@@ -296,7 +313,8 @@ class _$LoadingImpl implements _Loading {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_LocalizationState value)? $default, {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
@@ -351,7 +369,8 @@ class _$SuccessImpl implements _Success {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
+  TResult when<TResult extends Object?>(
+    TResult Function(SupportedLocales? locales) $default, {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() success,
@@ -362,7 +381,8 @@ class _$SuccessImpl implements _Success {
 
   @override
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(SupportedLocales? locales)? $default, {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? success,
@@ -373,7 +393,8 @@ class _$SuccessImpl implements _Success {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(SupportedLocales? locales)? $default, {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? success,
@@ -388,7 +409,8 @@ class _$SuccessImpl implements _Success {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
+  TResult map<TResult extends Object?>(
+    TResult Function(_LocalizationState value) $default, {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
@@ -399,7 +421,8 @@ class _$SuccessImpl implements _Success {
 
   @override
   @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_LocalizationState value)? $default, {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
@@ -410,7 +433,8 @@ class _$SuccessImpl implements _Success {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_LocalizationState value)? $default, {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
@@ -465,7 +489,8 @@ class _$ErrorImpl implements _Error {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object?>({
+  TResult when<TResult extends Object?>(
+    TResult Function(SupportedLocales? locales) $default, {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function() success,
@@ -476,7 +501,8 @@ class _$ErrorImpl implements _Error {
 
   @override
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(SupportedLocales? locales)? $default, {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function()? success,
@@ -487,7 +513,8 @@ class _$ErrorImpl implements _Error {
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(SupportedLocales? locales)? $default, {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function()? success,
@@ -502,7 +529,8 @@ class _$ErrorImpl implements _Error {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object?>({
+  TResult map<TResult extends Object?>(
+    TResult Function(_LocalizationState value) $default, {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
@@ -513,7 +541,8 @@ class _$ErrorImpl implements _Error {
 
   @override
   @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_LocalizationState value)? $default, {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
@@ -524,7 +553,8 @@ class _$ErrorImpl implements _Error {
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_LocalizationState value)? $default, {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
@@ -540,4 +570,158 @@ class _$ErrorImpl implements _Error {
 
 abstract class _Error implements LocalizationState {
   const factory _Error() = _$ErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$LocalizationStateImplCopyWith<$Res> {
+  factory _$$LocalizationStateImplCopyWith(_$LocalizationStateImpl value,
+          $Res Function(_$LocalizationStateImpl) then) =
+      __$$LocalizationStateImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({SupportedLocales? locales});
+}
+
+/// @nodoc
+class __$$LocalizationStateImplCopyWithImpl<$Res>
+    extends _$LocalizationStateCopyWithImpl<$Res, _$LocalizationStateImpl>
+    implements _$$LocalizationStateImplCopyWith<$Res> {
+  __$$LocalizationStateImplCopyWithImpl(_$LocalizationStateImpl _value,
+      $Res Function(_$LocalizationStateImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? locales = freezed,
+  }) {
+    return _then(_$LocalizationStateImpl(
+      locales: freezed == locales
+          ? _value.locales
+          : locales // ignore: cast_nullable_to_non_nullable
+              as SupportedLocales?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$LocalizationStateImpl implements _LocalizationState {
+  const _$LocalizationStateImpl({this.locales = null});
+
+  @override
+  @JsonKey()
+  final SupportedLocales? locales;
+
+  @override
+  String toString() {
+    return 'LocalizationState(locales: $locales)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$LocalizationStateImpl &&
+            (identical(other.locales, locales) || other.locales == locales));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, locales);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$LocalizationStateImplCopyWith<_$LocalizationStateImpl> get copyWith =>
+      __$$LocalizationStateImplCopyWithImpl<_$LocalizationStateImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function(SupportedLocales? locales) $default, {
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function() success,
+    required TResult Function() error,
+  }) {
+    return $default(locales);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function(SupportedLocales? locales)? $default, {
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function()? success,
+    TResult? Function()? error,
+  }) {
+    return $default?.call(locales);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(SupportedLocales? locales)? $default, {
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function()? success,
+    TResult Function()? error,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(locales);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_LocalizationState value) $default, {
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Error value) error,
+  }) {
+    return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_LocalizationState value)? $default, {
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Error value)? error,
+  }) {
+    return $default?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_LocalizationState value)? $default, {
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Success value)? success,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if ($default != null) {
+      return $default(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _LocalizationState implements LocalizationState {
+  const factory _LocalizationState({final SupportedLocales? locales}) =
+      _$LocalizationStateImpl;
+
+  SupportedLocales? get locales;
+  @JsonKey(ignore: true)
+  _$$LocalizationStateImplCopyWith<_$LocalizationStateImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

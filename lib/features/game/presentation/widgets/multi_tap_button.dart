@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/game/presentation/widgets/point.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class MultiTapButton extends StatelessWidget {
   const MultiTapButton({
@@ -44,7 +45,7 @@ class MultiTapButton extends StatelessWidget {
             Image.asset(AssetsCatalog.icFinger),
             const SizedBox(height: 8.0),
             Text(
-              S.current.gamePageTapToGo,
+              LocaleKeys.gamePageTapToGo.tr(),
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: AppColors.white,

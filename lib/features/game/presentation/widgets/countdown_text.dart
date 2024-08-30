@@ -1,8 +1,9 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class CountdownText extends StatefulWidget {
   const CountdownText({
@@ -48,7 +49,7 @@ class _CountdownTextState extends State<CountdownText> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         child: Text(
-          S.current.gamePageBeginIn(_seconds),
+          LocaleKeys.gamePageBeginIn.tr(args: [_seconds.toString()]),
           style: Theme.of(context)
               .textTheme
               .bodyLarge

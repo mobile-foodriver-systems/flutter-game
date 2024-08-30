@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/features/auth/presentation/bloc/auth/auth_bloc.dart';
 import 'package:food_driver/features/auth/presentation/pages/registration_page.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 part 'package:food_driver/features/auth/presentation/pages/mixins/login_password_mixin.dart';
 
@@ -37,11 +38,13 @@ class _LoginPasswordAuthFormState extends State<LoginPasswordAuthForm>
               autofillHints: const [AutofillHints.nickname],
               textInputAction: TextInputAction.next,
               decoration: InputDecoration(
-                label: Text(S.current.authPageYourLogin),
+                label: Text(
+                  LocaleKeys.authPageYourLogin.tr(),
+                ),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.current.authPageUsername;
+                  return LocaleKeys.authPageUsername.tr();
                 }
                 return null;
               },
@@ -55,11 +58,11 @@ class _LoginPasswordAuthFormState extends State<LoginPasswordAuthForm>
               keyboardType: TextInputType.text,
               textInputAction: TextInputAction.done,
               decoration: InputDecoration(
-                label: Text(S.current.authPageYourPassword),
+                label: Text(LocaleKeys.authPageYourPassword.tr()),
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
-                  return S.current.authPagePassword;
+                  return LocaleKeys.authPagePassword.tr();
                 }
                 return null;
               },
@@ -70,7 +73,7 @@ class _LoginPasswordAuthFormState extends State<LoginPasswordAuthForm>
                 const EdgeInsets.only(left: 44.0, right: 44.0, bottom: 16.0),
             child: ElevatedButton(
               onPressed: submit,
-              child: Text(S.current.authPageLogin),
+              child: Text(LocaleKeys.authPageLogin.tr()),
             ),
           ),
           Padding(
@@ -80,7 +83,7 @@ class _LoginPasswordAuthFormState extends State<LoginPasswordAuthForm>
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const RegistrationPage()));
               },
-              child: Text(S.current.authPageRegister),
+              child: Text(LocaleKeys.authPageRegister.tr()),
             ),
           ),
         ],

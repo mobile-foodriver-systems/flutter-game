@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/constants/environment_constants.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/auth/presentation/pages/pdf_page.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class PrivacyPolicy extends StatelessWidget {
   const PrivacyPolicy({super.key});
@@ -12,10 +13,10 @@ class PrivacyPolicy extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text.rich(
       TextSpan(
-        text: S.current.authPageAcceptPart,
+        text: LocaleKeys.authPageAcceptPart.tr(),
         children: [
           TextSpan(
-            text: S.current.authPagePrivacyPolicyPart,
+            text: LocaleKeys.authPagePrivacyPolicyPart.tr(),
             recognizer: TapGestureRecognizer()
               ..onTap = () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => PdfPage(

@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class HelpGameMessage extends StatelessWidget {
   const HelpGameMessage({super.key});
@@ -23,7 +24,7 @@ class HelpGameMessage extends StatelessWidget {
             ),
             const SizedBox(width: 10.0),
             Text(
-              S.current.gamePageClickOnTheDots,
+              LocaleKeys.gamePageClickOnTheDots.tr(),
               style: Theme.of(context)
                   .textTheme
                   .titleSmall

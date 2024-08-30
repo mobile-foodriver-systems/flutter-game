@@ -1,4 +1,5 @@
-import 'package:food_driver/generated/l10n.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 enum UsersSortType {
   global,
@@ -7,9 +8,9 @@ enum UsersSortType {
   String get title {
     switch (this) {
       case UsersSortType.global:
-        return S.current.progressListPageGlobal;
+        return LocaleKeys.progressListPageGlobal.tr();
       case UsersSortType.distance:
-        return S.current.progressListPageDistanceRadius;
+        return LocaleKeys.progressListPageDistanceRadius.tr();
     }
   }
 

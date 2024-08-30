@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/features/auth/presentation/widgets/login_password_auth_form.dart';
 import 'package:food_driver/features/auth/presentation/widgets/privacy_policy.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class LoginByPasswordState extends StatelessWidget {
   const LoginByPasswordState({super.key});
@@ -16,7 +17,7 @@ class LoginByPasswordState extends StatelessWidget {
         Image.asset(AssetsCatalog.logo),
         const Spacer(flex: 56),
         Text(
-          S.current.authPageLoginToAccount,
+          LocaleKeys.authPageLoginToAccount.tr(),
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.titleLarge,
         ),

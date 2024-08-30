@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/constants/environment_constants.dart';
@@ -15,7 +16,7 @@ import 'package:food_driver/features/user/presentation/widgets/card_widget.dart'
 import 'package:food_driver/features/user/presentation/widgets/close_icon_button.dart';
 import 'package:food_driver/features/user/presentation/widgets/custom_text_button.dart';
 import 'package:food_driver/features/user/presentation/widgets/disabled_field.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 part 'package:food_driver/features/user/presentation/pages/mixins/profile_mixin.dart';
 
@@ -83,7 +84,7 @@ class _ProfileBodyState extends State<ProfileBody> with ProfileMixin {
                         ),
                         Center(
                           child: Text(
-                            S.current.profilePageYourBalance,
+                            LocaleKeys.profilePageYourBalance.tr(),
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -110,7 +111,7 @@ class _ProfileBodyState extends State<ProfileBody> with ProfileMixin {
                               horizontal: horizontalPaddingValue),
                           child: ElevatedButton(
                             onPressed: logout,
-                            child: Text(S.current.profilePageLogout),
+                            child: Text(LocaleKeys.profilePageLogout.tr()),
                           ),
                         ),
                         const SizedBox(height: 8.0),
@@ -119,7 +120,9 @@ class _ProfileBodyState extends State<ProfileBody> with ProfileMixin {
                               horizontal: horizontalPaddingValue),
                           child: TextButton(
                             onPressed: deleteAccount,
-                            child: Text(S.current.profilePageDeleteAccount),
+                            child: Text(
+                              LocaleKeys.profilePageDeleteAccount.tr(),
+                            ),
                           ),
                         ),
                       ],
@@ -150,7 +153,7 @@ class _ProfileInfo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            S.current.profilePageInformation,
+            LocaleKeys.profilePageInformation.tr(),
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -159,12 +162,12 @@ class _ProfileInfo extends StatelessWidget {
           ),
           const SizedBox(height: 16.0),
           DisabledField(
-            label: S.current.profilePageEmail,
+            label: LocaleKeys.profilePageEmail.tr(),
             value: user.email ?? "",
           ),
           const SizedBox(height: 16.0),
           DisabledField(
-            label: S.current.profilePageWallet,
+            label: LocaleKeys.profilePageWallet.tr(),
             value: user.walletAddress ?? "",
           ),
         ],
@@ -184,7 +187,7 @@ class _LegalInfo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            S.current.profilePageLegal,
+            LocaleKeys.profilePageLegal.tr(),
             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
@@ -193,11 +196,11 @@ class _LegalInfo extends StatelessWidget {
           ),
           const SizedBox(height: 16.0),
           // CustomTextButton(
-          //   text: S.current.profilePageOfferAgreement,
+          //   text: LocaleKeys.profilePageOfferAgreement.tr(,
           //   url: Config.offerAgreement,
           // ),
           CustomTextButton(
-            text: S.current.authPagePrivacyPolicy,
+            text: LocaleKeys.authPagePrivacyPolicy.tr(),
             url: EnvironmentConstants().privacyPolicyUrl,
           ),
         ],

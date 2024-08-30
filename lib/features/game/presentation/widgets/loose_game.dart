@@ -1,10 +1,11 @@
 import 'dart:math';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/extensions/time_formatter.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class LooseGame extends StatefulWidget {
   final double? progress;
@@ -25,16 +26,16 @@ class LooseGame extends StatefulWidget {
 class _LooseGameState extends State<LooseGame> {
   final _random = Random();
   final Set<String> looseTextVariants = {
-    S.current.gamePageLooseText1,
-    S.current.gamePageLooseText2,
-    S.current.gamePageLooseText3,
-    S.current.gamePageLooseText4,
-    S.current.gamePageLooseText5,
-    S.current.gamePageLooseText6,
-    S.current.gamePageLooseText7,
-    S.current.gamePageLooseText8,
-    S.current.gamePageLooseText9,
-    S.current.gamePageLooseText10,
+    LocaleKeys.gamePageLooseText1.tr(),
+    LocaleKeys.gamePageLooseText2.tr(),
+    LocaleKeys.gamePageLooseText3.tr(),
+    LocaleKeys.gamePageLooseText4.tr(),
+    LocaleKeys.gamePageLooseText5.tr(),
+    LocaleKeys.gamePageLooseText6.tr(),
+    LocaleKeys.gamePageLooseText7.tr(),
+    LocaleKeys.gamePageLooseText8.tr(),
+    LocaleKeys.gamePageLooseText9.tr(),
+    LocaleKeys.gamePageLooseText10.tr(),
   }.whereType<String>().where((s) => s.isNotEmpty).toSet();
 
   String? looseText;
@@ -71,7 +72,7 @@ class _LooseGameState extends State<LooseGame> {
               child: Image.asset(AssetsCatalog.icFaceFrown),
             ),
             Text(
-              S.current.gamePageSorry,
+              LocaleKeys.gamePageSorry.tr(),
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontSize: 28,
                     fontWeight: FontWeight.w600,
@@ -133,7 +134,7 @@ class _LooseGameState extends State<LooseGame> {
             ElevatedButton(
               onPressed: widget.breakGame,
               child: Text(
-                S.current.gamePageDeliverAnother,
+                LocaleKeys.gamePageDeliverAnother.tr(),
                 textAlign: TextAlign.center,
               ),
             ),

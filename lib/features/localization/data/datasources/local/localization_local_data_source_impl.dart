@@ -21,7 +21,6 @@ class LocalizationLocalDataSourceImpl implements LocalizationLocalDataSource {
     final response = await _localStorageService.getValue<String>(
       key: _localizationKey,
     );
-
     return SupportedLocales.fromJson(jsonDecode(response));
   }
 
@@ -31,5 +30,13 @@ class LocalizationLocalDataSourceImpl implements LocalizationLocalDataSource {
       key: _localizationKey,
       value: jsonEncode(locales),
     );
+  }
+
+  @override
+  Future<PhrasesDictionary?> getSupportedLocale(String locale) async {
+    final response = await _localStorageService.getValue<String>(
+      key: _localizationKey,
+    );
+    return jsonDecode(response)[locale];
   }
 }

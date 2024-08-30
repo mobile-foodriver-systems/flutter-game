@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/location/data/models/list_status.dart';
 import 'package:food_driver/features/location/data/models/selectable.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class InteractiveList<T extends Selectable> extends StatelessWidget {
   const InteractiveList({
@@ -34,7 +35,7 @@ class InteractiveList<T extends Selectable> extends StatelessWidget {
         if (list.isEmpty) {
           return Center(
             child: Text(
-              S.current.listPageEmptyList,
+              LocaleKeys.listPageEmptyList.tr(),
               style: errorTextStyle,
             ),
           );
@@ -71,7 +72,7 @@ class _ListError extends StatelessWidget {
           color: AppColors.red,
         ),
         Text(
-          error?.message ?? S.current.gamePageSomethingWrong,
+          error?.message ?? LocaleKeys.gamePageSomethingWrong.tr(),
           style: style,
         ),
       ],

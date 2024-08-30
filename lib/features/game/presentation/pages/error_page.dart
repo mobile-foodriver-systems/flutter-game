@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({super.key});
@@ -19,7 +20,7 @@ class ErrorPage extends StatelessWidget {
               color: AppColors.red,
             ),
             Text(
-              S.current.gamePageSomethingWrong,
+              LocaleKeys.gamePageSomethingWrong.tr(),
               textAlign: TextAlign.center,
               style: Theme.of(context)
                   .textTheme

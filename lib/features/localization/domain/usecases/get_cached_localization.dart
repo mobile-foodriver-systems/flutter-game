@@ -9,16 +9,17 @@ import 'package:injectable/injectable.dart';
 @dev
 @prod
 @injectable
-class CacheLocalizationUseCase implements UseCase<bool, SupportedLocales> {
+class GetCachedLocalizationUseCase
+    implements UseCase<SupportedLocales?, NoParams> {
   final LocalizationLocalDataSource _localizationLocalRepository;
 
-  CacheLocalizationUseCase(this._localizationLocalRepository);
+  GetCachedLocalizationUseCase(this._localizationLocalRepository);
 
   @override
-  Future<Either<Failure, bool>> call(SupportedLocales locales) async {
+  Future<Either<Failure, SupportedLocales?>> call(NoParams _) async {
     try {
-      await _localizationLocalRepository.cacheLocales(locales);
-      return const Right(true);
+      final locales = await _localizationLocalRepository.getSupportedLocales();
+      return Right(locales);
     } catch (e, s) {
       return Left(ExceptionToFailureConverter.convert(e, s));
     }

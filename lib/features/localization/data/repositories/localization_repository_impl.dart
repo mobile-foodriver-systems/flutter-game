@@ -20,4 +20,16 @@ class LocalizationRepositoryImpl extends LocalizationRepository {
       return Left(ExceptionToFailureConverter.convert(e, s));
     }
   }
+
+  @override
+  Future<Either<Failure, PhrasesDictionary>> getSupportedLocale(
+    String locale,
+  ) async {
+    try {
+      final response = await _remoteDataSource.getSupportedLocales();
+      return Right(response.toJson()[locale] ?? response.en);
+    } catch (e, s) {
+      return Left(ExceptionToFailureConverter.convert(e, s));
+    }
+  }
 }

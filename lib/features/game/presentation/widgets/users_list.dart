@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
@@ -5,7 +6,7 @@ import 'package:food_driver/features/game/data/models/user_rating.dart';
 import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart';
 import 'package:food_driver/features/location/data/models/selectable.dart';
 import 'package:food_driver/features/location/presentation/widgets/interactive_list.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 part 'package:food_driver/features/game/presentation/pages/mixins/raiting_mixin.dart';
 
@@ -83,7 +84,7 @@ class _UserRatingItem extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                rating.userName ?? S.current.progressListPageUnknown,
+                rating.userName ?? LocaleKeys.progressListPageUnknown.tr(),
                 style: textStyle,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -121,11 +122,11 @@ class _RaitingListHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              S.current.progressListPageNick,
+              LocaleKeys.progressListPageNick.tr(),
               style: textStyle,
             ),
             Text(
-              S.current.progressListPageScore,
+              LocaleKeys.progressListPageScore.tr(),
               style: textStyle,
             ),
           ],

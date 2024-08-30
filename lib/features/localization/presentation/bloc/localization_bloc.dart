@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
+import 'package:food_driver/features/localization/data/models/supported_locales.dart';
 import 'package:food_driver/features/localization/domain/usecases/cache_localization.dart';
 import 'package:food_driver/features/localization/domain/usecases/load_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';

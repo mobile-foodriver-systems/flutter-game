@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -10,7 +11,6 @@ import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/pages/game_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/localization/presentation/bloc/localization_bloc.dart';
-import 'package:food_driver/generated/l10n.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -53,13 +53,14 @@ class _AppViewState extends State<AppView> {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: _navigatorKey,
-      localizationsDelegates: const [
-        S.delegate,
+      localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
+        EasyLocalization.of(context)!.delegate,
       ],
-      supportedLocales: S.delegate.supportedLocales,
+      locale: EasyLocalization.of(context)?.locale,
+      supportedLocales: EasyLocalization.of(context)?.supportedLocales ?? [],
       title: 'Food Driver',
       theme: appTheme(context),
       builder: (context, child) {

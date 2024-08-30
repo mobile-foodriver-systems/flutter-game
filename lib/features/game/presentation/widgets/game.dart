@@ -1,8 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/features/game/data/models/game_state_type.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
 import 'package:food_driver/features/game/presentation/widgets/game_map.dart';
-import 'package:food_driver/generated/l10n.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Game extends StatelessWidget {
@@ -76,7 +77,7 @@ class _NoCity extends StatelessWidget {
         alignment: Alignment.center,
         child: ElevatedButton(
           onPressed: determineLocation,
-          child: Text(S.current.gamePageDetermineTheLocation),
+          child: Text(LocaleKeys.gamePageDetermineTheLocation.tr()),
         ),
       ),
     );
