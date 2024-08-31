@@ -233,12 +233,14 @@ class _LanguageSwitcherState extends State<_LanguageSwitcher> {
                 child: Text(e.languageCode),
               ))
           .toList(),
-      onChanged: (Locale? value) {
-        if (value != null && selectedLanguage != value) {
-          selectedLanguage = value;
-          context.setLocale(value);
-        }
-      },
+      onChanged: setLocale,
     );
+  }
+
+  void setLocale(Locale? value) {
+    if (value != null && selectedLanguage != value) {
+      selectedLanguage = value;
+      context.setLocale(value);
+    }
   }
 }

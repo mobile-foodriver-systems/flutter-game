@@ -11,6 +11,7 @@ import 'package:food_driver/features/auth/presentation/pages/auth_page.dart';
 import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/pages/game_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
+import 'package:food_driver/features/localization/fallback_localization_delegate.dart';
 import 'package:food_driver/features/localization/presentation/bloc/localization_bloc.dart';
 
 class App extends StatelessWidget {
@@ -59,6 +60,7 @@ class _AppViewState extends State<AppView> {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
         EasyLocalization.of(context)!.delegate,
+        FallbackLocalizationDelegate(),
       ],
       locale: EasyLocalization.of(context)?.locale,
       supportedLocales: EasyLocalization.of(context)?.supportedLocales ?? [],
