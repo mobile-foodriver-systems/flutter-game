@@ -79,6 +79,11 @@ class _ProfileBodyState extends State<ProfileBody> with ProfileMixin {
                                   onPressed: () => Navigator.of(context).pop(),
                                 ),
                               ),
+                              Positioned(
+                                top: 0,
+                                left: 0,
+                                child: _LanguageSwitcher(),
+                              ),
                             ],
                           ),
                         ),
@@ -205,6 +210,35 @@ class _LegalInfo extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _LanguageSwitcher extends StatefulWidget {
+  @override
+  State<_LanguageSwitcher> createState() => _LanguageSwitcherState();
+}
+
+class _LanguageSwitcherState extends State<_LanguageSwitcher> {
+  late List<Locale> locales = context.supportedLocales;
+  late Locale selectedLanguage = context.locale;
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<Locale>(
+      value: selectedLanguage,
+      items: locales
+          .map((e) => DropdownMenuItem<Locale>(
+                value: e,
+                child: Text(e.languageCode),
+              ))
+          .toList(),
+      onChanged: (Locale? value) {
+        if (value != null && selectedLanguage != value) {
+          selectedLanguage = value;
+          context.setLocale(value);
+        }
+      },
     );
   }
 }

@@ -6,11 +6,3 @@ class LocalizationEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
-
-class ChangeLanguage extends LocalizationEvent {
-  const ChangeLanguage({required this.selectedLanguage});
-  final Locale selectedLanguage;
-
-  @override
-  List<Object> get props => [selectedLanguage];
-}

@@ -322,12 +322,6 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
-    gh.singleton<_i459.LocalizationBloc>(() => _i459.LocalizationBloc(
-          gh<_i352.LoadLocalizationUseCase>(),
-          gh<_i744.CacheLocalizationUseCase>(),
-          gh<_i924.GetCachedLocalizationUseCase>(),
-          gh<_i483.ChangeLanguageUseCase>(),
-        ));
     gh.factory<_i4.CountryBloc>(
         () => _i4.CountryBloc(gh<_i980.LoadCountryUseCase>()));
     gh.factory<_i978.LoadProfileUseCase>(
@@ -425,6 +419,11 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.singleton<_i459.LocalizationBloc>(() => _i459.LocalizationBloc(
+          gh<_i352.LoadLocalizationUseCase>(),
+          gh<_i744.CacheLocalizationUseCase>(),
+          gh<_i924.GetCachedLocalizationUseCase>(),
+        ));
     gh.factory<_i879.CheckAuthUseCase>(
       () => _i879.CheckAuthUseCase(
         gh<_i55.AuthRepository>(),
