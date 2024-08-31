@@ -65,35 +65,29 @@ class _AppViewState extends State<AppView> {
       title: 'Food Driver',
       theme: appTheme(context),
       builder: (context, child) {
-        return BlocBuilder<AuthBloc, AuthState>(
-          builder: (BuildContext context, AuthState state) {
-            FlutterNativeSplash.remove();
+        return BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
             switch (state.status) {
               case AuthStatus.authenticated:
                 if (state.user == null) {
-                  return Navigator(
-                    key: _navigatorKey,
-                    onGenerateRoute: (_) => ErrorPage.route,
-                  );
+                  _navigator.push(ErrorPage.route);
+                  return;
                 }
-                return Navigator(
-                  key: _navigatorKey,
-                  onGenerateRoute: (_) => GamePage.route(
-                    user: state.user!,
-                  ),
+                _navigator.pushAndRemoveUntil<void>(
+                  GamePage.route(user: state.user!),
+                  (route) => false,
                 );
               case AuthStatus.unauthenticated:
-                return Navigator(
-                  key: _navigatorKey,
-                  onGenerateRoute: (_) => AuthPage.route,
+                _navigator.pushAndRemoveUntil<void>(
+                  AuthPage.route,
+                  (route) => false,
                 );
               case AuthStatus.unknown:
               case AuthStatus.loading:
+                break;
             }
-            return const Scaffold(
-              body: LoadingIndicator(),
-            );
           },
+          child: child,
         );
       },
       onGenerateRoute: (_) => MaterialPageRoute(
@@ -107,5 +101,6 @@ class _AppViewState extends State<AppView> {
   Future<void> initApp(BuildContext context) async {
     context.read<AuthBloc>().add(const AuthCheckEvent());
     context.read<LocalizationBloc>().add(const LocalizationEvent());
+    FlutterNativeSplash.remove();
   }
 }
