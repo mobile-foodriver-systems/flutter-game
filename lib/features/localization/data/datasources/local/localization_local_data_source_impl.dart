@@ -9,6 +9,7 @@ part of "localization_local_data_source.dart";
 )
 class LocalizationLocalDataSourceImpl implements LocalizationLocalDataSource {
   static const String _localizationKey = 'localizationKey';
+  static const String _languagePrefsKey = 'locale';
 
   final LocalStorageService _localStorageService;
 
@@ -38,5 +39,13 @@ class LocalizationLocalDataSourceImpl implements LocalizationLocalDataSource {
       key: _localizationKey,
     );
     return jsonDecode(response)[locale];
+  }
+
+  @override
+  Future<void> cacheLocaleLanguage(Locale locales) async {
+    await _localStorageService.setValue(
+      key: _languagePrefsKey,
+      value: locales.languageCode,
+    );
   }
 }

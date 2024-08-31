@@ -82,6 +82,8 @@ import 'package:food_driver/features/localization/domain/repositories/localizati
     as _i419;
 import 'package:food_driver/features/localization/domain/usecases/cache_localization.dart'
     as _i744;
+import 'package:food_driver/features/localization/domain/usecases/change_language.dart'
+    as _i483;
 import 'package:food_driver/features/localization/domain/usecases/get_cached_localization.dart'
     as _i924;
 import 'package:food_driver/features/localization/domain/usecases/load_localization.dart'
@@ -214,6 +216,14 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i483.ChangeLanguageUseCase>(
+      () =>
+          _i483.ChangeLanguageUseCase(gh<_i176.LocalizationLocalDataSource>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.lazySingleton<_i203.LocalizationCacheRepository>(
       () => _i203.LocalizationRepositoryImpl(
           gh<_i176.LocalizationLocalDataSource>()),
@@ -312,6 +322,12 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
+    gh.singleton<_i459.LocalizationBloc>(() => _i459.LocalizationBloc(
+          gh<_i352.LoadLocalizationUseCase>(),
+          gh<_i744.CacheLocalizationUseCase>(),
+          gh<_i924.GetCachedLocalizationUseCase>(),
+          gh<_i483.ChangeLanguageUseCase>(),
+        ));
     gh.factory<_i4.CountryBloc>(
         () => _i4.CountryBloc(gh<_i980.LoadCountryUseCase>()));
     gh.factory<_i978.LoadProfileUseCase>(
@@ -335,10 +351,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.singleton<_i459.LocalizationBloc>(() => _i459.LocalizationBloc(
-          gh<_i352.LoadLocalizationUseCase>(),
-          gh<_i744.CacheLocalizationUseCase>(),
-        ));
     gh.factory<_i618.BreakAccessTokenUseCase>(
       () => _i618.BreakAccessTokenUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
