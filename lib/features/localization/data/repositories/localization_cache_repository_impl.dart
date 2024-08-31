@@ -12,22 +12,28 @@ class LocalizationRepositoryImpl extends LocalizationCacheRepository {
   final LocalizationLocalDataSource _localDataSource;
 
   @override
-  Future<Either<Failure, SupportedLocales?>> getSupportedLocales() async {
+  Future<Either<Failure, SupportedLocales>> getSupportedLocales() async {
     try {
       final response = await _localDataSource.getSupportedLocales();
-      return Right(response);
+      if (response != null) {
+        return Right(response);
+      }
+      return const Left(NotFoundFailure(message: 'Data not found'));
     } catch (e, s) {
       return Left(ExceptionToFailureConverter.convert(e, s));
     }
   }
 
   @override
-  Future<Either<Failure, PhrasesDictionary?>> getSupportedLocale(
+  Future<Either<Failure, PhrasesDictionary>> getSupportedLocale(
     String locale,
   ) async {
     try {
       final response = await _localDataSource.getSupportedLocales();
-      return Right(response?.toJson()[locale] ?? response?.en);
+      if (response != null) {
+        return Right(response.toJson()[locale] ?? response.en);
+      }
+      return const Left(NotFoundFailure(message: 'Data not found'));
     } catch (e, s) {
       return Left(ExceptionToFailureConverter.convert(e, s));
     }

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:food_driver/features/localization/data/models/phrases_dictionary.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -25,7 +27,12 @@ class SupportedLocales {
     this.ar,
   );
 
+  List<Locale> get availableLocales {
+    return toJson().keys.map((e) => Locale(e)).toList();
+  }
+
   factory SupportedLocales.fromJson(Map<String, dynamic> json) =>
       _$SupportedLocalesFromJson(json);
+
   Map<String, dynamic> toJson() => _$SupportedLocalesToJson(this);
 }

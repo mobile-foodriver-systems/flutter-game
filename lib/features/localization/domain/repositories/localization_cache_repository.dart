@@ -9,7 +9,7 @@ import 'package:injectable/injectable.dart';
 part 'package:food_driver/features/localization/data/repositories/localization_cache_repository_impl.dart';
 
 abstract class LocalizationCacheRepository {
-  Future<Either<Failure, SupportedLocales?>> getSupportedLocales();
+  Future<Either<Failure, SupportedLocales>> getSupportedLocales();
 
-  Future<Either<Failure, PhrasesDictionary?>> getSupportedLocale(String locale);
+  Future<Either<Failure, PhrasesDictionary>> getSupportedLocale(String locale);
 }
