@@ -22,7 +22,7 @@ class GameRepositoryImpl extends GameRepository {
   }
 
   @override
-  Future<Either<ApiErrorStack, RaitingList>> loadRaitingList({
+  Future<Either<ApiErrorStack, RatingList>> loadRatingList({
     int? radiusInKm,
     int? limit,
     int? offset,
@@ -35,7 +35,7 @@ class GameRepositoryImpl extends GameRepository {
         offset: offset,
       );
       if (response.statusCode == 200) {
-        return Right(RaitingList.fromJson(response.data));
+        return Right(RatingList.fromJson(response.data));
       }
       return Left((response.data?.isEmpty ?? true)
           ? ApiErrorStack.fromFailure(

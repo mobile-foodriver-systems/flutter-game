@@ -53,10 +53,10 @@ import 'package:food_driver/features/game/domain/repositories/game_repository.da
 import 'package:food_driver/features/game/domain/usecases/cancel_route.dart'
     as _i186;
 import 'package:food_driver/features/game/domain/usecases/load.dart' as _i251;
-import 'package:food_driver/features/game/domain/usecases/load_raiting.dart'
-    as _i508;
-import 'package:food_driver/features/game/domain/usecases/load_user_raiting.dart'
-    as _i240;
+import 'package:food_driver/features/game/domain/usecases/load_rating.dart'
+    as _i499;
+import 'package:food_driver/features/game/domain/usecases/load_user_rating.dart'
+    as _i746;
 import 'package:food_driver/features/game/domain/usecases/move_and_split_polyline.dart'
     as _i510;
 import 'package:food_driver/features/game/domain/usecases/send_tap.dart'
@@ -70,8 +70,8 @@ import 'package:food_driver/features/game/domain/usecases/vibrate.dart'
     as _i520;
 import 'package:food_driver/features/game/presentation/bloc/game/game_bloc.dart'
     as _i379;
-import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart'
-    as _i982;
+import 'package:food_driver/features/game/presentation/bloc/rating/rating_bloc.dart'
+    as _i381;
 import 'package:food_driver/features/localization/data/datasources/local/localization_local_data_source.dart'
     as _i176;
 import 'package:food_driver/features/localization/data/datasources/remote/localization_remote_data_source.dart'
@@ -466,20 +466,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i508.LoadRaitingUseCase>(
-      () => _i508.LoadRaitingUseCase(gh<_i927.GameRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i240.LoadUserRaitingUseCase>(
-      () => _i240.LoadUserRaitingUseCase(gh<_i927.GameRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
     gh.factory<_i135.SendTapUseCase>(
       () => _i135.SendTapUseCase(gh<_i927.GameRepository>()),
       registerFor: {
@@ -501,9 +487,23 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i982.RaitingBloc>(() => _i982.RaitingBloc(
-          gh<_i508.LoadRaitingUseCase>(),
-          gh<_i240.LoadUserRaitingUseCase>(),
+    gh.factory<_i499.LoadRatingUseCase>(
+      () => _i499.LoadRatingUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i746.LoadUserRatingUseCase>(
+      () => _i746.LoadUserRatingUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i381.RatingBloc>(() => _i381.RatingBloc(
+          gh<_i499.LoadRatingUseCase>(),
+          gh<_i746.LoadUserRatingUseCase>(),
         ));
     gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
           gh<_i353.StartUseCase>(),

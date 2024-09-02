@@ -1,7 +1,7 @@
 part of 'package:food_driver/features/game/presentation/widgets/users_list.dart';
 
-mixin RaitingMixin on State<UsersList> {
-  late final RaitingBloc _bloc = context.read<RaitingBloc>();
+mixin RatingMixin on State<UsersList> {
+  late final RatingBloc _bloc = context.read<RatingBloc>();
   final _scrollController = ScrollController();
 
   bool get _isBottom {
@@ -14,8 +14,9 @@ mixin RaitingMixin on State<UsersList> {
   @override
   void initState() {
     super.initState();
-    _bloc.add(RaitingLoadEvent(userId: widget.userId));
-    _scrollController.addListener(_onScroll);
+    _bloc.add(RatingInitEvent(
+      initializedCallback: () => _bloc.add(const RatingLoadEvent()),
+    ));
   }
 
   @override
@@ -28,7 +29,15 @@ mixin RaitingMixin on State<UsersList> {
 
   void _onScroll() {
     if (_isBottom) {
-      _bloc.add(RaitingLoadEvent(sort: _bloc.state.sort));
+      _bloc.add(RatingLoadEvent(sort: _bloc.state.sort));
     }
+  }
+  void _onLoadMore(Direction direction) {
+    _bloc.add(
+      RatingLoadEvent(
+        userId: widget.userId,
+        direction: direction,
+      ),
+    );
   }
 }

@@ -5,7 +5,7 @@ import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/game/data/models/game_state_type.dart';
 import 'package:food_driver/features/game/presentation/bloc/game/game_bloc.dart';
 import 'package:food_driver/features/game/presentation/pages/error_page.dart';
-import 'package:food_driver/features/game/presentation/pages/raiting_list_page.dart';
+import 'package:food_driver/features/game/presentation/pages/rating_list_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/custom_loading_indicator.dart';
 import 'package:food_driver/features/game/presentation/widgets/game.dart';
 import 'package:food_driver/features/game/presentation/widgets/game_debug.dart';
@@ -105,7 +105,7 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                   balance: state.balance ?? widget.user.balance,
                   speed: state.speed,
                   seconds: state.dseconds ~/ 10,
-                  openRaitingList: openRaitingList,
+                  openRatingList: openRatingList,
                 ),
               ),
               if (state.status == GameStateType.playing ||

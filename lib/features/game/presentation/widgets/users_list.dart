@@ -2,13 +2,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
+import 'package:food_driver/core/ui/view/bi_directional_scroll_view.dart';
 import 'package:food_driver/features/game/data/models/user_rating.dart';
-import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart';
+import 'package:food_driver/features/game/presentation/bloc/rating/rating_bloc.dart';
 import 'package:food_driver/features/location/data/models/selectable.dart';
 import 'package:food_driver/features/location/presentation/widgets/interactive_list.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
 
-part 'package:food_driver/features/game/presentation/pages/mixins/raiting_mixin.dart';
+part 'package:food_driver/features/game/presentation/pages/mixins/rating_mixin.dart';
 
 class UsersList extends StatefulWidget {
   const UsersList({
@@ -22,40 +23,51 @@ class UsersList extends StatefulWidget {
   State<UsersList> createState() => _UsersListState();
 }
 
-class _UsersListState extends State<UsersList> with RaitingMixin {
+class _UsersListState extends State<UsersList> with RatingMixin {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const _RaitingListHeader(),
-        BlocBuilder<RaitingBloc, RaitingState>(
-          builder: (BuildContext context, RaitingState state) {
+        const _RatingListHeader(),
+        BlocBuilder<RatingBloc, RatingState>(
+          builder: (BuildContext context, RatingState state) {
             return Expanded(
               child: InteractiveList<Selectable>(
                 status: state.status,
                 error: state.error,
-                list: state.raitingList?.list ?? [],
-                listView: ListView.separated(
+                list: state.ratingList?.list ?? [],
+                listView: BiDirectionalScrollView(
+                  padding: const EdgeInsets.all(0),
+                  itemBuilder: (context, index) => buildListItem(
+                    context,
+                    index,
+                    state,
+                  ),
                   controller: _scrollController,
-                  padding: EdgeInsets.zero,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return _UserRatingItem(
-                      rating: state.raitingList!.list[index],
-                      isActive:
-                          state.raitingList!.list[index].id == widget.userId,
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 4.0);
-                  },
-                  itemCount: state.raitingList?.list.length ?? 0,
+                  itemCount: state.ratingList?.list.length ?? 0,
+                  centerItemPosition: getCenterItemPosition(state),
+                  onLoadMore: _onLoadMore,
                 ),
               ),
             );
           },
         ),
       ],
+    );
+  }
+
+  int getCenterItemPosition(RatingState state) {
+    var centerIndex = state.ratingList?.list.indexWhere(
+      (element) => element.id == widget.userId,
+    );
+    if (centerIndex == -1) return 0;
+    return centerIndex ?? 0;
+  }
+
+  Widget buildListItem(BuildContext context, int index, RatingState state) {
+    return _UserRatingItem(
+      rating: state.ratingList!.list[index],
+      isActive: state.ratingList!.list[index].id == widget.userId,
     );
   }
 }
@@ -104,8 +116,8 @@ class _UserRatingItem extends StatelessWidget {
   }
 }
 
-class _RaitingListHeader extends StatelessWidget {
-  const _RaitingListHeader({super.key});
+class _RatingListHeader extends StatelessWidget {
+  const _RatingListHeader({super.key});
 
   @override
   Widget build(BuildContext context) {

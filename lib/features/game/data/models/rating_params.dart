@@ -1,9 +1,9 @@
 import 'package:food_driver/features/location/data/models/list_params.dart';
 
-class RaitingParams extends ListParams {
+class RatingParams extends ListParams {
   final int? radiusInKm;
 
-  RaitingParams({
+  RatingParams({
     this.radiusInKm,
     super.limit = 20,
     super.offset,
