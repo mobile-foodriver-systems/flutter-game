@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:food_driver/core/services/http/app_http_service.dart';
 import 'package:food_driver/core/services/http/http_service.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
@@ -102,5 +104,25 @@ class AuthInterceptor extends QueuedInterceptor {
       data: requestOptions.data,
       queryParameters: requestOptions.queryParameters,
     );
+  }
+
+  @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    if (kDebugMode) printRequestInfo(response: response);
+    super.onResponse(response, handler);
+  }
+
+  void printRequestInfo({required Response response}) {
+    final headers = response.requestOptions.headers.isNotEmpty
+        ? "\nHEADERS:\n${response.requestOptions.headers.toString()}"
+        : "";
+    final params = response.requestOptions.queryParameters.isNotEmpty
+        ? "\nQueryParameters:\n${response.requestOptions.queryParameters.toString()}"
+        : "";
+    final body = response.requestOptions.data == null
+        ? ""
+        : "\nBODY:\n${response.requestOptions.data.toString()}";
+
+    log('REQUEST\nmethod: ${response.requestOptions.method}, url: ${response.requestOptions.baseUrl}${response.requestOptions.path}, code: ${response.statusCode}, statusMessage: ${response.statusMessage}$headers$params$body\nRESPONSE\n${response.data.toString()}');
   }
 }
