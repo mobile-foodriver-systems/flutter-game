@@ -134,7 +134,7 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                   (state.status == GameStateType.playing ||
                       state.status == GameStateType.starting))
                 Positioned(
-                  top: 110.0,
+                  top: 185.0,
                   left: 0,
                   right: 0,
                   child: GameDebug(
