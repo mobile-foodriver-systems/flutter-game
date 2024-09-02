@@ -208,17 +208,17 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i924.GetCachedLocalizationUseCase>(
-      () => _i924.GetCachedLocalizationUseCase(
-          gh<_i176.LocalizationLocalDataSource>()),
+    gh.factory<_i483.ChangeLanguageUseCase>(
+      () =>
+          _i483.ChangeLanguageUseCase(gh<_i176.LocalizationLocalDataSource>()),
       registerFor: {
         _dev,
         _prod,
       },
     );
-    gh.factory<_i483.ChangeLanguageUseCase>(
-      () =>
-          _i483.ChangeLanguageUseCase(gh<_i176.LocalizationLocalDataSource>()),
+    gh.factory<_i924.GetCachedLocalizationUseCase>(
+      () => _i924.GetCachedLocalizationUseCase(
+          gh<_i176.LocalizationLocalDataSource>()),
       registerFor: {
         _dev,
         _prod,
