@@ -75,6 +75,9 @@ PhrasesDictionary _$PhrasesDictionaryFromJson(Map<String, dynamic> json) =>
       json['listPageEmptyList'] as String?,
       json['gamePagePrizeFund'] as String?,
       json['gamePageShortDescription'] as String?,
+      json['gamePageAmount'] as String?,
+      json['gamePageAmountValue'] as String?,
+      json['gamePagePrizeFundText'] as String?,
     );
 
 Map<String, dynamic> _$PhrasesDictionaryToJson(PhrasesDictionary instance) =>
@@ -149,4 +152,7 @@ Map<String, dynamic> _$PhrasesDictionaryToJson(PhrasesDictionary instance) =>
       'listPageEmptyList': instance.listPageEmptyList,
       'gamePagePrizeFund': instance.gamePagePrizeFund,
       'gamePageShortDescription': instance.gamePageShortDescription,
+      'gamePageAmount': instance.gamePageAmount,
+      'gamePageAmountValue': instance.gamePageAmountValue,
+      'gamePagePrizeFundText': instance.gamePagePrizeFundText,
     };

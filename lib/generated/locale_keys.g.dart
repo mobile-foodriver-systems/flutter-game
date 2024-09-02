@@ -1,6 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const authPageLoginToAccount = 'authPageLoginToAccount';
   static const authPageUsername = 'authPageUsername';
   static const authPagePassword = 'authPagePassword';
@@ -19,9 +19,11 @@ abstract class  LocaleKeys {
   static const profilePageWallet = 'profilePageWallet';
   static const profilePageLegal = 'profilePageLegal';
   static const profilePageOfferAgreement = 'profilePageOfferAgreement';
-  static const progressListPageRatingOfParticipants = 'progressListPageRatingOfParticipants';
+  static const progressListPageRatingOfParticipants =
+      'progressListPageRatingOfParticipants';
   static const progressListPageGlobal = 'progressListPageGlobal';
-  static const progressListPageDistanceRadius = 'progressListPageDistanceRadius';
+  static const progressListPageDistanceRadius =
+      'progressListPageDistanceRadius';
   static const progressListPageUnknown = 'progressListPageUnknown';
   static const progressListPageNick = 'progressListPageNick';
   static const progressListPageScore = 'progressListPageScore';
@@ -58,13 +60,19 @@ abstract class  LocaleKeys {
   static const gamePageDeliverAnother = 'gamePageDeliverAnother';
   static const registrationPageRegistration = 'registrationPageRegistration';
   static const registrationPageYourPassword = 'registrationPageYourPassword';
-  static const registrationPagePasswordsDoNotMatch = 'registrationPagePasswordsDoNotMatch';
+  static const registrationPagePasswordsDoNotMatch =
+      'registrationPagePasswordsDoNotMatch';
   static const countryListPageSelectCountry = 'countryListPageSelectCountry';
-  static const countryListPageDetectAutomatically = 'countryListPageDetectAutomatically';
+  static const countryListPageDetectAutomatically =
+      'countryListPageDetectAutomatically';
   static const countryListPageDone = 'countryListPageDone';
   static const countryListPageCountry = 'countryListPageCountry';
   static const cityListPageSelectCity = 'cityListPageSelectCity';
   static const cityListPageCity = 'cityListPageCity';
   static const listPageEmptyList = 'listPageEmptyList';
-
+  static const gamePagePrizeFund = 'gamePagePrizeFund';
+  static const gamePageShortDescription = 'gamePageShortDescription';
+  static const gamePageAmount = 'gamePageAmount';
+  static const gamePageAmountValue = 'gamePageAmountValue';
+  static const gamePagePrizeFundText = 'gamePagePrizeFundText';
 }

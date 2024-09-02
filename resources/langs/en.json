@@ -63,5 +63,10 @@
     "countryListPageCountry": "Country",
     "cityListPageSelectCity": "Select a city",
     "cityListPageCity": "City",
-    "listPageEmptyList": "The list is empty"
+    "listPageEmptyList": "The list is empty",
+    "gamePagePrizeFund": "The prize fund\n",
+    "gamePageShortDescription": "Short description",
+    "gamePageAmount": "The amount of the fund:",
+    "gamePageAmountValue": "392 321",
+    "gamePagePrizeFundText": "Every month, a prize pool will be announced for the players, which will be distributed among all participants of the game.At the end of the month, we will sum up the number of tokens that all participants have earned and everyone will be rewarded depending on the percentage of tokens from the total amount that each user earned during this period.The prize fund can both grow and decrease."
 }

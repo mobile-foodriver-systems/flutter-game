@@ -14,6 +14,7 @@ class AssetsCatalog {
   static const String icSearch = 'assets/ic_search.png';
   static const String icLocation = 'assets/ic_location.png';
   static const String icFaceSmiling = 'assets/ic_face_smiling.png';
+  static const String icArrowRight = 'assets/ic_arrow_right.png';
 
   /// gif
   static const String kangaroo = 'assets/kangaroo.gif';

@@ -71,6 +71,9 @@ class PhrasesDictionary {
   final String? listPageEmptyList;
   final String? gamePagePrizeFund;
   final String? gamePageShortDescription;
+  final String? gamePageAmount;
+  final String? gamePageAmountValue;
+  final String? gamePagePrizeFundText;
 
   PhrasesDictionary(
     this.authPageLoginToAccount,
@@ -140,6 +143,9 @@ class PhrasesDictionary {
     this.listPageEmptyList,
     this.gamePagePrizeFund,
     this.gamePageShortDescription,
+    this.gamePageAmount,
+    this.gamePageAmountValue,
+    this.gamePagePrizeFundText,
   );
 
   factory PhrasesDictionary.fromJson(Map<String, dynamic> json) =>
