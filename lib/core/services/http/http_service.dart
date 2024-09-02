@@ -5,6 +5,7 @@ import 'package:food_driver/core/errors/exceptions/exceptions.dart';
 import 'package:food_driver/core/platform/network_info.dart';
 import 'package:food_driver/core/services/interceptors/auth_interceptor.dart';
 import 'package:food_driver/di/injection.dart';
+import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 enum RequestType {
   get,
@@ -42,6 +43,12 @@ abstract class HttpService {
   Dio _initDio() => _dio
     ..interceptors.addAll([
       getIt<AuthInterceptor>(),
+      TalkerDioLogger(
+        settings: const TalkerDioLoggerSettings(
+          printRequestHeaders: true,
+          printResponseMessage: true,
+        ),
+      ),
     ]);
 
   HttpService(
