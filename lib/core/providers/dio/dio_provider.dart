@@ -14,6 +14,7 @@ class DioProvider {
         connectTimeout: const Duration(seconds: 10),
         queryParameters: {"culture": locale.split('_').firstOrNull},
         contentType: Headers.formUrlEncodedContentType,
+        validateStatus: (status) => status != 401 && status != 403,
       ),
     )..interceptors.addAll(interceptors ?? []);
   }
