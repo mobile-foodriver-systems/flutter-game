@@ -33,6 +33,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     this._loadUserRating,
   ) : super(const RatingState(status: ListStatus.initial)) {
     on<RatingLoadEvent>(_load);
+    on<LoadProfileEvent>(_loadUser);
     on<RatingInitEvent>(_init);
     on<RatingReloadEvent>(_reload);
   }
@@ -110,7 +111,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     Emitter<RatingState> emit,
   ) async {
     if (state.user == null) {
-      await loadUser(emit);
+      await _loadUser(const LoadProfileEvent(), emit);
     }
 
     final params = RatingParams(
@@ -216,7 +217,8 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     );
   }
 
-  Future<void> loadUser(
+  FutureOr<void> _loadUser(
+    LoadProfileEvent event,
     Emitter<RatingState> emit,
   ) async {
     final result = await userRepository.getUser();

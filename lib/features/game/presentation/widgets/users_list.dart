@@ -5,6 +5,7 @@ import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/core/ui/view/bi_directional_scroll_view.dart';
 import 'package:food_driver/features/game/data/models/user_rating.dart';
 import 'package:food_driver/features/game/presentation/bloc/rating/rating_bloc.dart';
+import 'package:food_driver/features/game/presentation/pages/mixins/location_mixin.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/location/data/models/list_status.dart';
 import 'package:food_driver/features/location/presentation/widgets/interactive_list.dart';
@@ -24,7 +25,15 @@ class UsersList extends StatefulWidget {
   State<UsersList> createState() => _UsersListState();
 }
 
-class _UsersListState extends State<UsersList> with RatingMixin {
+class _UsersListState extends State<UsersList> with RatingMixin, LocationMixin {
+  @override
+  void initState() {
+    tryGetCity().then(
+      (value) => _bloc.add(const LoadProfileEvent()),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RatingBloc, RatingState>(

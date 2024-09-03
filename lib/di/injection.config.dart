@@ -12,6 +12,10 @@ import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
 import 'package:food_driver/core/platform/network_info.dart' as _i984;
 import 'package:food_driver/core/platform/network_info_impl.dart' as _i771;
 import 'package:food_driver/core/providers/dio/dio_provider.dart' as _i370;
+import 'package:food_driver/core/services/geolocation/geolocation_service.dart'
+    as _i435;
+import 'package:food_driver/core/services/geolocation/geolocation_service_impl.dart'
+    as _i318;
 import 'package:food_driver/core/services/http/app_http_service.dart' as _i528;
 import 'package:food_driver/core/services/interceptors/auth_interceptor.dart'
     as _i535;
@@ -275,6 +279,8 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
+    gh.singleton<_i435.GeolocationService>(
+        () => _i318.GeolocationServiceImpl(gh<_i275.LocationRepository>()));
     gh.factory<_i680.CityByLatLngUseCase>(
       () => _i680.CityByLatLngUseCase(gh<_i275.LocationRepository>()),
       registerFor: {

@@ -53,3 +53,10 @@ class RatingReloadEvent extends RatingEvent {
         sort,
       ];
 }
+
+class LoadProfileEvent extends RatingEvent {
+  const LoadProfileEvent();
+
+  @override
+  List<Object> get props => [];
+}
