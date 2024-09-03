@@ -74,6 +74,21 @@ class PhrasesDictionary {
   final String? gamePageAmount;
   final String? gamePageAmountValue;
   final String? gamePagePrizeFundText;
+  final String? profilePageLogin;
+  final String? profilePageChangeData;
+  final String? profilePageSaveChanges;
+  final String? profilePageConfirmationCode;
+  final String? profilePageSentTo;
+  final String? profilePageConfirm;
+  final String? profilePageResend;
+  final String? profilePageDataChanged;
+  final String? profilePageOk;
+  final String? authPageRecoverPassword;
+  final String? passwordRecoveryPagePasswordRecovery;
+  final String? passwordRecoveryPageYourEmail;
+  final String? passwordRecoveryPageNewPassword;
+  final String? passwordRecoveryPageRepeatPassword;
+  final String? passwordRecoveryPageChange;
 
   PhrasesDictionary(
     this.authPageLoginToAccount,
@@ -146,6 +161,21 @@ class PhrasesDictionary {
     this.gamePageAmount,
     this.gamePageAmountValue,
     this.gamePagePrizeFundText,
+    this.profilePageLogin,
+    this.profilePageChangeData,
+    this.profilePageSaveChanges,
+    this.profilePageConfirmationCode,
+    this.profilePageSentTo,
+    this.profilePageConfirm,
+    this.profilePageResend,
+    this.profilePageDataChanged,
+    this.profilePageOk,
+    this.authPageRecoverPassword,
+    this.passwordRecoveryPagePasswordRecovery,
+    this.passwordRecoveryPageYourEmail,
+    this.passwordRecoveryPageNewPassword,
+    this.passwordRecoveryPageRepeatPassword,
+    this.passwordRecoveryPageChange,
   );
 
   factory PhrasesDictionary.fromJson(Map<String, dynamic> json) =>

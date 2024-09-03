@@ -10,12 +10,12 @@ import 'package:food_driver/features/auth/presentation/bloc/auth/auth_bloc.dart'
 import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/user/data/models/user_status.dart';
-import 'package:food_driver/features/user/domain/entities/user_entity.dart';
 import 'package:food_driver/features/user/presentation/bloc/user_bloc.dart';
 import 'package:food_driver/features/user/presentation/widgets/card_widget.dart';
 import 'package:food_driver/features/user/presentation/widgets/close_icon_button.dart';
 import 'package:food_driver/features/user/presentation/widgets/custom_text_button.dart';
-import 'package:food_driver/features/user/presentation/widgets/disabled_field.dart';
+import 'package:food_driver/features/user/presentation/widgets/edit_profile_form.dart';
+import 'package:food_driver/features/user/presentation/widgets/profile_info.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
 
 part 'package:food_driver/features/user/presentation/pages/mixins/profile_mixin.dart';
@@ -107,7 +107,13 @@ class _ProfileBodyState extends State<ProfileBody> with ProfileMixin {
                           ),
                         ),
                         const SizedBox(height: 40.0),
-                        _ProfileInfo(user: state.user!),
+                        isEditing
+                            ? EditProfileForm(
+                                changeEditingState: changeEditingState)
+                            : ProfileInfo(
+                                user: state.user!,
+                                changeData: changeEditingState,
+                              ),
                         const SizedBox(height: 8.0),
                         const _LegalInfo(),
                         const SizedBox(height: 24.0),
@@ -136,47 +142,6 @@ class _ProfileBodyState extends State<ProfileBody> with ProfileMixin {
           ),
         );
       },
-    );
-  }
-}
-
-class _ProfileInfo extends StatelessWidget {
-  final UserEntity user;
-
-  const _ProfileInfo({
-    super.key,
-    required this.user,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return CardWidget(
-      // TODO: fix design - bad padding
-      // padding: const EdgeInsets.symmetric(horizontal: 25.5, vertical: 24.0),
-      alignment: Alignment.topLeft,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            LocaleKeys.profilePageInformation.tr(),
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-            textAlign: TextAlign.left,
-          ),
-          const SizedBox(height: 16.0),
-          DisabledField(
-            label: LocaleKeys.profilePageEmail.tr(),
-            value: user.email ?? "",
-          ),
-          const SizedBox(height: 16.0),
-          DisabledField(
-            label: LocaleKeys.profilePageWallet.tr(),
-            value: user.walletAddress ?? "",
-          ),
-        ],
-      ),
     );
   }
 }

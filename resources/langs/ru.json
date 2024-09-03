@@ -68,5 +68,20 @@
     "gamePageShortDescription": "Краткое описание",
     "gamePageAmount": "Сумма фонда:",
     "gamePageAmountValue": "392 321",
-    "gamePagePrizeFundText": "Каждый месяц будет объявляться призовой фонд для игроков, который будет распределен среди всех участников игры.\n\nВ конце месяца мы суммируем количество токенов, которые заработали все участники и каждому будет выдавать вознаграждение в зависимости от процента токенов от общей суммы, которые каждый пользователь заработал за этот период.\n\nПризовой фонд может как вырасти так и уменьшиться."
+    "gamePagePrizeFundText": "Каждый месяц будет объявляться призовой фонд для игроков, который будет распределен среди всех участников игры.\n\nВ конце месяца мы суммируем количество токенов, которые заработали все участники и каждому будет выдавать вознаграждение в зависимости от процента токенов от общей суммы, которые каждый пользователь заработал за этот период.\n\nПризовой фонд может как вырасти так и уменьшиться.",
+    "profilePageLogin": "Логин",
+    "profilePageChangeData": "Изменить данные",
+    "profilePageSaveChanges": "Сохранить изменения",
+    "profilePageConfirmationCode": "Код подтверждения",
+    "profilePageSentTo": "Отправлено на {email}",
+    "profilePageConfirm": "Подтвердить",
+    "profilePageResend": "Отправить повторно ({time})",
+    "profilePageDataChanged": "Данные были успешно изменены",
+    "profilePageOk": "Ок",
+    "authPageRecoverPassword": "Восстановить пароль",
+    "passwordRecoveryPagePasswordRecovery": "Восстановление пароля",
+    "passwordRecoveryPageYourEmail": "Ваш E-mail",
+    "passwordRecoveryPageNewPassword": "Новый пароль",
+    "passwordRecoveryPageRepeatPassword": "Повторите пароль",
+    "passwordRecoveryPageChange": "Изменить"
 }
