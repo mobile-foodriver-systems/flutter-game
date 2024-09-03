@@ -5,7 +5,8 @@ import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/core/ui/view/bi_directional_scroll_view.dart';
 import 'package:food_driver/features/game/data/models/user_rating.dart';
 import 'package:food_driver/features/game/presentation/bloc/rating/rating_bloc.dart';
-import 'package:food_driver/features/location/data/models/selectable.dart';
+import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
+import 'package:food_driver/features/location/data/models/list_status.dart';
 import 'package:food_driver/features/location/presentation/widgets/interactive_list.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
 
@@ -32,11 +33,9 @@ class _UsersListState extends State<UsersList> with RatingMixin {
           children: [
             const _RatingListHeader(),
             Expanded(
-              child: InteractiveList<Selectable>(
-                status: state.status,
-                error: state.error,
-                list: state.ratingList?.list ?? [],
-                listView: BiDirectionalScrollView(
+              child: buildListView(
+                state,
+                BiDirectionalScrollView(
                   padding: const EdgeInsets.all(0),
                   itemBuilder: (context, index) => buildListItem(
                     context,
@@ -50,11 +49,29 @@ class _UsersListState extends State<UsersList> with RatingMixin {
                 ),
               ),
             ),
-            _RatingUserWidget(position: state.position),
+            _RatingUserWidget(state: state),
           ],
         );
       },
     );
+  }
+
+  Widget buildListView(RatingState state, Widget child) {
+    switch (state.status) {
+      case ListStatus.initial:
+        return const LoadingIndicator();
+      case ListStatus.loading:
+        return const LoadingIndicator();
+      case ListStatus.success:
+        if (state.ratingList?.list.isEmpty ?? true) {
+          return const ListEmpty();
+        }
+        return child;
+      case ListStatus.error:
+        return ListError(
+          error: state.error,
+        );
+    }
   }
 
   int getCenterItemPosition(RatingState state) {
@@ -155,18 +172,18 @@ class _RatingListHeader extends StatelessWidget {
 }
 
 class _RatingUserWidget extends StatelessWidget {
-  final UserRating? position;
+  final RatingState state;
 
   const _RatingUserWidget({
     super.key,
-    this.position,
+    required this.state,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (position != null) {
+    if (state.position != null && state.status == ListStatus.success) {
       return _UserRatingItem(
-        rating: position!,
+        rating: state.position!,
         isActive: true,
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.red),

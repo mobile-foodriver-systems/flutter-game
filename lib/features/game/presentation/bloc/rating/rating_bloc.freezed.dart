@@ -29,6 +29,7 @@ mixin _$RatingState {
   bool get dataInitialized => throw _privateConstructorUsedError;
   UserRating? get position => throw _privateConstructorUsedError;
   int? get userId => throw _privateConstructorUsedError;
+  UserEntity? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RatingStateCopyWith<RatingState> get copyWith =>
@@ -54,7 +55,8 @@ abstract class $RatingStateCopyWith<$Res> {
       bool prevItemsLoading,
       bool dataInitialized,
       UserRating? position,
-      int? userId});
+      int? userId,
+      UserEntity? user});
 }
 
 /// @nodoc
@@ -83,6 +85,7 @@ class _$RatingStateCopyWithImpl<$Res, $Val extends RatingState>
     Object? dataInitialized = null,
     Object? position = freezed,
     Object? userId = freezed,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -137,6 +140,10 @@ class _$RatingStateCopyWithImpl<$Res, $Val extends RatingState>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as int?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserEntity?,
     ) as $Val);
   }
 }
@@ -162,7 +169,8 @@ abstract class _$$RatingStateImplCopyWith<$Res>
       bool prevItemsLoading,
       bool dataInitialized,
       UserRating? position,
-      int? userId});
+      int? userId,
+      UserEntity? user});
 }
 
 /// @nodoc
@@ -189,6 +197,7 @@ class __$$RatingStateImplCopyWithImpl<$Res>
     Object? dataInitialized = null,
     Object? position = freezed,
     Object? userId = freezed,
+    Object? user = freezed,
   }) {
     return _then(_$RatingStateImpl(
       status: null == status
@@ -243,6 +252,10 @@ class __$$RatingStateImplCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as int?,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserEntity?,
     ));
   }
 }
@@ -263,7 +276,8 @@ class _$RatingStateImpl implements _RatingState {
       this.prevItemsLoading = false,
       this.dataInitialized = false,
       this.position = null,
-      this.userId = null});
+      this.userId = null,
+      this.user = null});
 
   @override
   @JsonKey()
@@ -304,10 +318,13 @@ class _$RatingStateImpl implements _RatingState {
   @override
   @JsonKey()
   final int? userId;
+  @override
+  @JsonKey()
+  final UserEntity? user;
 
   @override
   String toString() {
-    return 'RatingState(status: $status, sort: $sort, ratingList: $ratingList, error: $error, topOffset: $topOffset, bottomOffset: $bottomOffset, isAllPrevLoaded: $isAllPrevLoaded, isAllNextLoaded: $isAllNextLoaded, nextItemsLoading: $nextItemsLoading, prevItemsLoading: $prevItemsLoading, dataInitialized: $dataInitialized, position: $position, userId: $userId)';
+    return 'RatingState(status: $status, sort: $sort, ratingList: $ratingList, error: $error, topOffset: $topOffset, bottomOffset: $bottomOffset, isAllPrevLoaded: $isAllPrevLoaded, isAllNextLoaded: $isAllNextLoaded, nextItemsLoading: $nextItemsLoading, prevItemsLoading: $prevItemsLoading, dataInitialized: $dataInitialized, position: $position, userId: $userId, user: $user)';
   }
 
   @override
@@ -336,7 +353,8 @@ class _$RatingStateImpl implements _RatingState {
                 other.dataInitialized == dataInitialized) &&
             (identical(other.position, position) ||
                 other.position == position) &&
-            (identical(other.userId, userId) || other.userId == userId));
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
@@ -354,7 +372,8 @@ class _$RatingStateImpl implements _RatingState {
       prevItemsLoading,
       dataInitialized,
       position,
-      userId);
+      userId,
+      user);
 
   @JsonKey(ignore: true)
   @override
@@ -377,7 +396,8 @@ abstract class _RatingState implements RatingState {
       final bool prevItemsLoading,
       final bool dataInitialized,
       final UserRating? position,
-      final int? userId}) = _$RatingStateImpl;
+      final int? userId,
+      final UserEntity? user}) = _$RatingStateImpl;
 
   @override
   ListStatus get status;
@@ -405,6 +425,8 @@ abstract class _RatingState implements RatingState {
   UserRating? get position;
   @override
   int? get userId;
+  @override
+  UserEntity? get user;
   @override
   @JsonKey(ignore: true)
   _$$RatingStateImplCopyWith<_$RatingStateImpl> get copyWith =>

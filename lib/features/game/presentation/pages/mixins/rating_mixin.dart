@@ -2,7 +2,9 @@ part of 'package:food_driver/features/game/presentation/widgets/users_list.dart'
 
 mixin RatingMixin on State<UsersList> {
   late final RatingBloc _bloc = context.read<RatingBloc>();
-  final _scrollController = ScrollController();
+  late final ScrollController _scrollController = ScrollController(
+    initialScrollOffset: -MediaQuery.of(context).size.height / 4,
+  );
 
   bool get _isBottom {
     if (!_scrollController.hasClients) return false;

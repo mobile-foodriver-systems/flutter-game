@@ -16,6 +16,7 @@ class RatingState with _$RatingState {
     @Default(false) bool dataInitialized,
     @Default(null) UserRating? position,
     @Default(null) int? userId,
+    @Default(null) UserEntity? user,
   }) = _RatingState;
 }
 

@@ -19,6 +19,8 @@ class LoadRatingUseCase implements UseCase<RatingList, RatingParams> {
       radiusInKm: params.radiusInKm,
       limit: params.limit,
       offset: params.offset,
+      latitude: params.latitude,
+      longitude: params.longitude,
     );
   }
 }

@@ -23,6 +23,8 @@ abstract class GameRepository {
     int? radiusInKm,
     int? limit,
     int? offset,
+    double? latitude,
+    double? longitude,
   });
 
   Future<Either<Failure, GameActionResult>> startGame({required int cityId});

@@ -5,7 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/ui/view/bi_directional_scroll_view.dart';
-import 'package:food_driver/core/usecases/usecase.dart';
+import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/game/data/models/rating_list.dart';
 import 'package:food_driver/features/game/data/models/rating_params.dart';
 import 'package:food_driver/features/game/data/models/user_rating.dart';
@@ -13,19 +13,20 @@ import 'package:food_driver/features/game/data/models/user_sort_type.dart';
 import 'package:food_driver/features/game/domain/usecases/load_rating.dart';
 import 'package:food_driver/features/game/domain/usecases/load_user_rating.dart';
 import 'package:food_driver/features/location/data/models/list_status.dart';
+import 'package:food_driver/features/user/domain/entities/user_entity.dart';
+import 'package:food_driver/features/user/domain/repositories/user_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 part 'rating_bloc.freezed.dart';
-
 part 'rating_event.dart';
-
 part 'rating_state.dart';
 
 @injectable
 class RatingBloc extends Bloc<RatingEvent, RatingState> {
   final LoadRatingUseCase _loadRating;
   final LoadUserRatingUseCase _loadUserRating;
+  final UserRepository userRepository = getIt<UserRepository>();
 
   RatingBloc(
     this._loadRating,
@@ -60,6 +61,12 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
           ? state.topOffset
           : state.bottomOffset,
       radiusInKm: event.sort.value,
+      longitude: event.sort == UsersSortType.global
+          ? null
+          : state.user?.city?.location?.longitude,
+      latitude: event.sort == UsersSortType.global
+          ? null
+          : state.user?.city?.location?.latitude,
     );
 
     final response = await _loadRating(params);
@@ -70,7 +77,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
       (result) {
         final (:topOffset, :bottomOffset) = getOffsets(
           event,
-          result.list.length,
+          result.limit,
         );
 
         emit(state.copyWith(
@@ -85,7 +92,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
               ? result.list.isEmpty
               : state.isAllNextLoaded,
           isAllPrevLoaded: event.direction.isUp
-              ? state.topOffset == 0
+              ? state.topOffset == 0 || (topOffset > 0 && result.list.isEmpty)
               : state.isAllPrevLoaded,
           ratingList: RatingList.update(
             ratingList: state.ratingList ?? RatingList(),
@@ -102,21 +109,33 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     RatingInitEvent event,
     Emitter<RatingState> emit,
   ) async {
-    final response = await _loadUserRating(NoParams());
+    if (state.user == null) {
+      await loadUser(emit);
+    }
+
+    final params = RatingParams(
+      radiusInKm: event.sort.value,
+      longitude: state.user?.city?.location?.longitude,
+      latitude: state.user?.city?.location?.latitude,
+    );
+
+    final response = await _loadUserRating(params);
     response.fold(
       (error) {
         emit(state.copyWith(status: ListStatus.error, error: error));
       },
       (result) async {
+        UserRating? userPosition;
+        if (state.position == null && (state.userId ?? event.userId) != null) {
+          userPosition = result.list.firstWhereOrNull(
+            (i) => i.id == (state.userId ?? event.userId),
+          );
+        }
+
         final (:topOffset, :bottomOffset) = initOffsets(
           result.offset ?? 0,
           result.list.length,
         );
-        UserRating? userPosition;
-        if (state.position == null && (state.userId ?? event.userId) != null) {
-          userPosition = result.list
-              .firstWhereOrNull((i) => i.id == (state.userId ?? event.userId));
-        }
 
         emit(state.copyWith(
           userId: state.userId ?? event.userId,
@@ -138,14 +157,14 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
 
   ({int topOffset, int bottomOffset}) getOffsets(
     RatingLoadEvent event,
-    int listLength,
+    int limit,
   ) {
     var topOffset = state.topOffset ?? 0;
     var bottomOffset = state.bottomOffset ?? 0;
     if (event.direction == Direction.up) {
-      topOffset = (state.topOffset ?? 0) - listLength;
+      topOffset = (state.topOffset ?? 0) - limit;
     } else if (event.direction == Direction.down) {
-      bottomOffset += listLength;
+      bottomOffset += limit;
     }
     return (topOffset: topOffset, bottomOffset: bottomOffset);
   }
@@ -178,7 +197,6 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
         isAllPrevLoaded: false,
         ratingList: RatingList(),
         sort: event.sort,
-        position: null,
       ),
     );
     add(
@@ -195,6 +213,18 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
           ));
         },
       ),
+    );
+  }
+
+  Future<void> loadUser(
+    Emitter<RatingState> emit,
+  ) async {
+    final result = await userRepository.getUser();
+    result.fold(
+      (error) => () {},
+      (result) {
+        emit(state.copyWith(user: result));
+      },
     );
   }
 }
