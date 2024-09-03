@@ -16,15 +16,19 @@ class BiDirectionalScrollView extends StatefulWidget {
   final Function(Direction direction)? onLoadMore;
   final ScrollController controller;
   final EdgeInsets padding;
+  final bool prevItemsLoading;
+  final bool nextItemsLoading;
 
   const BiDirectionalScrollView({
     super.key,
     required this.itemBuilder,
-    this.centerItemPosition = 0,
     required this.itemCount,
     required this.controller,
+    this.centerItemPosition = 0,
+    this.padding = EdgeInsets.zero,
     this.onLoadMore,
-    this.padding = const EdgeInsets.all(16),
+    required this.prevItemsLoading,
+    required this.nextItemsLoading,
   });
 
   @override
@@ -32,17 +36,13 @@ class BiDirectionalScrollView extends StatefulWidget {
 }
 
 class BiDirectionalScrollViewState extends State<BiDirectionalScrollView> {
-  Key centerKey = UniqueKey();
+  final UniqueKey centerKey = UniqueKey();
+  final GlobalKey listKey = GlobalKey();
 
   int get bottomListItemCount => widget.itemCount - widget.centerItemPosition;
 
   int get safeBottomListItemCount =>
       bottomListItemCount < 5 ? bottomListItemCount : bottomListItemCount - 5;
-
-  ValueNotifier<bool> nextItemsLoading = ValueNotifier(false);
-  ValueNotifier<bool> prevItemsLoading = ValueNotifier(false);
-
-  final GlobalKey listKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +52,6 @@ class BiDirectionalScrollViewState extends State<BiDirectionalScrollView> {
       controller: widget.controller,
       center: centerKey,
       slivers: [
-        const SliverPadding(
-          padding: EdgeInsets.only(top: 4),
-        ),
         SliverPadding(
           padding: EdgeInsets.only(
             left: widget.padding.left,
@@ -65,11 +62,9 @@ class BiDirectionalScrollViewState extends State<BiDirectionalScrollView> {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 var normalizedIndex = (widget.centerItemPosition - 1) - index;
-                if (normalizedIndex < 5 && !prevItemsLoading.value) {
+                if (normalizedIndex < 5 && !widget.prevItemsLoading) {
                   Future(() async {
-                    prevItemsLoading.value = true;
                     await widget.onLoadMore?.call(Direction.up);
-                    prevItemsLoading.value = false;
                   });
                 }
                 return widget.itemBuilder(context, normalizedIndex);
@@ -93,11 +88,9 @@ class BiDirectionalScrollViewState extends State<BiDirectionalScrollView> {
               (context, index) {
                 var normalizedIndex = index + widget.centerItemPosition;
                 if (index > safeBottomListItemCount &&
-                    !nextItemsLoading.value) {
+                    !widget.nextItemsLoading) {
                   Future(() async {
-                    nextItemsLoading.value = true;
                     await widget.onLoadMore?.call(Direction.down);
-                    nextItemsLoading.value = false;
                   });
                 }
                 return widget.itemBuilder(context, normalizedIndex);

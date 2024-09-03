@@ -55,13 +55,9 @@ class RatingListPage extends StatelessWidget {
                             return CustomSegmentedButton(
                               value: state.sort,
                               separator: const SizedBox(width: 4.0),
-                              onChanged: (sort) {
-                                context
-                                    .read<RatingBloc>()
-                                    .add(RatingReloadEvent(
-                                      sort: sort,
-                                    ));
-                              },
+                              onChanged: (sort) => context
+                                  .read<RatingBloc>()
+                                  .add(RatingReloadEvent(sort: sort)),
                             );
                           },
                         ),

@@ -23,4 +23,20 @@ class RatingState with _$RatingState {
 extension on _$RatingState {
   bool isAllLoaded(Direction direction) =>
       direction.isDown ? isAllNextLoaded : isAllPrevLoaded;
+
+  int offset(Direction direction) =>
+      direction == Direction.up ? (topOffset ?? 0) : (bottomOffset ?? 0);
+
+  double? long(UsersSortType? sort) =>
+      (sort ?? this.sort) == UsersSortType.global
+          ? null
+          : user?.city?.location?.longitude;
+
+  double? lat(UsersSortType? sort) =>
+      (sort ?? this.sort) == UsersSortType.global
+          ? null
+          : user?.city?.location?.latitude;
+
+  bool isLoading(Direction direction) =>
+      direction.isDown ? nextItemsLoading : prevItemsLoading;
 }

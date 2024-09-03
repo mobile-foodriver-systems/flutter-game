@@ -26,10 +26,6 @@ class InteractiveList<T extends Selectable> extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (status) {
       case ListStatus.loading:
-        if (list.isEmpty) {
-          return const LoadingIndicator();
-        }
-        return listView;
       case ListStatus.success:
         if (list.isEmpty) {
           return const ListEmpty();

@@ -43,31 +43,19 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     Emitter<RatingState> emit,
   ) async {
     if (state.isAllLoaded(event.direction)) return;
-    var isLoading = event.direction.isDown
-        ? state.nextItemsLoading
-        : state.prevItemsLoading;
-    if (isLoading) return;
+    if (state.isLoading(event.direction)) return;
 
     if (event.direction.isUp) {
-      emit(state.copyWith(
-        prevItemsLoading: true,
-      ));
+      emit(state.copyWith(prevItemsLoading: true));
     } else {
-      emit(state.copyWith(
-        nextItemsLoading: true,
-      ));
+      emit(state.copyWith(nextItemsLoading: true));
     }
+
     final params = RatingParams(
-      offset: event.direction == Direction.up
-          ? state.topOffset
-          : state.bottomOffset,
+      offset: state.offset(event.direction),
       radiusInKm: event.sort.value,
-      longitude: event.sort == UsersSortType.global
-          ? null
-          : state.user?.city?.location?.longitude,
-      latitude: event.sort == UsersSortType.global
-          ? null
-          : state.user?.city?.location?.latitude,
+      longitude: state.long(event.sort),
+      latitude: state.lat(event.sort),
     );
 
     final response = await _loadRating(params);
@@ -83,7 +71,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
 
         emit(state.copyWith(
           status: ListStatus.success,
-          topOffset: topOffset < 0 ? 0 : topOffset,
+          topOffset: topOffset <= 0 ? 0 : topOffset,
           bottomOffset: bottomOffset,
           prevItemsLoading:
               event.direction.isUp ? false : state.prevItemsLoading,
@@ -140,8 +128,9 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
 
         emit(state.copyWith(
           userId: state.userId ?? event.userId,
-          topOffset: topOffset,
+          topOffset: topOffset <= 0 ? 0 : topOffset,
           position: userPosition,
+          isAllPrevLoaded: topOffset <= 0,
           dataInitialized: true,
           bottomOffset: bottomOffset,
           ratingList: RatingList.update(
@@ -181,7 +170,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     return (topOffset: topOffset, bottomOffset: bottomOffset);
   }
 
-  FutureOr<void> _reload(
+  Future<void> _reload(
     RatingReloadEvent event,
     Emitter<RatingState> emit,
   ) async {
@@ -217,7 +206,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     );
   }
 
-  FutureOr<void> _loadUser(
+  Future<void> _loadUser(
     LoadProfileEvent event,
     Emitter<RatingState> emit,
   ) async {

@@ -2,16 +2,10 @@ part of 'package:food_driver/features/game/presentation/widgets/users_list.dart'
 
 mixin RatingMixin on State<UsersList> {
   late final RatingBloc _bloc = context.read<RatingBloc>();
+  // TODO: find better solution. list with element len 1 jumps
   late final ScrollController _scrollController = ScrollController(
     initialScrollOffset: -MediaQuery.of(context).size.height / 4,
   );
-
-  bool get _isBottom {
-    if (!_scrollController.hasClients) return false;
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.offset;
-    return currentScroll >= (maxScroll * 0.9);
-  }
 
   @override
   void initState() {
@@ -30,20 +24,6 @@ mixin RatingMixin on State<UsersList> {
       },
     ));
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _scrollController
-      ..removeListener(_onScroll)
-      ..dispose();
-    super.dispose();
-  }
-
-  void _onScroll() {
-    if (_isBottom) {
-      _bloc.add(RatingLoadEvent(sort: _bloc.state.sort));
-    }
   }
 
   void _onLoadMore(Direction direction) {

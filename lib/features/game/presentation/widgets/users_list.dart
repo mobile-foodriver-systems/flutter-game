@@ -29,7 +29,7 @@ class _UsersListState extends State<UsersList> with RatingMixin, LocationMixin {
   @override
   void initState() {
     tryGetCity().then(
-      (value) => _bloc.add(const LoadProfileEvent()),
+      (_) => _bloc.add(const LoadProfileEvent()),
     );
     super.initState();
   }
@@ -51,6 +51,8 @@ class _UsersListState extends State<UsersList> with RatingMixin, LocationMixin {
                     index,
                     state,
                   ),
+                  prevItemsLoading: state.prevItemsLoading,
+                  nextItemsLoading: state.nextItemsLoading,
                   controller: _scrollController,
                   itemCount: state.ratingList?.list.length ?? 0,
                   centerItemPosition: getCenterItemPosition(state),
@@ -68,7 +70,6 @@ class _UsersListState extends State<UsersList> with RatingMixin, LocationMixin {
   Widget buildListView(RatingState state, Widget child) {
     switch (state.status) {
       case ListStatus.initial:
-        return const LoadingIndicator();
       case ListStatus.loading:
         return const LoadingIndicator();
       case ListStatus.success:
