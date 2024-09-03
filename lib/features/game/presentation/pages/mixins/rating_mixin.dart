@@ -15,6 +15,7 @@ mixin RatingMixin on State<UsersList> {
   void initState() {
     super.initState();
     _bloc.add(RatingInitEvent(
+      userId: widget.userId,
       initializedCallback: () => _bloc.add(const RatingLoadEvent()),
     ));
   }
@@ -32,6 +33,7 @@ mixin RatingMixin on State<UsersList> {
       _bloc.add(RatingLoadEvent(sort: _bloc.state.sort));
     }
   }
+
   void _onLoadMore(Direction direction) {
     _bloc.add(
       RatingLoadEvent(

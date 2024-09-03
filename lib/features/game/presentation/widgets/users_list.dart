@@ -26,12 +26,12 @@ class UsersList extends StatefulWidget {
 class _UsersListState extends State<UsersList> with RatingMixin {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const _RatingListHeader(),
-        BlocBuilder<RatingBloc, RatingState>(
-          builder: (BuildContext context, RatingState state) {
-            return Expanded(
+    return BlocBuilder<RatingBloc, RatingState>(
+      builder: (BuildContext context, RatingState state) {
+        return Column(
+          children: [
+            const _RatingListHeader(),
+            Expanded(
               child: InteractiveList<Selectable>(
                 status: state.status,
                 error: state.error,
@@ -49,10 +49,11 @@ class _UsersListState extends State<UsersList> with RatingMixin {
                   onLoadMore: _onLoadMore,
                 ),
               ),
-            );
-          },
-        ),
-      ],
+            ),
+            _RatingUserWidget(position: state.position),
+          ],
+        );
+      },
     );
   }
 
@@ -65,9 +66,10 @@ class _UsersListState extends State<UsersList> with RatingMixin {
   }
 
   Widget buildListItem(BuildContext context, int index, RatingState state) {
+    var rating = state.ratingList!.list[index];
     return _UserRatingItem(
-      rating: state.ratingList!.list[index],
-      isActive: state.ratingList!.list[index].id == widget.userId,
+      rating: rating,
+      isActive: rating.id == widget.userId,
     );
   }
 }
@@ -76,10 +78,14 @@ class _UserRatingItem extends StatelessWidget {
   const _UserRatingItem({
     required this.rating,
     this.isActive = false,
+    this.decoration = const BoxDecoration(
+      color: AppColors.textFieldGray,
+    ),
   });
 
   final UserRating rating;
   final bool isActive;
+  final BoxDecoration decoration;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +95,7 @@ class _UserRatingItem extends StatelessWidget {
           color: isActive ? AppColors.red : AppColors.black,
         );
     return DecoratedBox(
-      decoration: const BoxDecoration(color: AppColors.textFieldGray),
+      decoration: decoration,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
         child: Row(
@@ -145,5 +151,33 @@ class _RatingListHeader extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _RatingUserWidget extends StatelessWidget {
+  final UserRating? position;
+
+  const _RatingUserWidget({
+    super.key,
+    this.position,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (position != null) {
+      return _UserRatingItem(
+        rating: position!,
+        isActive: true,
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.red),
+          color: AppColors.textFieldGray,
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(13),
+            bottomRight: Radius.circular(13),
+          ),
+        ),
+      );
+    }
+    return const SizedBox.shrink();
   }
 }

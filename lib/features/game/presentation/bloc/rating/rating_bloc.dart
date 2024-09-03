@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
@@ -8,6 +9,7 @@ import 'package:food_driver/core/ui/view/bi_directional_scroll_view.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/game/data/models/rating_list.dart';
 import 'package:food_driver/features/game/data/models/rating_params.dart';
+import 'package:food_driver/features/game/data/models/user_rating.dart';
 import 'package:food_driver/features/game/data/models/user_sort_type.dart';
 import 'package:food_driver/features/game/domain/usecases/load_rating.dart';
 import 'package:food_driver/features/game/domain/usecases/load_user_rating.dart';
@@ -16,9 +18,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 part 'rating_bloc.freezed.dart';
-
 part 'rating_event.dart';
-
 part 'rating_state.dart';
 
 @injectable
@@ -109,10 +109,16 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
           result.offset ?? 0,
           result.list.length,
         );
+        UserRating? userPosition;
+        if (state.position == null && event.userId != null) {
+          userPosition =
+              result.list.firstWhereOrNull((i) => i.id == event.userId);
+        }
 
         emit(state.copyWith(
           status: ListStatus.initial,
           topOffset: topOffset,
+          position: userPosition,
           dataInitialized: true,
           bottomOffset: bottomOffset,
           ratingList: RatingList.update(

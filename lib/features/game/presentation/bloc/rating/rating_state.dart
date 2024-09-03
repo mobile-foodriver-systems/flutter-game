@@ -14,6 +14,7 @@ class RatingState with _$RatingState {
     @Default(false) bool nextItemsLoading,
     @Default(false) bool prevItemsLoading,
     @Default(false) bool dataInitialized,
+    @Default(null) UserRating? position,
   }) = _RatingState;
 }
 
