@@ -58,9 +58,8 @@ class RatingListPage extends StatelessWidget {
                               onChanged: (sort) {
                                 context
                                     .read<RatingBloc>()
-                                    .add(RatingLoadEvent(
+                                    .add(RatingReloadEvent(
                                       sort: sort,
-                                      userId: userId,
                                     ));
                               },
                             );

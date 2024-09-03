@@ -7,14 +7,15 @@ class RatingState with _$RatingState {
     @Default(UsersSortType.global) UsersSortType sort,
     @Default(null) RatingList? ratingList,
     @Default(null) Failure? error,
-    @Default(0) int topOffset,
-    @Default(0) int bottomOffset,
+    @Default(null) int? topOffset,
+    @Default(null) int? bottomOffset,
     @Default(false) bool isAllPrevLoaded,
     @Default(false) bool isAllNextLoaded,
     @Default(false) bool nextItemsLoading,
     @Default(false) bool prevItemsLoading,
     @Default(false) bool dataInitialized,
     @Default(null) UserRating? position,
+    @Default(null) int? userId,
   }) = _RatingState;
 }
 

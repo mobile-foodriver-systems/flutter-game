@@ -20,14 +20,15 @@ mixin _$RatingState {
   UsersSortType get sort => throw _privateConstructorUsedError;
   RatingList? get ratingList => throw _privateConstructorUsedError;
   Failure? get error => throw _privateConstructorUsedError;
-  int get topOffset => throw _privateConstructorUsedError;
-  int get bottomOffset => throw _privateConstructorUsedError;
+  int? get topOffset => throw _privateConstructorUsedError;
+  int? get bottomOffset => throw _privateConstructorUsedError;
   bool get isAllPrevLoaded => throw _privateConstructorUsedError;
   bool get isAllNextLoaded => throw _privateConstructorUsedError;
   bool get nextItemsLoading => throw _privateConstructorUsedError;
   bool get prevItemsLoading => throw _privateConstructorUsedError;
   bool get dataInitialized => throw _privateConstructorUsedError;
   UserRating? get position => throw _privateConstructorUsedError;
+  int? get userId => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RatingStateCopyWith<RatingState> get copyWith =>
@@ -45,14 +46,15 @@ abstract class $RatingStateCopyWith<$Res> {
       UsersSortType sort,
       RatingList? ratingList,
       Failure? error,
-      int topOffset,
-      int bottomOffset,
+      int? topOffset,
+      int? bottomOffset,
       bool isAllPrevLoaded,
       bool isAllNextLoaded,
       bool nextItemsLoading,
       bool prevItemsLoading,
       bool dataInitialized,
-      UserRating? position});
+      UserRating? position,
+      int? userId});
 }
 
 /// @nodoc
@@ -72,14 +74,15 @@ class _$RatingStateCopyWithImpl<$Res, $Val extends RatingState>
     Object? sort = null,
     Object? ratingList = freezed,
     Object? error = freezed,
-    Object? topOffset = null,
-    Object? bottomOffset = null,
+    Object? topOffset = freezed,
+    Object? bottomOffset = freezed,
     Object? isAllPrevLoaded = null,
     Object? isAllNextLoaded = null,
     Object? nextItemsLoading = null,
     Object? prevItemsLoading = null,
     Object? dataInitialized = null,
     Object? position = freezed,
+    Object? userId = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -98,14 +101,14 @@ class _$RatingStateCopyWithImpl<$Res, $Val extends RatingState>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as Failure?,
-      topOffset: null == topOffset
+      topOffset: freezed == topOffset
           ? _value.topOffset
           : topOffset // ignore: cast_nullable_to_non_nullable
-              as int,
-      bottomOffset: null == bottomOffset
+              as int?,
+      bottomOffset: freezed == bottomOffset
           ? _value.bottomOffset
           : bottomOffset // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       isAllPrevLoaded: null == isAllPrevLoaded
           ? _value.isAllPrevLoaded
           : isAllPrevLoaded // ignore: cast_nullable_to_non_nullable
@@ -130,6 +133,10 @@ class _$RatingStateCopyWithImpl<$Res, $Val extends RatingState>
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as UserRating?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 }
@@ -147,14 +154,15 @@ abstract class _$$RatingStateImplCopyWith<$Res>
       UsersSortType sort,
       RatingList? ratingList,
       Failure? error,
-      int topOffset,
-      int bottomOffset,
+      int? topOffset,
+      int? bottomOffset,
       bool isAllPrevLoaded,
       bool isAllNextLoaded,
       bool nextItemsLoading,
       bool prevItemsLoading,
       bool dataInitialized,
-      UserRating? position});
+      UserRating? position,
+      int? userId});
 }
 
 /// @nodoc
@@ -172,14 +180,15 @@ class __$$RatingStateImplCopyWithImpl<$Res>
     Object? sort = null,
     Object? ratingList = freezed,
     Object? error = freezed,
-    Object? topOffset = null,
-    Object? bottomOffset = null,
+    Object? topOffset = freezed,
+    Object? bottomOffset = freezed,
     Object? isAllPrevLoaded = null,
     Object? isAllNextLoaded = null,
     Object? nextItemsLoading = null,
     Object? prevItemsLoading = null,
     Object? dataInitialized = null,
     Object? position = freezed,
+    Object? userId = freezed,
   }) {
     return _then(_$RatingStateImpl(
       status: null == status
@@ -198,14 +207,14 @@ class __$$RatingStateImplCopyWithImpl<$Res>
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as Failure?,
-      topOffset: null == topOffset
+      topOffset: freezed == topOffset
           ? _value.topOffset
           : topOffset // ignore: cast_nullable_to_non_nullable
-              as int,
-      bottomOffset: null == bottomOffset
+              as int?,
+      bottomOffset: freezed == bottomOffset
           ? _value.bottomOffset
           : bottomOffset // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       isAllPrevLoaded: null == isAllPrevLoaded
           ? _value.isAllPrevLoaded
           : isAllPrevLoaded // ignore: cast_nullable_to_non_nullable
@@ -230,6 +239,10 @@ class __$$RatingStateImplCopyWithImpl<$Res>
           ? _value.position
           : position // ignore: cast_nullable_to_non_nullable
               as UserRating?,
+      userId: freezed == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -242,14 +255,15 @@ class _$RatingStateImpl implements _RatingState {
       this.sort = UsersSortType.global,
       this.ratingList = null,
       this.error = null,
-      this.topOffset = 0,
-      this.bottomOffset = 0,
+      this.topOffset = null,
+      this.bottomOffset = null,
       this.isAllPrevLoaded = false,
       this.isAllNextLoaded = false,
       this.nextItemsLoading = false,
       this.prevItemsLoading = false,
       this.dataInitialized = false,
-      this.position = null});
+      this.position = null,
+      this.userId = null});
 
   @override
   @JsonKey()
@@ -265,10 +279,10 @@ class _$RatingStateImpl implements _RatingState {
   final Failure? error;
   @override
   @JsonKey()
-  final int topOffset;
+  final int? topOffset;
   @override
   @JsonKey()
-  final int bottomOffset;
+  final int? bottomOffset;
   @override
   @JsonKey()
   final bool isAllPrevLoaded;
@@ -287,10 +301,13 @@ class _$RatingStateImpl implements _RatingState {
   @override
   @JsonKey()
   final UserRating? position;
+  @override
+  @JsonKey()
+  final int? userId;
 
   @override
   String toString() {
-    return 'RatingState(status: $status, sort: $sort, ratingList: $ratingList, error: $error, topOffset: $topOffset, bottomOffset: $bottomOffset, isAllPrevLoaded: $isAllPrevLoaded, isAllNextLoaded: $isAllNextLoaded, nextItemsLoading: $nextItemsLoading, prevItemsLoading: $prevItemsLoading, dataInitialized: $dataInitialized, position: $position)';
+    return 'RatingState(status: $status, sort: $sort, ratingList: $ratingList, error: $error, topOffset: $topOffset, bottomOffset: $bottomOffset, isAllPrevLoaded: $isAllPrevLoaded, isAllNextLoaded: $isAllNextLoaded, nextItemsLoading: $nextItemsLoading, prevItemsLoading: $prevItemsLoading, dataInitialized: $dataInitialized, position: $position, userId: $userId)';
   }
 
   @override
@@ -318,7 +335,8 @@ class _$RatingStateImpl implements _RatingState {
             (identical(other.dataInitialized, dataInitialized) ||
                 other.dataInitialized == dataInitialized) &&
             (identical(other.position, position) ||
-                other.position == position));
+                other.position == position) &&
+            (identical(other.userId, userId) || other.userId == userId));
   }
 
   @override
@@ -335,7 +353,8 @@ class _$RatingStateImpl implements _RatingState {
       nextItemsLoading,
       prevItemsLoading,
       dataInitialized,
-      position);
+      position,
+      userId);
 
   @JsonKey(ignore: true)
   @override
@@ -350,14 +369,15 @@ abstract class _RatingState implements RatingState {
       final UsersSortType sort,
       final RatingList? ratingList,
       final Failure? error,
-      final int topOffset,
-      final int bottomOffset,
+      final int? topOffset,
+      final int? bottomOffset,
       final bool isAllPrevLoaded,
       final bool isAllNextLoaded,
       final bool nextItemsLoading,
       final bool prevItemsLoading,
       final bool dataInitialized,
-      final UserRating? position}) = _$RatingStateImpl;
+      final UserRating? position,
+      final int? userId}) = _$RatingStateImpl;
 
   @override
   ListStatus get status;
@@ -368,9 +388,9 @@ abstract class _RatingState implements RatingState {
   @override
   Failure? get error;
   @override
-  int get topOffset;
+  int? get topOffset;
   @override
-  int get bottomOffset;
+  int? get bottomOffset;
   @override
   bool get isAllPrevLoaded;
   @override
@@ -383,6 +403,8 @@ abstract class _RatingState implements RatingState {
   bool get dataInitialized;
   @override
   UserRating? get position;
+  @override
+  int? get userId;
   @override
   @JsonKey(ignore: true)
   _$$RatingStateImplCopyWith<_$RatingStateImpl> get copyWith =>

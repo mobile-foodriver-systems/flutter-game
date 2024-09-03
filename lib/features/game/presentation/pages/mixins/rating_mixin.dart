@@ -13,11 +13,21 @@ mixin RatingMixin on State<UsersList> {
 
   @override
   void initState() {
-    super.initState();
     _bloc.add(RatingInitEvent(
+      sort: _bloc.state.sort,
       userId: widget.userId,
-      initializedCallback: () => _bloc.add(const RatingLoadEvent()),
+      initializedCallback: () async {
+        _bloc.add(RatingLoadEvent(
+          sort: _bloc.state.sort,
+          direction: Direction.down,
+        ));
+        _bloc.add(RatingLoadEvent(
+          sort: _bloc.state.sort,
+          direction: Direction.up,
+        ));
+      },
     ));
+    super.initState();
   }
 
   @override
@@ -37,8 +47,8 @@ mixin RatingMixin on State<UsersList> {
   void _onLoadMore(Direction direction) {
     _bloc.add(
       RatingLoadEvent(
-        userId: widget.userId,
         direction: direction,
+        sort: _bloc.state.sort,
       ),
     );
   }

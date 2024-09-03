@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/ui/view/bi_directional_scroll_view.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
@@ -18,7 +17,9 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 part 'rating_bloc.freezed.dart';
+
 part 'rating_event.dart';
+
 part 'rating_state.dart';
 
 @injectable
@@ -32,6 +33,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
   ) : super(const RatingState(status: ListStatus.initial)) {
     on<RatingLoadEvent>(_load);
     on<RatingInitEvent>(_init);
+    on<RatingReloadEvent>(_reload);
   }
 
   Future<void> _load(
@@ -46,16 +48,13 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
 
     if (event.direction.isUp) {
       emit(state.copyWith(
-        status: ListStatus.loading,
         prevItemsLoading: true,
       ));
     } else {
       emit(state.copyWith(
-        status: ListStatus.loading,
         nextItemsLoading: true,
       ));
     }
-
     final params = RatingParams(
       offset: event.direction == Direction.up
           ? state.topOffset
@@ -76,14 +75,18 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
 
         emit(state.copyWith(
           status: ListStatus.success,
-          topOffset: topOffset,
+          topOffset: topOffset < 0 ? 0 : topOffset,
           bottomOffset: bottomOffset,
           prevItemsLoading:
               event.direction.isUp ? false : state.prevItemsLoading,
           nextItemsLoading:
               event.direction.isDown ? false : state.nextItemsLoading,
-          isAllNextLoaded: event.direction.isDown ? result.list.isEmpty : false,
-          isAllPrevLoaded: event.direction.isUp ? topOffset == 0 : false,
+          isAllNextLoaded: event.direction.isDown
+              ? result.list.isEmpty
+              : state.isAllNextLoaded,
+          isAllPrevLoaded: event.direction.isUp
+              ? state.topOffset == 0
+              : state.isAllPrevLoaded,
           ratingList: RatingList.update(
             ratingList: state.ratingList ?? RatingList(),
             list: result.list,
@@ -110,13 +113,13 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
           result.list.length,
         );
         UserRating? userPosition;
-        if (state.position == null && event.userId != null) {
-          userPosition =
-              result.list.firstWhereOrNull((i) => i.id == event.userId);
+        if (state.position == null && (state.userId ?? event.userId) != null) {
+          userPosition = result.list
+              .firstWhereOrNull((i) => i.id == (state.userId ?? event.userId));
         }
 
         emit(state.copyWith(
-          status: ListStatus.initial,
+          userId: state.userId ?? event.userId,
           topOffset: topOffset,
           position: userPosition,
           dataInitialized: true,
@@ -128,7 +131,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
           ),
           sort: event.sort,
         ));
-        event.initializedCallback.call();
+        await event.initializedCallback?.call();
       },
     );
   }
@@ -137,11 +140,10 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     RatingLoadEvent event,
     int listLength,
   ) {
-    var topOffset = state.topOffset;
-    var bottomOffset = state.bottomOffset;
+    var topOffset = state.topOffset ?? 0;
+    var bottomOffset = state.bottomOffset ?? 0;
     if (event.direction == Direction.up) {
-      topOffset = state.topOffset - listLength;
-      if (topOffset <= 0) topOffset = 0;
+      topOffset = (state.topOffset ?? 0) - listLength;
     } else if (event.direction == Direction.down) {
       bottomOffset += listLength;
     }
@@ -152,11 +154,47 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     int offset,
     int listLength,
   ) {
-    var topOffset = state.topOffset;
-    var bottomOffset = state.bottomOffset;
+    var topOffset = state.topOffset ?? 0;
+    var bottomOffset = state.bottomOffset ?? 0;
     topOffset = offset - listLength;
-    if (topOffset <= 0) topOffset = 0;
     bottomOffset += offset + listLength;
     return (topOffset: topOffset, bottomOffset: bottomOffset);
+  }
+
+  FutureOr<void> _reload(
+    RatingReloadEvent event,
+    Emitter<RatingState> emit,
+  ) async {
+    if (state.status == ListStatus.loading) return;
+    emit(
+      state.copyWith(
+        status: ListStatus.loading,
+        prevItemsLoading: false,
+        nextItemsLoading: false,
+        bottomOffset: null,
+        topOffset: null,
+        dataInitialized: false,
+        isAllNextLoaded: false,
+        isAllPrevLoaded: false,
+        ratingList: RatingList(),
+        sort: event.sort,
+        position: null,
+      ),
+    );
+    add(
+      RatingInitEvent(
+        sort: event.sort,
+        initializedCallback: () async {
+          add(RatingLoadEvent(
+            sort: event.sort,
+            direction: Direction.down,
+          ));
+          add(RatingLoadEvent(
+            sort: event.sort,
+            direction: Direction.up,
+          ));
+        },
+      ),
+    );
   }
 }

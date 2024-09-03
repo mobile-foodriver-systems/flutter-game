@@ -452,27 +452,6 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
-    gh.factory<_i251.LoadUseCase>(
-      () => _i251.LoadUseCase(gh<_i927.GameRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i353.StartUseCase>(
-      () => _i353.StartUseCase(gh<_i927.GameRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i499.LoadRatingUseCase>(
-      () => _i499.LoadRatingUseCase(gh<_i927.GameRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
     gh.factory<_i186.CancelRouteUseCase>(
       () => _i186.CancelRouteUseCase(gh<_i927.GameRepository>()),
       registerFor: {
@@ -480,8 +459,8 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i746.LoadUserRatingUseCase>(
-      () => _i746.LoadUserRatingUseCase(gh<_i927.GameRepository>()),
+    gh.factory<_i251.LoadUseCase>(
+      () => _i251.LoadUseCase(gh<_i927.GameRepository>()),
       registerFor: {
         _dev,
         _prod,
@@ -494,8 +473,29 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i353.StartUseCase>(
+      () => _i353.StartUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i758.TakeRouteUseCase>(
       () => _i758.TakeRouteUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i499.LoadRatingUseCase>(
+      () => _i499.LoadRatingUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i746.LoadUserRatingUseCase>(
+      () => _i746.LoadUserRatingUseCase(gh<_i927.GameRepository>()),
       registerFor: {
         _dev,
         _prod,
