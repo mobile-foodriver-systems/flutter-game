@@ -15,7 +15,9 @@ void main() async {
   await configureDependencies(
     environment: appFlavor == 'dev' ? Environment.dev : Environment.prod,
   );
-  final locales = await getIt<LocalizationBloc>().getSupportedLocales();
+  final localizationBloc = getIt<LocalizationBloc>();
+  await localizationBloc.loadCacheLocales();
+  final locales = await localizationBloc.getCachedLocales();
   await EasyLocalization.ensureInitialized();
 
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
