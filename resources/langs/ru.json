@@ -83,5 +83,7 @@
     "passwordRecoveryPageYourEmail": "Ваш E-mail",
     "passwordRecoveryPageNewPassword": "Новый пароль",
     "passwordRecoveryPageRepeatPassword": "Повторите пароль",
-    "passwordRecoveryPageChange": "Изменить"
+    "passwordRecoveryPageChange": "Изменить",
+    "passwordRecoveryPageSetEmail": "Укажите адрес электронной почты",
+    "passwordRecoveryPageEnterPassword": "Введите пароль"
 }

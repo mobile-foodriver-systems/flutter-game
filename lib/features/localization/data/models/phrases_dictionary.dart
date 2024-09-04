@@ -89,6 +89,8 @@ class PhrasesDictionary {
   final String? passwordRecoveryPageNewPassword;
   final String? passwordRecoveryPageRepeatPassword;
   final String? passwordRecoveryPageChange;
+  final String? passwordRecoveryPageSetEmail;
+  final String? passwordRecoveryPageEnterPassword;
 
   PhrasesDictionary(
     this.authPageLoginToAccount,
@@ -176,6 +178,8 @@ class PhrasesDictionary {
     this.passwordRecoveryPageNewPassword,
     this.passwordRecoveryPageRepeatPassword,
     this.passwordRecoveryPageChange,
+    this.passwordRecoveryPageSetEmail,
+    this.passwordRecoveryPageEnterPassword,
   );
 
   factory PhrasesDictionary.fromJson(Map<String, dynamic> json) =>

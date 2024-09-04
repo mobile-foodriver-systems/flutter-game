@@ -34,7 +34,7 @@ class ProfileInfo extends StatelessWidget {
           const SizedBox(height: 16.0),
           DisabledField(
             label: LocaleKeys.profilePageLogin.tr(),
-            value: user.email ?? "",
+            value: user.userName ?? "",
           ),
           const SizedBox(height: 16.0),
           DisabledField(

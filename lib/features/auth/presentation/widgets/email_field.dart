@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class EmailField extends StatelessWidget {
   const EmailField({
@@ -13,8 +15,8 @@ class EmailField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: const InputDecoration(
-        label: Text("Ваша почта"),
+      decoration: InputDecoration(
+        label: Text(LocaleKeys.passwordRecoveryPageYourEmail.tr()),
       ),
       controller: controller,
       textInputAction: textInputAction,

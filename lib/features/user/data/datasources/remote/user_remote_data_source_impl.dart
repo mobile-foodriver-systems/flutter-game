@@ -81,4 +81,64 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       },
     );
   }
+
+  @override
+  Future<Response<dynamic>> getConfirmationCode({required String email}) async {
+    return await _appHttpService.request(
+      path: ApiRoutes.getConfirmationCode,
+      type: RequestType.post,
+      options: Options(
+        contentType: 'application/json-patch+json',
+      ),
+      data: {"email": email},
+    );
+  }
+
+  @override
+  Future<Response<dynamic>> sendConfirmationCode({required String code}) async {
+    return await _appHttpService.request(
+      path: ApiRoutes.sendConfirmationCode,
+      type: RequestType.post,
+      options: Options(
+        contentType: 'application/json-patch+json',
+      ),
+      data: {"code": code},
+    );
+  }
+
+  @override
+  Future<Response<dynamic>> recoveryPassword({
+    required String email,
+    required String password,
+  }) async {
+    return await _appHttpService.request(
+      path: ApiRoutes.recoveryPassword,
+      type: RequestType.post,
+      options: Options(
+        contentType: 'application/json-patch+json',
+      ),
+      data: {
+        "email": email,
+        "newPassword": password,
+      },
+    );
+  }
+
+  @override
+  Future<Response<dynamic>> confirmPasswordRecovery({
+    required String email,
+    required String code,
+  }) async {
+    return await _appHttpService.request(
+      path: ApiRoutes.confirmPasswordRecovery,
+      type: RequestType.post,
+      options: Options(
+        contentType: 'application/json-patch+json',
+      ),
+      data: {
+        "email": email,
+        "code": code,
+      },
+    );
+  }
 }

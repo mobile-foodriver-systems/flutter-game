@@ -11,6 +11,11 @@ ThemeData appTheme(BuildContext context) {
     dialogBackgroundColor: AppColors.dialogBackgroundColor,
     appBarTheme: const AppBarTheme(
       color: AppColors.white,
+      titleTextStyle: TextStyle(
+        fontSize: 17.0,
+        fontWeight: FontWeight.w600,
+        color: AppColors.black,
+      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       isDense: true,

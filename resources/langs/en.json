@@ -83,5 +83,7 @@
     "passwordRecoveryPageYourEmail": "Your E-mail",
     "passwordRecoveryPageNewPassword": "New password",
     "passwordRecoveryPageRepeatPassword": "Repeat password",
-    "passwordRecoveryPageChange": "Change"
+    "passwordRecoveryPageChange": "Change",
+    "passwordRecoveryPageSetEmail": "Specify the email address",
+    "passwordRecoveryPageEnterPassword": "Enter the password"
 }

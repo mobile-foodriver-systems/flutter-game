@@ -12,6 +12,8 @@ import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
 import 'package:food_driver/core/platform/network_info.dart' as _i984;
 import 'package:food_driver/core/platform/network_info_impl.dart' as _i771;
 import 'package:food_driver/core/providers/dio/dio_provider.dart' as _i370;
+import 'package:food_driver/core/services/email_confirmation/email_confirmation_service.dart'
+    as _i552;
 import 'package:food_driver/core/services/http/app_http_service.dart' as _i528;
 import 'package:food_driver/core/services/interceptors/auth_interceptor.dart'
     as _i535;
@@ -110,13 +112,23 @@ import 'package:food_driver/features/user/data/datasources/remote/user_remote_da
     as _i551;
 import 'package:food_driver/features/user/domain/repositories/user_repository.dart'
     as _i687;
+import 'package:food_driver/features/user/domain/usecases/confirm_recovery_password.dart'
+    as _i9;
+import 'package:food_driver/features/user/domain/usecases/get_confirmation_code.dart'
+    as _i254;
 import 'package:food_driver/features/user/domain/usecases/load_profile.dart'
     as _i978;
+import 'package:food_driver/features/user/domain/usecases/recovery_password.dart'
+    as _i29;
+import 'package:food_driver/features/user/domain/usecases/send_confirmation_code.dart'
+    as _i602;
 import 'package:food_driver/features/user/domain/usecases/update.dart' as _i238;
 import 'package:food_driver/features/user/domain/usecases/update_lat_lng.dart'
     as _i198;
-import 'package:food_driver/features/user/presentation/bloc/user_bloc.dart'
-    as _i223;
+import 'package:food_driver/features/user/presentation/bloc/edit_profile/edit_profile_bloc.dart'
+    as _i427;
+import 'package:food_driver/features/user/presentation/bloc/user/user_bloc.dart'
+    as _i48;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:internet_connection_checker/internet_connection_checker.dart'
@@ -138,15 +150,24 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final registerModule = _$RegisterModule();
-    gh.factory<_i370.DioProvider>(() => _i370.DioProvider());
     await gh.factoryAsync<_i460.SharedPreferences>(
       () => registerModule.prefs,
       preResolve: true,
     );
+    gh.factory<_i370.DioProvider>(() => _i370.DioProvider());
     gh.singleton<_i973.InternetConnectionChecker>(
         () => registerModule.internetConnectionChecker);
     gh.singleton<_i895.Connectivity>(() => registerModule.connectivity);
     gh.singleton<String>(() => registerModule.locale);
+    gh.singleton<_i552.EmailConfirmationService>(
+        () => _i552.EmailConfirmationService());
+    gh.factory<_i520.VibrateUseCase>(
+      () => _i520.VibrateUseCase(),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i510.MoveAndSplitPolylineUseCase>(
       () => _i510.MoveAndSplitPolylineUseCase(),
       registerFor: {
@@ -156,13 +177,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i690.StopVibrateUseCase>(
       () => _i690.StopVibrateUseCase(),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i520.VibrateUseCase>(
-      () => _i520.VibrateUseCase(),
       registerFor: {
         _dev,
         _prod,
@@ -200,14 +214,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i744.CacheLocalizationUseCase>(
-      () => _i744.CacheLocalizationUseCase(
-          gh<_i176.LocalizationLocalDataSource>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
     gh.factory<_i483.ChangeLanguageUseCase>(
       () =>
           _i483.ChangeLanguageUseCase(gh<_i176.LocalizationLocalDataSource>()),
@@ -218,6 +224,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i924.GetCachedLocalizationUseCase>(
       () => _i924.GetCachedLocalizationUseCase(
+          gh<_i176.LocalizationLocalDataSource>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i744.CacheLocalizationUseCase>(
+      () => _i744.CacheLocalizationUseCase(
           gh<_i176.LocalizationLocalDataSource>()),
       registerFor: {
         _dev,
@@ -275,15 +289,15 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
-    gh.factory<_i680.CityByLatLngUseCase>(
-      () => _i680.CityByLatLngUseCase(gh<_i275.LocationRepository>()),
+    gh.factory<_i1067.LoadCityUseCase>(
+      () => _i1067.LoadCityUseCase(gh<_i275.LocationRepository>()),
       registerFor: {
         _dev,
         _prod,
       },
     );
-    gh.factory<_i1067.LoadCityUseCase>(
-      () => _i1067.LoadCityUseCase(gh<_i275.LocationRepository>()),
+    gh.factory<_i680.CityByLatLngUseCase>(
+      () => _i680.CityByLatLngUseCase(gh<_i275.LocationRepository>()),
       registerFor: {
         _dev,
         _prod,
@@ -324,15 +338,36 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i4.CountryBloc>(
         () => _i4.CountryBloc(gh<_i980.LoadCountryUseCase>()));
-    gh.factory<_i978.LoadProfileUseCase>(
-      () => _i978.LoadProfileUseCase(gh<_i687.UserRepository>()),
+    gh.factory<_i238.UpdateUserUseCase>(
+      () => _i238.UpdateUserUseCase(gh<_i687.UserRepository>()),
       registerFor: {
         _dev,
         _prod,
       },
     );
-    gh.factory<_i238.UpdateUserUseCase>(
-      () => _i238.UpdateUserUseCase(gh<_i687.UserRepository>()),
+    gh.factory<_i602.SendConfirmationCodeUseCase>(
+      () => _i602.SendConfirmationCodeUseCase(gh<_i687.UserRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i29.RecoveryPasswordUseCase>(
+      () => _i29.RecoveryPasswordUseCase(gh<_i687.UserRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i9.ConfirmRecoveryPasswordUseCase>(
+      () => _i9.ConfirmRecoveryPasswordUseCase(gh<_i687.UserRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i978.LoadProfileUseCase>(
+      () => _i978.LoadProfileUseCase(gh<_i687.UserRepository>()),
       registerFor: {
         _dev,
         _prod,
@@ -345,15 +380,8 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i618.BreakAccessTokenUseCase>(
-      () => _i618.BreakAccessTokenUseCase(gh<_i55.AuthRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i684.DeleteUseCase>(
-      () => _i684.DeleteUseCase(gh<_i55.AuthRepository>()),
+    gh.factory<_i254.GetConfirmationCodeUseCase>(
+      () => _i254.GetConfirmationCodeUseCase(gh<_i687.UserRepository>()),
       registerFor: {
         _dev,
         _prod,
@@ -366,15 +394,8 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i1009.LoginByPasswordUseCase>(
-      () => _i1009.LoginByPasswordUseCase(gh<_i55.AuthRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i422.LogoutUseCase>(
-      () => _i422.LogoutUseCase(gh<_i55.AuthRepository>()),
+    gh.factory<_i618.BreakAccessTokenUseCase>(
+      () => _i618.BreakAccessTokenUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
         _dev,
         _prod,
@@ -389,6 +410,27 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i377.RegistrationUseCase>(
       () => _i377.RegistrationUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i684.DeleteUseCase>(
+      () => _i684.DeleteUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i422.LogoutUseCase>(
+      () => _i422.LogoutUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i1009.LoginByPasswordUseCase>(
+      () => _i1009.LoginByPasswordUseCase(gh<_i55.AuthRepository>()),
       registerFor: {
         _dev,
         _prod,
@@ -434,7 +476,11 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i223.UserBloc>(() => _i223.UserBloc(
+    gh.factory<_i427.EditProfileBloc>(() => _i427.EditProfileBloc(
+          gh<_i254.GetConfirmationCodeUseCase>(),
+          gh<_i602.SendConfirmationCodeUseCase>(),
+        ));
+    gh.factory<_i48.UserBloc>(() => _i48.UserBloc(
           gh<_i978.LoadProfileUseCase>(),
           gh<_i238.UpdateUserUseCase>(),
           gh<_i198.UpdateUserLatLngUseCase>(),
@@ -452,13 +498,6 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
-    gh.factory<_i186.CancelRouteUseCase>(
-      () => _i186.CancelRouteUseCase(gh<_i927.GameRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
     gh.factory<_i251.LoadUseCase>(
       () => _i251.LoadUseCase(gh<_i927.GameRepository>()),
       registerFor: {
@@ -466,22 +505,8 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i508.LoadRaitingUseCase>(
-      () => _i508.LoadRaitingUseCase(gh<_i927.GameRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i240.LoadUserRaitingUseCase>(
-      () => _i240.LoadUserRaitingUseCase(gh<_i927.GameRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i135.SendTapUseCase>(
-      () => _i135.SendTapUseCase(gh<_i927.GameRepository>()),
+    gh.factory<_i758.TakeRouteUseCase>(
+      () => _i758.TakeRouteUseCase(gh<_i927.GameRepository>()),
       registerFor: {
         _dev,
         _prod,
@@ -494,8 +519,29 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i758.TakeRouteUseCase>(
-      () => _i758.TakeRouteUseCase(gh<_i927.GameRepository>()),
+    gh.factory<_i240.LoadUserRaitingUseCase>(
+      () => _i240.LoadUserRaitingUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i186.CancelRouteUseCase>(
+      () => _i186.CancelRouteUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i135.SendTapUseCase>(
+      () => _i135.SendTapUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i508.LoadRaitingUseCase>(
+      () => _i508.LoadRaitingUseCase(gh<_i927.GameRepository>()),
       registerFor: {
         _dev,
         _prod,

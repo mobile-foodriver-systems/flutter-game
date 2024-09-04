@@ -93,6 +93,8 @@ PhrasesDictionary _$PhrasesDictionaryFromJson(Map<String, dynamic> json) =>
       json['passwordRecoveryPageNewPassword'] as String?,
       json['passwordRecoveryPageRepeatPassword'] as String?,
       json['passwordRecoveryPageChange'] as String?,
+      json['passwordRecoveryPageSetEmail'] as String?,
+      json['passwordRecoveryPageEnterPassword'] as String?,
     );
 
 Map<String, dynamic> _$PhrasesDictionaryToJson(PhrasesDictionary instance) =>
@@ -188,4 +190,7 @@ Map<String, dynamic> _$PhrasesDictionaryToJson(PhrasesDictionary instance) =>
       'passwordRecoveryPageRepeatPassword':
           instance.passwordRecoveryPageRepeatPassword,
       'passwordRecoveryPageChange': instance.passwordRecoveryPageChange,
+      'passwordRecoveryPageSetEmail': instance.passwordRecoveryPageSetEmail,
+      'passwordRecoveryPageEnterPassword':
+          instance.passwordRecoveryPageEnterPassword,
     };

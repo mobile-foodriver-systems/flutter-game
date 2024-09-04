@@ -19,6 +19,8 @@ mixin _$AuthState {
   AuthStatus get status => throw _privateConstructorUsedError;
   Failure? get error => throw _privateConstructorUsedError;
   UserEntity? get user => throw _privateConstructorUsedError;
+  Timer? get confirmationDataTimer => throw _privateConstructorUsedError;
+  int get confirmationDataTimerSeconds => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthStateCopyWith<AuthState> get copyWith =>
@@ -30,7 +32,12 @@ abstract class $AuthStateCopyWith<$Res> {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
       _$AuthStateCopyWithImpl<$Res, AuthState>;
   @useResult
-  $Res call({AuthStatus status, Failure? error, UserEntity? user});
+  $Res call(
+      {AuthStatus status,
+      Failure? error,
+      UserEntity? user,
+      Timer? confirmationDataTimer,
+      int confirmationDataTimerSeconds});
 }
 
 /// @nodoc
@@ -49,6 +56,8 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? status = null,
     Object? error = freezed,
     Object? user = freezed,
+    Object? confirmationDataTimer = freezed,
+    Object? confirmationDataTimerSeconds = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -63,6 +72,14 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserEntity?,
+      confirmationDataTimer: freezed == confirmationDataTimer
+          ? _value.confirmationDataTimer
+          : confirmationDataTimer // ignore: cast_nullable_to_non_nullable
+              as Timer?,
+      confirmationDataTimerSeconds: null == confirmationDataTimerSeconds
+          ? _value.confirmationDataTimerSeconds
+          : confirmationDataTimerSeconds // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -75,7 +92,12 @@ abstract class _$$AuthStateImplCopyWith<$Res>
       __$$AuthStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({AuthStatus status, Failure? error, UserEntity? user});
+  $Res call(
+      {AuthStatus status,
+      Failure? error,
+      UserEntity? user,
+      Timer? confirmationDataTimer,
+      int confirmationDataTimerSeconds});
 }
 
 /// @nodoc
@@ -92,6 +114,8 @@ class __$$AuthStateImplCopyWithImpl<$Res>
     Object? status = null,
     Object? error = freezed,
     Object? user = freezed,
+    Object? confirmationDataTimer = freezed,
+    Object? confirmationDataTimerSeconds = null,
   }) {
     return _then(_$AuthStateImpl(
       status: null == status
@@ -106,6 +130,14 @@ class __$$AuthStateImplCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserEntity?,
+      confirmationDataTimer: freezed == confirmationDataTimer
+          ? _value.confirmationDataTimer
+          : confirmationDataTimer // ignore: cast_nullable_to_non_nullable
+              as Timer?,
+      confirmationDataTimerSeconds: null == confirmationDataTimerSeconds
+          ? _value.confirmationDataTimerSeconds
+          : confirmationDataTimerSeconds // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -114,7 +146,11 @@ class __$$AuthStateImplCopyWithImpl<$Res>
 
 class _$AuthStateImpl implements _AuthState {
   const _$AuthStateImpl(
-      {this.status = AuthStatus.unknown, this.error = null, this.user = null});
+      {this.status = AuthStatus.unknown,
+      this.error = null,
+      this.user = null,
+      this.confirmationDataTimer = null,
+      this.confirmationDataTimerSeconds = 0});
 
   @override
   @JsonKey()
@@ -125,10 +161,16 @@ class _$AuthStateImpl implements _AuthState {
   @override
   @JsonKey()
   final UserEntity? user;
+  @override
+  @JsonKey()
+  final Timer? confirmationDataTimer;
+  @override
+  @JsonKey()
+  final int confirmationDataTimerSeconds;
 
   @override
   String toString() {
-    return 'AuthState(status: $status, error: $error, user: $user)';
+    return 'AuthState(status: $status, error: $error, user: $user, confirmationDataTimer: $confirmationDataTimer, confirmationDataTimerSeconds: $confirmationDataTimerSeconds)';
   }
 
   @override
@@ -138,11 +180,18 @@ class _$AuthStateImpl implements _AuthState {
             other is _$AuthStateImpl &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.error, error) || other.error == error) &&
-            (identical(other.user, user) || other.user == user));
+            (identical(other.user, user) || other.user == user) &&
+            (identical(other.confirmationDataTimer, confirmationDataTimer) ||
+                other.confirmationDataTimer == confirmationDataTimer) &&
+            (identical(other.confirmationDataTimerSeconds,
+                    confirmationDataTimerSeconds) ||
+                other.confirmationDataTimerSeconds ==
+                    confirmationDataTimerSeconds));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, error, user);
+  int get hashCode => Object.hash(runtimeType, status, error, user,
+      confirmationDataTimer, confirmationDataTimerSeconds);
 
   @JsonKey(ignore: true)
   @override
@@ -155,7 +204,9 @@ abstract class _AuthState implements AuthState {
   const factory _AuthState(
       {final AuthStatus status,
       final Failure? error,
-      final UserEntity? user}) = _$AuthStateImpl;
+      final UserEntity? user,
+      final Timer? confirmationDataTimer,
+      final int confirmationDataTimerSeconds}) = _$AuthStateImpl;
 
   @override
   AuthStatus get status;
@@ -163,6 +214,10 @@ abstract class _AuthState implements AuthState {
   Failure? get error;
   @override
   UserEntity? get user;
+  @override
+  Timer? get confirmationDataTimer;
+  @override
+  int get confirmationDataTimerSeconds;
   @override
   @JsonKey(ignore: true)
   _$$AuthStateImplCopyWith<_$AuthStateImpl> get copyWith =>

@@ -18,4 +18,18 @@ abstract class UserRemoteDataSource {
     required double latitude,
     required double longitude,
   });
+
+  Future<Response<dynamic>> recoveryPassword({
+    required String email,
+    required String password,
+  });
+
+  Future<Response<dynamic>> confirmPasswordRecovery({
+    required String email,
+    required String code,
+  });
+
+  Future<Response<dynamic>> getConfirmationCode({required String email});
+
+  Future<Response<dynamic>> sendConfirmationCode({required String code});
 }

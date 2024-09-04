@@ -86,5 +86,7 @@ abstract class  LocaleKeys {
   static const passwordRecoveryPageNewPassword = 'passwordRecoveryPageNewPassword';
   static const passwordRecoveryPageRepeatPassword = 'passwordRecoveryPageRepeatPassword';
   static const passwordRecoveryPageChange = 'passwordRecoveryPageChange';
+  static const passwordRecoveryPageSetEmail = 'passwordRecoveryPageSetEmail';
+  static const passwordRecoveryPageEnterPassword = 'passwordRecoveryPageEnterPassword';
 
 }

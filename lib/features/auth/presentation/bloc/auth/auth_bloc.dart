@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
+import 'package:food_driver/constants/duration_constants.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/auth/data/models/auth_status.dart';
@@ -32,6 +35,9 @@ class AuthBloc extends Bloc<AuthUserEvent, AuthState> {
     on<AuthLogoutEvent>(_onAuthLogout);
     on<AuthCheckEvent>(_onAuthCheck);
     on<AuthDeleteEvent>(_onAuthDelete);
+    on<AuthStartConfirmationTimer>(_onStartTimer);
+    on<AuthStopConfirmationTimer>(_onStopTimer);
+    on<AuthUpdateConfirmationTime>(_onUpdateConfirmationTime);
   }
 
   void _onAuthLoginByPassword(
@@ -108,5 +114,46 @@ class AuthBloc extends Bloc<AuthUserEvent, AuthState> {
   ) async {
     await _delete(NoParams());
     emit(state.copyWith(status: AuthStatus.unauthenticated));
+  }
+
+  void _onStartTimer(
+    AuthStartConfirmationTimer event,
+    Emitter<AuthState> emit,
+  ) async {
+    emit(state.copyWith(
+      confirmationDataTimer:
+          Timer.periodic(const Duration(seconds: 1), timerCallback),
+      confirmationDataTimerSeconds:
+          DurationConstants.emailConfirmation.inSeconds,
+    ));
+  }
+
+  void _onUpdateConfirmationTime(
+    AuthUpdateConfirmationTime event,
+    Emitter<AuthState> emit,
+  ) {
+    var seconds = state.confirmationDataTimerSeconds - 1;
+    emit(state.copyWith(
+      confirmationDataTimerSeconds: seconds,
+    ));
+  }
+
+  void _onStopTimer(
+    AuthStopConfirmationTimer event,
+    Emitter<AuthState> emit,
+  ) {
+    emit(state.copyWith(
+      confirmationDataTimer: null,
+      confirmationDataTimerSeconds: 0,
+    ));
+  }
+
+  void timerCallback(timer) {
+    if (state.confirmationDataTimerSeconds == 0) {
+      timer.cancel();
+      add(AuthStopConfirmationTimer());
+      return;
+    }
+    add(AuthUpdateConfirmationTime());
   }
 }

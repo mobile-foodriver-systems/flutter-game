@@ -28,4 +28,22 @@ abstract class UserRepository {
     required double latitude,
     required double longitude,
   });
+
+  Future<Either<ApiErrorStack, bool>> getConfirmationCode({
+    required String email,
+  });
+
+  Future<Either<ApiErrorStack, bool>> sendConfirmationCode({
+    required String code,
+  });
+
+  Future<Either<ApiErrorStack, bool>> recoveryPassword({
+    required String email,
+    required String password,
+  });
+
+  Future<Either<ApiErrorStack, bool>> confirmPasswordRecovery({
+    required String email,
+    required String code,
+  });
 }

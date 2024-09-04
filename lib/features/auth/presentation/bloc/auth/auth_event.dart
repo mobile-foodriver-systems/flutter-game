@@ -26,3 +26,9 @@ final class AuthCheckEvent extends AuthUserEvent {
 }
 
 final class AuthDeleteEvent extends AuthUserEvent {}
+
+final class AuthStartConfirmationTimer extends AuthUserEvent {}
+
+final class AuthStopConfirmationTimer extends AuthUserEvent {}
+
+final class AuthUpdateConfirmationTime extends AuthUserEvent {}

@@ -7,6 +7,14 @@ class ApiRoutes {
   static const String profile = '/game/api/v1/account/my';
   static const String updateLocation = '/game/api/v1/account/location';
   static const String rating = '/game/api/v1/rating';
+  static const String recoveryPassword =
+      '/game/api/v1/account/password/change/by_email/begin';
+  static const String confirmPasswordRecovery =
+      '/game/api/v1/account/password/change/by_email/complete';
+  static const String getConfirmationCode =
+      '/game/api/v1/account/email/change/begin';
+  static const String sendConfirmationCode =
+      '/game/api/v1/account/email/change/complete';
 
   // Game
   static const String routes = '/game/api/v1/osmroute/random/by_city';

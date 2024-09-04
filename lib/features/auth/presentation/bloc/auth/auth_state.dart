@@ -6,5 +6,7 @@ class AuthState with _$AuthState {
     @Default(AuthStatus.unknown) AuthStatus status,
     @Default(null) Failure? error,
     @Default(null) UserEntity? user,
+    @Default(null) Timer? confirmationDataTimer,
+    @Default(0) int confirmationDataTimerSeconds,
   }) = _AuthState;
 }

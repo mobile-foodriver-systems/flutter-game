@@ -10,7 +10,7 @@ import 'package:food_driver/features/auth/presentation/bloc/auth/auth_bloc.dart'
 import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/user/data/models/user_status.dart';
-import 'package:food_driver/features/user/presentation/bloc/user_bloc.dart';
+import 'package:food_driver/features/user/presentation/bloc/user/user_bloc.dart';
 import 'package:food_driver/features/user/presentation/widgets/card_widget.dart';
 import 'package:food_driver/features/user/presentation/widgets/close_icon_button.dart';
 import 'package:food_driver/features/user/presentation/widgets/custom_text_button.dart';
@@ -109,7 +109,9 @@ class _ProfileBodyState extends State<ProfileBody> with ProfileMixin {
                         const SizedBox(height: 40.0),
                         isEditing
                             ? EditProfileForm(
-                                changeEditingState: changeEditingState)
+                                changeEditingState: changeEditingState,
+                                user: state.user!,
+                              )
                             : ProfileInfo(
                                 user: state.user!,
                                 changeData: changeEditingState,
