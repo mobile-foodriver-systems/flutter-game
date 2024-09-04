@@ -7,10 +7,13 @@ import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/auth/presentation/bloc/auth/auth_bloc.dart';
+import 'package:food_driver/features/auth/presentation/pages/pdf_page.dart';
 import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/user/data/models/user_status.dart';
+import 'package:food_driver/features/user/domain/repositories/user_repository.dart';
 import 'package:food_driver/features/user/presentation/bloc/user/user_bloc.dart';
+import 'package:food_driver/features/user/presentation/pages/game_rules_page.dart';
 import 'package:food_driver/features/user/presentation/widgets/card_widget.dart';
 import 'package:food_driver/features/user/presentation/widgets/close_icon_button.dart';
 import 'package:food_driver/features/user/presentation/widgets/custom_text_button.dart';
@@ -111,6 +114,8 @@ class _ProfileBodyState extends State<ProfileBody> with ProfileMixin {
                             ? EditProfileForm(
                                 changeEditingState: changeEditingState,
                                 user: state.user!,
+                                loadProfile: loadProfile,
+                                updateProfile: updateProfile,
                               )
                             : ProfileInfo(
                                 user: state.user!,
@@ -167,13 +172,18 @@ class _LegalInfo extends StatelessWidget {
             textAlign: TextAlign.left,
           ),
           const SizedBox(height: 16.0),
-          // CustomTextButton(
-          //   text: LocaleKeys.profilePageOfferAgreement.tr(,
-          //   url: Config.offerAgreement,
-          // ),
+          CustomTextButton(
+            text: LocaleKeys.profilePageGameRules.tr(),
+            onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const GameRulesPage())),
+          ),
           CustomTextButton(
             text: LocaleKeys.authPagePrivacyPolicy.tr(),
-            url: EnvironmentConstants().privacyPolicyUrl,
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => PdfPage(
+                      url: EnvironmentConstants().privacyPolicyUrl,
+                      title: LocaleKeys.authPagePrivacyPolicy.tr(),
+                    ))),
           ),
         ],
       ),

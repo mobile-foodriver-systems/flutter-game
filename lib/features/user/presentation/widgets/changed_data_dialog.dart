@@ -13,37 +13,44 @@ class ChangedDataDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        DecoratedBox(
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppColors.lightGreen,
-          ),
-          child: Image.asset(AssetsCatalog.icCheck),
-        ),
-        const SizedBox(height: 20.0),
-        Text(
-          LocaleKeys.profilePageDataChanged.tr(),
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 44.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            width: 72.0,
+            height: 72.0,
+            child: DecoratedBox(
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppColors.lightGreen,
               ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 20.0),
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-            dataChanged();
-          },
-          child: Text(
-            LocaleKeys.profilePageOk.tr(),
+              child: Image.asset(AssetsCatalog.icCheck),
+            ),
           ),
-        ),
-      ],
+          const SizedBox(height: 20.0),
+          Text(
+            LocaleKeys.profilePageDataChanged.tr(),
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 20.0),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              dataChanged();
+            },
+            child: Text(
+              LocaleKeys.profilePageOk.tr(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

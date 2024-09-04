@@ -54,6 +54,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     int? cityId,
     String? email,
     String? walletAddress,
+    String? userName,
   }) async {
     return await _appHttpService.request(
       path: ApiRoutes.account,
@@ -63,6 +64,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
         if (cityId != null) "cityId": cityId,
         if (email?.isNotEmpty ?? false) "email": email,
         if (walletAddress?.isNotEmpty ?? false) "walletAddress": walletAddress,
+        if (userName?.isNotEmpty ?? false) "userName": userName,
       },
     );
   }

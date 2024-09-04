@@ -3,12 +3,13 @@ part of 'package:food_driver/features/user/presentation/pages/profile_page.dart'
 mixin ProfileMixin on State<ProfileBody> {
   late final UserBloc _bloc = context.read<UserBloc>();
   late final AuthBloc _authBloc = context.read<AuthBloc>();
+  final userRepository = getIt<UserRepository>();
   bool isEditing = false;
 
   @override
   void initState() {
     super.initState();
-    _bloc.add(const UserLoadProfileEvent());
+    loadProfile();
   }
 
   void logout() => _authBloc.add(AuthLogoutEvent());
@@ -18,5 +19,19 @@ mixin ProfileMixin on State<ProfileBody> {
   void changeEditingState() {
     isEditing = !isEditing;
     setState(() {});
+  }
+
+  Future<void> updateProfile({
+    String? login,
+    String? wallet,
+  }) async {
+    await userRepository.updateUser(
+      userName: login?.isNotEmpty ?? false ? login : null,
+      walletAddress: wallet?.isNotEmpty ?? false ? wallet : null,
+    );
+  }
+
+  void loadProfile() {
+    _bloc.add(const UserLoadProfileEvent());
   }
 }

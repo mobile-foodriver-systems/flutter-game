@@ -85,5 +85,7 @@
     "passwordRecoveryPageRepeatPassword": "Повторите пароль",
     "passwordRecoveryPageChange": "Изменить",
     "passwordRecoveryPageSetEmail": "Укажите адрес электронной почты",
-    "passwordRecoveryPageEnterPassword": "Введите пароль"
+    "passwordRecoveryPageEnterPassword": "Введите пароль",
+    "profilePageGameRules": "Правила игры",
+    "profilePageGameRulesText": "Текст игры"
 }

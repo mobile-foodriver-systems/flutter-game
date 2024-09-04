@@ -46,6 +46,17 @@ mixin EditProfileMixin on State<EditProfileFormBody> {
           );
         },
       );
+      if (loginController.text.isNotEmpty &&
+              loginController.text.trim() != widget.user.userName?.trim() ||
+          walletController.text.isNotEmpty &&
+              walletController.text.trim() !=
+                  widget.user.walletAddress?.trim()) {
+        await widget.updateProfile(
+          wallet: walletController.text,
+          login: loginController.text,
+        );
+      }
+      widget.loadProfile();
     }
   }
 

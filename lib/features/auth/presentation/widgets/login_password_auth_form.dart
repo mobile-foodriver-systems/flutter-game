@@ -86,7 +86,9 @@ class _LoginPasswordAuthFormState extends State<LoginPasswordAuthForm>
               padding: horizontalPadding,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(RegistrationPage.route);
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const RegistrationPage(),
+                  ));
                 },
                 child: Text(LocaleKeys.authPageRegister.tr()),
               ),
@@ -95,7 +97,9 @@ class _LoginPasswordAuthFormState extends State<LoginPasswordAuthForm>
               padding: const EdgeInsets.symmetric(horizontal: 44.0),
               child: TextButton(
                 onPressed: () {
-                  Navigator.of(context).push(RecoveryPasswordPage.route);
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const RecoveryPasswordPage(),
+                  ));
                 },
                 child: Text(LocaleKeys.authPageRecoverPassword.tr()),
               ),

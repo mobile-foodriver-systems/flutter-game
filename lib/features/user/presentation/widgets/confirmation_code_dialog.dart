@@ -75,7 +75,7 @@ class _ConfirmationCodeDialogState extends State<ConfirmationCodeDialog> {
           const SizedBox(height: 16.0),
           ElevatedButton(
             onPressed: () {
-              if (controller.text.length != 4) {
+              if (controller.text.length == 4) {
                 widget.confirmEmail(controller.text);
               }
             },

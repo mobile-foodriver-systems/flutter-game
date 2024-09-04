@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:food_driver/constants/environment_constants.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/auth/presentation/pages/pdf_page.dart';
 
 class CustomTextButton extends StatelessWidget {
   const CustomTextButton({
     super.key,
     required this.text,
-    required this.url,
+    required this.onPressed,
   });
 
   final String text;
-  final String url;
+
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +19,7 @@ class CustomTextButton extends StatelessWidget {
         padding: EdgeInsets.zero,
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       ),
-      onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => PdfPage(
-                url: EnvironmentConstants().privacyPolicyUrl,
-                title: "Политика конфиденциальности",
-              ))),
+      onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

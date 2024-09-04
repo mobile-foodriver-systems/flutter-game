@@ -10,10 +10,6 @@ import 'package:food_driver/features/auth/presentation/widgets/registration.dart
 class RegistrationPage extends StatelessWidget with ErrorMixin {
   const RegistrationPage({super.key});
 
-  static MaterialPageRoute route = MaterialPageRoute(
-    builder: (context) => const RegistrationPage(),
-  );
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

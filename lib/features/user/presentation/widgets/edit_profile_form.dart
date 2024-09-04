@@ -17,11 +17,15 @@ part 'package:food_driver/features/user/presentation/pages/mixins/edit_profile_m
 class EditProfileForm extends StatelessWidget {
   final VoidCallback changeEditingState;
   final UserEntity user;
+  final VoidCallback loadProfile;
+  final Future<void> Function({String? login, String? wallet}) updateProfile;
 
   const EditProfileForm({
     super.key,
     required this.changeEditingState,
     required this.user,
+    required this.loadProfile,
+    required this.updateProfile,
   });
 
   @override
@@ -31,6 +35,8 @@ class EditProfileForm extends StatelessWidget {
       child: EditProfileFormBody(
         changeEditingState: changeEditingState,
         user: user,
+        loadProfile: loadProfile,
+        updateProfile: updateProfile,
       ),
     );
   }
@@ -39,11 +45,15 @@ class EditProfileForm extends StatelessWidget {
 class EditProfileFormBody extends StatefulWidget {
   final VoidCallback changeEditingState;
   final UserEntity user;
+  final VoidCallback loadProfile;
+  final Future<void> Function({String? login, String wallet}) updateProfile;
 
   const EditProfileFormBody({
     super.key,
     required this.changeEditingState,
     required this.user,
+    required this.loadProfile,
+    required this.updateProfile,
   });
 
   @override
@@ -114,12 +124,6 @@ class _EditProfileFormBodyState extends State<EditProfileFormBody>
                           LocaleKeys.profilePageWallet.tr(),
                         ),
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return LocaleKeys.profilePageWallet.tr();
-                        }
-                        return null;
-                      },
                     ),
                     const SizedBox(height: 16.0),
                     ElevatedButton(

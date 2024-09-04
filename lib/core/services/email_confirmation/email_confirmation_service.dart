@@ -11,7 +11,7 @@ class EmailConfirmationService {
   int seconds = 0;
 
   void start() {
-    if (timer != null) return;
+    if (timer?.isActive ?? false) return;
     seconds = DurationConstants.emailConfirmation.inSeconds;
     timer = Timer.periodic(const Duration(seconds: 1), timerCallback);
   }

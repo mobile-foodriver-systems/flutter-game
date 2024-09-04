@@ -85,5 +85,7 @@
     "passwordRecoveryPageRepeatPassword": "Repeat password",
     "passwordRecoveryPageChange": "Change",
     "passwordRecoveryPageSetEmail": "Specify the email address",
-    "passwordRecoveryPageEnterPassword": "Enter the password"
+    "passwordRecoveryPageEnterPassword": "Enter the password",
+    "profilePageGameRules": "The rules of the game",
+    "profilePageGameRulesText": "The text of the game"
 }

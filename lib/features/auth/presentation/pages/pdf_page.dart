@@ -46,15 +46,7 @@ class _PdfPageState extends State<PdfPage> with PdfMixin {
                 ),
           body: isLoading
               ? const LoadingIndicator()
-              : PDFView(
-                  filePath: filePath,
-                  // onError: (error) {
-
-                  // },
-                  // onPageError: (page, error) {
-
-                  // },
-                ),
+              : PDFView(filePath: filePath),
         ),
       ),
     );

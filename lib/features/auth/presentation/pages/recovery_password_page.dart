@@ -6,10 +6,6 @@ import 'package:food_driver/generated/locale_keys.g.dart';
 class RecoveryPasswordPage extends StatelessWidget {
   const RecoveryPasswordPage({super.key});
 
-  static MaterialPageRoute route = MaterialPageRoute(
-    builder: (context) => const RecoveryPasswordPage(),
-  );
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

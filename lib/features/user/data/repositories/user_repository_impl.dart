@@ -28,6 +28,7 @@ class UserRepositoryImpl extends UserRepository {
     int? cityId,
     String? email,
     String? walletAddress,
+    String? userName,
   }) async {
     Response<dynamic>? response;
     try {

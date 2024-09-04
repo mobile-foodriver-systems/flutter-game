@@ -22,6 +22,7 @@ abstract class UserRepository {
     int? cityId,
     String? email,
     String? walletAddress,
+    String? userName,
   });
 
   Future<Either<ApiErrorStack, NoParams>> updateUserLatLng({

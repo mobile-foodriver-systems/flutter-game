@@ -12,6 +12,7 @@ abstract class UserRemoteDataSource {
     int? cityId,
     String? email,
     String? walletAddress,
+    String? userName,
   });
 
   Future<Response<dynamic>> updateLatLng({
