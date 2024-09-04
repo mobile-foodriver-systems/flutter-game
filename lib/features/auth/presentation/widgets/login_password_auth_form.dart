@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/features/auth/presentation/bloc/auth/auth_bloc.dart';
-import 'package:food_driver/features/auth/presentation/pages/recovery_password_page.dart';
 import 'package:food_driver/features/auth/presentation/pages/registration_page.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
 
@@ -93,17 +92,17 @@ class _LoginPasswordAuthFormState extends State<LoginPasswordAuthForm>
                 child: Text(LocaleKeys.authPageRegister.tr()),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 44.0),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const RecoveryPasswordPage(),
-                  ));
-                },
-                child: Text(LocaleKeys.authPageRecoverPassword.tr()),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 44.0),
+            //   child: TextButton(
+            //     onPressed: () {
+            //       Navigator.of(context).push(MaterialPageRoute(
+            //         builder: (context) => const RecoveryPasswordPage(),
+            //       ));
+            //     },
+            //     child: Text(LocaleKeys.authPageRecoverPassword.tr()),
+            //   ),
+            // ),
           ],
         ),
       ),
