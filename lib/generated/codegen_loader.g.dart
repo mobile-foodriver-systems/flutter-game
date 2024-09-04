@@ -84,7 +84,22 @@ class CodegenLoader extends AssetLoader{
   "gamePageShortDescription": "Short description",
   "gamePageAmount": "The amount of the fund:",
   "gamePageAmountValue": "392 321",
-  "gamePagePrizeFundText": "Every month, a prize pool will be announced for the players, which will be distributed among all participants of the game.At the end of the month, we will sum up the number of tokens that all participants have earned and everyone will be rewarded depending on the percentage of tokens from the total amount that each user earned during this period.The prize fund can both grow and decrease."
+  "gamePagePrizeFundText": "Every month, a prize pool will be announced for the players, which will be distributed among all participants of the game.At the end of the month, we will sum up the number of tokens that all participants have earned and everyone will be rewarded depending on the percentage of tokens from the total amount that each user earned during this period.The prize fund can both grow and decrease.",
+  "profilePageLogin": "Login",
+  "profilePageChangeData": "Change the data",
+  "profilePageSaveChanges": "Save changes",
+  "profilePageConfirmationCode": "Confirmation code",
+  "profilePageSentTo": "Sent to {email}",
+  "profilePageConfirm": "Confirm",
+  "profilePageResend": "Resend ({time})",
+  "profilePageDataChanged": "The data has been successfully changed",
+  "profilePageOk": "OK",
+  "authPageRecoverPassword": "Recover password",
+  "passwordRecoveryPagePasswordRecovery": "Password Recovery",
+  "passwordRecoveryPageYourEmail": "Your E-mail",
+  "passwordRecoveryPageNewPassword": "New password",
+  "passwordRecoveryPageRepeatPassword": "Repeat password",
+  "passwordRecoveryPageChange": "Change"
 };
 static const Map<String,dynamic> ru = {
   "authPageLoginToAccount": "Вход в аккаунт",
@@ -156,7 +171,22 @@ static const Map<String,dynamic> ru = {
   "gamePageShortDescription": "Краткое описание",
   "gamePageAmount": "Сумма фонда:",
   "gamePageAmountValue": "392 321",
-  "gamePagePrizeFundText": "Каждый месяц будет объявляться призовой фонд для игроков, который будет распределен среди всех участников игры.\n\nВ конце месяца мы суммируем количество токенов, которые заработали все участники и каждому будет выдавать вознаграждение в зависимости от процента токенов от общей суммы, которые каждый пользователь заработал за этот период.\n\nПризовой фонд может как вырасти так и уменьшиться."
+  "gamePagePrizeFundText": "Каждый месяц будет объявляться призовой фонд для игроков, который будет распределен среди всех участников игры.\n\nВ конце месяца мы суммируем количество токенов, которые заработали все участники и каждому будет выдавать вознаграждение в зависимости от процента токенов от общей суммы, которые каждый пользователь заработал за этот период.\n\nПризовой фонд может как вырасти так и уменьшиться.",
+  "profilePageLogin": "Логин",
+  "profilePageChangeData": "Изменить данные",
+  "profilePageSaveChanges": "Сохранить изменения",
+  "profilePageConfirmationCode": "Код подтверждения",
+  "profilePageSentTo": "Отправлено на {email}",
+  "profilePageConfirm": "Подтвердить",
+  "profilePageResend": "Отправить повторно ({time})",
+  "profilePageDataChanged": "Данные были успешно изменены",
+  "profilePageOk": "Ок",
+  "authPageRecoverPassword": "Восстановить пароль",
+  "passwordRecoveryPagePasswordRecovery": "Восстановление пароля",
+  "passwordRecoveryPageYourEmail": "Ваш E-mail",
+  "passwordRecoveryPageNewPassword": "New password",
+  "passwordRecoveryPageRepeatPassword": "Repeat password",
+  "passwordRecoveryPageChange": "Изменить"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ru": ru};
 }

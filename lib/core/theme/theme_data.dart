@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
+import 'package:pinput/pinput.dart';
 // import 'package:pinput/pinput.dart';
 
 ThemeData appTheme(BuildContext context) {
@@ -130,16 +131,30 @@ const scaffoldDecoration = BoxDecoration(
   ),
 );
 
-// final defaultPinTheme = PinTheme(
-//   width: 48,
-//   height: 48,
-//   textStyle: const TextStyle(
-//     fontSize: 20,
-//     color: AppColors.pinCodeGray,
-//     fontWeight: FontWeight.w600,
-//   ),
-//   decoration: BoxDecoration(
-//     border: Border.all(color: AppColors.pinCodeGray),
-//     borderRadius: BorderRadius.circular(10),
-//   ),
-// );
+final elevatedButtonGrayStyle = ElevatedButton.styleFrom(
+  backgroundColor: AppColors.textFieldGray,
+  foregroundColor: AppColors.black,
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(12.0),
+  ),
+  minimumSize: const Size.fromHeight(52),
+  textStyle: const TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.w600,
+  ),
+  elevation: 0,
+);
+
+final defaultPinTheme = PinTheme(
+  width: 48,
+  height: 48,
+  textStyle: const TextStyle(
+    fontSize: 20,
+    color: AppColors.pinCodeGray,
+    fontWeight: FontWeight.w600,
+  ),
+  decoration: BoxDecoration(
+    border: Border.all(color: AppColors.pinCodeGray),
+    borderRadius: BorderRadius.circular(10),
+  ),
+);

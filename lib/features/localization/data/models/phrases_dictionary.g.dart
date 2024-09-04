@@ -78,6 +78,21 @@ PhrasesDictionary _$PhrasesDictionaryFromJson(Map<String, dynamic> json) =>
       json['gamePageAmount'] as String?,
       json['gamePageAmountValue'] as String?,
       json['gamePagePrizeFundText'] as String?,
+      json['profilePageLogin'] as String?,
+      json['profilePageChangeData'] as String?,
+      json['profilePageSaveChanges'] as String?,
+      json['profilePageConfirmationCode'] as String?,
+      json['profilePageSentTo'] as String?,
+      json['profilePageConfirm'] as String?,
+      json['profilePageResend'] as String?,
+      json['profilePageDataChanged'] as String?,
+      json['profilePageOk'] as String?,
+      json['authPageRecoverPassword'] as String?,
+      json['passwordRecoveryPagePasswordRecovery'] as String?,
+      json['passwordRecoveryPageYourEmail'] as String?,
+      json['passwordRecoveryPageNewPassword'] as String?,
+      json['passwordRecoveryPageRepeatPassword'] as String?,
+      json['passwordRecoveryPageChange'] as String?,
     );
 
 Map<String, dynamic> _$PhrasesDictionaryToJson(PhrasesDictionary instance) =>
@@ -155,4 +170,22 @@ Map<String, dynamic> _$PhrasesDictionaryToJson(PhrasesDictionary instance) =>
       'gamePageAmount': instance.gamePageAmount,
       'gamePageAmountValue': instance.gamePageAmountValue,
       'gamePagePrizeFundText': instance.gamePagePrizeFundText,
+      'profilePageLogin': instance.profilePageLogin,
+      'profilePageChangeData': instance.profilePageChangeData,
+      'profilePageSaveChanges': instance.profilePageSaveChanges,
+      'profilePageConfirmationCode': instance.profilePageConfirmationCode,
+      'profilePageSentTo': instance.profilePageSentTo,
+      'profilePageConfirm': instance.profilePageConfirm,
+      'profilePageResend': instance.profilePageResend,
+      'profilePageDataChanged': instance.profilePageDataChanged,
+      'profilePageOk': instance.profilePageOk,
+      'authPageRecoverPassword': instance.authPageRecoverPassword,
+      'passwordRecoveryPagePasswordRecovery':
+          instance.passwordRecoveryPagePasswordRecovery,
+      'passwordRecoveryPageYourEmail': instance.passwordRecoveryPageYourEmail,
+      'passwordRecoveryPageNewPassword':
+          instance.passwordRecoveryPageNewPassword,
+      'passwordRecoveryPageRepeatPassword':
+          instance.passwordRecoveryPageRepeatPassword,
+      'passwordRecoveryPageChange': instance.passwordRecoveryPageChange,
     };
