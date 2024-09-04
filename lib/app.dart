@@ -102,7 +102,6 @@ class _AppViewState extends State<AppView> {
 
   Future<void> initApp(BuildContext context) async {
     context.read<AuthBloc>().add(const AuthCheckEvent());
-    context.read<LocalizationBloc>().add(const LocalizationEvent());
     FlutterNativeSplash.remove();
   }
 }

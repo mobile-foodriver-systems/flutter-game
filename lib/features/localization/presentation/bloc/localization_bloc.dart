@@ -23,40 +23,26 @@ class LocalizationBloc extends Bloc<LocalizationEvent, LocalizationState> {
     this._loadLocales,
     this._cacheLocales,
     this._getCacheLocales,
-  ) : super(const _Initial()) {
-    on<LocalizationEvent>(_loadSupportedLocales);
-  }
+  ) : super(const _Initial());
 
-  void _loadSupportedLocales(
-    LocalizationEvent event,
-    Emitter<LocalizationState> emit,
-  ) async {
-    emit(const _Loading());
-    var response = await _loadLocales.call(NoParams());
-    response.fold(
-      (error) => emit(const _Error()),
-      (result) => _cacheLocales.call(result),
-    );
-    emit(const _Success());
-  }
-
-  Future<List<Locale>> getSupportedLocales() async {
+  Future<List<Locale>> getCachedLocales() async {
     var supportedLocales = [
       const Locale('en'),
       const Locale('ru'),
     ];
-
-    var response = await _loadLocales.call(NoParams());
-    response.fold(
-      (error) async {
-        var locales = await _getCacheLocales.call(NoParams());
-        locales.fold(
-          (l) {},
-          (result) => supportedLocales = result.availableLocales,
-        );
-      },
+    var locales = await _getCacheLocales.call(NoParams());
+    locales.fold(
+      (l) {},
       (result) => supportedLocales = result.availableLocales,
     );
     return supportedLocales;
+  }
+
+  Future<void> loadCacheLocales() async {
+    var response = await _loadLocales.call(NoParams());
+    response.fold(
+      (error) {},
+      (result) async => await _cacheLocales.call(result),
+    );
   }
 }
