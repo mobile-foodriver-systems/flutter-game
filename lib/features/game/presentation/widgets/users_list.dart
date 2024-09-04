@@ -42,21 +42,26 @@ class _UsersListState extends State<UsersList> with RatingMixin, LocationMixin {
           children: [
             const _RatingListHeader(),
             Expanded(
-              child: buildListView(
-                state,
-                BiDirectionalScrollView(
-                  padding: const EdgeInsets.all(0),
-                  itemBuilder: (context, index) => buildListItem(
-                    context,
-                    index,
-                    state,
+              child: DecoratedBox(
+                decoration: const BoxDecoration(
+                  color: AppColors.textFieldGray,
+                ),
+                child: buildListView(
+                  state,
+                  BiDirectionalScrollView(
+                    padding: const EdgeInsets.all(0),
+                    itemBuilder: (context, index) => buildListItem(
+                      context,
+                      index,
+                      state,
+                    ),
+                    prevItemsLoading: state.prevItemsLoading,
+                    nextItemsLoading: state.nextItemsLoading,
+                    controller: _scrollController,
+                    itemCount: state.ratingList?.list.length ?? 0,
+                    centerItemPosition: getCenterItemPosition(state),
+                    onLoadMore: _onLoadMore,
                   ),
-                  prevItemsLoading: state.prevItemsLoading,
-                  nextItemsLoading: state.nextItemsLoading,
-                  controller: _scrollController,
-                  itemCount: state.ratingList?.list.length ?? 0,
-                  centerItemPosition: getCenterItemPosition(state),
-                  onLoadMore: _onLoadMore,
                 ),
               ),
             ),
@@ -105,9 +110,7 @@ class _UserRatingItem extends StatelessWidget {
   const _UserRatingItem({
     required this.rating,
     this.isActive = false,
-    this.decoration = const BoxDecoration(
-      color: AppColors.textFieldGray,
-    ),
+    this.decoration = const BoxDecoration(),
   });
 
   final UserRating rating;

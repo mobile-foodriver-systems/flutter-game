@@ -129,7 +129,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
         emit(state.copyWith(
           userId: state.userId ?? event.userId,
           topOffset: topOffset <= 0 ? 0 : topOffset,
-          position: userPosition,
+          position: userPosition ?? state.position,
           isAllPrevLoaded: topOffset <= 0,
           dataInitialized: true,
           bottomOffset: bottomOffset,
