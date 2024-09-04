@@ -30,12 +30,12 @@ extension on _$RatingState {
   double? long(UsersSortType? sort) =>
       (sort ?? this.sort) == UsersSortType.global
           ? null
-          : user?.city?.location?.longitude;
+          : user?.location?.longitude ?? user?.city?.location?.longitude;
 
   double? lat(UsersSortType? sort) =>
       (sort ?? this.sort) == UsersSortType.global
           ? null
-          : user?.city?.location?.latitude;
+          : user?.location?.latitude ?? user?.city?.location?.latitude;
 
   bool isLoading(Direction direction) =>
       direction.isDown ? nextItemsLoading : prevItemsLoading;
