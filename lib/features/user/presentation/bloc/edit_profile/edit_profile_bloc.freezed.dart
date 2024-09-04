@@ -20,7 +20,7 @@ mixin _$EditProfileState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() codeSent,
+    required TResult Function(Failure? error) codeSent,
     required TResult Function() confirmed,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$EditProfileState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? codeSent,
+    TResult? Function(Failure? error)? codeSent,
     TResult? Function()? confirmed,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$EditProfileState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? codeSent,
+    TResult Function(Failure? error)? codeSent,
     TResult Function()? confirmed,
     required TResult orElse(),
   }) =>
@@ -126,7 +126,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() codeSent,
+    required TResult Function(Failure? error) codeSent,
     required TResult Function() confirmed,
   }) {
     return initial();
@@ -137,7 +137,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? codeSent,
+    TResult? Function(Failure? error)? codeSent,
     TResult? Function()? confirmed,
   }) {
     return initial?.call();
@@ -148,7 +148,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? codeSent,
+    TResult Function(Failure? error)? codeSent,
     TResult Function()? confirmed,
     required TResult orElse(),
   }) {
@@ -240,7 +240,7 @@ class _$LoadingImpl implements _Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() codeSent,
+    required TResult Function(Failure? error) codeSent,
     required TResult Function() confirmed,
   }) {
     return loading();
@@ -251,7 +251,7 @@ class _$LoadingImpl implements _Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? codeSent,
+    TResult? Function(Failure? error)? codeSent,
     TResult? Function()? confirmed,
   }) {
     return loading?.call();
@@ -262,7 +262,7 @@ class _$LoadingImpl implements _Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? codeSent,
+    TResult Function(Failure? error)? codeSent,
     TResult Function()? confirmed,
     required TResult orElse(),
   }) {
@@ -319,6 +319,8 @@ abstract class _$$CodeSentImplCopyWith<$Res> {
   factory _$$CodeSentImplCopyWith(
           _$CodeSentImpl value, $Res Function(_$CodeSentImpl) then) =
       __$$CodeSentImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({Failure? error});
 }
 
 /// @nodoc
@@ -328,36 +330,60 @@ class __$$CodeSentImplCopyWithImpl<$Res>
   __$$CodeSentImplCopyWithImpl(
       _$CodeSentImpl _value, $Res Function(_$CodeSentImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = freezed,
+  }) {
+    return _then(_$CodeSentImpl(
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as Failure?,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$CodeSentImpl implements _CodeSent {
-  const _$CodeSentImpl();
+  const _$CodeSentImpl({this.error});
+
+  @override
+  final Failure? error;
 
   @override
   String toString() {
-    return 'EditProfileState.codeSent()';
+    return 'EditProfileState.codeSent(error: $error)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$CodeSentImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$CodeSentImpl &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CodeSentImplCopyWith<_$CodeSentImpl> get copyWith =>
+      __$$CodeSentImplCopyWithImpl<_$CodeSentImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() codeSent,
+    required TResult Function(Failure? error) codeSent,
     required TResult Function() confirmed,
   }) {
-    return codeSent();
+    return codeSent(error);
   }
 
   @override
@@ -365,10 +391,10 @@ class _$CodeSentImpl implements _CodeSent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? codeSent,
+    TResult? Function(Failure? error)? codeSent,
     TResult? Function()? confirmed,
   }) {
-    return codeSent?.call();
+    return codeSent?.call(error);
   }
 
   @override
@@ -376,12 +402,12 @@ class _$CodeSentImpl implements _CodeSent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? codeSent,
+    TResult Function(Failure? error)? codeSent,
     TResult Function()? confirmed,
     required TResult orElse(),
   }) {
     if (codeSent != null) {
-      return codeSent();
+      return codeSent(error);
     }
     return orElse();
   }
@@ -425,7 +451,12 @@ class _$CodeSentImpl implements _CodeSent {
 }
 
 abstract class _CodeSent implements EditProfileState {
-  const factory _CodeSent() = _$CodeSentImpl;
+  const factory _CodeSent({final Failure? error}) = _$CodeSentImpl;
+
+  Failure? get error;
+  @JsonKey(ignore: true)
+  _$$CodeSentImplCopyWith<_$CodeSentImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -468,7 +499,7 @@ class _$ConfirmedImpl implements _Confirmed {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function() codeSent,
+    required TResult Function(Failure? error) codeSent,
     required TResult Function() confirmed,
   }) {
     return confirmed();
@@ -479,7 +510,7 @@ class _$ConfirmedImpl implements _Confirmed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function()? codeSent,
+    TResult? Function(Failure? error)? codeSent,
     TResult? Function()? confirmed,
   }) {
     return confirmed?.call();
@@ -490,7 +521,7 @@ class _$ConfirmedImpl implements _Confirmed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function()? codeSent,
+    TResult Function(Failure? error)? codeSent,
     TResult Function()? confirmed,
     required TResult orElse(),
   }) {

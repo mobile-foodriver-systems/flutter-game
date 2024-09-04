@@ -8,27 +8,25 @@ import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
 import 'package:pinput/pinput.dart';
 
-part 'package:food_driver/features/user/presentation/pages/mixins/confirm_email_mixin.dart';
-
 class ConfirmationCodeDialog extends StatefulWidget {
   final String email;
   final int seconds;
   final Function(String email) resendCode;
+  final Function(String code) confirmEmail;
 
   const ConfirmationCodeDialog({
     super.key,
     required this.email,
     required this.seconds,
     required this.resendCode,
+    required this.confirmEmail,
   });
 
   @override
   State<ConfirmationCodeDialog> createState() => _ConfirmationCodeDialogState();
 }
 
-class _ConfirmationCodeDialogState extends State<ConfirmationCodeDialog>
-    with ConfirmEmailMixin {
-  @override
+class _ConfirmationCodeDialogState extends State<ConfirmationCodeDialog> {
   final TextEditingController controller = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
@@ -71,12 +69,16 @@ class _ConfirmationCodeDialogState extends State<ConfirmationCodeDialog>
           Pinput(
             defaultPinTheme: defaultPinTheme,
             controller: controller,
-            // onCompleted: (pin) => print(pin),
             focusNode: focusNode,
+            autofillHints: null,
           ),
           const SizedBox(height: 16.0),
           ElevatedButton(
-            onPressed: confirm,
+            onPressed: () {
+              if (controller.text.length != 4) {
+                widget.confirmEmail(controller.text);
+              }
+            },
             child: Text(LocaleKeys.profilePageConfirm.tr()),
           ),
           TextButton(
@@ -85,7 +87,7 @@ class _ConfirmationCodeDialogState extends State<ConfirmationCodeDialog>
               _seconds == 0
                   ? LocaleKeys.profilePageResend
                       .tr()
-                      .replaceAll('( {time})', '')
+                      .replaceAll(' ({time})', '')
                   : LocaleKeys.profilePageResend.tr(namedArgs: {
                       'time': TimeFormatter.formatDuration(_seconds),
                     }),

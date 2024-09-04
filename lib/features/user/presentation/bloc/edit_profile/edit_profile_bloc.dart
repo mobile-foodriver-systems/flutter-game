@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/features/user/domain/usecases/get_confirmation_code.dart';
 import 'package:food_driver/features/user/domain/usecases/send_confirmation_code.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -37,6 +38,14 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   ) async {
     if (state == const _Loading()) return;
     emit(const _Loading());
-    await _sendCode.call(event.code);
+    final response = await _sendCode.call(event.code);
+    response.fold(
+      (error) {
+        emit(_CodeSent(error: error));
+      },
+      (success) {
+        emit(const _Confirmed());
+      },
+    );
   }
 }
