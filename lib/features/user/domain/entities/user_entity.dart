@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:food_driver/features/game/data/models/lat_lng.dart';
 import 'package:food_driver/features/location/data/models/city.dart';
 
 class UserEntity extends Equatable {
@@ -8,6 +9,7 @@ class UserEntity extends Equatable {
   final String? walletAddress;
   final num balance;
   final City? city;
+  final LatLng? location;
 
   const UserEntity({
     required this.id,
@@ -16,6 +18,7 @@ class UserEntity extends Equatable {
     this.walletAddress,
     required this.balance,
     this.city,
+    this.location,
   });
 
   factory UserEntity.update({
@@ -23,6 +26,7 @@ class UserEntity extends Equatable {
     City? city,
     String? walletAddress,
     String? email,
+    LatLng? location,
   }) {
     return UserEntity(
       id: user?.id ?? -1,
@@ -31,6 +35,7 @@ class UserEntity extends Equatable {
       walletAddress: walletAddress ?? user?.walletAddress,
       balance: user?.balance ?? 0,
       city: city ?? user?.city,
+      location: location ?? user?.location,
     );
   }
 

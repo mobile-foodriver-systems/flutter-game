@@ -6,7 +6,7 @@ import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/features/game/data/datasources/remote/game_remote_data_source.dart';
 import 'package:food_driver/features/game/data/models/drive_route.dart';
 import 'package:food_driver/features/game/data/models/game_action_result.dart';
-import 'package:food_driver/features/game/data/models/raiting_list.dart';
+import 'package:food_driver/features/game/data/models/rating_list.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
 import 'package:food_driver/features/user/data/models/api_error_stack.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
@@ -19,10 +19,12 @@ abstract class GameRepository {
     required int cityId,
   });
 
-  Future<Either<ApiErrorStack, RaitingList>> loadRaitingList({
+  Future<Either<ApiErrorStack, RatingList>> loadRatingList({
     int? radiusInKm,
     int? limit,
     int? offset,
+    double? latitude,
+    double? longitude,
   });
 
   Future<Either<Failure, GameActionResult>> startGame({required int cityId});

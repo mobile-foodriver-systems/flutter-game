@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
 import 'package:food_driver/di/injection.dart';
-import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart';
+import 'package:food_driver/features/game/presentation/bloc/rating/rating_bloc.dart';
 import 'package:food_driver/features/game/presentation/widgets/custom_segmented_button.dart';
 import 'package:food_driver/features/game/presentation/widgets/users_list.dart';
 import 'package:food_driver/features/user/presentation/widgets/close_icon_button.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
 
-class RaitingListPage extends StatelessWidget {
+class RatingListPage extends StatelessWidget {
   final int userId;
 
-  const RaitingListPage({
+  const RatingListPage({
     super.key,
     required this.userId,
   });
@@ -40,7 +40,7 @@ class RaitingListPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28.0),
                   child: BlocProvider(
-                    create: (_) => getIt<RaitingBloc>(),
+                    create: (_) => getIt<RatingBloc>(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -50,19 +50,14 @@ class RaitingListPage extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 24),
-                        BlocBuilder<RaitingBloc, RaitingState>(
-                          builder: (BuildContext context, RaitingState state) {
+                        BlocBuilder<RatingBloc, RatingState>(
+                          builder: (BuildContext context, RatingState state) {
                             return CustomSegmentedButton(
                               value: state.sort,
                               separator: const SizedBox(width: 4.0),
-                              onChanged: (sort) {
-                                context
-                                    .read<RaitingBloc>()
-                                    .add(RaitingLoadEvent(
-                                      sort: sort,
-                                      userId: userId,
-                                    ));
-                              },
+                              onChanged: (sort) => context
+                                  .read<RatingBloc>()
+                                  .add(RatingReloadEvent(sort: sort)),
                             );
                           },
                         ),

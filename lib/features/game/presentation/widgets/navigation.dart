@@ -18,7 +18,7 @@ class Navigation extends StatelessWidget {
     required this.toggleToInit,
     required this.toggleToPlay,
     required this.breakGame,
-    required this.openRaitingList,
+    required this.openRatingList,
     this.seconds = 0,
   });
 
@@ -27,7 +27,7 @@ class Navigation extends StatelessWidget {
   final VoidCallback toggleToInit;
   final VoidCallback toggleToPlay;
   final VoidCallback breakGame;
-  final VoidCallback openRaitingList;
+  final VoidCallback openRatingList;
   final num? speed;
   final int seconds;
 
@@ -45,7 +45,7 @@ class Navigation extends StatelessWidget {
               toggleToInit: toggleToInit,
               toggleToPlay: toggleToPlay,
               breakGame: breakGame,
-              openRaitingList: openRaitingList,
+              openRatingList: openRatingList,
               seconds: seconds,
               onPressed: onPressed,
             ),
@@ -78,7 +78,7 @@ class _TopNavigation extends StatelessWidget {
   final VoidCallback toggleToInit;
   final VoidCallback toggleToPlay;
   final VoidCallback breakGame;
-  final VoidCallback openRaitingList;
+  final VoidCallback openRatingList;
   final num? speed;
   final int seconds;
   final VoidCallback onPressed;
@@ -91,7 +91,7 @@ class _TopNavigation extends StatelessWidget {
     required this.toggleToInit,
     required this.toggleToPlay,
     required this.breakGame,
-    required this.openRaitingList,
+    required this.openRatingList,
     required this.seconds,
     required this.onPressed,
   });
@@ -129,7 +129,7 @@ class _TopNavigation extends StatelessWidget {
                     ),
         ),
         type == GameStateType.initialized
-            ? ProgressIconButton(onPressed: openRaitingList)
+            ? ProgressIconButton(onPressed: openRatingList)
             : CloseIconButton(onPressed: onPressed),
       ],
     );

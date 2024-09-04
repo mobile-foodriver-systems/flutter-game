@@ -75,6 +75,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     return await _appHttpService.request(
       path: ApiRoutes.updateLocation,
       type: RequestType.put,
+      options: Options(headers: {'Content-Type': 'application/json'}),
       data: {
         "latitude": latitude,
         "longitude": longitude,

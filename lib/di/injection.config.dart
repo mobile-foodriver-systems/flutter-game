@@ -12,8 +12,15 @@ import 'package:connectivity_plus/connectivity_plus.dart' as _i895;
 import 'package:food_driver/core/platform/network_info.dart' as _i984;
 import 'package:food_driver/core/platform/network_info_impl.dart' as _i771;
 import 'package:food_driver/core/providers/dio/dio_provider.dart' as _i370;
+<<<<<<< HEAD
 import 'package:food_driver/core/services/email_confirmation/email_confirmation_service.dart'
     as _i552;
+=======
+import 'package:food_driver/core/services/geolocation/geolocation_service.dart'
+    as _i435;
+import 'package:food_driver/core/services/geolocation/geolocation_service_impl.dart'
+    as _i318;
+>>>>>>> origin/feature/rating-list
 import 'package:food_driver/core/services/http/app_http_service.dart' as _i528;
 import 'package:food_driver/core/services/interceptors/auth_interceptor.dart'
     as _i535;
@@ -55,10 +62,10 @@ import 'package:food_driver/features/game/domain/repositories/game_repository.da
 import 'package:food_driver/features/game/domain/usecases/cancel_route.dart'
     as _i186;
 import 'package:food_driver/features/game/domain/usecases/load.dart' as _i251;
-import 'package:food_driver/features/game/domain/usecases/load_raiting.dart'
-    as _i508;
-import 'package:food_driver/features/game/domain/usecases/load_user_raiting.dart'
-    as _i240;
+import 'package:food_driver/features/game/domain/usecases/load_rating.dart'
+    as _i499;
+import 'package:food_driver/features/game/domain/usecases/load_user_rating.dart'
+    as _i746;
 import 'package:food_driver/features/game/domain/usecases/move_and_split_polyline.dart'
     as _i510;
 import 'package:food_driver/features/game/domain/usecases/send_tap.dart'
@@ -72,8 +79,8 @@ import 'package:food_driver/features/game/domain/usecases/vibrate.dart'
     as _i520;
 import 'package:food_driver/features/game/presentation/bloc/game/game_bloc.dart'
     as _i379;
-import 'package:food_driver/features/game/presentation/bloc/raiting/raiting_bloc.dart'
-    as _i982;
+import 'package:food_driver/features/game/presentation/bloc/rating/rating_bloc.dart'
+    as _i381;
 import 'package:food_driver/features/localization/data/datasources/local/localization_local_data_source.dart'
     as _i176;
 import 'package:food_driver/features/localization/data/datasources/remote/localization_remote_data_source.dart'
@@ -289,8 +296,15 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
+<<<<<<< HEAD
     gh.factory<_i1067.LoadCityUseCase>(
       () => _i1067.LoadCityUseCase(gh<_i275.LocationRepository>()),
+=======
+    gh.singleton<_i435.GeolocationService>(
+        () => _i318.GeolocationServiceImpl(gh<_i275.LocationRepository>()));
+    gh.factory<_i680.CityByLatLngUseCase>(
+      () => _i680.CityByLatLngUseCase(gh<_i275.LocationRepository>()),
+>>>>>>> origin/feature/rating-list
       registerFor: {
         _dev,
         _prod,
@@ -505,22 +519,25 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+<<<<<<< HEAD
     gh.factory<_i758.TakeRouteUseCase>(
       () => _i758.TakeRouteUseCase(gh<_i927.GameRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
+=======
     gh.factory<_i353.StartUseCase>(
       () => _i353.StartUseCase(gh<_i927.GameRepository>()),
+>>>>>>> origin/feature/rating-list
       registerFor: {
         _dev,
         _prod,
       },
     );
-    gh.factory<_i240.LoadUserRaitingUseCase>(
-      () => _i240.LoadUserRaitingUseCase(gh<_i927.GameRepository>()),
+<<<<<<< HEAD
+    gh.factory<_i353.StartUseCase>(
+      () => _i353.StartUseCase(gh<_i927.GameRepository>()),
+=======
+    gh.factory<_i499.LoadRatingUseCase>(
+      () => _i499.LoadRatingUseCase(gh<_i927.GameRepository>()),
+>>>>>>> origin/feature/rating-list
       registerFor: {
         _dev,
         _prod,
@@ -528,6 +545,18 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i186.CancelRouteUseCase>(
       () => _i186.CancelRouteUseCase(gh<_i927.GameRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+<<<<<<< HEAD
+    gh.factory<_i186.CancelRouteUseCase>(
+      () => _i186.CancelRouteUseCase(gh<_i927.GameRepository>()),
+=======
+    gh.factory<_i746.LoadUserRatingUseCase>(
+      () => _i746.LoadUserRatingUseCase(gh<_i927.GameRepository>()),
+>>>>>>> origin/feature/rating-list
       registerFor: {
         _dev,
         _prod,
@@ -547,9 +576,9 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i982.RaitingBloc>(() => _i982.RaitingBloc(
-          gh<_i508.LoadRaitingUseCase>(),
-          gh<_i240.LoadUserRaitingUseCase>(),
+    gh.factory<_i381.RatingBloc>(() => _i381.RatingBloc(
+          gh<_i499.LoadRatingUseCase>(),
+          gh<_i746.LoadUserRatingUseCase>(),
         ));
     gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
           gh<_i353.StartUseCase>(),

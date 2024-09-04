@@ -16,6 +16,8 @@ abstract interface class GameRemoteDataSource {
     int? radiusInKm,
     int? limit,
     int? offset,
+    double? latitude,
+    double? longitude,
   });
 
   @Deprecated('Not used. Now all game methods calls in SignalR')

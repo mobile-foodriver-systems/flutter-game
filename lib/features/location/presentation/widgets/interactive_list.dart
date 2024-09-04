@@ -24,39 +24,33 @@ class InteractiveList<T extends Selectable> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle errorTextStyle = TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.w600,
-      color: AppColors.red,
-    );
     switch (status) {
       case ListStatus.loading:
       case ListStatus.success:
         if (list.isEmpty) {
-          return Center(
-            child: Text(
-              LocaleKeys.listPageEmptyList.tr(),
-              style: errorTextStyle,
-            ),
-          );
+          return const ListEmpty();
         }
         return listView;
       case ListStatus.error:
-        return _ListError(
-          error: error,
-          style: errorTextStyle,
-        );
+        return ListError(error: error);
       case ListStatus.initial:
         return const LoadingIndicator();
     }
   }
 }
 
-class _ListError extends StatelessWidget {
-  const _ListError({
+class ListError extends StatelessWidget {
+  const ListError({
+    super.key,
     this.error,
     this.style,
   });
+
+  final TextStyle errorTextStyle = const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: AppColors.red,
+  );
 
   final Failure? error;
   final TextStyle? style;
@@ -73,9 +67,33 @@ class _ListError extends StatelessWidget {
         ),
         Text(
           error?.message ?? LocaleKeys.gamePageSomethingWrong.tr(),
-          style: style,
+          style: style ?? errorTextStyle,
         ),
       ],
+    );
+  }
+}
+
+class ListEmpty extends StatelessWidget {
+  const ListEmpty({
+    super.key,
+    this.style,
+  });
+
+  final TextStyle errorTextStyle = const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+    color: AppColors.red,
+  );
+  final TextStyle? style;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text(
+        LocaleKeys.listPageEmptyList.tr(),
+        style: errorTextStyle,
+      ),
     );
   }
 }

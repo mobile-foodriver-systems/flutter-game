@@ -21,12 +21,16 @@ class GameRemoteDataSourceImpl implements GameRemoteDataSource {
     int? radiusInKm,
     int? limit,
     int? offset,
+    double? latitude,
+    double? longitude,
   }) async {
     return await _appHttpService.request(
         path: ApiRoutes.rating,
         type: RequestType.get,
         queryParameters: {
           if (radiusInKm != null) "radiusInKm": radiusInKm,
+          if (latitude != null) "latitude": latitude,
+          if (longitude != null) "longitude": longitude,
           if (limit != null) "limit": limit,
           if (offset != null) "offset": offset,
         });
