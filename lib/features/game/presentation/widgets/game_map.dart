@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,56 +32,49 @@ class _GameMapState extends State<GameMap> with MapMixin, TickerProviderStateMix
   @override
   final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
 
-  LatLngBounds? _visibleRegion;
+  CameraPosition? _cameraPosition;
   Set<Marker> _markers = {};
-  List<LatLng> _visibleMarkers = [];
-  AnimationController? _animationController;
-  Animation<double>? _animation;
+  List<Offset> _outsideMarkers = [];
 
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 500),
-      vsync: this,
-    );
-    _animation = CurvedAnimation(parent: _animationController!, curve: Curves.easeInOut);
-  }
+  Offset screenCenter = Offset.zero;
+  final screenRect = Rect.fromPoints(
+      Offset.zero, PlatformDispatcher.instance.views.first.physicalSize.bottomRight(Offset.zero));
 
   @override
   void didUpdateWidget(covariant GameMap oldWidget) {
     if (_markers != widget.markers) {
       _markers = widget.markers;
-      _updateVisibleMarkers();
+      _updateArrows();
     }
     super.didUpdateWidget(oldWidget);
   }
 
-  @override
-  void dispose() {
-    _animationController?.dispose();
-    super.dispose();
-  }
+  Future<void> _updateArrows() async {
+    if (googleMapController == null || _cameraPosition == null) return;
 
-  void _updateVisibleMarkers() async {
-    if (googleMapController == null || _visibleRegion == null) return;
+    final screemCoordinate =
+        await googleMapController!.getScreenCoordinate(_cameraPosition!.target);
+    screenCenter = Offset(
+      screemCoordinate.x.toDouble(),
+      screemCoordinate.y.toDouble(),
+    );
 
-    final visibleMarkers = _markers
-        .where((marker) {
-          return _visibleRegion!.contains(marker.position);
-        })
-        .map(
-          (e) => e.position,
-        )
-        .toList();
+    // print('screenCenter: $screenCenter');
 
-    if (_visibleMarkers.length != visibleMarkers.length ||
-        !_visibleMarkers.every(visibleMarkers.contains)) {
-      setState(() {
-        _visibleMarkers = visibleMarkers;
-      });
-      _animationController?.forward(from: 0.0);
+    final newMarkers = <Offset>[];
+    for (var marker in _markers) {
+      final screemCoordinate = await googleMapController!.getScreenCoordinate(marker.position);
+      final offset = Offset(
+        screemCoordinate.x.toDouble(),
+        screemCoordinate.y.toDouble(),
+      );
+      if (!screenRect.contains(offset)) newMarkers.add(offset);
     }
+
+    // Обновляем список стрелок и запускаем анимацию
+    setState(() {
+      _outsideMarkers = newMarkers;
+    });
   }
 
   @override
@@ -96,48 +90,47 @@ class _GameMapState extends State<GameMap> with MapMixin, TickerProviderStateMix
         return Stack(
           children: [
             GoogleMap(
-              onCameraMove: (position) async {
-                _visibleRegion = await googleMapController?.getVisibleRegion();
-                _updateVisibleMarkers();
+              onMapCreated: (controller) {
+                if (mounted) {
+                  onMapCreated(controller);
+                  // Изначальное обновление стрелок после создания карты
+                  if (mounted) {
+                    _updateArrows();
+                  }
+                }
               },
-              onCameraIdle: () async {
-                _visibleRegion = await googleMapController?.getVisibleRegion();
-                _updateVisibleMarkers();
+              onCameraMove: (position) async {
+                _cameraPosition = position;
+                _updateArrows();
+              },
+              onCameraIdle: () {
+                // Дополнительное обновление при остановке камеры
+                if (googleMapController != null) {
+                  _updateArrows();
+                }
               },
               initialCameraPosition: widget.cameraPosition,
-              onMapCreated: onMapCreated,
-              markers: widget.markers,
+              markers: _markers,
               polylines: widget.polylines,
               zoomControlsEnabled: false,
             ),
-            if (_visibleMarkers.isNotEmpty)
-              FutureBuilder<LatLngBounds>(
-                future: googleMapController!.getVisibleRegion(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final bounds = snapshot.data!;
-                    return AnimatedBuilder(
-                      animation: _animationController!,
-                      builder: (context, child) {
-                        return CustomPaint(
-                          size: Size.infinite,
-                          painter: ArrowPainter(
-                            bounds,
-                            _visibleMarkers,
-                            googleMapController!,
-                            _animation!.value,
-                          ),
-                        );
-                      },
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
+            if (_outsideMarkers.isNotEmpty && _cameraPosition != null)
+              IgnorePointer(
+                child: DirectionIndicatorWidget(
+                  center: screenCenter,
+                  points: _outsideMarkers,
+                ),
               ),
           ],
         );
       },
     );
+  }
+
+  Offset getBoundsCenter(LatLngBounds bounds) {
+    double centerLat = (bounds.northeast.latitude + bounds.southwest.latitude) / 2;
+    double centerLng = (bounds.northeast.longitude + bounds.southwest.longitude) / 2;
+
+    return Offset(centerLat, centerLng);
   }
 }

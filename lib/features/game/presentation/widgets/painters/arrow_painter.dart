@@ -1,68 +1,140 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class ArrowPainter extends CustomPainter {
-  final LatLngBounds bounds;
-  final List<LatLng> points;
-  final GoogleMapController mapController;
-  final double animationValue;
+class DirectionIndicatorWidget extends StatefulWidget {
+  final Offset center;
+  final List<Offset> points;
 
-  ArrowPainter(this.bounds, this.points, this.mapController, this.animationValue);
+  const DirectionIndicatorWidget({
+    super.key,
+    required this.center,
+    required this.points,
+  });
 
   @override
-  void paint(Canvas canvas, Size size) async {
+  _DirectionIndicatorWidgetState createState() => _DirectionIndicatorWidgetState();
+}
+
+class _DirectionIndicatorWidgetState extends State<DirectionIndicatorWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 1),
+    )..repeat(reverse: true);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return CustomPaint(
+          size: Size.infinite,
+          painter: DirectionPainter(
+            center: widget.center,
+            points: widget.points,
+            animationValue: _controller.value,
+          ),
+        );
+      },
+    );
+  }
+}
+
+class DirectionPainter extends CustomPainter {
+  final Offset center;
+  final List<Offset> points;
+  final double animationValue;
+  // final Size widgetSize;
+
+  DirectionPainter({
+    required this.center,
+    required this.points,
+    required this.animationValue,
+    // required this.widgetSize,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..color = Colors.red.withOpacity(animationValue)
-      ..strokeWidth = 3
-      ..style = PaintingStyle.stroke;
+      ..style = PaintingStyle.fill;
 
-    final centerLatLng = LatLng(
-      (bounds.northeast.latitude + bounds.southwest.latitude) / 2,
-      (bounds.northeast.longitude + bounds.southwest.longitude) / 2,
-    );
+    for (var point in points) {
+      // Вычисляем угол направления от центра к точке
+      final angle = atan2(point.dy - center.dy, point.dx - center.dx);
 
-    final centerPoint = await mapController.getScreenCoordinate(centerLatLng);
-    final centerOffset = Offset(centerPoint.x.toDouble(), centerPoint.y.toDouble());
-
-    for (final point in points) {
-      final targetPoint = await mapController.getScreenCoordinate(point);
-      final targetOffset = Offset(targetPoint.x.toDouble(), targetPoint.y.toDouble());
-
-      final direction = targetOffset - centerOffset;
-      final normalizedDirection = direction / direction.distance;
-
-      final xFactor = size.width / 2 / normalizedDirection.dx;
-      final yFactor = size.height / 2 / normalizedDirection.dy;
-      final factor = min(xFactor.abs(), yFactor.abs());
-
-      final intersection = centerOffset + normalizedDirection * factor;
-
-      const arrowLength = 20.0;
-      const arrowAngle = pi / 6;
-
-      final arrowStart = intersection;
-      final arrowEnd1 = intersection -
-          normalizedDirection * arrowLength +
-          rotateVector(normalizedDirection, arrowAngle) * arrowLength;
-      final arrowEnd2 = intersection -
-          normalizedDirection * arrowLength +
-          rotateVector(normalizedDirection, -arrowAngle) * arrowLength;
-
-      canvas.drawLine(centerOffset, intersection, paint);
-      canvas.drawLine(arrowStart, arrowEnd1, paint);
-      canvas.drawLine(arrowStart, arrowEnd2, paint);
+      // Определяем точку на границе виджета
+      Offset borderPoint = _getIntersectionPoint(size, angle);
+      // Рисуем мигающий индикатор на границе
+      canvas.drawCircle(borderPoint, 10.0, paint);
     }
   }
 
-  Offset rotateVector(Offset vector, double angle) {
-    final sinAngle = sin(angle);
-    final cosAngle = cos(angle);
-    return Offset(
-      vector.dx * cosAngle - vector.dy * sinAngle,
-      vector.dx * sinAngle + vector.dy * cosAngle,
-    );
+  // Offset _getPointOnBorder(Size size, double angle) {
+  //   final radius = min(size.width, size.height) / 2;
+  //   return Offset(
+  //     radius * cos(angle) + size.width / 2,
+  //     radius * sin(angle) + size.height / 2,
+  //   );
+  // }
+
+  // Функция нахождения точки пересечения
+  Offset _getIntersectionPoint(Size size, double angle) {
+    final double dx = cos(angle);
+    final double dy = sin(angle);
+    const padding = 10.0;
+
+    // Прямоугольник с отступом
+    const double left = padding;
+    final double right = size.width - padding;
+    const double top = padding;
+    final double bottom = size.height - padding;
+
+    // Центр прямоугольника
+    final Offset center = Offset(size.width / 2, size.height / 2);
+
+    // Переменные для пересечений
+    double tX, tY;
+
+    // Рассчитываем пересечение с вертикальными границами (лево/право)
+    if (dx > 0) {
+      // Пересечение с правой границей
+      tX = (right - center.dx) / dx;
+    } else {
+      // Пересечение с левой границей
+      tX = (left - center.dx) / dx;
+    }
+
+    // Рассчитываем пересечение с горизонтальными границами (верх/низ)
+    if (dy > 0) {
+      // Пересечение с нижней границей
+      tY = (bottom - center.dy) / dy;
+    } else {
+      // Пересечение с верхней границей
+      tY = (top - center.dy) / dy;
+    }
+
+    // Находим минимальное значение t (где пересечение происходит раньше)
+    double tMin = min(tX, tY);
+
+    // Вычисляем координаты пересечения
+    final double x = center.dx + tMin * dx;
+    final double y = center.dy + tMin * dy;
+
+    return Offset(x, y);
   }
 
   @override
