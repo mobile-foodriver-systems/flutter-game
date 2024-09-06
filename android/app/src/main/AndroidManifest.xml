@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.VIBRATE"/>
     <application
-        android:label="food_driver"
+        android:label="Delivery Game by FooDriver"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

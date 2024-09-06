@@ -37,7 +37,7 @@ dependencies:
 
   # Services
   geolocator: ^12.0.0
-  google_maps_flutter: ^2.7.0
+  google_maps_flutter: ^2.9.0
   shared_preferences: ^2.2.3
   webview_flutter: ^4.8.0
   vibration: ^2.0.0

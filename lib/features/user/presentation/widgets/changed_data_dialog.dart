@@ -5,10 +5,10 @@ import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
 
 class ChangedDataDialog extends StatelessWidget {
-  final VoidCallback dataChanged;
+  final VoidCallback? dataChanged;
   const ChangedDataDialog({
     super.key,
-    required this.dataChanged,
+    this.dataChanged,
   });
 
   @override
@@ -43,7 +43,7 @@ class ChangedDataDialog extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).pop();
-              dataChanged();
+              dataChanged?.call();
             },
             child: Text(
               LocaleKeys.profilePageOk.tr(),
