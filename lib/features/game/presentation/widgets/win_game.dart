@@ -63,7 +63,7 @@ class _WinGameState extends State<WinGame> {
               child: Image.asset(AssetsCatalog.icFaceSmiling),
             ),
             Text(
-              LocaleKeys.gamePageYouEarned,
+              LocaleKeys.gamePageYouEarned.tr(),
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     fontSize: 28,
                     fontWeight: FontWeight.w600,
