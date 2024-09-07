@@ -33,14 +33,7 @@ mixin RecoveryPasswordMixin on State<RecoveryPasswordForm> {
       showDialog<bool>(
         context: context,
         builder: (context) {
-          return AlertDialog(
-            content: SizedBox(
-              width: MediaQuery.sizeOf(context).width,
-              child: const ChangedDataDialog(),
-            ),
-            contentPadding: EdgeInsets.zero,
-            insetPadding: const EdgeInsets.symmetric(horizontal: 36.0),
-          );
+          return const BaseAlertDialog(child: ChangedDataDialog());
         },
       );
     }
@@ -53,24 +46,19 @@ mixin RecoveryPasswordMixin on State<RecoveryPasswordForm> {
       builder: (context) {
         final password = passwordController.text;
         final email = emailController.text;
-        return AlertDialog(
-          content: SizedBox(
-            width: MediaQuery.sizeOf(context).width,
-            child: ConfirmationCodeDialog(
-              email: emailController.text,
-              seconds: passwordConfirmationService.seconds,
-              resendCode: (email) => _bloc.add(ChangePasswordBeginEvent(
-                email: email,
-                newPassword: password,
-              )),
-              confirmEmail: (code) => _bloc.add(ConfirmPasswordChangeEvent(
-                email: email,
-                code: code,
-              )),
-            ),
+        return BaseAlertDialog(
+          child: ConfirmationCodeDialog(
+            email: emailController.text,
+            seconds: passwordConfirmationService.seconds,
+            resendCode: (email) => _bloc.add(ChangePasswordBeginEvent(
+              email: email,
+              newPassword: password,
+            )),
+            confirmEmail: (code) => _bloc.add(ConfirmPasswordChangeEvent(
+              email: email,
+              code: code,
+            )),
           ),
-          contentPadding: EdgeInsets.zero,
-          insetPadding: const EdgeInsets.symmetric(horizontal: 36.0),
         );
       },
     );

@@ -6,6 +6,7 @@ import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/auth/presentation/bloc/password_recovery/password_recovery_bloc.dart';
 import 'package:food_driver/features/auth/presentation/pages/auth_page.dart';
 import 'package:food_driver/features/auth/presentation/widgets/email_field.dart';
+import 'package:food_driver/features/user/presentation/widgets/base_alert_dialog.dart';
 import 'package:food_driver/features/user/presentation/widgets/changed_data_dialog.dart';
 import 'package:food_driver/features/user/presentation/widgets/confirmation_code_dialog.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
@@ -21,7 +22,6 @@ class RecoveryPasswordForm extends StatefulWidget {
 
 class _RecoveryPasswordFormState extends State<RecoveryPasswordForm>
     with RecoveryPasswordMixin {
- 
   @override
   final TextEditingController passwordController = TextEditingController();
   @override

@@ -90,7 +90,7 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
     Object? polylineAfter = freezed,
     Object? secondsWithTapsMap = null,
     Object? lastTapWasSend = null,
-    Object? cameraPosition = null,
+    Object? cameraPosition = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -153,7 +153,7 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
           ? _value.lastTapWasSend
           : lastTapWasSend // ignore: cast_nullable_to_non_nullable
               as bool,
-      cameraPosition: null == cameraPosition
+      cameraPosition: freezed == cameraPosition
           ? _value.cameraPosition
           : cameraPosition // ignore: cast_nullable_to_non_nullable
               as CameraPosition,
@@ -214,7 +214,7 @@ class __$$GameStateImplCopyWithImpl<$Res>
     Object? polylineAfter = freezed,
     Object? secondsWithTapsMap = null,
     Object? lastTapWasSend = null,
-    Object? cameraPosition = null,
+    Object? cameraPosition = freezed,
   }) {
     return _then(_$GameStateImpl(
       status: null == status
@@ -277,7 +277,7 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value.lastTapWasSend
           : lastTapWasSend // ignore: cast_nullable_to_non_nullable
               as bool,
-      cameraPosition: null == cameraPosition
+      cameraPosition: freezed == cameraPosition
           ? _value.cameraPosition
           : cameraPosition // ignore: cast_nullable_to_non_nullable
               as CameraPosition,
@@ -412,14 +412,14 @@ class _$GameStateImpl implements _GameState {
                 other.looseWin == looseWin) &&
             (identical(other.distance, distance) ||
                 other.distance == distance) &&
-            (identical(other.polylineAfter, polylineAfter) ||
-                other.polylineAfter == polylineAfter) &&
+            const DeepCollectionEquality()
+                .equals(other.polylineAfter, polylineAfter) &&
             const DeepCollectionEquality()
                 .equals(other._secondsWithTapsMap, _secondsWithTapsMap) &&
             (identical(other.lastTapWasSend, lastTapWasSend) ||
                 other.lastTapWasSend == lastTapWasSend) &&
-            (identical(other.cameraPosition, cameraPosition) ||
-                other.cameraPosition == cameraPosition));
+            const DeepCollectionEquality()
+                .equals(other.cameraPosition, cameraPosition));
   }
 
   @override
@@ -437,10 +437,10 @@ class _$GameStateImpl implements _GameState {
       balance,
       looseWin,
       distance,
-      polylineAfter,
+      const DeepCollectionEquality().hash(polylineAfter),
       const DeepCollectionEquality().hash(_secondsWithTapsMap),
       lastTapWasSend,
-      cameraPosition);
+      const DeepCollectionEquality().hash(cameraPosition));
 
   @JsonKey(ignore: true)
   @override

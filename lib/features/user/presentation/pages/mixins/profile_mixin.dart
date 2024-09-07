@@ -14,7 +14,17 @@ mixin ProfileMixin on State<ProfileBody> {
 
   void logout() => _authBloc.add(AuthLogoutEvent());
 
-  void deleteAccount() => _authBloc.add(AuthDeleteEvent());
+  void deleteAccount() async {
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return const BaseAlertDialog(child: DeleteConfirmationDialog());
+      },
+    );
+    if (result ?? false) {
+      _authBloc.add(AuthDeleteEvent());
+    }
+  }
 
   void changeEditingState() {
     isEditing = !isEditing;

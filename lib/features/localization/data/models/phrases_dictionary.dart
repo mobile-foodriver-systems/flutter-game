@@ -93,6 +93,9 @@ class PhrasesDictionary {
   final String? passwordRecoveryPageEnterPassword;
   final String? profilePageGameRules;
   final String? profilePageGameRulesText;
+  final String? profilePageDeleteAccountConfirm;
+  final String? profilePageYes;
+  final String? profilePageNo;
 
   PhrasesDictionary(
     this.authPageLoginToAccount,
@@ -184,6 +187,9 @@ class PhrasesDictionary {
     this.passwordRecoveryPageEnterPassword,
     this.profilePageGameRules,
     this.profilePageGameRulesText,
+    this.profilePageDeleteAccountConfirm,
+    this.profilePageYes,
+    this.profilePageNo,
   );
 
   factory PhrasesDictionary.fromJson(Map<String, dynamic> json) =>

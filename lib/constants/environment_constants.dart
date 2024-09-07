@@ -5,6 +5,6 @@ class EnvironmentConstants {
       ? "https://staging.foodriver.site"
       : "https://staging.foodriver.site";
   String get privacyPolicyUrl => appFlavor == 'dev'
-      ? "https://staging.foodriver.site/api/v1/files/TermsofServices.pdf"
-      : "https://staging.foodriver.site/api/v1/files/TermsofServices.pdf";
+      ? "https://staging.foodriver.site/files/api/v1/file/TermsofServices.pdf"
+      : "https://staging.foodriver.site/files/api/v1/file/TermsofServices.pdf";
 }

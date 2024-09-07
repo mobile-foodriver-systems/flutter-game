@@ -87,5 +87,8 @@
     "passwordRecoveryPageSetEmail": "Укажите адрес электронной почты",
     "passwordRecoveryPageEnterPassword": "Введите пароль",
     "profilePageGameRules": "Правила игры",
-    "profilePageGameRulesText": "Текст игры"
+    "profilePageGameRulesText": "Текст игры",
+    "profilePageDeleteAccountConfirm": "Уверены что хотите удалить аккаунт?",
+    "profilePageYes": "Да",
+    "profilePageNo": "Нет"
 }

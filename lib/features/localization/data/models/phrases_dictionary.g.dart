@@ -97,6 +97,9 @@ PhrasesDictionary _$PhrasesDictionaryFromJson(Map<String, dynamic> json) =>
       json['passwordRecoveryPageEnterPassword'] as String?,
       json['profilePageGameRules'] as String?,
       json['profilePageGameRulesText'] as String?,
+      json['profilePageDeleteAccountConfirm'] as String?,
+      json['profilePageYes'] as String?,
+      json['profilePageNo'] as String?,
     );
 
 Map<String, dynamic> _$PhrasesDictionaryToJson(PhrasesDictionary instance) =>
@@ -197,4 +200,8 @@ Map<String, dynamic> _$PhrasesDictionaryToJson(PhrasesDictionary instance) =>
           instance.passwordRecoveryPageEnterPassword,
       'profilePageGameRules': instance.profilePageGameRules,
       'profilePageGameRulesText': instance.profilePageGameRulesText,
+      'profilePageDeleteAccountConfirm':
+          instance.profilePageDeleteAccountConfirm,
+      'profilePageYes': instance.profilePageYes,
+      'profilePageNo': instance.profilePageNo,
     };

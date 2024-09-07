@@ -14,9 +14,11 @@ import 'package:food_driver/features/user/data/models/user_status.dart';
 import 'package:food_driver/features/user/domain/repositories/user_repository.dart';
 import 'package:food_driver/features/user/presentation/bloc/user/user_bloc.dart';
 import 'package:food_driver/features/user/presentation/pages/game_rules_page.dart';
+import 'package:food_driver/features/user/presentation/widgets/base_alert_dialog.dart';
 import 'package:food_driver/features/user/presentation/widgets/card_widget.dart';
 import 'package:food_driver/features/user/presentation/widgets/close_icon_button.dart';
 import 'package:food_driver/features/user/presentation/widgets/custom_text_button.dart';
+import 'package:food_driver/features/user/presentation/widgets/delete_confirmation_dialog.dart';
 import 'package:food_driver/features/user/presentation/widgets/edit_profile_form.dart';
 import 'package:food_driver/features/user/presentation/widgets/profile_info.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
@@ -163,15 +165,15 @@ class _LegalInfo extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(
-            LocaleKeys.profilePageLegal.tr(),
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-            textAlign: TextAlign.left,
-          ),
-          const SizedBox(height: 16.0),
+          // Text(
+          //   LocaleKeys.profilePageLegal.tr(),
+          //   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+          //         fontSize: 18,
+          //         fontWeight: FontWeight.w600,
+          //       ),
+          //   textAlign: TextAlign.left,
+          // ),
+          // const SizedBox(height: 16.0),
           CustomTextButton(
             text: LocaleKeys.profilePageGameRules.tr(),
             onPressed: () => Navigator.of(context).push(

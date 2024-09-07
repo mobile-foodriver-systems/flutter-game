@@ -90,5 +90,8 @@ abstract class  LocaleKeys {
   static const passwordRecoveryPageEnterPassword = 'passwordRecoveryPageEnterPassword';
   static const profilePageGameRules = 'profilePageGameRules';
   static const profilePageGameRulesText = 'profilePageGameRulesText';
+  static const profilePageDeleteAccountConfirm = 'profilePageDeleteAccountConfirm';
+  static const profilePageYes = 'profilePageYes';
+  static const profilePageNo = 'profilePageNo';
 
 }
