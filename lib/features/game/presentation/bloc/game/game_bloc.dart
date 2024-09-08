@@ -436,8 +436,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
             currentSecond: secondsFromStart,
             tapCount: tapCountBySecond,
           );
-          print(
-              "FFFFF second: = $secondsFromStart, tapCountBySecond: = $tapCountBySecond, tapCount: = $tapCount, total: = ${state.gameRoute?.tapCount}");
+          // print(
+          //     "FFFFF second: = $secondsFromStart, tapCountBySecond: = $tapCountBySecond, tapCount: = $tapCount, total: = ${state.gameRoute?.tapCount}");
         }
       }
       add(GameUpdateSpeedEvent(seconds: dseconds));
@@ -489,10 +489,10 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       add(GameAddRoutesEvent(
           routes: event.routes.map((route) => route.toEntity()).toList()));
     } else if (event is RewardEvent) {
-      print("FFFFF second RewardEvent");
+      // print("FFFFF second RewardEvent");
       add(GameWinEvent(balance: event.reward ?? 0));
     } else if (event is RouteCompletedFailedEvent) {
-      print("FFFFF second RouteCompletedFailedEvent");
+      // print("FFFFF second RouteCompletedFailedEvent");
       add(const GameLooseEvent());
     }
   }

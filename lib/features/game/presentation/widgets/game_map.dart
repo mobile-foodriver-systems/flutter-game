@@ -28,9 +28,11 @@ class GameMap extends StatefulWidget {
   State<GameMap> createState() => _GameMapState();
 }
 
-class _GameMapState extends State<GameMap> with MapMixin, TickerProviderStateMixin {
+class _GameMapState extends State<GameMap>
+    with MapMixin, TickerProviderStateMixin {
   @override
-  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
 
   CameraPosition? _cameraPosition;
   Set<Marker> _markers = {};
@@ -38,7 +40,9 @@ class _GameMapState extends State<GameMap> with MapMixin, TickerProviderStateMix
 
   Offset screenCenter = Offset.zero;
   final screenRect = Rect.fromPoints(
-      Offset.zero, PlatformDispatcher.instance.views.first.physicalSize.bottomRight(Offset.zero));
+      Offset.zero,
+      PlatformDispatcher.instance.views.first.physicalSize
+          .bottomRight(Offset.zero));
 
   @override
   void didUpdateWidget(covariant GameMap oldWidget) {
@@ -63,7 +67,8 @@ class _GameMapState extends State<GameMap> with MapMixin, TickerProviderStateMix
 
     final newMarkers = <Offset>[];
     for (var marker in _markers) {
-      final screemCoordinate = await googleMapController!.getScreenCoordinate(marker.position);
+      final screemCoordinate =
+          await googleMapController!.getScreenCoordinate(marker.position);
       final offset = Offset(
         screemCoordinate.x.toDouble(),
         screemCoordinate.y.toDouble(),
@@ -72,9 +77,11 @@ class _GameMapState extends State<GameMap> with MapMixin, TickerProviderStateMix
     }
 
     // Обновляем список стрелок и запускаем анимацию
-    setState(() {
-      _outsideMarkers = newMarkers;
-    });
+    if (mounted) {
+      setState(() {
+        _outsideMarkers = newMarkers;
+      });
+    }
   }
 
   @override
@@ -83,7 +90,8 @@ class _GameMapState extends State<GameMap> with MapMixin, TickerProviderStateMix
       listener: (context, state) async {
         if (state.cameraPosition.target != widget.cameraPosition.target &&
             googleMapController != null) {
-          googleMapController!.moveCamera(CameraUpdate.newLatLng(state.cameraPosition.target));
+          googleMapController!
+              .moveCamera(CameraUpdate.newLatLng(state.cameraPosition.target));
         }
       },
       builder: (BuildContext context, GameState state) {
@@ -128,8 +136,10 @@ class _GameMapState extends State<GameMap> with MapMixin, TickerProviderStateMix
   }
 
   Offset getBoundsCenter(LatLngBounds bounds) {
-    double centerLat = (bounds.northeast.latitude + bounds.southwest.latitude) / 2;
-    double centerLng = (bounds.northeast.longitude + bounds.southwest.longitude) / 2;
+    double centerLat =
+        (bounds.northeast.latitude + bounds.southwest.latitude) / 2;
+    double centerLng =
+        (bounds.northeast.longitude + bounds.southwest.longitude) / 2;
 
     return Offset(centerLat, centerLng);
   }
