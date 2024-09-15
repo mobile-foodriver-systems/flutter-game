@@ -5,7 +5,6 @@ import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/core/ui/view/bi_directional_scroll_view.dart';
 import 'package:food_driver/features/game/data/models/user_rating.dart';
 import 'package:food_driver/features/game/presentation/bloc/rating/rating_bloc.dart';
-import 'package:food_driver/features/game/presentation/pages/mixins/location_mixin.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/location/data/models/list_status.dart';
 import 'package:food_driver/features/location/presentation/widgets/interactive_list.dart';
@@ -25,15 +24,7 @@ class UsersList extends StatefulWidget {
   State<UsersList> createState() => _UsersListState();
 }
 
-class _UsersListState extends State<UsersList> with RatingMixin, LocationMixin {
-  @override
-  void initState() {
-    tryGetCity().then(
-      (_) => _bloc.add(const LoadProfileEvent()),
-    );
-    super.initState();
-  }
-
+class _UsersListState extends State<UsersList> with RatingMixin {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RatingBloc, RatingState>(
@@ -50,11 +41,13 @@ class _UsersListState extends State<UsersList> with RatingMixin, LocationMixin {
                   state,
                   BiDirectionalScrollView(
                     padding: const EdgeInsets.all(0),
-                    itemBuilder: (context, index) => buildListItem(
-                      context,
-                      index,
-                      state,
-                    ),
+                    itemBuilder: (context, index) {
+                      var rating = state.ratingList!.list[index];
+                      return _UserRatingItem(
+                        rating: rating,
+                        isActive: rating.id == widget.userId,
+                      );
+                    },
                     prevItemsLoading: state.prevItemsLoading,
                     nextItemsLoading: state.nextItemsLoading,
                     controller: _scrollController,
@@ -96,14 +89,6 @@ class _UsersListState extends State<UsersList> with RatingMixin, LocationMixin {
     if (centerIndex == -1) return 0;
     return centerIndex ?? 0;
   }
-
-  Widget buildListItem(BuildContext context, int index, RatingState state) {
-    var rating = state.ratingList!.list[index];
-    return _UserRatingItem(
-      rating: rating,
-      isActive: rating.id == widget.userId,
-    );
-  }
 }
 
 class _UserRatingItem extends StatelessWidget {
@@ -130,6 +115,15 @@ class _UserRatingItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
         child: Row(
           children: [
+            SizedBox(
+              width: 46.0,
+              child: Text(
+                rating.number?.toString() ?? '',
+                style: textStyle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
             Expanded(
               child: Text(
                 rating.userName ?? LocaleKeys.progressListPageUnknown.tr(),
@@ -140,7 +134,7 @@ class _UserRatingItem extends StatelessWidget {
             ),
             const SizedBox(width: 12.0),
             Text(
-              rating.balanceInFDT.toString(),
+              rating.balanceInFDT?.toStringAsFixed(0) ?? '',
               style: textStyle,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -169,9 +163,19 @@ class _RatingListHeader extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              LocaleKeys.progressListPageNick.tr(),
-              style: textStyle,
+            SizedBox(
+              width: 46.0,
+              child: Text(
+                '#',
+                style: textStyle,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                LocaleKeys.progressListPageNick.tr(),
+                style: textStyle,
+                textAlign: TextAlign.start,
+              ),
             ),
             Text(
               LocaleKeys.progressListPageScore.tr(),

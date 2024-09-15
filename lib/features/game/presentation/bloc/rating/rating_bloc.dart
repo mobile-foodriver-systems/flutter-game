@@ -12,6 +12,7 @@ import 'package:food_driver/features/game/data/models/user_rating.dart';
 import 'package:food_driver/features/game/data/models/user_sort_type.dart';
 import 'package:food_driver/features/game/domain/usecases/load_rating.dart';
 import 'package:food_driver/features/game/domain/usecases/load_user_rating.dart';
+import 'package:food_driver/features/location/data/models/city.dart';
 import 'package:food_driver/features/location/data/models/list_status.dart';
 import 'package:food_driver/features/user/domain/entities/user_entity.dart';
 import 'package:food_driver/features/user/domain/repositories/user_repository.dart';
@@ -36,6 +37,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     on<LoadProfileEvent>(_loadUser);
     on<RatingInitEvent>(_init);
     on<RatingReloadEvent>(_reload);
+    on<SwitchSortTypeEvent>(_switchSort);
   }
 
   Future<void> _load(
@@ -175,6 +177,9 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     Emitter<RatingState> emit,
   ) async {
     if (state.status == ListStatus.loading) return;
+    final currentUser = state.user == null || event.city == null
+        ? state.user
+        : UserEntity.update(user: state.user!, city: event.city);
     emit(
       state.copyWith(
         status: ListStatus.loading,
@@ -187,8 +192,10 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
         isAllPrevLoaded: false,
         ratingList: RatingList(),
         sort: event.sort,
+        user: currentUser,
       ),
     );
+    print("AAA city: = ${currentUser?.city?.name}");
     add(
       RatingInitEvent(
         sort: event.sort,
@@ -217,5 +224,12 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
         emit(state.copyWith(user: result));
       },
     );
+  }
+
+  void _switchSort(
+    SwitchSortTypeEvent event,
+    Emitter<RatingState> emit,
+  ) {
+    emit(state.copyWith(sort: event.sort));
   }
 }

@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
-import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
 
 class ChangedDataDialog extends StatelessWidget {
@@ -19,17 +18,7 @@ class ChangedDataDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          SizedBox(
-            width: 72.0,
-            height: 72.0,
-            child: DecoratedBox(
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.lightGreen,
-              ),
-              child: Image.asset(AssetsCatalog.icCheck),
-            ),
-          ),
+          Image.asset(AssetsCatalog.icKangaroo),
           const SizedBox(height: 20.0),
           Text(
             LocaleKeys.profilePageDataChanged.tr(),

@@ -69,7 +69,7 @@ class _LooseGameState extends State<LooseGame> {
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 23.0, bottom: 7.0),
-              child: Image.asset(AssetsCatalog.icFaceFrown),
+              child: Image.asset(AssetsCatalog.icSadKangaroo),
             ),
             Text(
               LocaleKeys.gamePageSorry.tr(),

@@ -58,14 +58,22 @@ class _SearchTextFieldState<T extends Selectable>
             contentPadding: const EdgeInsets.symmetric(vertical: 4.0),
             fillColor: AppColors.textFieldGray,
             prefixIconConstraints: iconConstraints,
-            prefixIcon: IconButton(
-              icon: Image.asset(AssetsCatalog.icSearch),
-              onPressed: () => widget.search?.call(controller.text),
+            prefixIcon: GestureDetector(
+              child: SizedBox(
+                width: 34.0,
+                height: 32.0,
+                child: Image.asset(AssetsCatalog.icSearch),
+              ),
+              onTap: () => widget.search?.call(controller.text),
             ),
             suffixIconConstraints: iconConstraints,
-            suffixIcon: IconButton(
-              icon: Image.asset(AssetsCatalog.icClear),
-              onPressed: () {
+            suffixIcon: GestureDetector(
+              child: SizedBox(
+                width: 34.0,
+                height: 32.0,
+                child: Image.asset(AssetsCatalog.icClear),
+              ),
+              onTap: () {
                 controller.clear();
                 widget.clear?.call();
               },

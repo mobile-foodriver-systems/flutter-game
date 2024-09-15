@@ -13,7 +13,7 @@ mixin LocationMixin<T extends StatefulWidget> on State<T> {
   final UserRepository userRepository = getIt<UserRepository>();
   final GeolocationService _geolocationService = getIt<GeolocationService>();
 
-  Future<void> tryGetCity() async {
+  Future<City?> tryGetCity() async {
     final Position? position = await _geolocationService.determineLocation();
 
     if (position != null) {
@@ -24,11 +24,11 @@ mixin LocationMixin<T extends StatefulWidget> on State<T> {
       );
       final city = await _geolocationService.getCity(latLng: latLng);
       if (city?.id != null) {
-        await userRepository.updateUser(cityId: city?.id);
-        return;
+        userRepository.updateUser(cityId: city?.id);
+        return city;
       }
     }
-    if (!mounted) return;
+    if (!mounted) return null;
 
     City? city;
     final country = await showSelectDialog<Country>(
@@ -42,8 +42,10 @@ mixin LocationMixin<T extends StatefulWidget> on State<T> {
       );
     }
     if (city != null) {
-      await userRepository.updateUser(cityId: city.id);
+      userRepository.updateUser(cityId: city.id);
+      return city;
     }
+    return null;
   }
 
   Future<TD?> showSelectDialog<TD>(

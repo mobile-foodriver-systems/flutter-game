@@ -86,13 +86,6 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                   determineLocation: tryGetCity,
                   cameraPosition: state.cameraPosition,
                 ),
-              if ((state.status == GameStateType.loose ||
-                      state.status == GameStateType.win) &&
-                  state.looseWin != null)
-                LooseOrWin(
-                  looseWin: state.looseWin!,
-                  breakGame: breakGame,
-                ),
               Positioned(
                 top: 16,
                 left: 0,
@@ -142,6 +135,13 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
                     userId: widget.user.id.toString(),
                     routeId: state.gameRoute?.id.toString(),
                   ),
+                ),
+              if ((state.status == GameStateType.loose ||
+                      state.status == GameStateType.win) &&
+                  state.looseWin != null)
+                LooseOrWin(
+                  looseWin: state.looseWin!,
+                  breakGame: breakGame,
                 ),
             ],
           ),

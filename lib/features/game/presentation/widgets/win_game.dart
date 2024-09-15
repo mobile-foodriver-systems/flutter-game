@@ -59,8 +59,8 @@ class _WinGameState extends State<WinGame> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 23.0, bottom: 15.0),
-              child: Image.asset(AssetsCatalog.icFaceSmiling),
+              padding: const EdgeInsets.only(top: 23.0, bottom: 12.0),
+              child: Image.asset(AssetsCatalog.icEarnedKangaroo),
             ),
             Text(
               LocaleKeys.gamePageYouEarned.tr(),
