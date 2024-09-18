@@ -18,6 +18,7 @@ class AssetsCatalog {
   static const String icEarnedKangaroo = 'assets/ic_earned_kangaroo.png';
   static const String icSadKangaroo = 'assets/ic_sad_kangaroo.png';
   static const String prizeFund = 'assets/prize_fund.png';
+  static const String icErrorKangaroo = 'assets/ic_error_kangaroo.png';
 
   /// gif
   static const String kangaroo = 'assets/kangaroo.gif';

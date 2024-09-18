@@ -8,6 +8,7 @@ class CustomLoadingIndiacator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 26.0),
       color: AppColors.gifBackground,
       child: Image.asset(AssetsCatalog.kangaroo),
     );

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
+import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/location/data/models/list_status.dart';
@@ -60,11 +61,8 @@ class ListError extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
-          Icons.time_to_leave,
-          size: MediaQuery.sizeOf(context).width * 0.4,
-          color: AppColors.red,
-        ),
+        Image.asset(AssetsCatalog.icErrorKangaroo),
+        const SizedBox(height: 12.0),
         Text(
           error?.message ?? LocaleKeys.gamePageSomethingWrong.tr(),
           style: style ?? errorTextStyle,

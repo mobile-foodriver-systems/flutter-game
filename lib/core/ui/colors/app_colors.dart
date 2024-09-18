@@ -31,7 +31,7 @@ class AppColors {
   static const Color labelRed = Color(0xFF840C10);
   static const Color dividerLightGray = Color(0xFFEBEDF0);
 
-  static const Color gifBackground = Color(0xFFFCF9F8);
+  static const Color gifBackground = white;
   static const Color bottomSheetHelper = Color(0xFFC9C7D1);
   static const Color lightGreen = Color(0xFFDEF6E4);
 }
