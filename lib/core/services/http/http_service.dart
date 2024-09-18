@@ -38,7 +38,6 @@ abstract class HttpService {
   final Dio _dio;
   late Dio dio = _initDio();
   final NetworkInfo _networkInfo;
-  final String _locale;
 
   Dio _initDio() => _dio
     ..interceptors.addAll([
@@ -53,8 +52,7 @@ abstract class HttpService {
 
   HttpService(
     this._dio,
-    this._networkInfo,
-    this._locale, {
+    this._networkInfo, {
     List<InterceptorsWrapper>? interceptorList,
   }) {
     interceptorList?.forEach((e) => interceptors.add(e));

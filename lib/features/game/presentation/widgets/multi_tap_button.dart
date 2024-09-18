@@ -44,8 +44,15 @@ class MultiTapButton extends StatelessWidget {
           children: [
             Image.asset(AssetsCatalog.icFinger),
             const SizedBox(height: 8.0),
-            Text(
-              LocaleKeys.gamePageTapToGo.tr(),
+            Text.rich(
+              TextSpan(
+                text: LocaleKeys.gamePageTapToGo.tr(),
+                children: [
+                  TextSpan(
+                    text: "\n${LocaleKeys.gamePageTapToGoSecondPart.tr()}",
+                  ),
+                ],
+              ),
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: AppColors.white,

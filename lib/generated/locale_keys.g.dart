@@ -27,6 +27,7 @@ abstract class  LocaleKeys {
   static const progressListPageScore = 'progressListPageScore';
   static const gamePageClickOnTheDots = 'gamePageClickOnTheDots';
   static const gamePageTapToGo = 'gamePageTapToGo';
+  static const gamePageTapToGoSecondPart = 'gamePageTapToGoSecondPart';
   static const gamePageBeginIn = 'gamePageBeginIn';
   static const gamePageTapSpeed = 'gamePageTapSpeed';
   static const gamePageSorry = 'gamePageSorry';

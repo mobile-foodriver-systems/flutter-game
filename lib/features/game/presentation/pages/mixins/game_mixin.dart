@@ -3,10 +3,11 @@ part of 'package:food_driver/features/game/presentation/pages/game_page.dart';
 mixin GameMixin on State<GamePageBody> {
   late final GameBloc _gameBloc = context.read<GameBloc>();
   final UserRepository userRepository = getIt<UserRepository>();
-  final GeolocationService _geolocationService = getIt<GeolocationService>();
+  late final GeolocationService _geolocationService;
 
   @override
   void initState() {
+    _geolocationService = getIt.get<GeolocationService>();
     super.initState();
     _initGame();
   }

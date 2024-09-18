@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:food_driver/core/services/locale_service/locale_service.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
 import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/auth/data/models/auth_status.dart';
@@ -45,8 +46,11 @@ class _AppViewState extends State<AppView> {
 
   NavigatorState get _navigator => _navigatorKey.currentState!;
 
+  late final LocaleService _localeService;
+
   @override
   void initState() {
+    _localeService = getIt<LocaleService>();
     super.initState();
     initApp(context);
   }
@@ -67,6 +71,7 @@ class _AppViewState extends State<AppView> {
       title: 'Food Driver',
       theme: appTheme(context),
       builder: (context, child) {
+        _localeService.locale = Localizations.localeOf(context);
         return BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             switch (state.status) {

@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_driver/core/services/one_time_rating_location_request/one_time_rating_location_request.dart';
 import 'package:food_driver/core/theme/theme_data.dart';
 import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/game/data/models/user_sort_type.dart';
@@ -8,7 +9,6 @@ import 'package:food_driver/features/game/presentation/bloc/rating/rating_bloc.d
 import 'package:food_driver/features/game/presentation/pages/mixins/location_mixin.dart';
 import 'package:food_driver/features/game/presentation/widgets/custom_segmented_button.dart';
 import 'package:food_driver/features/game/presentation/widgets/users_list.dart';
-import 'package:food_driver/features/location/data/models/city.dart';
 import 'package:food_driver/features/user/presentation/widgets/close_icon_button.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
 
@@ -25,7 +25,8 @@ class RatingListPage extends StatefulWidget {
 }
 
 class _RatingListPageState extends State<RatingListPage> with LocationMixin {
-  City? userCity;
+  final OneTimeRatingLocationRequest _oneTimeRatingLocationRequest =
+      getIt<OneTimeRatingLocationRequest>();
 
   @override
   Widget build(BuildContext context) {
@@ -92,13 +93,14 @@ class _RatingListPageState extends State<RatingListPage> with LocationMixin {
 
   Future<void> onChanged(UsersSortType sort, RatingBloc bloc) async {
     bloc.add(RatingReloadEvent(sort: sort));
-    if (sort == UsersSortType.distance && userCity == null) {
-      userCity = await tryGetCity();
-      setState(() {});
+    if (sort == UsersSortType.distance &&
+        _oneTimeRatingLocationRequest.city == null) {
+      final userCity = await tryGetCity();
+      _oneTimeRatingLocationRequest.city = userCity;
     }
     bloc.add(RatingReloadEvent(
       sort: sort,
-      city: userCity,
+      city: _oneTimeRatingLocationRequest.city,
     ));
   }
 }

@@ -9,9 +9,11 @@ part of "location_remote_data_source.dart";
 )
 class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
   final AppHttpService _appHttpService;
+  final LocaleService _localeService;
 
   LocationRemoteDataSourceImpl(
     this._appHttpService,
+    this._localeService,
   );
 
   @override
@@ -23,6 +25,7 @@ class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
       path: ApiRoutes.cityByLatLng,
       type: RequestType.get,
       queryParameters: {
+        "culture": _localeService.languageCode,
         "latitude": latitude,
         "longitude": longitude,
       },
@@ -41,6 +44,7 @@ class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
       path: ApiRoutes.cities,
       type: RequestType.get,
       queryParameters: {
+        "culture": _localeService.languageCode,
         "countryId": countryId,
         if (searchText?.isNotEmpty ?? false) "searchText": searchText,
         "limit": limit,
@@ -60,6 +64,7 @@ class LocationRemoteDataSourceImpl implements LocationRemoteDataSource {
       path: ApiRoutes.countries,
       type: RequestType.get,
       queryParameters: {
+        "culture": _localeService.languageCode,
         if (searchText?.isNotEmpty ?? false) "searchText": searchText,
         "limit": limit,
         if (offset != null) "offset": offset,

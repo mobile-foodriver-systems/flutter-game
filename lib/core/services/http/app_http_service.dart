@@ -2,6 +2,7 @@
 import 'package:food_driver/core/platform/network_info.dart';
 import 'package:food_driver/core/providers/dio/dio_provider.dart';
 import 'package:food_driver/core/services/http/http_service.dart';
+import 'package:food_driver/core/services/locale_service/locale_service.dart';
 import 'package:injectable/injectable.dart';
 
 @LazySingleton(env: [Environment.dev, Environment.prod])
@@ -9,13 +10,9 @@ class AppHttpService extends HttpService {
   AppHttpService(
     DioProvider dioProvider,
     NetworkInfo networkInfo,
-    String locale,
+    LocaleService localeService,
   ) : super(
-          dioProvider.dioProvider(
-            interceptors: [],
-            locale: locale,
-          ),
+          dioProvider.dioProvider(interceptors: []),
           networkInfo,
-          locale,
         );
 }

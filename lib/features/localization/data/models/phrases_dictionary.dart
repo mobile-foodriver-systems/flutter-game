@@ -30,6 +30,7 @@ class PhrasesDictionary {
   final String? progressListPageScore;
   final String? gamePageClickOnTheDots;
   final String? gamePageTapToGo;
+  final String? gamePageTapToGoSecondPart;
   final String? gamePageBeginIn;
   final String? gamePageTapSpeed;
   final String? gamePageSorry;
@@ -124,6 +125,7 @@ class PhrasesDictionary {
     this.progressListPageScore,
     this.gamePageClickOnTheDots,
     this.gamePageTapToGo,
+    this.gamePageTapToGoSecondPart,
     this.gamePageBeginIn,
     this.gamePageTapSpeed,
     this.gamePageSorry,

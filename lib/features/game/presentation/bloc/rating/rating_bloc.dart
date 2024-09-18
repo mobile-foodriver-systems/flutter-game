@@ -195,7 +195,6 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
         user: currentUser,
       ),
     );
-    print("AAA city: = ${currentUser?.city?.name}");
     add(
       RatingInitEvent(
         sort: event.sort,

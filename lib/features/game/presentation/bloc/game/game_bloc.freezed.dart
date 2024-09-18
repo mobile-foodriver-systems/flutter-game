@@ -33,7 +33,9 @@ mixin _$GameState {
   bool get lastTapWasSend => throw _privateConstructorUsedError;
   CameraPosition get cameraPosition => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of GameState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $GameStateCopyWith<GameState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -72,6 +74,8 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of GameState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -196,6 +200,8 @@ class __$$GameStateImplCopyWithImpl<$Res>
       _$GameStateImpl _value, $Res Function(_$GameStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of GameState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -442,7 +448,9 @@ class _$GameStateImpl implements _GameState {
       lastTapWasSend,
       cameraPosition);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of GameState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>
@@ -500,8 +508,11 @@ abstract class _GameState implements GameState {
   bool get lastTapWasSend;
   @override
   CameraPosition get cameraPosition;
+
+  /// Create a copy of GameState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

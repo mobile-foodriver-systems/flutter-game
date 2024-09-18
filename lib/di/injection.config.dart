@@ -25,6 +25,10 @@ import 'package:food_driver/core/services/local_storage/local_storage_service.da
     as _i203;
 import 'package:food_driver/core/services/local_storage/local_storage_service_impl.dart'
     as _i58;
+import 'package:food_driver/core/services/locale_service/locale_service.dart'
+    as _i720;
+import 'package:food_driver/core/services/one_time_rating_location_request/one_time_rating_location_request.dart'
+    as _i298;
 import 'package:food_driver/core/services/password_confirmation_service/password_confirmation_service.dart'
     as _i1039;
 import 'package:food_driver/core/services/signal_r/signal_r_service.dart'
@@ -165,12 +169,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.singleton<_i552.EmailConfirmationService>(
         () => _i552.EmailConfirmationService());
+    gh.singleton<_i720.LocaleService>(() => _i720.LocaleService());
+    gh.singleton<_i298.OneTimeRatingLocationRequest>(
+        () => _i298.OneTimeRatingLocationRequest());
     gh.singleton<_i1039.PasswordConfirmationService>(
         () => _i1039.PasswordConfirmationService());
     gh.singleton<_i973.InternetConnectionChecker>(
         () => registerModule.internetConnectionChecker);
     gh.singleton<_i895.Connectivity>(() => registerModule.connectivity);
-    gh.singleton<String>(() => registerModule.locale);
     gh.singleton<_i203.LocalStorageService>(
         () => _i58.LocalStorageServiceImpl(gh<_i460.SharedPreferences>()));
     gh.lazySingleton<_i176.LocalizationLocalDataSource>(
@@ -249,18 +255,38 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i528.AppHttpService(
         gh<_i370.DioProvider>(),
         gh<_i984.NetworkInfo>(),
-        gh<String>(),
+        gh<_i720.LocaleService>(),
       ),
       registerFor: {
         _dev,
         _prod,
       },
     );
-    gh.lazySingleton<_i208.LocationRemoteDataSource>(
-      () => _i208.LocationRemoteDataSourceImpl(gh<_i528.AppHttpService>()),
+    gh.lazySingleton<_i977.AuthRemoteDataSource>(
+      () => _i977.AuthRemoteDataSourceImpl(gh<_i528.AppHttpService>()),
       registerFor: {
         _dev,
         _prod,
+      },
+    );
+    gh.lazySingleton<_i208.LocationRemoteDataSource>(
+      () => _i208.LocationRemoteDataSourceImpl(
+        gh<_i528.AppHttpService>(),
+        gh<_i720.LocaleService>(),
+      ),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.lazySingleton<_i55.AuthRepository>(
+      () => _i55.AuthRepositoryImpl(
+        gh<_i927.AuthLocalDataSource>(),
+        gh<_i977.AuthRemoteDataSource>(),
+      ),
+      registerFor: {
+        _prod,
+        _dev,
       },
     );
     gh.lazySingleton<_i929.LocalizationRemoteDataSource>(
@@ -272,13 +298,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i545.UserRemoteDataSource>(
       () => _i551.UserRemoteDataSourceImpl(gh<_i528.AppHttpService>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.lazySingleton<_i977.AuthRemoteDataSource>(
-      () => _i977.AuthRemoteDataSourceImpl(gh<_i528.AppHttpService>()),
       registerFor: {
         _dev,
         _prod,
@@ -299,8 +318,82 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
+    gh.factory<_i618.BreakAccessTokenUseCase>(
+      () => _i618.BreakAccessTokenUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i684.DeleteUseCase>(
+      () => _i684.DeleteUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i245.GetAccessTokenUseCase>(
+      () => _i245.GetAccessTokenUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i1009.LoginByPasswordUseCase>(
+      () => _i1009.LoginByPasswordUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i422.LogoutUseCase>(
+      () => _i422.LogoutUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i942.RefreshAuthUseCase>(
+      () => _i942.RefreshAuthUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i377.RegistrationUseCase>(
+      () => _i377.RegistrationUseCase(gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.singleton<_i435.GeolocationService>(
         () => _i318.GeolocationServiceImpl(gh<_i275.LocationRepository>()));
+    gh.lazySingleton<_i535.AuthInterceptor>(() => _i535.AuthInterceptor(
+          refreshAuth: gh<_i942.RefreshAuthUseCase>(),
+          authRepository: gh<_i55.AuthRepository>(),
+          getAccessToken: gh<_i245.GetAccessTokenUseCase>(),
+          logout: gh<_i422.LogoutUseCase>(),
+        ));
+    gh.factory<_i415.RegistrationBloc>(
+        () => _i415.RegistrationBloc(gh<_i377.RegistrationUseCase>()));
+    gh.lazySingleton<_i48.AppSignalRService>(
+      () => _i48.AppSignalRService(authRepository: gh<_i55.AuthRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.lazySingleton<_i259.GameRemoteDataSource>(
+      () => _i259.GameRemoteDataSourceImpl(
+        gh<_i528.AppHttpService>(),
+        gh<_i48.AppSignalRService>(),
+      ),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i680.CityByLatLngUseCase>(
       () => _i680.CityByLatLngUseCase(gh<_i275.LocationRepository>()),
       registerFor: {
@@ -338,11 +431,8 @@ extension GetItInjectableX on _i174.GetIt {
         _dev,
       },
     );
-    gh.lazySingleton<_i55.AuthRepository>(
-      () => _i55.AuthRepositoryImpl(
-        gh<_i927.AuthLocalDataSource>(),
-        gh<_i977.AuthRemoteDataSource>(),
-      ),
+    gh.lazySingleton<_i927.GameRepository>(
+      () => _i927.GameRepositoryImpl(gh<_i259.GameRemoteDataSource>()),
       registerFor: {
         _prod,
         _dev,
@@ -399,121 +489,6 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
-    gh.factory<_i618.BreakAccessTokenUseCase>(
-      () => _i618.BreakAccessTokenUseCase(gh<_i55.AuthRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i684.DeleteUseCase>(
-      () => _i684.DeleteUseCase(gh<_i55.AuthRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i245.GetAccessTokenUseCase>(
-      () => _i245.GetAccessTokenUseCase(gh<_i55.AuthRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i1009.LoginByPasswordUseCase>(
-      () => _i1009.LoginByPasswordUseCase(gh<_i55.AuthRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i422.LogoutUseCase>(
-      () => _i422.LogoutUseCase(gh<_i55.AuthRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i942.RefreshAuthUseCase>(
-      () => _i942.RefreshAuthUseCase(gh<_i55.AuthRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i377.RegistrationUseCase>(
-      () => _i377.RegistrationUseCase(gh<_i55.AuthRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.lazySingleton<_i535.AuthInterceptor>(() => _i535.AuthInterceptor(
-          refreshAuth: gh<_i942.RefreshAuthUseCase>(),
-          authRepository: gh<_i55.AuthRepository>(),
-          getAccessToken: gh<_i245.GetAccessTokenUseCase>(),
-          logout: gh<_i422.LogoutUseCase>(),
-        ));
-    gh.factory<_i415.RegistrationBloc>(
-        () => _i415.RegistrationBloc(gh<_i377.RegistrationUseCase>()));
-    gh.lazySingleton<_i48.AppSignalRService>(
-      () => _i48.AppSignalRService(authRepository: gh<_i55.AuthRepository>()),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.lazySingleton<_i259.GameRemoteDataSource>(
-      () => _i259.GameRemoteDataSourceImpl(
-        gh<_i528.AppHttpService>(),
-        gh<_i48.AppSignalRService>(),
-      ),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i1004.PasswordRecoveryBloc>(() => _i1004.PasswordRecoveryBloc(
-          gh<_i29.RecoveryPasswordUseCase>(),
-          gh<_i9.ConfirmRecoveryPasswordUseCase>(),
-        ));
-    gh.singleton<_i459.LocalizationBloc>(() => _i459.LocalizationBloc(
-          gh<_i352.LoadLocalizationUseCase>(),
-          gh<_i744.CacheLocalizationUseCase>(),
-          gh<_i924.GetCachedLocalizationUseCase>(),
-        ));
-    gh.factory<_i879.CheckAuthUseCase>(
-      () => _i879.CheckAuthUseCase(
-        gh<_i55.AuthRepository>(),
-        gh<_i687.UserRepository>(),
-      ),
-      registerFor: {
-        _dev,
-        _prod,
-      },
-    );
-    gh.factory<_i427.EditProfileBloc>(() => _i427.EditProfileBloc(
-          gh<_i254.GetConfirmationCodeUseCase>(),
-          gh<_i602.SendConfirmationCodeUseCase>(),
-        ));
-    gh.factory<_i48.UserBloc>(() => _i48.UserBloc(
-          gh<_i978.LoadProfileUseCase>(),
-          gh<_i238.UpdateUserUseCase>(),
-          gh<_i198.UpdateUserLatLngUseCase>(),
-        ));
-    gh.factory<_i667.AuthBloc>(() => _i667.AuthBloc(
-          gh<_i1009.LoginByPasswordUseCase>(),
-          gh<_i422.LogoutUseCase>(),
-          gh<_i879.CheckAuthUseCase>(),
-          gh<_i684.DeleteUseCase>(),
-        ));
-    gh.lazySingleton<_i927.GameRepository>(
-      () => _i927.GameRepositoryImpl(gh<_i259.GameRemoteDataSource>()),
-      registerFor: {
-        _prod,
-        _dev,
-      },
-    );
     gh.factory<_i186.CancelRouteUseCase>(
       () => _i186.CancelRouteUseCase(gh<_i927.GameRepository>()),
       registerFor: {
@@ -563,9 +538,43 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i1004.PasswordRecoveryBloc>(() => _i1004.PasswordRecoveryBloc(
+          gh<_i29.RecoveryPasswordUseCase>(),
+          gh<_i9.ConfirmRecoveryPasswordUseCase>(),
+        ));
     gh.factory<_i381.RatingBloc>(() => _i381.RatingBloc(
           gh<_i499.LoadRatingUseCase>(),
           gh<_i746.LoadUserRatingUseCase>(),
+        ));
+    gh.singleton<_i459.LocalizationBloc>(() => _i459.LocalizationBloc(
+          gh<_i352.LoadLocalizationUseCase>(),
+          gh<_i744.CacheLocalizationUseCase>(),
+          gh<_i924.GetCachedLocalizationUseCase>(),
+        ));
+    gh.factory<_i879.CheckAuthUseCase>(
+      () => _i879.CheckAuthUseCase(
+        gh<_i55.AuthRepository>(),
+        gh<_i687.UserRepository>(),
+      ),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.factory<_i427.EditProfileBloc>(() => _i427.EditProfileBloc(
+          gh<_i254.GetConfirmationCodeUseCase>(),
+          gh<_i602.SendConfirmationCodeUseCase>(),
+        ));
+    gh.factory<_i48.UserBloc>(() => _i48.UserBloc(
+          gh<_i978.LoadProfileUseCase>(),
+          gh<_i238.UpdateUserUseCase>(),
+          gh<_i198.UpdateUserLatLngUseCase>(),
+        ));
+    gh.factory<_i667.AuthBloc>(() => _i667.AuthBloc(
+          gh<_i1009.LoginByPasswordUseCase>(),
+          gh<_i422.LogoutUseCase>(),
+          gh<_i879.CheckAuthUseCase>(),
+          gh<_i684.DeleteUseCase>(),
         ));
     gh.factory<_i379.GameBloc>(() => _i379.GameBloc(
           gh<_i353.StartUseCase>(),

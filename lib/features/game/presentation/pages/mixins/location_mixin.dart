@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/services/geolocation/geolocation_service.dart';
+import 'package:food_driver/core/services/one_time_rating_location_request/one_time_rating_location_request.dart';
 import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/location/data/models/city.dart';
 import 'package:food_driver/features/location/data/models/country.dart';

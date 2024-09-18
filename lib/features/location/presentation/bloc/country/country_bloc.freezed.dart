@@ -21,7 +21,9 @@ mixin _$CountryState {
   Failure? get error => throw _privateConstructorUsedError;
   String? get searchText => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CountryState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CountryStateCopyWith<CountryState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -49,6 +51,8 @@ class _$CountryStateCopyWithImpl<$Res, $Val extends CountryState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CountryState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -101,6 +105,8 @@ class __$$CountryStateImplCopyWithImpl<$Res>
       _$CountryStateImpl _value, $Res Function(_$CountryStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CountryState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -174,7 +180,9 @@ class _$CountryStateImpl implements _CountryState {
   int get hashCode =>
       Object.hash(runtimeType, status, countryList, error, searchText);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CountryState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CountryStateImplCopyWith<_$CountryStateImpl> get copyWith =>
@@ -196,8 +204,11 @@ abstract class _CountryState implements CountryState {
   Failure? get error;
   @override
   String? get searchText;
+
+  /// Create a copy of CountryState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CountryStateImplCopyWith<_$CountryStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

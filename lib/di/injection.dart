@@ -29,7 +29,4 @@ abstract class RegisterModule {
 
   @singleton
   Connectivity get connectivity;
-
-  @singleton
-  String get locale => Intl.getCurrentLocale();
 }

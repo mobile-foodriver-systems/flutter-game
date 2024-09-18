@@ -134,7 +134,7 @@ class _UserRatingItem extends StatelessWidget {
             ),
             const SizedBox(width: 12.0),
             Text(
-              rating.balanceInFDT?.toStringAsFixed(0) ?? '',
+              rating.balanceInFDT?.toStringAsFixed(2) ?? '',
               style: textStyle,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

@@ -21,7 +21,9 @@ mixin _$CityState {
   Failure? get error => throw _privateConstructorUsedError;
   String? get searchText => throw _privateConstructorUsedError;
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CityState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $CityStateCopyWith<CityState> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -48,6 +50,8 @@ class _$CityStateCopyWithImpl<$Res, $Val extends CityState>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of CityState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -100,6 +104,8 @@ class __$$CityStateImplCopyWithImpl<$Res>
       _$CityStateImpl _value, $Res Function(_$CityStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CityState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -173,7 +179,9 @@ class _$CityStateImpl implements _CityState {
   int get hashCode =>
       Object.hash(runtimeType, status, cityList, error, searchText);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CityState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CityStateImplCopyWith<_$CityStateImpl> get copyWith =>
@@ -195,8 +203,11 @@ abstract class _CityState implements CityState {
   Failure? get error;
   @override
   String? get searchText;
+
+  /// Create a copy of CityState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CityStateImplCopyWith<_$CityStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
