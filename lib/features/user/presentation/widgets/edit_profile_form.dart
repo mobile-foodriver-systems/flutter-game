@@ -89,7 +89,7 @@ class _EditProfileFormBodyState extends State<EditProfileFormBody>
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
                               ),
-                      textAlign: TextAlign.left,
+                      textAlign: TextAlign.start,
                     ),
                     const SizedBox(height: 16.0),
                     TextFormField(

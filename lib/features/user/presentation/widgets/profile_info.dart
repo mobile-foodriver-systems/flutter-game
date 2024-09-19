@@ -29,7 +29,7 @@ class ProfileInfo extends StatelessWidget {
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
-            textAlign: TextAlign.left,
+            textAlign: TextAlign.start,
           ),
           const SizedBox(height: 16.0),
           DisabledField(
