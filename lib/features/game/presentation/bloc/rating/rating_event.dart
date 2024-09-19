@@ -45,15 +45,18 @@ class RatingReloadEvent extends RatingEvent {
   const RatingReloadEvent({
     required this.sort,
     this.city,
+    this.startLoad = true,
   });
 
   final UsersSortType sort;
   final City? city;
+  final bool startLoad;
 
   @override
   List<Object> get props => [
         sort,
         if (city != null) city!,
+        startLoad,
       ];
 }
 
@@ -65,12 +68,21 @@ class LoadProfileEvent extends RatingEvent {
 }
 
 class SwitchSortTypeEvent extends RatingEvent {
+  final UsersSortType sort;
   const SwitchSortTypeEvent({
     required this.sort,
   });
 
+  @override
+  List<Object> get props => [sort];
+}
+
+class IsLoadingEvent extends RatingEvent {
   final UsersSortType sort;
+  const IsLoadingEvent({
+    required this.sort,
+  });
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [sort];
 }

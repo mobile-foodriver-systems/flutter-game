@@ -94,11 +94,13 @@ class _RatingListPageState extends State<RatingListPage> with LocationMixin {
   Future<void> onChanged(UsersSortType sort, RatingBloc bloc) async {
     if (sort == UsersSortType.distance &&
         _oneTimeRatingLocationRequest.city == null) {
+      bloc.add(IsLoadingEvent(sort: sort));
       final userCity = await tryGetCity();
       _oneTimeRatingLocationRequest.city = userCity;
       bloc.add(RatingReloadEvent(
         sort: sort,
         city: _oneTimeRatingLocationRequest.city,
+        startLoad: false,
       ));
       return;
     } else if (sort == UsersSortType.distance &&

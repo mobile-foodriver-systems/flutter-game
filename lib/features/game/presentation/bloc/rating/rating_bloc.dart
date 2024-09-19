@@ -38,6 +38,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     on<RatingInitEvent>(_init);
     on<RatingReloadEvent>(_reload);
     on<SwitchSortTypeEvent>(_switchSort);
+    on<IsLoadingEvent>(_onLoadingState);
   }
 
   Future<void> _load(
@@ -176,7 +177,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     RatingReloadEvent event,
     Emitter<RatingState> emit,
   ) async {
-    if (state.status == ListStatus.loading) return;
+    if (state.status == ListStatus.loading && event.startLoad) return;
     final currentUser = state.user == null || event.city == null
         ? state.user
         : UserEntity.update(user: state.user!, city: event.city);
@@ -230,5 +231,15 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
     Emitter<RatingState> emit,
   ) {
     emit(state.copyWith(sort: event.sort));
+  }
+
+  void _onLoadingState(
+    IsLoadingEvent event,
+    Emitter<RatingState> emit,
+  ) {
+    emit(state.copyWith(
+      status: ListStatus.loading,
+      sort: event.sort,
+    ));
   }
 }
