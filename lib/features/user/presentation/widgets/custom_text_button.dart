@@ -29,6 +29,7 @@ class CustomTextButton extends StatelessWidget {
               child: Text(
                 text,
                 style: const TextStyle(color: AppColors.black),
+                maxLines: 2,
               ),
             ),
           ),

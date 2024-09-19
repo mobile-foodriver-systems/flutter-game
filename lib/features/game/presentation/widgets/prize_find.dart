@@ -27,8 +27,10 @@ class PrizeFund extends StatelessWidget {
           height: 65.0,
           child: DecoratedBox(
             decoration: const BoxDecoration(
-              image:
-                  DecorationImage(image: AssetImage(AssetsCatalog.prizeFund)),
+              image: DecorationImage(
+                image: AssetImage(AssetsCatalog.prizeFund),
+                fit: BoxFit.fill,
+              ),
             ),
             child: DecoratedBox(
               decoration: BoxDecoration(

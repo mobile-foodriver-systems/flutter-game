@@ -16,12 +16,12 @@ class PrivacyPolicy extends StatelessWidget {
         text: LocaleKeys.authPageAcceptPart.tr(),
         children: [
           TextSpan(
-            text: LocaleKeys.authPagePrivacyPolicyPart.tr(),
+            text: "\n${LocaleKeys.authPagePrivacyPolicyPart.tr()}",
             recognizer: TapGestureRecognizer()
               ..onTap = () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => PdfPage(
                         url: EnvironmentConstants().privacyPolicyUrl,
-                        title: "Политика конфиденциальности",
+                        title: LocaleKeys.authPagePrivacyPolicy.tr(),
                       ))),
             style: const TextStyle(
               shadows: [
