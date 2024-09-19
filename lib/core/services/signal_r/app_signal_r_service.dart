@@ -114,7 +114,7 @@ class AppSignalRService extends SignalRService {
     final data = rawData;
 
     try {
-      if (kDebugMode) log("SIGNAL R DATA: $data");
+      // if (kDebugMode) log("SIGNAL R DATA: $data");
       if (data.containsKey('routeList')) {
         final routes = RouteList.fromJson(data as Map<String, dynamic>);
         _streamController.sink.add(AddRoutesEvent(routes: routes.routeList));

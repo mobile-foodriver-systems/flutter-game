@@ -124,7 +124,9 @@ class _ProfileBodyState extends State<ProfileBody> with ProfileMixin {
                                 changeData: changeEditingState,
                               ),
                         const SizedBox(height: 8.0),
-                        const _LegalInfo(),
+                        _LegalInfo(
+                          key: ObjectKey(context.locale),
+                        ),
                         const SizedBox(height: 24.0),
                         Padding(
                           padding: const EdgeInsets.symmetric(

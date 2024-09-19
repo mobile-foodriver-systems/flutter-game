@@ -130,7 +130,9 @@ class _TopNavigation extends StatelessWidget {
         ),
         type == GameStateType.initialized
             ? ProgressIconButton(onPressed: openRatingList)
-            : CloseIconButton(onPressed: onPressed),
+            : type == GameStateType.loading
+                ? const SizedBox()
+                : CloseIconButton(onPressed: onPressed),
       ],
     );
   }
