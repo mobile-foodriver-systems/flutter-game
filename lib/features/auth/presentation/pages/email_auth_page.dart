@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/constants/environment_constants.dart';
@@ -5,8 +6,9 @@ import 'package:food_driver/core/theme/theme_data.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/auth/presentation/pages/confirmation_code_page.dart';
-import 'package:food_driver/features/auth/presentation/pages/pdf_page.dart';
+import 'package:food_driver/features/auth/presentation/pages/web_view_page.dart';
 import 'package:food_driver/features/auth/presentation/widgets/email_field.dart';
+import 'package:food_driver/generated/locale_keys.g.dart';
 
 class EmailAuthPage extends StatelessWidget {
   const EmailAuthPage({super.key});
@@ -87,10 +89,15 @@ class _PrivacyPolicy extends StatelessWidget {
             text: "политики конфиденциальности",
             recognizer: TapGestureRecognizer()
               ..onTap = () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => PdfPage(
+                  builder: (context) => WebViewPage(
                         url: EnvironmentConstants().privacyPolicyUrl,
-                        title: "Политика конфиденциальности",
-                      ))),
+                        title: LocaleKeys.authPagePrivacyPolicy.tr(),
+                      )
+                  // PdfPage(
+                  //       url: EnvironmentConstants().privacyPolicyUrl,
+                  //       title: "Политика конфиденциальности",
+                  //     )
+                  )),
             style: const TextStyle(
               shadows: [
                 Shadow(

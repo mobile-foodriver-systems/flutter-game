@@ -7,7 +7,7 @@ import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/auth/presentation/bloc/auth/auth_bloc.dart';
-import 'package:food_driver/features/auth/presentation/pages/pdf_page.dart';
+import 'package:food_driver/features/auth/presentation/pages/web_view_page.dart';
 import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/widgets/loading_indicator.dart';
 import 'package:food_driver/features/user/data/models/user_status.dart';
@@ -184,10 +184,15 @@ class _LegalInfo extends StatelessWidget {
           CustomTextButton(
             text: LocaleKeys.authPagePrivacyPolicy.tr(),
             onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => PdfPage(
+                builder: (context) => WebViewPage(
                       url: EnvironmentConstants().privacyPolicyUrl,
                       title: LocaleKeys.authPagePrivacyPolicy.tr(),
-                    ))),
+                    )
+                // PdfPage(
+                //       url: EnvironmentConstants().privacyPolicyUrl,
+                //       title: LocaleKeys.authPagePrivacyPolicy.tr(),
+                //     )
+                )),
           ),
         ],
       ),
