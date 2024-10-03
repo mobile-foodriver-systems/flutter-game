@@ -28,9 +28,14 @@ mixin GameMixin on State<GamePageBody> {
   }
 
   void onTap() {
-    if (_gameBloc.state.status == GameStateType.playing) {
-      _gameBloc.add(const GameTapEvent());
-    }
+    _gameBloc.state.maybeMap(
+      orElse: () => null,
+      game: (game) {
+        if (game.status == GameStateType.playing) {
+          _gameBloc.add(const GameTapEvent());
+        }
+      },
+    );
   }
 
   void breakGame() {

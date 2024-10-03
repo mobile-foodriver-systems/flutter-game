@@ -88,10 +88,16 @@ class _GameMapState extends State<GameMap>
   Widget build(BuildContext context) {
     return BlocConsumer<GameBloc, GameState>(
       listener: (context, state) async {
-        if (state.cameraPosition.target != widget.cameraPosition.target &&
-            googleMapController != null) {
+        final cameraPosition = state.maybeMap(
+          orElse: () => null,
+          game: (game) => game.cameraPosition,
+          initialized: (initialized) => initialized.cameraPosition,
+        );
+        if (cameraPosition?.target != widget.cameraPosition.target &&
+            googleMapController != null &&
+            cameraPosition != null) {
           googleMapController!
-              .moveCamera(CameraUpdate.newLatLng(state.cameraPosition.target));
+              .moveCamera(CameraUpdate.newLatLng(cameraPosition.target));
         }
       },
       builder: (BuildContext context, GameState state) {

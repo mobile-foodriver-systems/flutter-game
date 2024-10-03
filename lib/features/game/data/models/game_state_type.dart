@@ -1,5 +1,4 @@
 enum GameStateType {
-  error,
   loading,
   noCity,
   initialized,

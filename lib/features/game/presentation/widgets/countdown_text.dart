@@ -13,7 +13,7 @@ class CountdownText extends StatefulWidget {
   });
 
   final int seconds;
-  final VoidCallback callback;
+  final VoidCallback? callback;
 
   @override
   State<CountdownText> createState() => _CountdownTextState();
@@ -29,7 +29,7 @@ class _CountdownTextState extends State<CountdownText> {
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (_seconds == 0) {
         timer.cancel();
-        widget.callback();
+        widget.callback?.call();
       } else {
         setState(() {
           _seconds--;

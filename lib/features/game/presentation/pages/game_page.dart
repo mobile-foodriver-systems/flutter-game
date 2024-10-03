@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_driver/core/services/geolocation/geolocation_service.dart';
 import 'package:food_driver/di/injection.dart';
 import 'package:food_driver/features/game/data/models/game_state_type.dart';
+import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
 import 'package:food_driver/features/game/presentation/bloc/game/game_bloc.dart';
 import 'package:food_driver/features/game/presentation/pages/error_page.dart';
 import 'package:food_driver/features/game/presentation/pages/rating_list_page.dart';
@@ -64,89 +65,171 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
   Widget build(BuildContext context) {
     return BlocBuilder<GameBloc, GameState>(
       builder: (BuildContext context, GameState state) {
-        if (state.status == GameStateType.error) {
-          return const ErrorPage();
-        }
-        return Scaffold(
-          body: Stack(
-            fit: StackFit.expand,
-            alignment: Alignment.topLeft,
-            children: [
-              if (state.status == GameStateType.loading)
-                const CustomLoadingIndiacator()
-              else
-                Game(
-                  type: state.status,
-                  routes: state.routes,
-                  markers: state.markers,
-                  polylines: state.polylineAfter == null
-                      ? state.polylines
-                      : {state.polylineAfter!},
-                  reward: state.gameRoute?.reward,
-                  determineLocation: tryGetCity,
-                  cameraPosition: state.cameraPosition,
-                ),
-              Positioned(
-                top: 16,
-                left: 0,
-                right: 0,
-                child: Navigation(
-                  key: ValueKey(state.status),
-                  type: state.status,
-                  toggleToInit: toggleToInit,
-                  toggleToPlay: toggleToPlay,
-                  breakGame: breakGame,
-                  balance: state.balance ?? widget.user.balance,
-                  speed: state.speed,
-                  seconds: state.dseconds ~/ 10,
-                  openRatingList: openRatingList,
-                ),
-              ),
-              if (state.status == GameStateType.playing ||
-                  state.status == GameStateType.starting)
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 10,
-                  child: Center(
-                    child: MultiTapButton(
-                      callback:
-                          state.status == GameStateType.starting ? null : onTap,
+        return state.map(
+          error: (error) {
+            return const ErrorPage();
+          },
+          loading: (loading) {
+            return const _LoadingGameState();
+          },
+          initialized: (initialized) {
+            return _InitializedGameState(
+              routes: initialized.routes,
+              markers: initialized.markers,
+              determineLocation: tryGetCity,
+              cameraPosition: initialized.cameraPosition,
+              toggleToPlay: toggleToPlay,
+              openRatingList: openRatingList,
+            );
+          },
+          game: (game) {
+            return Scaffold(
+              body: Stack(
+                fit: StackFit.expand,
+                alignment: Alignment.topLeft,
+                children: [
+                  Game(
+                    type: game.status,
+                    markers: game.markers,
+                    polylines: game.polylineAfter == null
+                        ? game.polylines
+                        : {game.polylineAfter!},
+                    reward: game.gameRoute?.reward,
+                    determineLocation: tryGetCity,
+                    cameraPosition: game.cameraPosition,
+                  ),
+                  Positioned(
+                    top: 16,
+                    left: 0,
+                    right: 0,
+                    child: Navigation(
+                      key: ValueKey(game.status),
+                      type: game.status,
+                      toggleToInit: toggleToInit,
+                      toggleToPlay: toggleToPlay,
+                      breakGame: breakGame,
+                      balance: game.balance ?? widget.user.balance,
+                      speed: game.speed,
+                      seconds: game.dseconds ~/ 10,
+                      openRatingList: openRatingList,
                     ),
                   ),
-                ),
-              if (state.status == GameStateType.initialized)
-                const Positioned(
-                  bottom: 16.0,
-                  left: 0,
-                  right: 0,
-                  child: Center(
-                    child: HelpGameMessage(),
-                  ),
-                ),
-              if (appFlavor == 'dev' &&
-                  (state.status == GameStateType.playing ||
-                      state.status == GameStateType.starting))
-                Positioned(
-                  top: 185.0,
-                  left: 0,
-                  right: 0,
-                  child: GameDebug(
-                    userId: widget.user.id.toString(),
-                    routeId: state.gameRoute?.id.toString(),
-                  ),
-                ),
-              if ((state.status == GameStateType.loose ||
-                      state.status == GameStateType.win) &&
-                  state.looseWin != null)
-                LooseOrWin(
-                  looseWin: state.looseWin!,
-                  breakGame: breakGame,
-                ),
-            ],
-          ),
+                  if (game.status == GameStateType.playing ||
+                      game.status == GameStateType.starting)
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 10,
+                      child: Center(
+                        child: MultiTapButton(
+                          callback: game.status == GameStateType.starting
+                              ? null
+                              : onTap,
+                        ),
+                      ),
+                    ),
+                  if (appFlavor == 'dev' &&
+                      (game.status == GameStateType.playing ||
+                          game.status == GameStateType.starting))
+                    Positioned(
+                      top: 185.0,
+                      left: 0,
+                      right: 0,
+                      child: GameDebug(
+                        userId: widget.user.id.toString(),
+                        routeId: game.gameRoute?.id.toString(),
+                      ),
+                    ),
+                  if ((game.status == GameStateType.loose ||
+                          game.status == GameStateType.win) &&
+                      game.looseWin != null)
+                    LooseOrWin(
+                      looseWin: game.looseWin!,
+                      breakGame: breakGame,
+                    ),
+                ],
+              ),
+            );
+          },
         );
       },
+    );
+  }
+}
+
+class _LoadingGameState extends StatelessWidget {
+  const _LoadingGameState({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Stack(
+        children: [
+          CustomLoadingIndiacator(),
+          Positioned(
+            top: 16,
+            left: 0,
+            right: 0,
+            child: Navigation(type: GameStateType.loading),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _InitializedGameState extends StatelessWidget {
+  final List<DriveRouteEntity> routes;
+  final Set<Marker> markers;
+  final VoidCallback determineLocation;
+  final CameraPosition cameraPosition;
+  final VoidCallback toggleToPlay;
+  final VoidCallback openRatingList;
+
+  const _InitializedGameState({
+    super.key,
+    required this.routes,
+    required this.markers,
+    required this.determineLocation,
+    required this.cameraPosition,
+    required this.toggleToPlay,
+    required this.openRatingList,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        alignment: Alignment.topLeft,
+        children: [
+          Game(
+            type: GameStateType.initialized,
+            routes: routes,
+            markers: markers,
+            determineLocation: determineLocation,
+            cameraPosition: cameraPosition,
+          ),
+          Positioned(
+            top: 16,
+            left: 0,
+            right: 0,
+            child: Navigation(
+              type: GameStateType.initialized,
+              toggleToPlay: toggleToPlay,
+              openRatingList: openRatingList,
+            ),
+          ),
+          const Positioned(
+            bottom: 16.0,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: HelpGameMessage(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

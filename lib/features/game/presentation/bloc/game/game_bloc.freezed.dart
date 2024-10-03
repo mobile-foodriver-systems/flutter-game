@@ -16,27 +16,109 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GameState {
-  GameStateType get status => throw _privateConstructorUsedError;
-  City? get city => throw _privateConstructorUsedError;
-  List<DriveRouteEntity> get routes => throw _privateConstructorUsedError;
-  DriveRouteEntity? get gameRoute => throw _privateConstructorUsedError;
-  Set<Marker> get markers => throw _privateConstructorUsedError;
-  Set<Polyline> get polylines => throw _privateConstructorUsedError;
-  Timer? get timer => throw _privateConstructorUsedError;
-  num get speed => throw _privateConstructorUsedError;
-  int get dseconds => throw _privateConstructorUsedError;
-  num? get balance => throw _privateConstructorUsedError;
-  LooseWinEntity? get looseWin => throw _privateConstructorUsedError;
-  double get distance => throw _privateConstructorUsedError;
-  Polyline? get polylineAfter => throw _privateConstructorUsedError;
-  Map<int, int> get secondsWithTapsMap => throw _privateConstructorUsedError;
-  bool get lastTapWasSend => throw _privateConstructorUsedError;
-  CameraPosition get cameraPosition => throw _privateConstructorUsedError;
-
-  /// Create a copy of GameState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $GameStateCopyWith<GameState> get copyWith =>
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() error,
+    required TResult Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)
+        initialized,
+    required TResult Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)
+        game,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function()? error,
+    TResult? Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)?
+        initialized,
+    TResult? Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)?
+        game,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? error,
+    TResult Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)?
+        initialized,
+    TResult Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)?
+        game,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_Game value) game,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_Game value)? game,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_Game value)? game,
+    required TResult orElse(),
+  }) =>
       throw _privateConstructorUsedError;
 }
 
@@ -44,24 +126,6 @@ mixin _$GameState {
 abstract class $GameStateCopyWith<$Res> {
   factory $GameStateCopyWith(GameState value, $Res Function(GameState) then) =
       _$GameStateCopyWithImpl<$Res, GameState>;
-  @useResult
-  $Res call(
-      {GameStateType status,
-      City? city,
-      List<DriveRouteEntity> routes,
-      DriveRouteEntity? gameRoute,
-      Set<Marker> markers,
-      Set<Polyline> polylines,
-      Timer? timer,
-      num speed,
-      int dseconds,
-      num? balance,
-      LooseWinEntity? looseWin,
-      double distance,
-      Polyline? polylineAfter,
-      Map<int, int> secondsWithTapsMap,
-      bool lastTapWasSend,
-      CameraPosition cameraPosition});
 }
 
 /// @nodoc
@@ -76,107 +140,629 @@ class _$GameStateCopyWithImpl<$Res, $Val extends GameState>
 
   /// Create a copy of GameState
   /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+abstract class _$$LoadingImplCopyWith<$Res> {
+  factory _$$LoadingImplCopyWith(
+          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
+      __$$LoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LoadingImplCopyWithImpl<$Res>
+    extends _$GameStateCopyWithImpl<$Res, _$LoadingImpl>
+    implements _$$LoadingImplCopyWith<$Res> {
+  __$$LoadingImplCopyWithImpl(
+      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of GameState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$LoadingImpl implements _Loading {
+  const _$LoadingImpl();
+
+  @override
+  String toString() {
+    return 'GameState.loading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() error,
+    required TResult Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)
+        initialized,
+    required TResult Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)
+        game,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function()? error,
+    TResult? Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)?
+        initialized,
+    TResult? Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)?
+        game,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? error,
+    TResult Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)?
+        initialized,
+    TResult Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)?
+        game,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_Game value) game,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_Game value)? game,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_Game value)? game,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Loading implements GameState {
+  const factory _Loading() = _$LoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$ErrorImplCopyWith<$Res> {
+  factory _$$ErrorImplCopyWith(
+          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
+      __$$ErrorImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ErrorImplCopyWithImpl<$Res>
+    extends _$GameStateCopyWithImpl<$Res, _$ErrorImpl>
+    implements _$$ErrorImplCopyWith<$Res> {
+  __$$ErrorImplCopyWithImpl(
+      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of GameState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$ErrorImpl implements _Error {
+  const _$ErrorImpl();
+
+  @override
+  String toString() {
+    return 'GameState.error()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ErrorImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() error,
+    required TResult Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)
+        initialized,
+    required TResult Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)
+        game,
+  }) {
+    return error();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function()? error,
+    TResult? Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)?
+        initialized,
+    TResult? Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)?
+        game,
+  }) {
+    return error?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? error,
+    TResult Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)?
+        initialized,
+    TResult Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)?
+        game,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_Game value) game,
+  }) {
+    return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_Game value)? game,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_Game value)? game,
+    required TResult orElse(),
+  }) {
+    if (error != null) {
+      return error(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Error implements GameState {
+  const factory _Error() = _$ErrorImpl;
+}
+
+/// @nodoc
+abstract class _$$InitializedImplCopyWith<$Res> {
+  factory _$$InitializedImplCopyWith(
+          _$InitializedImpl value, $Res Function(_$InitializedImpl) then) =
+      __$$InitializedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {City? city,
+      List<DriveRouteEntity> routes,
+      Set<Marker> markers,
+      CameraPosition cameraPosition});
+}
+
+/// @nodoc
+class __$$InitializedImplCopyWithImpl<$Res>
+    extends _$GameStateCopyWithImpl<$Res, _$InitializedImpl>
+    implements _$$InitializedImplCopyWith<$Res> {
+  __$$InitializedImplCopyWithImpl(
+      _$InitializedImpl _value, $Res Function(_$InitializedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of GameState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? status = null,
     Object? city = freezed,
     Object? routes = null,
-    Object? gameRoute = freezed,
     Object? markers = null,
-    Object? polylines = null,
-    Object? timer = freezed,
-    Object? speed = null,
-    Object? dseconds = null,
-    Object? balance = freezed,
-    Object? looseWin = freezed,
-    Object? distance = null,
-    Object? polylineAfter = freezed,
-    Object? secondsWithTapsMap = null,
-    Object? lastTapWasSend = null,
     Object? cameraPosition = null,
   }) {
-    return _then(_value.copyWith(
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as GameStateType,
+    return _then(_$InitializedImpl(
       city: freezed == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as City?,
       routes: null == routes
-          ? _value.routes
+          ? _value._routes
           : routes // ignore: cast_nullable_to_non_nullable
               as List<DriveRouteEntity>,
-      gameRoute: freezed == gameRoute
-          ? _value.gameRoute
-          : gameRoute // ignore: cast_nullable_to_non_nullable
-              as DriveRouteEntity?,
       markers: null == markers
-          ? _value.markers
+          ? _value._markers
           : markers // ignore: cast_nullable_to_non_nullable
               as Set<Marker>,
-      polylines: null == polylines
-          ? _value.polylines
-          : polylines // ignore: cast_nullable_to_non_nullable
-              as Set<Polyline>,
-      timer: freezed == timer
-          ? _value.timer
-          : timer // ignore: cast_nullable_to_non_nullable
-              as Timer?,
-      speed: null == speed
-          ? _value.speed
-          : speed // ignore: cast_nullable_to_non_nullable
-              as num,
-      dseconds: null == dseconds
-          ? _value.dseconds
-          : dseconds // ignore: cast_nullable_to_non_nullable
-              as int,
-      balance: freezed == balance
-          ? _value.balance
-          : balance // ignore: cast_nullable_to_non_nullable
-              as num?,
-      looseWin: freezed == looseWin
-          ? _value.looseWin
-          : looseWin // ignore: cast_nullable_to_non_nullable
-              as LooseWinEntity?,
-      distance: null == distance
-          ? _value.distance
-          : distance // ignore: cast_nullable_to_non_nullable
-              as double,
-      polylineAfter: freezed == polylineAfter
-          ? _value.polylineAfter
-          : polylineAfter // ignore: cast_nullable_to_non_nullable
-              as Polyline?,
-      secondsWithTapsMap: null == secondsWithTapsMap
-          ? _value.secondsWithTapsMap
-          : secondsWithTapsMap // ignore: cast_nullable_to_non_nullable
-              as Map<int, int>,
-      lastTapWasSend: null == lastTapWasSend
-          ? _value.lastTapWasSend
-          : lastTapWasSend // ignore: cast_nullable_to_non_nullable
-              as bool,
       cameraPosition: null == cameraPosition
           ? _value.cameraPosition
           : cameraPosition // ignore: cast_nullable_to_non_nullable
               as CameraPosition,
-    ) as $Val);
+    ));
   }
 }
 
 /// @nodoc
-abstract class _$$GameStateImplCopyWith<$Res>
-    implements $GameStateCopyWith<$Res> {
-  factory _$$GameStateImplCopyWith(
-          _$GameStateImpl value, $Res Function(_$GameStateImpl) then) =
-      __$$GameStateImplCopyWithImpl<$Res>;
+
+class _$InitializedImpl implements _Initialized {
+  const _$InitializedImpl(
+      {this.city = null,
+      final List<DriveRouteEntity> routes = const [],
+      final Set<Marker> markers = const {},
+      this.cameraPosition = const CameraPosition(
+          target: GameBloc._defaultPosition, zoom: GameBloc._defaultZoom)})
+      : _routes = routes,
+        _markers = markers;
+
   @override
+  @JsonKey()
+  final City? city;
+  final List<DriveRouteEntity> _routes;
+  @override
+  @JsonKey()
+  List<DriveRouteEntity> get routes {
+    if (_routes is EqualUnmodifiableListView) return _routes;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_routes);
+  }
+
+  final Set<Marker> _markers;
+  @override
+  @JsonKey()
+  Set<Marker> get markers {
+    if (_markers is EqualUnmodifiableSetView) return _markers;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_markers);
+  }
+
+  @override
+  @JsonKey()
+  final CameraPosition cameraPosition;
+
+  @override
+  String toString() {
+    return 'GameState.initialized(city: $city, routes: $routes, markers: $markers, cameraPosition: $cameraPosition)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$InitializedImpl &&
+            (identical(other.city, city) || other.city == city) &&
+            const DeepCollectionEquality().equals(other._routes, _routes) &&
+            const DeepCollectionEquality().equals(other._markers, _markers) &&
+            (identical(other.cameraPosition, cameraPosition) ||
+                other.cameraPosition == cameraPosition));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      city,
+      const DeepCollectionEquality().hash(_routes),
+      const DeepCollectionEquality().hash(_markers),
+      cameraPosition);
+
+  /// Create a copy of GameState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$InitializedImplCopyWith<_$InitializedImpl> get copyWith =>
+      __$$InitializedImplCopyWithImpl<_$InitializedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() error,
+    required TResult Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)
+        initialized,
+    required TResult Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)
+        game,
+  }) {
+    return initialized(city, routes, markers, cameraPosition);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function()? error,
+    TResult? Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)?
+        initialized,
+    TResult? Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)?
+        game,
+  }) {
+    return initialized?.call(city, routes, markers, cameraPosition);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? error,
+    TResult Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)?
+        initialized,
+    TResult Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)?
+        game,
+    required TResult orElse(),
+  }) {
+    if (initialized != null) {
+      return initialized(city, routes, markers, cameraPosition);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_Game value) game,
+  }) {
+    return initialized(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_Game value)? game,
+  }) {
+    return initialized?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_Game value)? game,
+    required TResult orElse(),
+  }) {
+    if (initialized != null) {
+      return initialized(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Initialized implements GameState {
+  const factory _Initialized(
+      {final City? city,
+      final List<DriveRouteEntity> routes,
+      final Set<Marker> markers,
+      final CameraPosition cameraPosition}) = _$InitializedImpl;
+
+  City? get city;
+  List<DriveRouteEntity> get routes;
+  Set<Marker> get markers;
+  CameraPosition get cameraPosition;
+
+  /// Create a copy of GameState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$InitializedImplCopyWith<_$InitializedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GameImplCopyWith<$Res> {
+  factory _$$GameImplCopyWith(
+          _$GameImpl value, $Res Function(_$GameImpl) then) =
+      __$$GameImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {GameStateType status,
       City? city,
-      List<DriveRouteEntity> routes,
       DriveRouteEntity? gameRoute,
       Set<Marker> markers,
       Set<Polyline> polylines,
@@ -193,11 +779,10 @@ abstract class _$$GameStateImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$GameStateImplCopyWithImpl<$Res>
-    extends _$GameStateCopyWithImpl<$Res, _$GameStateImpl>
-    implements _$$GameStateImplCopyWith<$Res> {
-  __$$GameStateImplCopyWithImpl(
-      _$GameStateImpl _value, $Res Function(_$GameStateImpl) _then)
+class __$$GameImplCopyWithImpl<$Res>
+    extends _$GameStateCopyWithImpl<$Res, _$GameImpl>
+    implements _$$GameImplCopyWith<$Res> {
+  __$$GameImplCopyWithImpl(_$GameImpl _value, $Res Function(_$GameImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of GameState
@@ -207,7 +792,6 @@ class __$$GameStateImplCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? city = freezed,
-    Object? routes = null,
     Object? gameRoute = freezed,
     Object? markers = null,
     Object? polylines = null,
@@ -222,7 +806,7 @@ class __$$GameStateImplCopyWithImpl<$Res>
     Object? lastTapWasSend = null,
     Object? cameraPosition = null,
   }) {
-    return _then(_$GameStateImpl(
+    return _then(_$GameImpl(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -231,10 +815,6 @@ class __$$GameStateImplCopyWithImpl<$Res>
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
               as City?,
-      routes: null == routes
-          ? _value._routes
-          : routes // ignore: cast_nullable_to_non_nullable
-              as List<DriveRouteEntity>,
       gameRoute: freezed == gameRoute
           ? _value.gameRoute
           : gameRoute // ignore: cast_nullable_to_non_nullable
@@ -293,11 +873,10 @@ class __$$GameStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$GameStateImpl implements _GameState {
-  const _$GameStateImpl(
+class _$GameImpl implements _Game {
+  const _$GameImpl(
       {this.status = GameStateType.loading,
       this.city = null,
-      final List<DriveRouteEntity> routes = const [],
       this.gameRoute = null,
       final Set<Marker> markers = const {},
       final Set<Polyline> polylines = const {},
@@ -312,8 +891,7 @@ class _$GameStateImpl implements _GameState {
       this.lastTapWasSend = false,
       this.cameraPosition = const CameraPosition(
           target: GameBloc._defaultPosition, zoom: GameBloc._defaultZoom)})
-      : _routes = routes,
-        _markers = markers,
+      : _markers = markers,
         _polylines = polylines,
         _secondsWithTapsMap = secondsWithTapsMap;
 
@@ -323,15 +901,6 @@ class _$GameStateImpl implements _GameState {
   @override
   @JsonKey()
   final City? city;
-  final List<DriveRouteEntity> _routes;
-  @override
-  @JsonKey()
-  List<DriveRouteEntity> get routes {
-    if (_routes is EqualUnmodifiableListView) return _routes;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_routes);
-  }
-
   @override
   @JsonKey()
   final DriveRouteEntity? gameRoute;
@@ -393,17 +962,16 @@ class _$GameStateImpl implements _GameState {
 
   @override
   String toString() {
-    return 'GameState(status: $status, city: $city, routes: $routes, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, timer: $timer, speed: $speed, dseconds: $dseconds, balance: $balance, looseWin: $looseWin, distance: $distance, polylineAfter: $polylineAfter, secondsWithTapsMap: $secondsWithTapsMap, lastTapWasSend: $lastTapWasSend, cameraPosition: $cameraPosition)';
+    return 'GameState.game(status: $status, city: $city, gameRoute: $gameRoute, markers: $markers, polylines: $polylines, timer: $timer, speed: $speed, dseconds: $dseconds, balance: $balance, looseWin: $looseWin, distance: $distance, polylineAfter: $polylineAfter, secondsWithTapsMap: $secondsWithTapsMap, lastTapWasSend: $lastTapWasSend, cameraPosition: $cameraPosition)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GameStateImpl &&
+            other is _$GameImpl &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.city, city) || other.city == city) &&
-            const DeepCollectionEquality().equals(other._routes, _routes) &&
             (identical(other.gameRoute, gameRoute) ||
                 other.gameRoute == gameRoute) &&
             const DeepCollectionEquality().equals(other._markers, _markers) &&
@@ -433,7 +1001,6 @@ class _$GameStateImpl implements _GameState {
       runtimeType,
       status,
       city,
-      const DeepCollectionEquality().hash(_routes),
       gameRoute,
       const DeepCollectionEquality().hash(_markers),
       const DeepCollectionEquality().hash(_polylines),
@@ -453,15 +1020,187 @@ class _$GameStateImpl implements _GameState {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>
-      __$$GameStateImplCopyWithImpl<_$GameStateImpl>(this, _$identity);
+  _$$GameImplCopyWith<_$GameImpl> get copyWith =>
+      __$$GameImplCopyWithImpl<_$GameImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() error,
+    required TResult Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)
+        initialized,
+    required TResult Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)
+        game,
+  }) {
+    return game(
+        status,
+        city,
+        gameRoute,
+        markers,
+        polylines,
+        timer,
+        speed,
+        dseconds,
+        balance,
+        looseWin,
+        distance,
+        polylineAfter,
+        secondsWithTapsMap,
+        lastTapWasSend,
+        cameraPosition);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function()? error,
+    TResult? Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)?
+        initialized,
+    TResult? Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)?
+        game,
+  }) {
+    return game?.call(
+        status,
+        city,
+        gameRoute,
+        markers,
+        polylines,
+        timer,
+        speed,
+        dseconds,
+        balance,
+        looseWin,
+        distance,
+        polylineAfter,
+        secondsWithTapsMap,
+        lastTapWasSend,
+        cameraPosition);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? error,
+    TResult Function(City? city, List<DriveRouteEntity> routes,
+            Set<Marker> markers, CameraPosition cameraPosition)?
+        initialized,
+    TResult Function(
+            GameStateType status,
+            City? city,
+            DriveRouteEntity? gameRoute,
+            Set<Marker> markers,
+            Set<Polyline> polylines,
+            Timer? timer,
+            num speed,
+            int dseconds,
+            num? balance,
+            LooseWinEntity? looseWin,
+            double distance,
+            Polyline? polylineAfter,
+            Map<int, int> secondsWithTapsMap,
+            bool lastTapWasSend,
+            CameraPosition cameraPosition)?
+        game,
+    required TResult orElse(),
+  }) {
+    if (game != null) {
+      return game(
+          status,
+          city,
+          gameRoute,
+          markers,
+          polylines,
+          timer,
+          speed,
+          dseconds,
+          balance,
+          looseWin,
+          distance,
+          polylineAfter,
+          secondsWithTapsMap,
+          lastTapWasSend,
+          cameraPosition);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Error value) error,
+    required TResult Function(_Initialized value) initialized,
+    required TResult Function(_Game value) game,
+  }) {
+    return game(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Error value)? error,
+    TResult? Function(_Initialized value)? initialized,
+    TResult? Function(_Game value)? game,
+  }) {
+    return game?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Error value)? error,
+    TResult Function(_Initialized value)? initialized,
+    TResult Function(_Game value)? game,
+    required TResult orElse(),
+  }) {
+    if (game != null) {
+      return game(this);
+    }
+    return orElse();
+  }
 }
 
-abstract class _GameState implements GameState {
-  const factory _GameState(
+abstract class _Game implements GameState {
+  const factory _Game(
       {final GameStateType status,
       final City? city,
-      final List<DriveRouteEntity> routes,
       final DriveRouteEntity? gameRoute,
       final Set<Marker> markers,
       final Set<Polyline> polylines,
@@ -474,45 +1213,27 @@ abstract class _GameState implements GameState {
       final Polyline? polylineAfter,
       final Map<int, int> secondsWithTapsMap,
       final bool lastTapWasSend,
-      final CameraPosition cameraPosition}) = _$GameStateImpl;
+      final CameraPosition cameraPosition}) = _$GameImpl;
 
-  @override
   GameStateType get status;
-  @override
   City? get city;
-  @override
-  List<DriveRouteEntity> get routes;
-  @override
   DriveRouteEntity? get gameRoute;
-  @override
   Set<Marker> get markers;
-  @override
   Set<Polyline> get polylines;
-  @override
   Timer? get timer;
-  @override
   num get speed;
-  @override
   int get dseconds;
-  @override
   num? get balance;
-  @override
   LooseWinEntity? get looseWin;
-  @override
   double get distance;
-  @override
   Polyline? get polylineAfter;
-  @override
   Map<int, int> get secondsWithTapsMap;
-  @override
   bool get lastTapWasSend;
-  @override
   CameraPosition get cameraPosition;
 
   /// Create a copy of GameState
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$GameStateImplCopyWith<_$GameStateImpl> get copyWith =>
+  _$$GameImplCopyWith<_$GameImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

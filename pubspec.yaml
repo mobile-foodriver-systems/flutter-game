@@ -36,6 +36,7 @@ dependencies:
 
   # Services
   geolocator: ^13.0.1
+  huawei_location: ^6.12.0+303
   google_maps_flutter: ^2.9.0
   shared_preferences: ^2.3.2
   webview_flutter: ^4.9.0

@@ -75,7 +75,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     this._moveAndSplitPolylineUseCase,
     this._vibrate,
     this._stopVibrate,
-  ) : super(const GameState()) {
+  ) : super(const GameState.loading()) {
     on<GamePrepareInfoEvent>(_prepareInfo);
     on<GameStartEvent>(_startGame);
     on<GamePlayEvent>(_playGame);

@@ -29,7 +29,6 @@ class Game extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (type) {
-      case GameStateType.error:
       case GameStateType.loading:
         return const SizedBox();
       case GameStateType.noCity:

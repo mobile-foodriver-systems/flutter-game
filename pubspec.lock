@@ -570,6 +570,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  huawei_location:
+    dependency: "direct main"
+    description:
+      name: huawei_location
+      sha256: db937f0df4073ba6f3cdc1005855ee231aaf6bf5c2bd05a702d928d7e8bb4ee9
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.12.0+303"
   image:
     dependency: transitive
     description:

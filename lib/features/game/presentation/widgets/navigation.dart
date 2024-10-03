@@ -15,19 +15,19 @@ class Navigation extends StatelessWidget {
     this.type = GameStateType.initialized,
     this.balance,
     this.speed,
-    required this.toggleToInit,
-    required this.toggleToPlay,
-    required this.breakGame,
-    required this.openRatingList,
+    this.toggleToInit,
+    this.toggleToPlay,
+    this.breakGame,
+    this.openRatingList,
     this.seconds = 0,
   });
 
   final GameStateType type;
   final num? balance;
-  final VoidCallback toggleToInit;
-  final VoidCallback toggleToPlay;
-  final VoidCallback breakGame;
-  final VoidCallback openRatingList;
+  final VoidCallback? toggleToInit;
+  final VoidCallback? toggleToPlay;
+  final VoidCallback? breakGame;
+  final VoidCallback? openRatingList;
   final num? speed;
   final int seconds;
 
@@ -67,7 +67,7 @@ class Navigation extends StatelessWidget {
         type == GameStateType.win ||
         type == GameStateType.loose ||
         type == GameStateType.playing) {
-      breakGame();
+      breakGame?.call();
     }
   }
 }
@@ -75,10 +75,10 @@ class Navigation extends StatelessWidget {
 class _TopNavigation extends StatelessWidget {
   final GameStateType type;
   final num? balance;
-  final VoidCallback toggleToInit;
-  final VoidCallback toggleToPlay;
-  final VoidCallback breakGame;
-  final VoidCallback openRatingList;
+  final VoidCallback? toggleToInit;
+  final VoidCallback? toggleToPlay;
+  final VoidCallback? breakGame;
+  final VoidCallback? openRatingList;
   final num? speed;
   final int seconds;
   final VoidCallback onPressed;

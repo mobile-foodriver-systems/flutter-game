@@ -2,10 +2,21 @@ part of 'game_bloc.dart';
 
 @freezed
 class GameState with _$GameState {
-  const factory GameState({
-    @Default(GameStateType.loading) GameStateType status,
+  const factory GameState.loading() = _Loading;
+  const factory GameState.error() = _Error;
+  const factory GameState.initialized({
     @Default(null) City? city,
     @Default([]) List<DriveRouteEntity> routes,
+    @Default({}) Set<Marker> markers,
+    @Default(CameraPosition(
+      target: GameBloc._defaultPosition,
+      zoom: GameBloc._defaultZoom,
+    ))
+    CameraPosition cameraPosition,
+  }) = _Initialized;
+  const factory GameState.game({
+    @Default(GameStateType.loading) GameStateType status,
+    @Default(null) City? city,
     @Default(null) DriveRouteEntity? gameRoute,
     @Default({}) Set<Marker> markers,
     @Default({}) Set<Polyline> polylines,
@@ -23,5 +34,5 @@ class GameState with _$GameState {
       zoom: GameBloc._defaultZoom,
     ))
     CameraPosition cameraPosition,
-  }) = _GameState;
+  }) = _Game;
 }
