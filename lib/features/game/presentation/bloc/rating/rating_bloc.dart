@@ -143,6 +143,7 @@ class RatingBloc extends Bloc<RatingEvent, RatingState> {
           ),
           sort: event.sort,
         ));
+        
         await event.initializedCallback?.call();
       },
     );

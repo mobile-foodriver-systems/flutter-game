@@ -4,7 +4,6 @@ import 'package:food_driver/features/location/domain/entities/user_location_enti
 import 'package:food_driver/features/location/domain/repositories/location_repository.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:huawei_location/huawei_location.dart';
 import 'package:injectable/injectable.dart';
 
 @Singleton(as: GeolocationService)
@@ -22,8 +21,7 @@ class GeolocationServiceImpl implements GeolocationService {
 
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    final GeocoderService _geocoderService = GeocoderService();
-    _geocoderService.initGeocoderService(locale)
+
     if (!serviceEnabled) {
       // Location services are not enabled don't continue
       // accessing the position and request users of the
