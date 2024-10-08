@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:food_driver/constants/duration_constants.dart';
 import 'package:food_driver/core/errors/failure/failure.dart';
 import 'package:food_driver/core/usecases/usecase.dart';
 import 'package:food_driver/features/auth/data/models/auth_status.dart';

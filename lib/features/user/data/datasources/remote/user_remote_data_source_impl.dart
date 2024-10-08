@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:food_driver/constants/api_routes.dart';
 import 'package:food_driver/core/services/http/app_http_service.dart';
 import 'package:food_driver/core/services/http/http_service.dart';
+import 'package:food_driver/core/services/locale_service/locale_service.dart';
 import 'package:food_driver/features/user/data/datasources/remote/user_remote_data_source.dart';
 import 'package:food_driver/features/user/data/models/user.dart';
 import 'package:injectable/injectable.dart';
@@ -15,9 +16,11 @@ import 'package:injectable/injectable.dart';
 )
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   final AppHttpService _appHttpService;
+  final LocaleService _localeService;
 
   UserRemoteDataSourceImpl(
     this._appHttpService,
+    this._localeService,
   );
 
   @override
@@ -25,6 +28,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     final response = await _appHttpService.request(
       path: ApiRoutes.profile,
       type: RequestType.get,
+      queryParameters: {
+        "culture": _localeService.languageCode,
+      },
     );
     print(
         "AAA type: = ${response.data.runtimeType}, data: = ${response.data}, response.statusCode: = ${response.statusCode}, response.statusMessage: = ${response.statusMessage}");
@@ -36,6 +42,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     final response = await _appHttpService.request(
       path: '',
       type: RequestType.get,
+      queryParameters: {
+        "culture": _localeService.languageCode,
+      },
     );
     return response.statusCode == 200;
   }
@@ -45,6 +54,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
     final response = await _appHttpService.request(
       path: '',
       type: RequestType.get,
+      queryParameters: {
+        "culture": _localeService.languageCode,
+      },
     );
     return response.statusCode == 200;
   }
@@ -66,6 +78,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
         if (walletAddress?.isNotEmpty ?? false) "walletAddress": walletAddress,
         if (userName?.isNotEmpty ?? false) "userName": userName,
       },
+      queryParameters: {
+        "culture": _localeService.languageCode,
+      },
     );
   }
 
@@ -82,6 +97,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
         "latitude": latitude,
         "longitude": longitude,
       },
+      queryParameters: {
+        "culture": _localeService.languageCode,
+      },
     );
   }
 
@@ -94,6 +112,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
         contentType: 'application/json-patch+json',
       ),
       data: {"email": email},
+      queryParameters: {
+        "culture": _localeService.languageCode,
+      },
     );
   }
 
@@ -106,6 +127,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
         contentType: 'application/json-patch+json',
       ),
       data: {"code": code},
+      queryParameters: {
+        "culture": _localeService.languageCode,
+      },
     );
   }
 
@@ -124,6 +148,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
         "email": email,
         "newPassword": password,
       },
+      queryParameters: {
+        "culture": _localeService.languageCode,
+      },
     );
   }
 
@@ -141,6 +168,9 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
       data: {
         "email": email,
         "code": code,
+      },
+      queryParameters: {
+        "culture": _localeService.languageCode,
       },
     );
   }

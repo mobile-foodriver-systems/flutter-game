@@ -9,9 +9,11 @@ part of "auth_remote_data_source.dart";
 )
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final AppHttpService _appHttpService;
+  final LocaleService _localeService;
 
   AuthRemoteDataSourceImpl(
     this._appHttpService,
+    this._localeService,
   );
 
   @override
@@ -20,6 +22,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       path: ApiRoutes.token,
       type: RequestType.post,
       data: const Identity(grantType: GrantType.clientCredentials).toMap(),
+      queryParameters: {
+        "culture": _localeService.languageCode,
+      },
     );
     print("AAA response: = ${response.toString()}");
     return AuthModel.fromJson(response.data);
@@ -32,7 +37,10 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     final response = await _appHttpService.request(
       path: '',
       type: RequestType.post,
-      queryParameters: {"email": email},
+      queryParameters: {
+        "email": email,
+        "culture": _localeService.languageCode,
+      },
     );
     return response.statusCode == 200;
   }
@@ -48,6 +56,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       queryParameters: {
         "email": email,
         "code": code,
+        "culture": _localeService.languageCode,
       },
     );
     return AuthModel.fromJson(jsonDecode(response.data));
@@ -69,6 +78,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
           'username': login,
           'password': password,
         }),
+      queryParameters: {
+        "culture": _localeService.languageCode,
+      },
     );
   }
 
@@ -88,6 +100,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       options: Options(headers: {'UnAuthorizedRequest': 'true'}),
       data: const Identity(grantType: GrantType.refreshToken).toMap()
         ..addAll({'refresh_token': refreshToken}),
+      queryParameters: {
+        "culture": _localeService.languageCode,
+      },
     );
     return AuthModel.fromJson(response.data);
   }
@@ -107,6 +122,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
         "password": password,
         "userName": login,
       },
+      queryParameters: {
+        "culture": _localeService.languageCode,
+      },
     );
   }
 
@@ -116,6 +134,9 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       path: ApiRoutes.account,
       type: RequestType.delete,
       options: Options(contentType: 'application/json-patch+json'),
+      queryParameters: {
+        "culture": _localeService.languageCode,
+      },
     );
   }
 }

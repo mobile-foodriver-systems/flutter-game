@@ -88,3 +88,9 @@ class EmptyDataFailure extends Failure {
     super.message,
   });
 }
+
+class UnknownCityFailure extends Failure {
+  const UnknownCityFailure({
+    super.message,
+  });
+}

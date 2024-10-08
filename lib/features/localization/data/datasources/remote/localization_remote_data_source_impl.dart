@@ -9,9 +9,11 @@ part of "localization_remote_data_source.dart";
 )
 class LocalizationRemoteDataSourceImpl implements LocalizationRemoteDataSource {
   final AppHttpService _appHttpService;
+  final LocaleService _localeService;
 
   LocalizationRemoteDataSourceImpl(
     this._appHttpService,
+    this._localeService,
   );
 
   @override
@@ -19,6 +21,9 @@ class LocalizationRemoteDataSourceImpl implements LocalizationRemoteDataSource {
     final response = await _appHttpService.request(
       path: ApiRoutes.localization,
       type: RequestType.get,
+      queryParameters: {
+        "culture": _localeService.languageCode,
+      },
     );
     return SupportedLocales.fromJson(response.data);
   }

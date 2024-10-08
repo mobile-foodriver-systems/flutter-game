@@ -1,9 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/features/game/data/models/game_state_type.dart';
 import 'package:food_driver/features/game/domain/entities/drive_route_entity.dart';
 import 'package:food_driver/features/game/presentation/widgets/game_map.dart';
-import 'package:food_driver/generated/locale_keys.g.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Game extends StatelessWidget {
@@ -14,7 +12,6 @@ class Game extends StatelessWidget {
     this.routes = const [],
     required this.markers,
     this.polylines = const <Polyline>{},
-    required this.determineLocation,
     required this.cameraPosition,
   });
 
@@ -23,16 +20,14 @@ class Game extends StatelessWidget {
   final List<DriveRouteEntity> routes;
   final Set<Marker> markers;
   final Set<Polyline> polylines;
-  final VoidCallback determineLocation;
   final CameraPosition cameraPosition;
 
   @override
   Widget build(BuildContext context) {
     switch (type) {
       case GameStateType.loading:
-        return const SizedBox();
       case GameStateType.noCity:
-        return _NoCity(determineLocation: determineLocation);
+        return const SizedBox();
       case GameStateType.initialized:
         return GameMap(
           key: const ValueKey('initialized'),
@@ -40,6 +35,7 @@ class Game extends StatelessWidget {
           markers: markers,
           polylines: const {},
           cameraPosition: cameraPosition,
+          type: GameStateType.initialized,
         );
       case GameStateType.playing:
       case GameStateType.starting:
@@ -60,25 +56,5 @@ class Game extends StatelessWidget {
           cameraPosition: cameraPosition,
         );
     }
-  }
-}
-
-class _NoCity extends StatelessWidget {
-  const _NoCity({required this.determineLocation});
-
-  final VoidCallback determineLocation;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Align(
-        alignment: Alignment.center,
-        child: ElevatedButton(
-          onPressed: determineLocation,
-          child: Text(LocaleKeys.gamePageDetermineTheLocation.tr()),
-        ),
-      ),
-    );
   }
 }

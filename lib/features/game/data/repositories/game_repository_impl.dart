@@ -10,18 +10,6 @@ class GameRepositoryImpl extends GameRepository {
   final GameRemoteDataSource _remoteDataSource;
 
   @override
-  Future<Either<Failure, List<DriveRouteEntity>>> loadDriveRoutes(
-      {required int cityId}) async {
-    try {
-      final response =
-          await _remoteDataSource.getDriveRoutesList(cityId: cityId);
-      return Right(response.map((route) => route.toEntity()).toList());
-    } catch (e, s) {
-      return Left(ExceptionToFailureConverter.convert(e, s));
-    }
-  }
-
-  @override
   Future<Either<ApiErrorStack, RatingList>> loadRatingList({
     int? radiusInKm,
     int? limit,
