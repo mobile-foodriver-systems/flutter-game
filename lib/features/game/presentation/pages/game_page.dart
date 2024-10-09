@@ -26,7 +26,6 @@ import 'package:food_driver/features/user/domain/repositories/user_repository.da
 import 'package:food_driver/generated/locale_keys.g.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:huawei_location/huawei_location.dart';
 
 part 'package:food_driver/features/game/presentation/pages/mixins/game_mixin.dart';
 

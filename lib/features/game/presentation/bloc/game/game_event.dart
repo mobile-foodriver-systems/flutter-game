@@ -7,8 +7,8 @@ sealed class GameEvent extends Equatable {
   List<Object> get props => [];
 }
 
-final class GamePrepareInfoEvent extends GameEvent {
-  const GamePrepareInfoEvent({
+final class GetRoutesEvent extends GameEvent {
+  const GetRoutesEvent({
     required this.city,
     required this.balance,
   });

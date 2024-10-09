@@ -33,15 +33,19 @@ class AppSignalRService extends SignalRService {
 
     final uri = Uri.parse(EnvironmentConstants().baseUrl);
 
-    final formattedServerUrl = uri.replace(
-      path: ApiRoutes.signalR,
-      queryParameters: {'access_token': accessToken},
-    ).toString();
+    final formattedServerUrl = uri.replace(path: ApiRoutes.signalR).toString();
 
     final builder = HubConnectionBuilder();
 
-    hubConnection =
-        builder.withAutomaticReconnect().withUrl(formattedServerUrl).build();
+    hubConnection = builder
+        .withAutomaticReconnect()
+        .withUrl(
+          formattedServerUrl,
+          options: HttpConnectionOptions(
+            accessTokenFactory: () => Future.value(accessToken),
+          ),
+        )
+        .build();
 
     hubConnection?.onreconnected(({String? connectionId}) async {
       if (kDebugMode) log('onreconnected $connectionId');

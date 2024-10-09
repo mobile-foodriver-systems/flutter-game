@@ -102,7 +102,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
     this._vibrate,
     this._stopVibrate,
   ) : super(const GameState.loading()) {
-    on<GamePrepareInfoEvent>(_prepareInfo);
+    on<GetRoutesEvent>(_getGameRoutes);
     on<GameStartEvent>(_startGame);
     on<GamePlayEvent>(_playGame);
     on<GameAddMarkersEvent>(_addMarkers);
@@ -121,8 +121,8 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         .listen(signalRListener);
   }
 
-  void _prepareInfo(
-    GamePrepareInfoEvent event,
+  void _getGameRoutes(
+    GetRoutesEvent event,
     Emitter<GameState> emit,
   ) async {
     final response = await _start.call(event.city.id);
@@ -163,6 +163,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         return;
       },
       (result) {
+        if (!result.isSuccess) {
+          return;
+        }
         final route =
             routes.firstWhereOrNull((route) => route.id == event.routeId);
 
@@ -500,7 +503,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       return;
     }
     event.updateCity?.call(userLocation!.city!);
-    add(GamePrepareInfoEvent(
+    add(GetRoutesEvent(
       city: userLocation!.city!,
       balance: event.balance,
     ));

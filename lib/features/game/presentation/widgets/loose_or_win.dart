@@ -15,21 +15,25 @@ class LooseOrWin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: const BoxDecoration(color: Colors.black26),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 36.0),
-          child: looseWin.progress == null
-              ? WinGame(
-                  reward: looseWin.reward,
-                  breakGame: breakGame,
-                )
-              : LooseGame(
-                  totalTime: looseWin.totalTime,
-                  progress: looseWin.progress,
-                  breakGame: breakGame,
-                ),
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: breakGame,
+      child: DecoratedBox(
+        decoration: const BoxDecoration(color: Colors.black26),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 36.0),
+            child: looseWin.progress == null
+                ? WinGame(
+                    reward: looseWin.reward,
+                    breakGame: breakGame,
+                  )
+                : LooseGame(
+                    totalTime: looseWin.totalTime,
+                    progress: looseWin.progress,
+                    breakGame: breakGame,
+                  ),
+          ),
         ),
       ),
     );
