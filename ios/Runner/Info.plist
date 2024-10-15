@@ -33,12 +33,8 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>To determine your location</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>To determine your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>To determine your location</string>
+	<string>To make your gaming experience even more exciting, we need to find out which city you are in. This will help us adapt the game to your local conditions and offer unique tasks and events related to your region. Don't worry, we care about your privacy and use this information only to improve the gameplay.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
