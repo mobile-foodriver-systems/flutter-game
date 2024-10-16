@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class PrizeFundBottomSheet extends StatelessWidget {
   const PrizeFundBottomSheet({super.key});
@@ -83,6 +84,21 @@ class PrizeFundBottomSheet extends StatelessWidget {
             const SizedBox(height: 56.0),
             Text(
               LocaleKeys.gamePagePrizeFundText.tr(),
+            ),
+            const SizedBox(height: 56.0),
+            ElevatedButton(
+              onPressed: () => showMaterialModalBottomSheet(
+                context: context,
+                backgroundColor: Colors.transparent,
+                barrierColor: Colors.black26,
+                builder: (context) => SingleChildScrollView(
+                  controller: ModalScrollController.of(context),
+                  child: const PrizeFundBottomSheet(),
+                ),
+              ),
+              child: Text(
+                LocaleKeys.gamePageParticipate.tr(),
+              ),
             ),
             const SizedBox(height: 56.0),
           ],

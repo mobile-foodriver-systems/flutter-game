@@ -101,6 +101,7 @@ PhrasesDictionary _$PhrasesDictionaryFromJson(Map<String, dynamic> json) =>
       json['profilePageDeleteAccountConfirm'] as String?,
       json['profilePageYes'] as String?,
       json['profilePageNo'] as String?,
+      json['gamePageParticipate'] as String?,
     );
 
 Map<String, dynamic> _$PhrasesDictionaryToJson(PhrasesDictionary instance) =>
@@ -206,4 +207,5 @@ Map<String, dynamic> _$PhrasesDictionaryToJson(PhrasesDictionary instance) =>
           instance.profilePageDeleteAccountConfirm,
       'profilePageYes': instance.profilePageYes,
       'profilePageNo': instance.profilePageNo,
+      'gamePageParticipate': instance.gamePageParticipate,
     };

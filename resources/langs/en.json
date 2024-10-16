@@ -91,5 +91,6 @@
     "profilePageGameRulesText": "The text of the game",
     "profilePageDeleteAccountConfirm": "Are you sure you want to delete your account?",
     "profilePageYes": "Yes",
-    "profilePageNo": "No"
+    "profilePageNo": "No",
+    "gamePageParticipate": "Participate"
 }

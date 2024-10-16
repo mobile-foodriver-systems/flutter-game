@@ -91,5 +91,6 @@
     "profilePageGameRulesText": "Текст игры",
     "profilePageDeleteAccountConfirm": "Уверены что хотите удалить аккаунт?",
     "profilePageYes": "Да",
-    "profilePageNo": "Нет"
+    "profilePageNo": "Нет",
+    "gamePageParticipate": "Участвовать"
 }

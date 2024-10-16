@@ -94,5 +94,6 @@ abstract class  LocaleKeys {
   static const profilePageDeleteAccountConfirm = 'profilePageDeleteAccountConfirm';
   static const profilePageYes = 'profilePageYes';
   static const profilePageNo = 'profilePageNo';
+  static const gamePageParticipate = 'gamePageParticipate';
 
 }
