@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -115,17 +117,19 @@ class _EditProfileFormBodyState extends State<EditProfileFormBody>
                       textInputAction: TextInputAction.next,
                     ),
                     const SizedBox(height: 16.0),
-                    TextFormField(
-                      controller: walletController,
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.done,
-                      decoration: InputDecoration(
-                        label: Text(
-                          LocaleKeys.profilePageWallet.tr(),
+                    if (!Platform.isIOS) ...[
+                      TextFormField(
+                        controller: walletController,
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.done,
+                        decoration: InputDecoration(
+                          label: Text(
+                            LocaleKeys.profilePageWallet.tr(),
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 16.0),
+                      const SizedBox(height: 16.0),
+                    ],
                     ElevatedButton(
                       onPressed: submit,
                       child: Text(LocaleKeys.profilePageChangeData.tr()),

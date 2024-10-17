@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/features/game/data/models/game_state_type.dart';
@@ -50,11 +52,12 @@ class Navigation extends StatelessWidget {
               onPressed: onPressed,
             ),
             const SizedBox(height: 12.0),
-            if (type == GameStateType.initialized ||
-                type == GameStateType.starting ||
-                type == GameStateType.win ||
-                type == GameStateType.loose ||
-                type == GameStateType.playing)
+            if ((type == GameStateType.initialized ||
+                    type == GameStateType.starting ||
+                    type == GameStateType.win ||
+                    type == GameStateType.loose ||
+                    type == GameStateType.playing) &&
+                !Platform.isIOS)
               const PrizeFund(),
           ],
         ),

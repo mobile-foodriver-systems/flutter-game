@@ -69,7 +69,7 @@ class PrizeFundBottomSheet extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      "\$ ${LocaleKeys.gamePageAmountValue.tr()}",
+                      "${LocaleKeys.gamePageAmountValue.tr()} FDC",
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             fontSize: 20.0,
                           ),
