@@ -391,6 +391,7 @@ class TournamentRules extends StatelessWidget {
                 LocaleKeys.tournamentLeaderboard.tr(),
               ),
             ),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {},
               child: Column(
@@ -401,6 +402,10 @@ class TournamentRules extends StatelessWidget {
                   Text(
                     LocaleKeys.tournamentParticipateForPay
                         .tr(namedArgs: {"currency": "\$"}),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontSize: 11.0,
+                          color: AppColors.white,
+                        ),
                   ),
                 ],
               ),
