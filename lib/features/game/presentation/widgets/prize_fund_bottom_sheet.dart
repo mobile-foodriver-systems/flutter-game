@@ -1,3 +1,4 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
@@ -136,6 +137,7 @@ class TournamentPrize extends StatelessWidget {
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 20.0,
+                      color: AppColors.markerDarkRed,
                     ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -145,6 +147,7 @@ class TournamentPrize extends StatelessWidget {
               LocaleKeys.tournamentPrizeValue.tr(namedArgs: {'currency': '\$'}),
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontSize: 20.0,
+                    color: AppColors.markerDarkRed,
                   ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
@@ -199,6 +202,7 @@ class AllWin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final words = LocaleKeys.tournamentAllWin.tr().split(' ');
     return Stack(
       fit: StackFit.passthrough,
       children: [
@@ -220,9 +224,34 @@ class AllWin extends StatelessWidget {
                     top: 15.0,
                     bottom: 15.0,
                   ),
-                  child: Text(
-                    LocaleKeys.tournamentAllWin.tr(),
-                  ),
+                  child: words.length > 2
+                      ? Text.rich(
+                          TextSpan(
+                            text: "${words.first} ${words[1]} ",
+                            children: [
+                              TextSpan(
+                                text: LocaleKeys.tournamentAllWin
+                                    .tr()
+                                    .replaceFirst(
+                                        "${words.first} ${words[1]} ", ""),
+                                style:
+                                    const TextStyle(color: AppColors.textColor),
+                              ),
+                            ],
+                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: AppColors.red,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        )
+                      : Text(
+                          LocaleKeys.tournamentAllWin.tr(),
+                          style:
+                              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: AppColors.red,
+                                  ),
+                        ),
                 ),
               ),
             ),
@@ -248,6 +277,9 @@ class TournamentRules extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final words = LocaleKeys.tournamentHundredBest.tr().split(' ');
+    final dashWidth =
+        (MediaQuery.sizeOf(context).width - horizontalPaddingValue * 2) / 6;
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -263,25 +295,78 @@ class TournamentRules extends StatelessWidget {
           children: [
             Text(
               LocaleKeys.tournamentRules.tr(),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16.0),
-            Text(LocaleKeys.tournamentHundredBest.tr()),
-            const SizedBox(height: 16.0),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Image.asset(AssetsCatalog.icFdrivers),
-                ),
-                Flexible(
-                  child: Text(
-                    LocaleKeys.tournamentPrizePercents.tr(namedArgs: {
-                      "first_percent": LocaleKeys.tournamentFirstPercent.tr(),
-                      "second_percent": LocaleKeys.tournamentSecondPercent.tr(),
-                    }),
+            words.length > 3
+                ? Text.rich(
+                    TextSpan(
+                      text: "${words.first} ${words[1]} ${words[2]} ",
+                      children: [
+                        TextSpan(
+                          text: LocaleKeys.tournamentHundredBest
+                              .tr()
+                              .replaceFirst(
+                                  "${words.first} ${words[1]} ${words[2]} ",
+                                  ""),
+                          style: const TextStyle(
+                            color: AppColors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppColors.red,
+                          fontWeight: FontWeight.w600,
+                        ),
+                  )
+                : Text(
+                    LocaleKeys.tournamentHundredBest.tr(),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: AppColors.red,
+                          fontWeight: FontWeight.w600,
+                        ),
                   ),
-                ),
-              ],
+            const SizedBox(height: 16.0),
+            DottedBorder(
+              color: AppColors.red,
+              strokeWidth: 1,
+              borderType: BorderType.RRect,
+              dashPattern: [dashWidth, dashWidth],
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(end: 8.0),
+                    child: Image.asset(AssetsCatalog.icFdrivers),
+                  ),
+                  Flexible(
+                    child:
+                        // Text.rich(
+                        //   TextSpan(
+                        //     text: LocaleKeys.tournamentFirstPercent.tr(),
+                        //     children: [
+                        //       TextSpan(
+                        //         text: LocaleKeys.tournamentFirstPercent.tr(),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        Text(
+                      LocaleKeys.tournamentPrizePercents.tr(namedArgs: {
+                        "first_percent": LocaleKeys.tournamentFirstPercent.tr(),
+                        "second_percent":
+                            LocaleKeys.tournamentSecondPercent.tr(),
+                      }),
+                    ),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 16.0),
             Text(

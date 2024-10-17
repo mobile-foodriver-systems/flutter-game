@@ -15,6 +15,7 @@ class AppColors {
   static const Color segmentedTextGray = Color(0xFFB2BBC6);
   static const Color pinCodeGray = Color(0xFF808B9E);
   static const Color green = Color(0xFF34C759);
+  static const Color textColor = Color(0xFF151A20);
 
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF1D242D);
