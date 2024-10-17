@@ -19,6 +19,11 @@ class AssetsCatalog {
   static const String icSadKangaroo = 'assets/ic_sad_kangaroo.png';
   static const String prizeFund = 'assets/prize_fund.png';
   static const String icErrorKangaroo = 'assets/ic_error_kangaroo.png';
+  static const String icCap = 'assets/ic_cap.png';
+  static const String tournamentBackground = 'assets/tournament_background.png';
+  static const String icFdrivers = 'assets/ic_fdrivers.png';
+  static const String kangarooWithPhone = 'assets/kangaroo_with_phone.png';
+  static const String capWithBackground = 'assets/cap_with_background.png';
 
   /// gif
   static const String kangaroo = 'assets/kangaroo.gif';

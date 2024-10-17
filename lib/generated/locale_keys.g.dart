@@ -94,6 +94,28 @@ abstract class  LocaleKeys {
   static const profilePageDeleteAccountConfirm = 'profilePageDeleteAccountConfirm';
   static const profilePageYes = 'profilePageYes';
   static const profilePageNo = 'profilePageNo';
-  static const gamePageParticipate = 'gamePageParticipate';
+  static const tournamentName = 'tournamentName';
+  static const tournamentPrize = 'tournamentPrize';
+  static const tournamentPrizeValue = 'tournamentPrizeValue';
+  static const tournamentPrizeValueString = 'tournamentPrizeValueString';
+  static const tournamentBegin = 'tournamentBegin';
+  static const tournamentEnd = 'tournamentEnd';
+  static const tournamentBeforeTheStart = 'tournamentBeforeTheStart';
+  static const tournamentAllWin = 'tournamentAllWin';
+  static const tournamentRules = 'tournamentRules';
+  static const tournamentHundredBest = 'tournamentHundredBest';
+  static const tournamentPrizePercents = 'tournamentPrizePercents';
+  static const tournamentFixedSum = 'tournamentFixedSum';
+  static const tournamentFinancing = 'tournamentFinancing';
+  static const tournamentLeaderboard = 'tournamentLeaderboard';
+  static const tournamentParticipate = 'tournamentParticipate';
+  static const tournamentParticipateForPay = 'tournamentParticipateForPay';
+  static const tournamentIsOver = 'tournamentIsOver';
+  static const tokenName = 'tokenName';
+  static const companyName = 'companyName';
+  static const gameName = 'gameName';
+  static const ecosystem = 'ecosystem';
+  static const tournamentFirstPercent = 'tournamentFirstPercent';
+  static const tournamentSecondPercent = 'tournamentSecondPercent';
 
 }

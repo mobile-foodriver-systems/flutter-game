@@ -97,7 +97,29 @@ class PhrasesDictionary {
   final String? profilePageDeleteAccountConfirm;
   final String? profilePageYes;
   final String? profilePageNo;
-  final String? gamePageParticipate;
+  final String? tournamentName;
+  final String? tournamentPrize;
+  final String? tournamentPrizeValue;
+  final String? tournamentBegin;
+  final String? tournamentEnd;
+  final String? tournamentBeforeTheStart;
+  final String? tournamentAllWin;
+  final String? tournamentRules;
+  final String? tournamentHundredBest;
+  final String? tournamentPrizePercents;
+  final String? tournamentFixedSum;
+  final String? tournamentFinancing;
+  final String? tournamentLeaderboard;
+  final String? tournamentParticipate;
+  final String? tournamentParticipateForPay;
+  final String? tournamentIsOver;
+  final String? tournamentPrizeValueString;
+  final String? tokenName;
+  final String? companyName;
+  final String? gameName;
+  final String? ecosystem;
+  final String? tournamentFirstPercent;
+  final String? tournamentSecondPercent;
 
   PhrasesDictionary(
     this.authPageLoginToAccount,
@@ -193,7 +215,29 @@ class PhrasesDictionary {
     this.profilePageDeleteAccountConfirm,
     this.profilePageYes,
     this.profilePageNo,
-    this.gamePageParticipate,
+    this.tournamentName,
+    this.tournamentPrize,
+    this.tournamentPrizeValue,
+    this.tournamentBegin,
+    this.tournamentEnd,
+    this.tournamentBeforeTheStart,
+    this.tournamentAllWin,
+    this.tournamentRules,
+    this.tournamentHundredBest,
+    this.tournamentPrizePercents,
+    this.tournamentFixedSum,
+    this.tournamentFinancing,
+    this.tournamentLeaderboard,
+    this.tournamentParticipate,
+    this.tournamentParticipateForPay,
+    this.tournamentIsOver,
+    this.tournamentPrizeValueString,
+    this.tokenName,
+    this.companyName,
+    this.gameName,
+    this.ecosystem,
+    this.tournamentFirstPercent,
+    this.tournamentSecondPercent,
   );
 
   factory PhrasesDictionary.fromJson(Map<String, dynamic> json) =>

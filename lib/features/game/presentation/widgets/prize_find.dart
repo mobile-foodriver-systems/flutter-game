@@ -16,9 +16,11 @@ class PrizeFund extends StatelessWidget {
         context: context,
         backgroundColor: Colors.transparent,
         barrierColor: Colors.black26,
-        builder: (context) => SingleChildScrollView(
-          controller: ModalScrollController.of(context),
-          child: const PrizeFundBottomSheet(),
+        builder: (context) => SafeArea(
+          child: SingleChildScrollView(
+            controller: ModalScrollController.of(context),
+            child: const PrizeFundBottomSheet(),
+          ),
         ),
       ),
       child: ClipRRect(
