@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
@@ -278,8 +279,8 @@ class TournamentRules extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final words = LocaleKeys.tournamentHundredBest.tr().split(' ');
-    final dashWidth =
-        (MediaQuery.sizeOf(context).width - horizontalPaddingValue * 2) / 6;
+    final color =
+        "#${AppColors.red.value.toRadixString(16).replaceFirst('ff', '')}";
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -332,58 +333,14 @@ class TournamentRules extends StatelessWidget {
                         ),
                   ),
             const SizedBox(height: 16.0),
-            DottedBorder(
-              color: AppColors.red,
-              strokeWidth: 1,
-              borderType: BorderType.RRect,
-              dashPattern: [dashWidth, dashWidth],
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(end: 8.0),
-                    child: Image.asset(AssetsCatalog.icFdrivers),
-                  ),
-                  Flexible(
-                    child:
-                        // Text.rich(
-                        //   TextSpan(
-                        //     text: LocaleKeys.tournamentFirstPercent.tr(),
-                        //     children: [
-                        //       TextSpan(
-                        //         text: LocaleKeys.tournamentFirstPercent.tr(),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                        Text(
-                      LocaleKeys.tournamentPrizePercents.tr(namedArgs: {
-                        "first_percent": LocaleKeys.tournamentFirstPercent.tr(),
-                        "second_percent":
-                            LocaleKeys.tournamentSecondPercent.tr(),
-                      }),
-                    ),
-                  ),
-                ],
-              ),
+            BorderedText(
+              horizontalPaddingValue: horizontalPaddingValue,
+              color: color,
             ),
             const SizedBox(height: 16.0),
-            Text(
-              LocaleKeys.tournamentFixedSum.tr(namedArgs: {
-                "sum": LocaleKeys.tournamentPrizeValueString.tr(),
-                "token_name": LocaleKeys.tokenName.tr(),
-                "ecosystem": LocaleKeys.ecosystem.tr(),
-              }),
-            ),
+            TournamentFixedSum(color: color),
             const SizedBox(height: 16.0),
-            Text(
-              LocaleKeys.tournamentFinancing.tr(namedArgs: {
-                "company_name": LocaleKeys.companyName.tr(),
-                "game_name": LocaleKeys.gameName.tr(),
-                "token_name": LocaleKeys.tokenName.tr(),
-              }),
-            ),
+            TournamentFinancing(color: color),
             const SizedBox(height: 24.0),
             ElevatedButton(
               onPressed: () {},
@@ -415,5 +372,110 @@ class TournamentRules extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class BorderedText extends StatelessWidget {
+  final double horizontalPaddingValue;
+  final String color;
+
+  const BorderedText({
+    super.key,
+    required this.horizontalPaddingValue,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final dashWidth =
+        (MediaQuery.sizeOf(context).width - horizontalPaddingValue * 2) / 6;
+    final text = LocaleKeys.tournamentPrizePercents.tr(namedArgs: {
+      "first_percent": LocaleKeys.tournamentFirstPercent.tr(),
+      "second_percent": LocaleKeys.tournamentSecondPercent.tr(),
+    });
+
+    var htmlText = text.replaceFirst(LocaleKeys.tournamentFirstPercent.tr(),
+        '<b><span style="color: $color">${LocaleKeys.tournamentFirstPercent.tr()}</span></b>');
+    htmlText = htmlText.replaceFirst(LocaleKeys.tournamentSecondPercent.tr(),
+        '<b><span style="color: $color">${LocaleKeys.tournamentSecondPercent.tr()}</span></b>');
+    return DottedBorder(
+      color: AppColors.red,
+      strokeWidth: 1,
+      borderType: BorderType.RRect,
+      dashPattern: [dashWidth, dashWidth],
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
+      child: Row(
+        children: [
+          Padding(
+            padding: const EdgeInsetsDirectional.only(end: 8.0),
+            child: Image.asset(AssetsCatalog.icFdrivers),
+          ),
+          Flexible(
+            child: HtmlWidget(htmlText),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TournamentFixedSum extends StatelessWidget {
+  final String color;
+  const TournamentFixedSum({
+    super.key,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final text = LocaleKeys.tournamentFixedSum.tr(namedArgs: {
+      "sum": LocaleKeys.tournamentPrizeValueString.tr(),
+      "token_name": LocaleKeys.tokenName.tr(),
+      "ecosystem": LocaleKeys.ecosystem.tr(),
+    });
+    final words = text.split(' ');
+    final firstPhrase = words.length >= 2 ? "${words[0]} ${words[1]}" : "";
+    var htmlText = firstPhrase.isNotEmpty
+        ? text.replaceFirst(firstPhrase,
+            '<b><span style="color: $color">$firstPhrase</span></b>')
+        : text;
+    htmlText = htmlText.replaceFirst(LocaleKeys.tournamentPrizeValueString.tr(),
+        '<b>${LocaleKeys.tournamentPrizeValueString.tr()}</b>');
+    htmlText = htmlText.replaceFirst(
+        LocaleKeys.tokenName.tr(), '<b>${LocaleKeys.tokenName.tr()}</b>');
+    htmlText = htmlText.replaceFirst(
+        LocaleKeys.ecosystem.tr(), '<b>${LocaleKeys.ecosystem.tr()}</b>');
+    return HtmlWidget(htmlText);
+  }
+}
+
+class TournamentFinancing extends StatelessWidget {
+  final String color;
+  const TournamentFinancing({
+    super.key,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final text = LocaleKeys.tournamentFinancing.tr(namedArgs: {
+      "company_name": LocaleKeys.companyName.tr(),
+      "game_name": LocaleKeys.gameName.tr(),
+      "token_name": LocaleKeys.tokenName.tr(),
+    });
+    final words = text.split(" ");
+    final firstPhrase =
+        words.length >= 3 ? "${words[0]} ${words[1]} ${words[2]}" : "";
+    var htmlText = firstPhrase.isNotEmpty
+        ? text.replaceFirst(firstPhrase,
+            '<b><span style="color: $color">$firstPhrase</span></b>')
+        : text;
+    htmlText = htmlText.replaceFirst(
+        LocaleKeys.companyName.tr(), '<b>${LocaleKeys.companyName.tr()}</b>');
+    htmlText = htmlText.replaceFirst(
+        LocaleKeys.gameName.tr(), '<b>${LocaleKeys.gameName.tr()}</b>');
+    htmlText = htmlText.replaceFirst(
+        LocaleKeys.tokenName.tr(), '<b>${LocaleKeys.tokenName.tr()}</b>');
+    return HtmlWidget(htmlText);
   }
 }
