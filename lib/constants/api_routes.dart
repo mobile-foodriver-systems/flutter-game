@@ -27,6 +27,16 @@ class ApiRoutes {
   // Localization
   static const String localization = '/game/api/v1/localization';
 
+  // Tournaments
+  static const String tournamentList = '/game/api/v1/gametournament';
+  static const String activeTournament = '/game/api/v1/gametournament/active';
+  static const String completedTournament =
+      '/game/api/v1/gametournament/completed';
+  static const String participateInTournament =
+      '/game/api/v1/gametournament/participate';
+  static String tournamentRating(String id) =>
+      '/game/api/v1/gametournament/$id/rating';
+
   // SignalR
   static const String signalR = '/game/SignalR/v1/game';
 }

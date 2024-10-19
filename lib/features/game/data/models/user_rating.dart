@@ -10,12 +10,14 @@ class UserRating extends Selectable {
   final num? balanceInFDT;
   final num? number;
   final String? userName;
+  final int? score;
 
   UserRating({
     required this.id,
     this.balanceInFDT = 0,
     this.number = 0,
     this.userName,
+    this.score,
   });
 
   factory UserRating.fromJson(Map<String, dynamic> json) =>

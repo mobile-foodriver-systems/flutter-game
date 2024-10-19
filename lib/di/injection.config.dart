@@ -117,6 +117,8 @@ import 'package:food_driver/features/location/presentation/bloc/city/city_bloc.d
     as _i510;
 import 'package:food_driver/features/location/presentation/bloc/country/country_bloc.dart'
     as _i4;
+import 'package:food_driver/features/tournament/data/datasources/tournament_remote_datasource.dart'
+    as _i102;
 import 'package:food_driver/features/user/data/datasources/remote/user_remote_data_source.dart'
     as _i545;
 import 'package:food_driver/features/user/data/datasources/remote/user_remote_data_source_impl.dart'
@@ -263,6 +265,16 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i977.AuthRemoteDataSource>(
       () => _i977.AuthRemoteDataSourceImpl(
+        gh<_i528.AppHttpService>(),
+        gh<_i720.LocaleService>(),
+      ),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
+    gh.lazySingleton<_i102.TournamentRemoteDatasource>(
+      () => _i102.TournamentRemoteDatasourceImpl(
         gh<_i528.AppHttpService>(),
         gh<_i720.LocaleService>(),
       ),
