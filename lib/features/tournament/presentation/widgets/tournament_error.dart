@@ -14,12 +14,15 @@ class TournamentError extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      failure.message ?? LocaleKeys.gamePageSomethingWrong.tr(),
-      style: const TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        color: AppColors.red,
+    return Center(
+      child: Text(
+        failure.message ?? LocaleKeys.gamePageSomethingWrong.tr(),
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: AppColors.red,
+        ),
       ),
     );
   }

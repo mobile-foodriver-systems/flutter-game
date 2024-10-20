@@ -8,12 +8,15 @@ class NoTournament extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      LocaleKeys.tournamentEmpty.tr(),
-      style: const TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        color: AppColors.red,
+    return Center(
+      child: Text(
+        LocaleKeys.tournamentEmpty.tr(),
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: AppColors.red,
+        ),
       ),
     );
   }
