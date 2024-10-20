@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:food_driver/core/ui/assets/assets_catalog.dart';
 import 'package:food_driver/core/ui/colors/app_colors.dart';
-import 'package:food_driver/features/game/presentation/widgets/prize_fund_bottom_sheet.dart';
+import 'package:food_driver/features/tournament/presentation/pages/tournament_page.dart';
 import 'package:food_driver/generated/locale_keys.g.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -16,12 +16,7 @@ class PrizeFund extends StatelessWidget {
         context: context,
         backgroundColor: Colors.transparent,
         barrierColor: Colors.black26,
-        builder: (context) => SafeArea(
-          child: SingleChildScrollView(
-            controller: ModalScrollController.of(context),
-            child: const PrizeFundBottomSheet(),
-          ),
-        ),
+        builder: (context) => TournamentPage(),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16.0),

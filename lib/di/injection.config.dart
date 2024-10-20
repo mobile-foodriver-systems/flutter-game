@@ -119,6 +119,12 @@ import 'package:food_driver/features/location/presentation/bloc/country/country_
     as _i4;
 import 'package:food_driver/features/tournament/data/datasources/tournament_remote_datasource.dart'
     as _i102;
+import 'package:food_driver/features/tournament/domain/repositories/tournament_repository.dart'
+    as _i286;
+import 'package:food_driver/features/tournament/domain/usecases/load_tournament.dart'
+    as _i197;
+import 'package:food_driver/features/tournament/presentation/bloc/tournament_bloc.dart'
+    as _i566;
 import 'package:food_driver/features/user/data/datasources/remote/user_remote_data_source.dart'
     as _i545;
 import 'package:food_driver/features/user/data/datasources/remote/user_remote_data_source_impl.dart'
@@ -323,6 +329,14 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.lazySingleton<_i286.TournamentRepository>(
+      () => _i286.TournamentRepositoryImpl(
+          gh<_i102.TournamentRemoteDatasource>()),
+      registerFor: {
+        _prod,
+        _dev,
+      },
+    );
     gh.lazySingleton<_i275.LocationRepository>(
       () => _i275.LocationRepositoryImpl(gh<_i208.LocationRemoteDataSource>()),
       registerFor: {
@@ -425,6 +439,13 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i197.LoadTournamentUseCase>(
+      () => _i197.LoadTournamentUseCase(gh<_i286.TournamentRepository>()),
+      registerFor: {
+        _dev,
+        _prod,
+      },
+    );
     gh.factory<_i510.CityBloc>(
         () => _i510.CityBloc(gh<_i1067.LoadCityUseCase>()));
     gh.factory<_i352.LoadLocalizationUseCase>(
@@ -492,6 +513,8 @@ extension GetItInjectableX on _i174.GetIt {
         _prod,
       },
     );
+    gh.factory<_i566.TournamentBloc>(
+        () => _i566.TournamentBloc(gh<_i197.LoadTournamentUseCase>()));
     gh.lazySingleton<_i259.GameRemoteDataSource>(
       () => _i259.GameRemoteDataSourceImpl(
         gh<_i528.AppHttpService>(),

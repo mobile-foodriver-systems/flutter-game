@@ -53,6 +53,7 @@ dependencies:
   modal_bottom_sheet: ^3.0.0
   dotted_border: ^2.1.0
   flutter_widget_from_html: ^0.15.2
+  flutter_svg: ^2.0.10+1 
 
 dev_dependencies:
   flutter_test:
@@ -61,8 +62,7 @@ dev_dependencies:
   json_serializable: ^6.8.0
   flutter_lints: ^4.0.0
   injectable_generator: ^2.6.2
-  flutter_svg: ^2.0.10+1
-
+  
 flutter:
 
   uses-material-design: true

@@ -120,6 +120,7 @@ class PhrasesDictionary {
   final String? ecosystem;
   final String? tournamentFirstPercent;
   final String? tournamentSecondPercent;
+  final String? tournamentEmpty;
 
   PhrasesDictionary(
     this.authPageLoginToAccount,
@@ -238,6 +239,7 @@ class PhrasesDictionary {
     this.ecosystem,
     this.tournamentFirstPercent,
     this.tournamentSecondPercent,
+    this.tournamentEmpty,
   );
 
   factory PhrasesDictionary.fromJson(Map<String, dynamic> json) =>

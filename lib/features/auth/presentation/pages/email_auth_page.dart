@@ -77,7 +77,7 @@ class EmailAuthPage extends StatelessWidget {
 }
 
 class _PrivacyPolicy extends StatelessWidget {
-  const _PrivacyPolicy({super.key});
+  const _PrivacyPolicy();
 
   @override
   Widget build(BuildContext context) {

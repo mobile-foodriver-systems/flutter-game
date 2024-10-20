@@ -1,8 +1,11 @@
+import 'package:food_driver/core/converters/datetime_json_converter.dart';
 import 'package:food_driver/features/location/data/models/selectable.dart';
+import 'package:food_driver/features/tournament/domain/entities/tournament_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tournament.g.dart';
 
+@DateTimeJsonConverter()
 @JsonSerializable()
 class Tournament extends Selectable {
   @override
@@ -38,4 +41,20 @@ class Tournament extends Selectable {
   factory Tournament.fromJson(Map<String, dynamic> json) =>
       _$TournamentFromJson(json);
   Map<String, dynamic> toJson() => _$TournamentToJson(this);
+}
+
+extension TournamentX on Tournament {
+  TournamentEntity toEntity({
+    bool isCompleted = false,
+  }) {
+    return TournamentEntity(
+      id: id,
+      name: name,
+      isParticipant: isParticipant,
+      topUserCount: topUserCount,
+      endDate: endDate,
+      startDate: startDate,
+      isCompleted: isCompleted,
+    );
+  }
 }

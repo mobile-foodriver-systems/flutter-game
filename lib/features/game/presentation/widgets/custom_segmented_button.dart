@@ -61,7 +61,6 @@ class CustomSegmentedButton extends StatelessWidget {
 
 class _ActiveSegmentedButton extends StatelessWidget {
   const _ActiveSegmentedButton({
-    super.key,
     required this.type,
   });
 
@@ -93,7 +92,6 @@ class _ActiveSegmentedButton extends StatelessWidget {
 
 class _InactiveSegmentedButton extends StatelessWidget {
   const _InactiveSegmentedButton({
-    super.key,
     required this.type,
     required this.onChanged,
   });

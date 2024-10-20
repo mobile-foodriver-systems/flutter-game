@@ -117,5 +117,6 @@ abstract class  LocaleKeys {
   static const ecosystem = 'ecosystem';
   static const tournamentFirstPercent = 'tournamentFirstPercent';
   static const tournamentSecondPercent = 'tournamentSecondPercent';
+  static const tournamentEmpty = 'tournamentEmpty';
 
 }

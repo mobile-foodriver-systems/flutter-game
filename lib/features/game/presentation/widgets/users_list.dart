@@ -147,7 +147,7 @@ class _UserRatingItem extends StatelessWidget {
 }
 
 class _RatingListHeader extends StatelessWidget {
-  const _RatingListHeader({super.key});
+  const _RatingListHeader();
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +192,6 @@ class _RatingUserWidget extends StatelessWidget {
   final RatingState state;
 
   const _RatingUserWidget({
-    super.key,
     required this.state,
   });
 

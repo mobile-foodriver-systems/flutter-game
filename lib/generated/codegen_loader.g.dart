@@ -130,7 +130,8 @@ class CodegenLoader extends AssetLoader{
   "gameName": "Delivery Game by Foodriver",
   "ecosystem": "FooDriver",
   "tournamentFirstPercent": "60%",
-  "tournamentSecondPercent": "40%"
+  "tournamentSecondPercent": "40%",
+  "tournamentEmpty": "There are no active tournaments"
 };
 static const Map<String,dynamic> ru = {
   "authPageLoginToAccount": "Вход в аккаунт",
@@ -237,8 +238,8 @@ static const Map<String,dynamic> ru = {
   "tournamentRules": "Правила:",
   "tournamentHundredBest": "Согласно рейтинговой таблице, из каждого миллиона участников соревнований отбирается сто лучших игроков.",
   "tournamentPrizePercents": "{first_percent} призового фонда распределяется между этими участниками. Оставшиеся {second_percent} делятся поровну между всеми остальными игроками.",
-  "tournamentFixedSum": "Призовой фонд для каждого миллиона игроков составляет фиксированную сумму в {sum}, которая выплачивается в виде токенов {fdc}, принадлежащих экосистеме {ecosystem}.",
-  "tournamentFinancing": "Финансирование призового фонда осуществляется компанией {company_name}, выступающей единственным владельцеми разработчиком как самой игры {game_name}, так и токенов {fdc}.",
+  "tournamentFixedSum": "Призовой фонд для каждого миллиона игроков составляет фиксированную сумму в {sum}, которая выплачивается в виде токенов {token_name}, принадлежащих экосистеме {ecosystem}.",
+  "tournamentFinancing": "Финансирование призового фонда осуществляется компанией {company_name}, выступающей единственным владельцеми разработчиком как самой игры {game_name}, так и токенов {token_name}.",
   "tournamentLeaderboard": "Таблица лидеров",
   "tournamentParticipate": "Участвовать",
   "tournamentParticipateForPay": "в турнире за 1{currency}",
@@ -248,7 +249,8 @@ static const Map<String,dynamic> ru = {
   "gameName": "Delivery Game by Foodriver",
   "ecosystem": "FooDriver",
   "tournamentFirstPercent": "60%",
-  "tournamentSecondPercent": "40%"
+  "tournamentSecondPercent": "40%",
+  "tournamentEmpty": "Нет активных турниров"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en": en, "ru": ru};
 }

@@ -11,8 +11,10 @@ Tournament _$TournamentFromJson(Map<String, dynamic> json) => Tournament(
       name: json['name'] as String?,
       isParticipant: json['isParticipant'] as bool,
       topUserCount: (json['topUserCount'] as num).toInt(),
-      endDate: DateTime.parse(json['endDate'] as String),
-      startDate: DateTime.parse(json['startDate'] as String),
+      endDate: const DateTimeJsonConverter()
+          .fromJson((json['endDate'] as num).toInt()),
+      startDate: const DateTimeJsonConverter()
+          .fromJson((json['startDate'] as num).toInt()),
     );
 
 Map<String, dynamic> _$TournamentToJson(Tournament instance) =>
@@ -21,6 +23,6 @@ Map<String, dynamic> _$TournamentToJson(Tournament instance) =>
       'name': instance.name,
       'isParticipant': instance.isParticipant,
       'topUserCount': instance.topUserCount,
-      'endDate': instance.endDate.toIso8601String(),
-      'startDate': instance.startDate.toIso8601String(),
+      'endDate': const DateTimeJsonConverter().toJson(instance.endDate),
+      'startDate': const DateTimeJsonConverter().toJson(instance.startDate),
     };

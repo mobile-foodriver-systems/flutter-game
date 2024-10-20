@@ -114,5 +114,6 @@
     "gameName": "Delivery Game by Foodriver",
     "ecosystem": "FooDriver",
     "tournamentFirstPercent": "60%",
-    "tournamentSecondPercent": "40%"
+    "tournamentSecondPercent": "40%",
+    "tournamentEmpty": "Нет активных турниров"
 }

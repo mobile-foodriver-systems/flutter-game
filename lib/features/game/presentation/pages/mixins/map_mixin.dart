@@ -32,8 +32,10 @@ mixin MapMixin on State<GameMap> {
   }
 
   Future<void> _updateArrows() async {
-    if (googleMapController == null || widget.type != GameStateType.initialized)
+    if (googleMapController == null ||
+        widget.type != GameStateType.initialized) {
       return;
+    }
     final screemCoordinate =
         await googleMapController!.getScreenCoordinate(_cameraPosition.target);
     screenCenter = Offset(

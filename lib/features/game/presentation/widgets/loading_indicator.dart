@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_driver/core/ui/colors/app_colors.dart';
 
 class LoadingIndicator extends StatelessWidget {
   const LoadingIndicator({super.key});
@@ -12,9 +11,7 @@ class LoadingIndicator extends StatelessWidget {
     return Center(
       child: Platform.isIOS
           ? const CupertinoActivityIndicator()
-          : const CircularProgressIndicator(
-              color: AppColors.red,
-            ),
+          : const CircularProgressIndicator(),
     );
   }
 }

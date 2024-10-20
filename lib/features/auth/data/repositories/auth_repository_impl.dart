@@ -34,7 +34,9 @@ class AuthRepositoryImpl extends AuthRepository {
     try {
       _remoteDataSource.logout();
       await _localDataSource.deleteAuthModel();
-    } catch (e) {}
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
@@ -155,6 +157,8 @@ class AuthRepositoryImpl extends AuthRepository {
     try {
       await _remoteDataSource.delete();
       _localDataSource.deleteAuthModel();
-    } catch (e) {}
+    } catch (e) {
+      rethrow;
+    }
   }
 }

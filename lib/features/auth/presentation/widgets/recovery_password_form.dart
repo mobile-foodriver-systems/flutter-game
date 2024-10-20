@@ -23,13 +23,6 @@ class RecoveryPasswordForm extends StatefulWidget {
 class _RecoveryPasswordFormState extends State<RecoveryPasswordForm>
     with RecoveryPasswordMixin {
   @override
-  final TextEditingController passwordController = TextEditingController();
-  @override
-  final TextEditingController emailController = TextEditingController();
-  @override
-  final TextEditingController repeatPasswordController =
-      TextEditingController();
-  @override
   Widget build(BuildContext context) {
     return BlocConsumer<PasswordRecoveryBloc, PasswordRecoveryState>(
       listener: listener,

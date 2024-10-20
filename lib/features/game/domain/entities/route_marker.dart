@@ -4,8 +4,9 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'package:food_driver/features/game/domain/entities/marker_entity.dart';
 
 class RouteMarker {
   static final Map<MarkerType, BitmapDescriptor> _markersDescriptions = {};

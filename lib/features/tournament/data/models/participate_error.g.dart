@@ -10,8 +10,10 @@ ParticipateError _$ParticipateErrorFromJson(Map<String, dynamic> json) =>
     ParticipateError(
       errorCode: json['errorCode'] as String?,
       message: json['errorMessage'] as String?,
-      smartContractError: SmartContractError.fromJson(
-          json['smartContractError'] as Map<String, dynamic>),
+      smartContractError: json['smartContractError'] == null
+          ? null
+          : SmartContractError.fromJson(
+              json['smartContractError'] as Map<String, dynamic>),
       errors: (json['errors'] as List<dynamic>?)
               ?.map((e) => ApiError.fromJson(e as Map<String, dynamic>))
               .toList() ??

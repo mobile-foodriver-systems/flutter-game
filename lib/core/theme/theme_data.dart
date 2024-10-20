@@ -9,6 +9,8 @@ ThemeData appTheme(BuildContext context) {
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.background,
     dialogBackgroundColor: AppColors.dialogBackgroundColor,
+    progressIndicatorTheme:
+        const ProgressIndicatorThemeData(color: AppColors.red),
     appBarTheme: const AppBarTheme(
       color: AppColors.white,
       titleTextStyle: TextStyle(

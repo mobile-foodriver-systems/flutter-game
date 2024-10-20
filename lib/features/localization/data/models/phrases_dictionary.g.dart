@@ -124,6 +124,7 @@ PhrasesDictionary _$PhrasesDictionaryFromJson(Map<String, dynamic> json) =>
       json['ecosystem'] as String?,
       json['tournamentFirstPercent'] as String?,
       json['tournamentSecondPercent'] as String?,
+      json['tournamentEmpty'] as String?,
     );
 
 Map<String, dynamic> _$PhrasesDictionaryToJson(PhrasesDictionary instance) =>
@@ -252,4 +253,5 @@ Map<String, dynamic> _$PhrasesDictionaryToJson(PhrasesDictionary instance) =>
       'ecosystem': instance.ecosystem,
       'tournamentFirstPercent': instance.tournamentFirstPercent,
       'tournamentSecondPercent': instance.tournamentSecondPercent,
+      'tournamentEmpty': instance.tournamentEmpty,
     };

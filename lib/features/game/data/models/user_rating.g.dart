@@ -11,6 +11,7 @@ UserRating _$UserRatingFromJson(Map<String, dynamic> json) => UserRating(
       balanceInFDT: json['balanceInFDT'] as num? ?? 0,
       number: json['number'] as num? ?? 0,
       userName: json['userName'] as String?,
+      score: (json['score'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$UserRatingToJson(UserRating instance) =>
@@ -19,4 +20,5 @@ Map<String, dynamic> _$UserRatingToJson(UserRating instance) =>
       'balanceInFDT': instance.balanceInFDT,
       'number': instance.number,
       'userName': instance.userName,
+      'score': instance.score,
     };

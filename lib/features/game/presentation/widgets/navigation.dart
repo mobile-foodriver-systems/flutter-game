@@ -84,7 +84,6 @@ class _TopNavigation extends StatelessWidget {
   final VoidCallback onPressed;
 
   const _TopNavigation({
-    super.key,
     required this.type,
     this.balance,
     this.speed,

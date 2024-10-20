@@ -6,3 +6,7 @@ abstract class TournamentEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class LoadTournament extends TournamentEvent {
+  const LoadTournament();
+}

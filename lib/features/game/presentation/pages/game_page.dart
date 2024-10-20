@@ -117,7 +117,7 @@ class _GamePageBodyState extends State<GamePageBody> with GameMixin {
 }
 
 class _LoadingGameState extends StatelessWidget {
-  const _LoadingGameState({super.key});
+  const _LoadingGameState();
 
   @override
   Widget build(BuildContext context) {
@@ -147,7 +147,6 @@ class _InitializedGameState extends StatelessWidget {
   final num? balance;
 
   const _InitializedGameState({
-    super.key,
     required this.routes,
     required this.markers,
     required this.cameraPosition,
@@ -235,7 +234,6 @@ class _GameState extends StatelessWidget {
   final int seconds;
 
   const _GameState({
-    super.key,
     required this.status,
     required this.markers,
     required this.polylineAfter,
